@@ -15,7 +15,13 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@my-monorepo/ui": ["libs/ui/src/index.ts"]
+      "@my-monorepo/core/features/expand-table": [
+        "libs/core/features/expand-table/src/index.ts"
+      ],
+      "@my-monorepo/core/ui": ["libs/core/ui/src/index.ts"],
+      "@my-monorepo/core/ui/dynamic-table": [
+        "libs/core/ui/dynamic-table/src/index.ts"
+      ],
     }
   },
   "exclude": ["node_modules", "tmp"]

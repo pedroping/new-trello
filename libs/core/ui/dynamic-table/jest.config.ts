@@ -1,9 +1,9 @@
 /* eslint-disable */
 export default {
-  displayName: 'ui',
-  preset: '../../jest.preset.js',
+  displayName: 'core-ui-dynamic-table',
+  preset: '../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../coverage/libs/ui',
+  coverageDirectory: '../../../../coverage/libs/core/ui/dynamic-table',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',
