@@ -17,7 +17,8 @@
           "chartjs",
           "rxjs-compat",
           "validator",
-          "twilio-video"
+          "twilio-video",
+          "text-mask-core"
         ],
         "outputPath": "dist/apps/default-app",
         "index": "apps/default-app/src/index.html",

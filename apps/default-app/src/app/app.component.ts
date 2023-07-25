@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CoreUiDynamicTableModule } from '@my-monorepo/core/ui/dynamic-table';
-import { DialogModule } from '@angular/cdk/dialog';
-import { TuiRootModule, TuiDialogModule, TuiAlertModule } from '@taiga-ui/core';
+import { TuiAlertModule, TuiDialogModule, TuiRootModule } from '@taiga-ui/core';
 @Component({
   standalone: true,
   imports: [
@@ -11,7 +10,6 @@ import { TuiRootModule, TuiDialogModule, TuiAlertModule } from '@taiga-ui/core';
     TuiRootModule,
     TuiDialogModule,
     TuiAlertModule,
-    DialogModule,
   ],
   selector: 'my-monorepo-root',
   templateUrl: './app.component.html',

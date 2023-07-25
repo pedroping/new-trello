@@ -6,6 +6,20 @@
   "tags": [],
   "projectType": "library",
   "targets": {
+    "build": {
+      "options": {
+        "allowedCommonJsDependencies": [
+          "loadsh",
+          "primeng/primeng",
+          "primeicons",
+          "chartjs",
+          "rxjs-compat",
+          "validator",
+          "twilio-video",
+          "text-mask-core"
+        ]
+      }
+    },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
