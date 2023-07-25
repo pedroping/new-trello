@@ -22,6 +22,7 @@
       "@my-monorepo/core/ui/dynamic-table": [
         "libs/core/ui/dynamic-table/src/index.ts"
       ],
+      "@my-monorepo/core/ui/sidenav": ["libs/core/ui/sidenav/src/index.ts"],
       "@my-monorepo/core/ui/toolbar": ["libs/core/ui/toolbar/src/index.ts"]
     }
   },

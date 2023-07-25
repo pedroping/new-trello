@@ -1,4 +1,4 @@
-@import "./theme.scss";
+@import './theme.scss';
 
 html,
 body {
@@ -9,4 +9,13 @@ body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
   margin: 0;
   padding: 0;
+}
+
+.mat-drawer-content,
+.example-container {
+  min-height: 100vh;
+}
+
+.mat-elevation-z2 {
+  box-shadow: none !important;
 }
