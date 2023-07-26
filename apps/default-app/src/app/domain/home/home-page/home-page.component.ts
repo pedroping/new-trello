@@ -4,6 +4,7 @@ import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
 import { CoreUiSidenavModule } from '@my-monorepo/core/ui/sidenav';
 import { ToolbarService } from '@my-monorepo/core/ui/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -15,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
     CoreUiSidenavModule,
     MatIconModule,
     MatButtonModule,
+    RouterModule,
   ],
 })
 export class HomePageComponent implements OnInit {
