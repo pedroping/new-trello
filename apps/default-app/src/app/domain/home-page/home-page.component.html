@@ -1,5 +1,12 @@
 <app-sidenav [hasClosedSidenav]="false">
-  <div openedSideNavContent>Eu sou a sidenav aberta</div>
+  <div openedSideNavContent>
+    <div class="header">
+      <span>Eu sou a Sidenav aberta</span>
+      <button mat-icon-button class="example-icon" (click)="emitEvent()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
   <div mainContent>
     <app-toolbar></app-toolbar>
   </div>

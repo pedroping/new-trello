@@ -8,14 +8,15 @@ import { ToolbarService } from '@my-monorepo/core/ui/toolbar';
   styleUrls: ['./sidenav.component.scss'],
 })
 export class SidenavComponent implements OnInit {
-  @Input() hasClosedSidenav: boolean = true;
+  @Input() hasClosedSidenav = true;
   @ViewChild('drawer') drawer?: MatDrawer;
 
   constructor(private readonly toolbarService: ToolbarService) {}
 
   ngOnInit() {
-    this.toolbarService.menuEvent$.subscribe(() => {
-      this.drawer?.open();
+    this.toolbarService.menuEvent$.subscribe((value) => {
+      if (value) this.drawer?.open();
+      else this.drawer?.close();
     });
   }
 }

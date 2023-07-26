@@ -1,3 +1,14 @@
-.drawer-content {
-  width: calc(100% - 80px);
+:host {
+  .drawer-content {
+    width: calc(100% - 80px);
+  }
+  .openedSideNav {
+    width: 280px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .openedSideNav {
+    width: 100% !important;
+  }
 }
