@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ToolbarService } from '../../services/toolbar/toolbar.service';
 @Component({
@@ -6,15 +6,11 @@ import { ToolbarService } from '../../services/toolbar/toolbar.service';
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss'],
 })
-export class ToolbarComponent implements OnInit {
+export class ToolbarComponent {
   menuEvent$: BehaviorSubject<boolean>;
 
   constructor(private readonly ToolbarService: ToolbarService) {
     this.menuEvent$ = this.ToolbarService.menuEvent$;
-  }
-
-  ngOnInit() {
-    this.menuEvent$.subscribe(console.log);
   }
 
   emitEvent() {
