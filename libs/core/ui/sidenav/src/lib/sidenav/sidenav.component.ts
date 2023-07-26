@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { ToolbarService } from '@my-monorepo/core/ui/toolbar';
 
@@ -8,6 +8,7 @@ import { ToolbarService } from '@my-monorepo/core/ui/toolbar';
   styleUrls: ['./sidenav.component.scss'],
 })
 export class SidenavComponent implements OnInit {
+  @Input() hasClosedSidenav: boolean = true;
   @ViewChild('drawer') drawer?: MatDrawer;
 
   constructor(private readonly toolbarService: ToolbarService) {}

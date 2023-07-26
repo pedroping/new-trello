@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ToolbarService } from '../../services/toolbar/toolbar.service';
+import { ToolbarService } from '../toolbar-service/toolbar.service';
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',

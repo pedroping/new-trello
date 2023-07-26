@@ -1,0 +1,20 @@
+<mat-drawer-container class="example-container">
+  <mat-drawer [mode]="'over'" #drawer style="width: 280px"
+    ><ng-content select="[openedSideNavContent]"></ng-content
+  ></mat-drawer>
+  <mat-drawer-content>
+    <mat-drawer-container class="example-container" [hasBackdrop]="false">
+      <mat-drawer
+        *ngIf="hasClosedSidenav"
+        mode="push"
+        [opened]="true"
+        style="width: 80px"
+        class="mat-elevation-z2"
+        ><ng-content select="[closedSideNavContent]"></ng-content
+      ></mat-drawer>
+      <mat-drawer-content [ngClass]="hasClosedSidenav ? 'drawer-content' : ''">
+        <ng-content select="[mainContent]"></ng-content>
+      </mat-drawer-content>
+    </mat-drawer-container>
+  </mat-drawer-content>
+</mat-drawer-container>

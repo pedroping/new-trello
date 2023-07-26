@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 @NgModule({
   imports: [CommonModule, MatSidenavModule],
