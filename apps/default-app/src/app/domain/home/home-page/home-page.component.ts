@@ -5,6 +5,7 @@ import { CoreUiSidenavModule } from '@my-monorepo/core/ui/sidenav';
 import { ToolbarService } from '@my-monorepo/core/ui/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
+import { DarkModeService } from '@my-monorepo/core/features/dark-mode';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -20,11 +21,18 @@ import { RouterModule } from '@angular/router';
   ],
 })
 export class HomePageComponent implements OnInit {
-  constructor(private readonly toolbarService: ToolbarService) {}
+  constructor(
+    private readonly toolbarService: ToolbarService,
+    private readonly darkModeService: DarkModeService
+  ) {}
 
   ngOnInit() {}
 
   emitEvent() {
     this.toolbarService.menuEvent$.next(false);
+  }
+
+  toggleDarkMode() {
+    this.darkModeService.toggleDarkMode();
   }
 }
