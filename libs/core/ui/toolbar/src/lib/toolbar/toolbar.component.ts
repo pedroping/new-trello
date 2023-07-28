@@ -14,6 +14,6 @@ export class ToolbarComponent {
   }
 
   emitEvent() {
-    this.menuEvent$.next(!this.menuEvent$.value);
+    this.menuEvent$.next(true);
   }
 }

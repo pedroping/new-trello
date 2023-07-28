@@ -12,7 +12,7 @@
         class="mat-elevation-z2"
         ><ng-content select="[closedSideNavContent]"></ng-content
       ></mat-drawer>
-      <mat-drawer-content [ngClass]="hasClosedSidenav ? 'drawer-content' : ''">
+      <mat-drawer-content [ngClass]="hasClosedSidenav ? 'drawer-content' : ''" class="mainContent">
         <ng-content select="[mainContent]"></ng-content>
       </mat-drawer-content>
     </mat-drawer-container>

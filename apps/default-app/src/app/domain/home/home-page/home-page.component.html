@@ -8,7 +8,16 @@
     </div>
   </div>
   <div mainContent>
-    <app-toolbar></app-toolbar>
+    <app-toolbar>
+      <button
+        mat-icon-button
+        class="setDarkModeIcon"
+        appGenerateIcon
+        #getIcon="getIcon"
+      >
+        <mat-icon>{{ getIcon.icon }}</mat-icon>
+      </button>
+    </app-toolbar>
     <router-outlet></router-outlet>
   </div>
 </app-sidenav>

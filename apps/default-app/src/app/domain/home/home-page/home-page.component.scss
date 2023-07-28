@@ -1,10 +1,17 @@
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
 
-    span {
-        font-size: 16px;
-    }
+  span {
+    font-size: 16px;
+  }
+}
+
+::ng-deep {
+  .setDarkModeIcon {
+    margin-right: 5px;
+    cursor: pointer;
+  }
 }

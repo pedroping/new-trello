@@ -1,0 +1,42 @@
+@use 'theme.scss';
+@use 'darkMode.scss';
+@import 'colors';
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.mat-drawer-content,
+.example-container {
+  min-height: 90vh;
+}
+
+.mat-elevation-z2 {
+  box-shadow: none !important;
+  background-color: $dark-background;
+}
+
+::-webkit-scrollbar {
+  width: 0.5vw;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $scroll-bar-color;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: darken($scroll-bar-color, 20%);
+}
