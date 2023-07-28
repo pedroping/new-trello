@@ -1,11 +1,20 @@
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
+:host {
+  ::ng-deep .mat-toolbar {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 1000;
+  }
 
-  span {
-    font-size: 16px;
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+
+    span {
+      font-size: 16px;
+    }
   }
 }
 
