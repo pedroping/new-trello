@@ -1,2 +1,2 @@
-export const LIGHT_COLORS = '#FAFAFA';
-export const DARK_COLORS = '#303030';
+export const LIGHT_COLORS = '#674ea7';
+export const DARK_COLORS = '#543d96';
