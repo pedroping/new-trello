@@ -1,0 +1,10 @@
+@import 'colors';
+
+.darkMode {
+  @include setDarkMode();
+
+  .mat-drawer,
+  .mainContent {
+    @include setDarkMode();
+  }
+}

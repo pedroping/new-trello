@@ -10,8 +10,8 @@
 }
 
 ::ng-deep {
-  mat-icon[appGenerateIcon] {
-    padding-right: 10px;
+  .setDarkModeIcon {
+    margin-right: 5px;
     cursor: pointer;
   }
 }
