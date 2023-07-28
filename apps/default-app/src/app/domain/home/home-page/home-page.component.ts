@@ -5,7 +5,10 @@ import { CoreUiSidenavModule } from '@my-monorepo/core/ui/sidenav';
 import { ToolbarService } from '@my-monorepo/core/ui/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
-import { DarkModeService } from '@my-monorepo/core/features/dark-mode';
+import {
+  CoreFeaturesDarkModeModule,
+  DarkModeService,
+} from '@my-monorepo/core/features/dark-mode';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -18,6 +21,7 @@ import { DarkModeService } from '@my-monorepo/core/features/dark-mode';
     MatIconModule,
     MatButtonModule,
     RouterModule,
+    CoreFeaturesDarkModeModule,
   ],
 })
 export class HomePageComponent implements OnInit {

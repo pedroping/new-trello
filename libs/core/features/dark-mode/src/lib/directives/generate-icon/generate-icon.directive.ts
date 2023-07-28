@@ -3,18 +3,22 @@ import { DarkModeService } from '../../services/dark-mode/dark-mode.service';
 
 @Directive({
   selector: '[appGenerateIcon]',
+  exportAs: 'getIcon',
 })
 export class GenerateIconDirective implements OnInit {
-  @HostBinding('innerHTML') innerHTML?: string;
+  icon?: string;
   @HostListener('click') changeMode() {
     this.darkModeService.toggleDarkMode();
+    this.setIcon();
   }
 
   constructor(private readonly darkModeService: DarkModeService) {}
 
   ngOnInit() {
-    this.darkModeService.darkModeChange$.subscribe(() => {});
+    this.setIcon();
   }
 
-  setIcon() {}
+  setIcon() {
+    this.icon = this.darkModeService.darkMode ? 'light_mode' : 'dark_mode';
+  }
 }

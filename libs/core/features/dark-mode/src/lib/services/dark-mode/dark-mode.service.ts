@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { DARK_COLORS, LIGHT_COLORS } from '../../helpers/colors';
 import { Subject } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class DarkModeService {
   darkMode = false;
   darkModeChange$ = new Subject<void>();
