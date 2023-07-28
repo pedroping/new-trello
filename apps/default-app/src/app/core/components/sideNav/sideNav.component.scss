@@ -1,0 +1,47 @@
+:host {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+
+    span {
+      font-size: 14px;
+      margin-top: 4px;
+      margin-right: 25px;
+    }
+
+    img {
+      width: 35px;
+    }
+
+    mat-icon {
+      cursor: pointer;
+      margin-top: 3px;
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+
+  hr {
+    background: gray !important;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    .option {
+      display: flex;
+      justify-content: left;
+      align-items: center;
+
+      span {
+        font-size: 16px;
+        margin-top: 2px;
+        margin-left: 5px;
+      }
+    }
+  }
+}

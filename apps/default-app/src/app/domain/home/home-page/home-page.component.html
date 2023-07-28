@@ -1,20 +1,10 @@
 <app-sidenav [hasClosedSidenav]="false">
   <div openedSideNavContent>
-    <div class="header">
-      <span>Eu sou a Sidenav aberta</span>
-      <button mat-icon-button class="example-icon" (click)="emitEvent()">
-        <mat-icon>close</mat-icon>
-      </button>
-    </div>
+    <app-sideNav></app-sideNav>
   </div>
   <div mainContent>
     <app-toolbar>
-      <button
-        mat-icon-button
-        class="setDarkModeIcon"
-        appGenerateIcon
-        #getIcon="getIcon"
-      >
+      <button mat-icon-button class="setDarkModeIcon" appGenerateIcon #getIcon="getIcon">
         <mat-icon>{{ getIcon.icon }}</mat-icon>
       </button>
     </app-toolbar>
