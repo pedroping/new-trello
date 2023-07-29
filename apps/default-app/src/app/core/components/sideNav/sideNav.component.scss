@@ -28,10 +28,18 @@
     background: gray !important;
   }
 
+  button[mat-icon-button] {
+    border: 1px solid gray;
+    mat-icon {
+      position: relative;
+      left: -1px;
+    }
+  }
+
   .options {
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 10px;
     .option {
       display: flex;
       justify-content: left;
