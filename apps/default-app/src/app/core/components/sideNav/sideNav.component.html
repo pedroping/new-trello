@@ -1,16 +1,16 @@
 <div class="header">
-  <img src="assets/icons/icon-72x72.png">
+  <img src="assets/icons/icon-72x72.png" routerLink="./" />
   <span>Eu sou a Sidenav aberta</span>
   <mat-icon (click)="emitEvent()">keyboard_arrow_left</mat-icon>
 </div>
-<hr>
+<hr />
 <div class="options">
-  <div class="option">
-    <button mat-icon-button>
-      <mat-icon>close</mat-icon>
-    </button>
-    <span>
-      Testeee
-    </span>
-  </div>
+  <ng-container *ngFor="let item of appRoutes">
+    <div class="option" appSelectedRoute [activedRoute]="item.path">
+      <button mat-icon-button [routerLink]="'./' + item.path">
+        <mat-icon>close</mat-icon>
+      </button>
+      <span>{{ item.path | titlecase }}</span>
+    </div>
+  </ng-container>
 </div>

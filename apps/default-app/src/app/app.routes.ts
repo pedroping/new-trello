@@ -4,18 +4,13 @@ import { WelcomePageComponent } from './domain/home/welcome-page/welcome-page.co
 
 export const appRoutes: Route[] = [
   {
-    path: 'home',
+    path: '',
     component: HomePageComponent,
     children: [
       {
-        path: '',
+        path: 'home',
         component: WelcomePageComponent,
       },
     ],
-  },
-  {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
   },
 ];
