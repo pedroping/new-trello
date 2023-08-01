@@ -9,7 +9,6 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "myMonorepo",
             "style": "camelCase"
           }
         ],
@@ -17,10 +16,12 @@
           "error",
           {
             "type": "element",
-            "prefix": "my-monorepo",
             "style": "kebab-case"
           }
-        ]
+        ],
+        "@angular-eslint/no-empty-lifecycle-method": "off",
+        "no-empty-function": "off",
+        "@typescript-eslint/no-empty-function": "off"
       },
       "extends": [
         "plugin:@nx/angular",

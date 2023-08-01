@@ -20,11 +20,11 @@ import { appRoutes } from '../../../app.routes';
   ],
 })
 export class SideNavComponent implements OnInit {
-  constructor(private readonly toolbarService: ToolbarService) {}
+  constructor(private readonly toolbarService: ToolbarService) { }
 
-  appRoutes = appRoutes[0]?.children;
+  appRoutes = appRoutes.filter(item => item.path);
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   emitEvent() {
     this.toolbarService.menuEvent$.next(false);
