@@ -1,0 +1,25 @@
+<div class="header">
+  <img src="assets/icons/icon-72x72.png" routerLink="./" />
+  <span>Eu sou a Sidenav aberta</span>
+  <mat-icon (click)="emitEvent()">keyboard_arrow_left</mat-icon>
+</div>
+<hr />
+<div class="options">
+  <mat-accordion>
+    <ng-container *ngFor="let item of displayedRoutes">
+      <mat-expansion-panel  appSelectedRoute [activedRoute]="item">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ item.title | titlecase }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="panelContent">
+          <ng-container *ngFor="let child of item.children">
+            <p appSelectedRoute [activedRoute]="child.path" [clickFunction]="emitEvent.bind(this)"
+              [routerLink]="child.path" [isChild]="true">{{ child.title | titlecase }}</p>
+          </ng-container>
+        </div>
+      </mat-expansion-panel>
+    </ng-container>
+  </mat-accordion>
+</div>

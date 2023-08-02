@@ -8,9 +8,7 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "allowedCommonJsDependencies": [
           "loadsh",
@@ -25,9 +23,7 @@
         "outputPath": "dist/apps/default-app",
         "index": "apps/default-app/src/index.html",
         "main": "apps/default-app/src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/default-app/tsconfig.app.json",
         "assets": [
           "apps/default-app/src/favicon.ico",
@@ -47,6 +43,14 @@
           "apps/default-app/src/themes/styles.scss",
           "node_modules/ngx-toastr/toastr.css"
         ],
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "node_modules",
+            "src/themes/",
+            "src/app/",
+            "libs/core/features/scss-root/src/lib/default-app"
+          ]
+        },
         "scripts": [],
         "serviceWorker": true,
         "ngswConfigPath": "apps/default-app/ngsw-config.json"
@@ -98,9 +102,7 @@
     },
     "lint": {
       "executor": "@nx/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
           "apps/default-app/**/*.ts",
@@ -110,9 +112,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectRoot}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "apps/default-app/jest.config.ts",
         "passWithNoTests": true

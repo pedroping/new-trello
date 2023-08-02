@@ -1,0 +1,92 @@
+@import 'colors';
+
+:host {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+
+    span {
+      font-size: 14px;
+      margin-top: 4px;
+      margin-right: 25px;
+    }
+
+    img {
+      width: 35px;
+    }
+
+    mat-icon {
+      cursor: pointer;
+      margin-top: 3px;
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+
+  hr {
+    background: gray !important;
+  }
+
+  button[mat-icon-button] {
+    border: 1px solid gray;
+    mat-icon {
+      position: relative;
+      left: -1px;
+    }
+  }
+
+  p.selected {
+    color: lightblue !important;
+    transform: scale(1.1);
+  }
+
+  mat-expansion-panel.selected {
+    mat-expansion-panel-header{
+      border-color: lightblue !important;
+    }
+    ::ng-deep {
+      .mat-expansion-indicator::after,
+      .mat-expansion-panel-header-title {
+        color: lightblue !important;
+      }
+    }
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+
+    mat-expansion-panel {
+      background-color: transparent;
+      margin-bottom: 10px;
+      box-shadow: none !important;
+
+      mat-expansion-panel-header {
+        border: 1px solid gray;
+        border-radius: 50px;
+      }
+
+      .mat-expansion-panel-header.mat-expanded {
+        height: 50px !important;
+      }
+
+      .panelContent {
+        margin-top: 5px;
+        p {
+          cursor: pointer;
+        }
+      }
+
+      ::ng-deep {
+        .mat-expansion-panel-body {
+          margin-top: 5px;
+          padding: 0 20px 5px;
+        }
+      }
+    }
+  }
+}
