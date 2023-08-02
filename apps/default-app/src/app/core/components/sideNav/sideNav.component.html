@@ -6,8 +6,13 @@
 <hr />
 <div class="options">
   <ng-container *ngFor="let item of appRoutes">
-    <div class="option" appSelectedRoute [activedRoute]="item.path">
-      <button mat-icon-button [routerLink]="'./' + item.path">
+    <div
+      class="option"
+      appSelectedRoute
+      [activedRoute]="item.path"
+      [clickFunction]="emitEvent.bind(this)"
+    >
+      <button mat-icon-button [routerLink]="'/' + item.path">
         <mat-icon>close</mat-icon>
       </button>
       <span>{{ item.path | titlecase }}</span>
