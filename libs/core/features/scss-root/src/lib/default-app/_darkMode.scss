@@ -3,6 +3,12 @@
 .darkMode {
   @include setDarkMode();
 
+  p,
+  .mat-expansion-indicator::after,
+  .mat-expansion-panel-header-title {
+    color: $dark-text-color !important;
+  }
+
   .mat-drawer,
   .mainContent {
     @include setDarkMode();

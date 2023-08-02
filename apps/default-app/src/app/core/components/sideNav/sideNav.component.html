@@ -5,17 +5,21 @@
 </div>
 <hr />
 <div class="options">
-  <ng-container *ngFor="let item of appRoutes">
-    <div
-      class="option"
-      appSelectedRoute
-      [activedRoute]="item.path"
-      [clickFunction]="emitEvent.bind(this)"
-    >
-      <button mat-icon-button [routerLink]="'/' + item.path">
-        <mat-icon>close</mat-icon>
-      </button>
-      <span>{{ item.path | titlecase }}</span>
-    </div>
-  </ng-container>
+  <mat-accordion>
+    <ng-container *ngFor="let item of displayedRoutes">
+      <mat-expansion-panel  appSelectedRoute [activedRoute]="item">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ item.title | titlecase }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="panelContent">
+          <ng-container *ngFor="let child of item.children">
+            <p appSelectedRoute [activedRoute]="child.path" [clickFunction]="emitEvent.bind(this)"
+              [routerLink]="child.path" [isChild]="true">{{ child.title | titlecase }}</p>
+          </ng-container>
+        </div>
+      </mat-expansion-panel>
+    </ng-container>
+  </mat-accordion>
 </div>

@@ -5,7 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { CoreFeaturesSelectedRouteModule } from '@my-monorepo/core/features/selected-route';
 import { ToolbarService } from '@my-monorepo/core/ui/toolbar';
-import { appRoutes } from '../../../app.routes';
+import { appRoutes, displayedRoutes } from '../../../app.routes';
+import { MatExpansionModule } from '@angular/material/expansion';
 @Component({
   selector: 'app-sideNav',
   templateUrl: './sideNav.component.html',
@@ -17,12 +18,13 @@ import { appRoutes } from '../../../app.routes';
     CommonModule,
     RouterModule,
     CoreFeaturesSelectedRouteModule,
+    MatExpansionModule
   ],
 })
 export class SideNavComponent implements OnInit {
   constructor(private readonly toolbarService: ToolbarService) { }
 
-  appRoutes = appRoutes.filter(item => item.path);
+  displayedRoutes = displayedRoutes
 
   ngOnInit() { }
 

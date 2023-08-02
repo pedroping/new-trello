@@ -1,3 +1,5 @@
+@import 'colors';
+
 :host {
   .header {
     display: flex;
@@ -36,28 +38,54 @@
     }
   }
 
+  p.selected {
+    color: lightblue !important;
+    transform: scale(1.1);
+  }
+
+  mat-expansion-panel.selected {
+    mat-expansion-panel-header{
+      border-color: lightblue !important;
+    }
+    ::ng-deep {
+      .mat-expansion-indicator::after,
+      .mat-expansion-panel-header-title {
+        color: lightblue !important;
+      }
+    }
+  }
+
   .options {
     display: flex;
     flex-direction: column;
     padding: 10px;
-    .option {
-      display: flex;
-      justify-content: left;
-      align-items: center;
 
-      span {
-        font-size: 16px;
-        margin-top: 2px;
-        margin-left: 2px;
+    mat-expansion-panel {
+      background-color: transparent;
+      margin-bottom: 10px;
+      box-shadow: none !important;
+
+      mat-expansion-panel-header {
+        border: 1px solid gray;
+        border-radius: 50px;
       }
 
-      button {
-        transform: scale(0.85)
+      .mat-expansion-panel-header.mat-expanded {
+        height: 50px !important;
       }
 
-      &.selected {
-        color: lightblue;
-        margin-left: 5px;
+      .panelContent {
+        margin-top: 5px;
+        p {
+          cursor: pointer;
+        }
+      }
+
+      ::ng-deep {
+        .mat-expansion-panel-body {
+          margin-top: 5px;
+          padding: 0 20px 5px;
+        }
       }
     }
   }
