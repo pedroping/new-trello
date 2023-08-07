@@ -14,11 +14,13 @@ import {
   BrowserAnimationsModule,
 } from '@angular/platform-browser/animations';
 import { provideServiceWorker } from '@angular/service-worker';
+import { provideToastr } from 'ngx-toastr';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
     provideAnimations(),
+    provideToastr(),
     importProvidersFrom(TuiRootModule, BrowserAnimationsModule),
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
