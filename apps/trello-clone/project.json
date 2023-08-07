@@ -10,6 +10,16 @@
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "allowedCommonJsDependencies": [
+          "loadsh",
+          "primeng/primeng",
+          "primeicons",
+          "chartjs",
+          "rxjs-compat",
+          "validator",
+          "twilio-video",
+          "text-mask-core"
+        ],
         "outputPath": "dist/apps/trello-clone",
         "index": "apps/trello-clone/src/index.html",
         "main": "apps/trello-clone/src/main.ts",
@@ -20,11 +30,11 @@
           "apps/trello-clone/src/assets"
         ],
         "styles": [
-          "@angular/material/prebuilt-themes/deeppurple-amber.css",
-          "apps/trello-clone/src/styles.scss",
           "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
           "node_modules/@taiga-ui/core/styles/taiga-ui-fonts.less",
-          "node_modules/@taiga-ui/styles/taiga-ui-global.less"
+          "node_modules/@taiga-ui/styles/taiga-ui-global.less",
+          "@angular/material/prebuilt-themes/deeppurple-amber.css",
+          "apps/trello-clone/src/styles.scss"
         ],
         "scripts": []
       },
