@@ -1,7 +1,6 @@
 import { Route } from '@angular/router';
 import { HomePageComponent } from './domain/home/home-page/home-page.component';
 import { WelcomePageComponent } from './domain/home/welcome-page/welcome-page.component';
-import { AutoGenerateComponent } from './domain/autoGenerate/autoGenerate.component';
 import { IrouteContext } from '@my-monorepo/core/features/selected-route'
 
 export const appRoutes: Route[] = [
@@ -15,17 +14,16 @@ export const appRoutes: Route[] = [
         pathMatch: 'full'
       },
       {
-        path: 'generate',
-        component: AutoGenerateComponent,
-        pathMatch: 'full',
-      },
-      {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full'
       }
     ],
   },
+  {
+    path: '**',
+    redirectTo: ''
+  }
 ];
 
 export const displayedRoutes: IrouteContext[] = [
@@ -38,13 +36,4 @@ export const displayedRoutes: IrouteContext[] = [
       }
     ]
   },
-  {
-    title: 'Generate',
-    children: [
-      {
-        title: 'Directive Generate',
-        path: './generate'
-      }
-    ]
-  }
 ]
