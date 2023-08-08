@@ -8,7 +8,7 @@ import {
 } from '@my-monorepo/core/features/dark-mode';
 import { CoreUiSidenavModule } from '@my-monorepo/core/ui/sidenav';
 import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
-import { SideNavComponent } from '../../../core/components/sideNav/sideNav.component';
+import { SideNavComponent } from '../../../../core/components/sideNav/sideNav.component';
 import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-home-page',

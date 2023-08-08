@@ -1,11 +1,13 @@
-import { NgModule } from '@angular/core';
+import { CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
-import { HelloWordComponent } from './hello-word/hello-word.component';
+import { NgModule } from '@angular/core';
 import { TuiTagModule } from '@taiga-ui/kit';
+import { TableComponent } from './components/table/table.component';
+
 @NgModule({
-  imports: [CommonModule, TuiTagModule],
-  declarations: [HelloWordComponent],
-  exports: [HelloWordComponent],
+  imports: [CommonModule, TuiTagModule, CdkTableModule],
+  declarations: [TableComponent],
+  exports: [TableComponent],
 })
 
-export class CoreUiDynamicTableModule {}
+export class CoreUiDynamicTableModule { }

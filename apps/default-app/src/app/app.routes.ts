@@ -1,7 +1,8 @@
 import { Route } from '@angular/router';
-import { HomePageComponent } from './domain/home/home-page/home-page.component';
-import { WelcomePageComponent } from './domain/home/welcome-page/welcome-page.component';
+import { HomePageComponent } from './domain/home/pages/home-page/home-page.component';
 import { IrouteContext } from '@my-monorepo/core/features/selected-route'
+import { WelcomePageComponent } from './domain/home/pages/welcome-page/welcome-page.component';
+import { DynamicTableComponent } from './domain/dynamic-table/pages/dynamic-table/dynamic-table.component';
 
 export const appRoutes: Route[] = [
   {
@@ -16,6 +17,11 @@ export const appRoutes: Route[] = [
       {
         path: '',
         redirectTo: 'home',
+        pathMatch: 'full'
+      },
+      {
+        path: 'dynamic-table',
+        component: DynamicTableComponent,
         pathMatch: 'full'
       }
     ],
@@ -33,6 +39,15 @@ export const displayedRoutes: IrouteContext[] = [
       {
         title: 'Página Incial',
         path: './home'
+      }
+    ]
+  },
+  {
+    title: 'Dynamic Table',
+    children: [
+      {
+        title: 'Dynamic Table',
+        path: './dynamic-table'
       }
     ]
   },
