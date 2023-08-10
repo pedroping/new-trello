@@ -1,3 +1,5 @@
-<dynamic-table [columns]="colums" [data]="data"></dynamic-table>
+<ng-container *ngIf="data$ | async as data">
+    <dynamic-table [columns]="colums" [data]="data"></dynamic-table>
+</ng-container>
 
-{{ data | json }}
+{{ data$ | async | json }}

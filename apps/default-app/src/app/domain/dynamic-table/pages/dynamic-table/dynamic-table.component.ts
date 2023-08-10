@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CoreUiDynamicTableModule } from '@my-monorepo/core/ui/dynamic-table'
 import { COLUMNS, DATA } from '../../helpers/table-mocks';
 import { CommonModule } from '@angular/common';
+import { of } from 'rxjs';
 @Component({
   selector: 'app-dynamic-table',
   templateUrl: './dynamic-table.component.html',
@@ -12,7 +13,7 @@ import { CommonModule } from '@angular/common';
 export class DynamicTableComponent implements OnInit {
 
   colums = COLUMNS
-  data = DATA
+  data$ = of(DATA)
 
   constructor() { }
 
