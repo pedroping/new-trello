@@ -9,7 +9,7 @@ import { ITableColumn } from '../../models/table';
 })
 export class TableComponent<T> implements OnInit {
 
-  @Input({ required: true }) columns!: ITableColumn[]
+  @Input({ required: true }) columns!: ITableColumn<T>[]
   @Input({ required: true }) data!: T[]
 
   dataSource!: MatTableDataSource<T>
