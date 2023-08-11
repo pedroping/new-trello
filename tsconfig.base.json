@@ -18,6 +18,9 @@
       "@my-monorepo/core/features/dark-mode": [
         "libs/core/features/dark-mode/src/index.ts"
       ],
+      "@my-monorepo/core/features/dynamic-forms": [
+        "libs/core/features/dynamic-forms/src/index.ts"
+      ],
       "@my-monorepo/core/features/expand-table": [
         "libs/core/features/expand-table/src/index.ts"
       ],
