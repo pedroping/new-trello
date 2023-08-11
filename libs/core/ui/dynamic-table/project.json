@@ -6,25 +6,6 @@
   "tags": [],
   "projectType": "library",
   "targets": {
-    "build": {
-      "options": {
-        "allowedCommonJsDependencies": [
-          "loadsh",
-          "primeng/primeng",
-          "primeicons",
-          "chartjs",
-          "rxjs-compat",
-          "validator",
-          "twilio-video",
-          "text-mask-core"
-        ],
-        "styles": [
-          "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
-          "node_modules/@taiga-ui/core/styles/taiga-ui-fonts.less",
-          "node_modules/@taiga-ui/styles/taiga-ui-global.less"
-        ]
-      }
-    },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": [
