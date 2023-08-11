@@ -39,18 +39,18 @@
   }
 
   p.selected {
-    color: lightblue !important;
+    color: $selected-sidenav-color !important;
     transform: scale(1.1);
   }
 
   mat-expansion-panel.selected {
     mat-expansion-panel-header{
-      border-color: lightblue !important;
+      border-color: $selected-sidenav-color !important;
     }
     ::ng-deep {
       .mat-expansion-indicator::after,
       .mat-expansion-panel-header-title {
-        color: lightblue !important;
+        color: $selected-sidenav-color !important;
       }
     }
   }

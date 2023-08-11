@@ -1,8 +1,8 @@
 import { Route } from '@angular/router';
-import { HomePageComponent } from './domain/home/home-page/home-page.component';
-import { WelcomePageComponent } from './domain/home/welcome-page/welcome-page.component';
-import { AutoGenerateComponent } from './domain/autoGenerate/autoGenerate.component';
+import { HomePageComponent } from './domain/home/pages/home-page/home-page.component';
 import { IrouteContext } from '@my-monorepo/core/features/selected-route'
+import { WelcomePageComponent } from './domain/home/pages/welcome-page/welcome-page.component';
+import { DynamicTableComponent } from './domain/dynamic-table/pages/dynamic-table/dynamic-table.component';
 
 export const appRoutes: Route[] = [
   {
@@ -15,17 +15,21 @@ export const appRoutes: Route[] = [
         pathMatch: 'full'
       },
       {
-        path: 'generate',
-        component: AutoGenerateComponent,
-        pathMatch: 'full',
-      },
-      {
         path: '',
         redirectTo: 'home',
+        pathMatch: 'full'
+      },
+      {
+        path: 'dynamic-table',
+        component: DynamicTableComponent,
         pathMatch: 'full'
       }
     ],
   },
+  {
+    path: '**',
+    redirectTo: ''
+  }
 ];
 
 export const displayedRoutes: IrouteContext[] = [
@@ -39,12 +43,12 @@ export const displayedRoutes: IrouteContext[] = [
     ]
   },
   {
-    title: 'Generate',
+    title: 'Dynamic Table',
     children: [
       {
-        title: 'Directive Generate',
-        path: './generate'
+        title: 'Dynamic Table',
+        path: './dynamic-table'
       }
     ]
-  }
+  },
 ]
