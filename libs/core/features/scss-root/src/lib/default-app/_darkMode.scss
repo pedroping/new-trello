@@ -12,7 +12,10 @@
       background-color: $table-selected-row-dark !important;
     }
   }
+
   p,
+  mat-label,
+  input,
   .mat-expansion-indicator::after,
   .mat-expansion-panel-header-title {
     color: $dark-text-color !important;
@@ -21,6 +24,14 @@
   .mat-drawer,
   .mainContent {
     @include setDarkMode();
+  }
+
+  mat-form-field:not(.mat-focused) {
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: $dark-text-color !important;
+    }
   }
 
   table {
