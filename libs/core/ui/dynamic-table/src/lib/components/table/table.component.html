@@ -1,26 +1,31 @@
 <table cdk-table [dataSource]="dataSource">
-
   <ng-container *ngFor="let column of columns">
     <ng-container [cdkColumnDef]="column.selector">
-
-      <div *ngIf="!column?.hasCustomField else customField">
-        <cdk-header-cell *cdkHeaderCellDef> {{ column.label }} </cdk-header-cell>
-        <cdk-cell *cdkCellDef="let element"> {{ element[column.selector]}} </cdk-cell>
+      <div *ngIf="!column?.hasCustomField; else customField">
+        <cdk-header-cell *cdkHeaderCellDef>
+          {{ column.label }}
+        </cdk-header-cell>
+        <cdk-cell *cdkCellDef="let element">
+          {{ element[column.selector] }}
+        </cdk-cell>
       </div>
 
       <ng-template #customField>
-        <cdk-header-cell *cdkHeaderCellDef> aa </cdk-header-cell>
+        <cdk-header-cell *cdkHeaderCellDef>
+          {{ column.label }}
+        </cdk-header-cell>
         <cdk-cell *cdkCellDef="let element">
-          <div appGenerateCustomField [selector]="column.selector" [element]="element" [column]="column"></div>
+          <div
+            appGenerateCustomField
+            [selector]="column.selector"
+            [element]="element"
+            [column]="column"
+          ></div>
         </cdk-cell>
       </ng-template>
-
     </ng-container>
-
   </ng-container>
 
-
-
   <cdk-header-row *cdkHeaderRowDef="displayedColumns"></cdk-header-row>
-  <cdk-row *cdkRowDef="let row; columns: displayedColumns;"></cdk-row>
+  <cdk-row *cdkRowDef="let row; columns: displayedColumns"></cdk-row>
 </table>
