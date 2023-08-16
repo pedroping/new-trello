@@ -26,6 +26,10 @@
     @include setDarkMode();
   }
 
+  .mat-mdc-input-element::placeholder {
+    color: gray !important;
+  }
+
   mat-form-field:not(.mat-focused) {
     .mdc-notched-outline__leading,
     .mdc-notched-outline__notch,

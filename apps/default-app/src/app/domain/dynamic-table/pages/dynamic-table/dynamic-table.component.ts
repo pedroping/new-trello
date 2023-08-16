@@ -31,7 +31,7 @@ export class DynamicTableComponent implements OnInit {
   data$ = of(DATA);
 
   form = new FormGroup({
-    teste: new FormControl('aaa'),
+    teste: new FormControl(),
   });
 
   formsConfig: IInputBuilder<any>[] = [
