@@ -1,15 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { ITableColumn } from '../../models/table';
+import { ITableConfig } from '../../models/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'dynamic-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent<T> implements OnInit {
+export class TableComponent<T> implements OnInit, AfterViewInit {
 
-  @Input({ required: true }) columns!: ITableColumn<T>[]
+  @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
+
+  @Input({ required: true }) config!: ITableConfig<T>
   @Input({ required: true }) data!: T[]
 
   dataSource!: MatTableDataSource<T>
@@ -21,9 +24,13 @@ export class TableComponent<T> implements OnInit {
     this.createDataSource()
   }
 
+  ngAfterViewInit(): void {
+    if (this.config.hasPaginator && this.paginator) this.dataSource.paginator = this.paginator
+  }
+
   createDataSource() {
     this.dataSource = new MatTableDataSource(this.data)
 
-    this.displayedColumns = this.columns.map(item => item.selector)
+    this.displayedColumns = this.config.columns.map(item => item.selector)
   }
 }

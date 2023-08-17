@@ -1,17 +1,22 @@
 @import 'colors';
-
-::ng-deep {
-  cdk-header-cell {
-    background-color: $table-header !important;
-  }
-
-  cdk-cell{
-    background-color: $table-row !important;
-  }
-
-  cdk-row:nth-child(odd) {
-    cdk-cell {
-        background-color: $table-selected-row !important;
+:host {
+  ::ng-deep {
+    cdk-header-cell {
+      background-color: $table-header !important;
     }
+  
+    cdk-cell{
+      background-color: $table-row !important;
+    }
+  
+    cdk-row:nth-child(odd) {
+      cdk-cell {
+          background-color: $table-selected-row !important;
+      }
+    }
+  }
+
+  form{
+    margin-top: 20px;
   }
 }

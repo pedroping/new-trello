@@ -38,6 +38,16 @@
     }
   }
 
+  mat-paginator {
+    mat-form-field:not(.mat-focused) {
+      .mdc-notched-outline__leading,
+      .mdc-notched-outline__notch,
+      .mdc-notched-outline__trailing {
+        border-color: black !important;
+      }
+    }
+  }
+
   table {
     color: black !important;
   }

@@ -1,7 +1,7 @@
-import { ITableColumn } from "@my-monorepo/core/ui/dynamic-table"
+import { ITableColumn, ITableConfig } from "@my-monorepo/core/ui/dynamic-table"
 import { BasicInputComponent } from "../../../core/components/basic-input/basic-input.component"
 
-export const COLUMNS: ITableColumn<unknown>[] = [
+const COLUMNS: ITableColumn<unknown>[] = [
   {
     label: 'Nome',
     selector: 'name'
@@ -17,6 +17,17 @@ export const COLUMNS: ITableColumn<unknown>[] = [
     selector: 'gmail'
   }
 ]
+
+export const TABLE_CONFIG: ITableConfig<unknown> = {
+  hasPaginator: true,
+  hasExpansion: false,
+  paginatorOptions: {
+    pageSize: 10,
+    pageSizeOptions: [2, 5, 10, 50, 100]
+  },
+  columns: COLUMNS
+}
+
 
 
 export const DATA = [

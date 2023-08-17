@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { CoreUiDynamicTableModule } from '@my-monorepo/core/ui/dynamic-table';
-import { COLUMNS, DATA } from '../../helpers/table-mocks';
 import { CommonModule } from '@angular/common';
-import { of } from 'rxjs';
-import {
-  CoreFeaturesDynamicFormsModule,
-  IInputBuilder,
-} from '@my-monorepo/core/features/dynamic-forms';
+import { Component, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import {
+  CoreFeaturesDynamicFormsModule,
+  IInputBuilder,
+} from '@my-monorepo/core/features/dynamic-forms';
+import { CoreUiDynamicTableModule } from '@my-monorepo/core/ui/dynamic-table';
+import { of } from 'rxjs';
+import { DATA, TABLE_CONFIG } from '../../helpers/table-mocks';
 @Component({
   selector: 'app-dynamic-table',
   templateUrl: './dynamic-table.component.html',
@@ -27,7 +27,7 @@ import {
   ],
 })
 export class DynamicTableComponent implements OnInit {
-  colums = COLUMNS;
+  tableConfig = TABLE_CONFIG;
   data$ = of(DATA);
 
   form = new FormGroup({
@@ -46,7 +46,7 @@ export class DynamicTableComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }

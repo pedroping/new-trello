@@ -3,6 +3,10 @@
     width: 100%;
   }
 
+  mat-paginator{
+    background-color: #f4efff;
+  }
+
   th {
     text-align: left;
   }
@@ -53,12 +57,6 @@
   cdk-row:last-child {
     cdk-cell {
       padding-bottom: 2px;
-    }
-    cdk-cell:first-child {
-      border-bottom-left-radius: 5px;
-    }
-    cdk-cell:last-child {
-      border-bottom-right-radius: 5px;
     }
   }
 
