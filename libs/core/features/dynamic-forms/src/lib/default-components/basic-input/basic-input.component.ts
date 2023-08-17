@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { DefaultFormInput } from '../../models/defaultInput';
-import { IBaseInput } from '../../models/models';
+import { IBaseInput, IComponentBase } from '../../models/models';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
@@ -25,7 +25,7 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class BasicInputComponent
   extends DefaultFormInput<IBaseInput>
-  implements OnInit
+  implements OnInit, IComponentBase<IBaseInput>
 {
   constructor() {
     super();
