@@ -1,5 +1,5 @@
 {
-  "extends": ["../../.eslintrc.json"],
+  "extends": ["../../../../.eslintrc.json"],
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
@@ -9,6 +9,7 @@
           "error",
           {
             "type": "attribute",
+            "prefix": "myMonorepo",
             "style": "camelCase"
           }
         ],
@@ -16,6 +17,7 @@
           "error",
           {
             "type": "element",
+            "prefix": "my-monorepo",
             "style": "kebab-case"
           }
         ]
