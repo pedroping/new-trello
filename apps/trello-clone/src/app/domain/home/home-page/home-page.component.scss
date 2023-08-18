@@ -1,4 +1,9 @@
 :host {
     display: block;
     padding: 15px;
+    .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 }
