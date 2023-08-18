@@ -26,6 +26,7 @@
 
 </table>
 <ng-container *ngIf="config.hasPaginator">
-  <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[2, 10, 25, 100]" aria-label="Select page">
+  <mat-paginator [length]="length" [pageSize]="config.paginatorOptions!.pageSize"
+    [pageSizeOptions]="config.paginatorOptions!.pageSizeOptions" aria-label="Select page">
   </mat-paginator>
 </ng-container>

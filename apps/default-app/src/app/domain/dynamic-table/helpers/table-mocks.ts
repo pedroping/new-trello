@@ -22,7 +22,7 @@ export const TABLE_CONFIG: ITableConfig<unknown> = {
   hasPaginator: true,
   hasExpansion: false,
   paginatorOptions: {
-    pageSize: 10,
+    pageSize: 5,
     pageSizeOptions: [2, 5, 10, 50, 100]
   },
   columns: COLUMNS
@@ -30,25 +30,11 @@ export const TABLE_CONFIG: ITableConfig<unknown> = {
 
 
 
-export const DATA = [
-  {
+export const DATA = Array.from({ length: 10 }, (_, index) => {
+  return {
     name: 'Pedro',
-    age: 12,
+    age: index + 10,
     gmail: 'pedrofofao2014@gmial.com'
-  },
-  {
-    name: 'Pedro',
-    age: 12,
-    gmail: 'pedrofofao2014@gmial.com'
-  },
-  {
-    name: 'Pedro',
-    age: 12,
-    gmail: 'pedrofofao2014@gmial.com'
-  },
-  {
-    name: 'Pedro',
-    age: 12,
-    gmail: 'pedrofofao2014@gmial.com'
-  }
-]
+  };
+})
+

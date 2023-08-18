@@ -17,6 +17,7 @@ export class TableComponent<T> implements OnInit, AfterViewInit {
 
   dataSource!: MatTableDataSource<T>
   displayedColumns!: string[]
+  length = 0
 
   constructor() { }
 
@@ -30,7 +31,7 @@ export class TableComponent<T> implements OnInit, AfterViewInit {
 
   createDataSource() {
     this.dataSource = new MatTableDataSource(this.data)
-
+    this.length = this.data.length
     this.displayedColumns = this.config.columns.map(item => item.selector)
   }
 }
