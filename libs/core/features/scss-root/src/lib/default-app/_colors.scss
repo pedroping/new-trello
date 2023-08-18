@@ -43,7 +43,29 @@ $my-custom-theme: (
   ),
 );
 
+$project-colors: (
+  'text': black,
+  'background': white,
+);
+
+$project-colors-dark-mode: (
+  'text': $dark-text-color,
+  'background': $dark-background,
+);
+
 @mixin setDarkMode() {
   background-color: $dark-background !important;
   color: $dark-text-color !important;
+}
+
+:root {
+  @each $name, $color in $project-colors {
+    --#{$name}: #{$color};
+  }
+
+  &.darkMode {
+    @each $name, $color in $project-colors-dark-mode {
+      --#{$name}: #{$color};
+    }
+  }
 }

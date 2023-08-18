@@ -41,3 +41,19 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: darken($scroll-bar-color, 20%);
 }
+
+@media (prefers-color-scheme: light) {
+  :root {
+    @each $name, $color in $project-colors {
+      --#{$name}: #{$color} !important;
+    }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    @each $name, $color in $project-colors-dark-mode {
+      --#{$name}: #{$color} !important;
+    }
+  }
+}
