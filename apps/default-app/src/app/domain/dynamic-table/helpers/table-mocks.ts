@@ -18,23 +18,29 @@ const COLUMNS: ITableColumn<unknown>[] = [
   }
 ]
 
-export const TABLE_CONFIG: ITableConfig<unknown> = {
-  hasPaginator: true,
-  hasExpansion: false,
-  paginatorOptions: {
-    pageSize: 5,
-    pageSizeOptions: [2, 5, 10, 50, 100]
-  },
-  columns: COLUMNS
-}
-
-
-
 export const DATA = Array.from({ length: 10 }, (_, index) => {
   return {
-    name: 'Pedro',
+    name: 'Pedro ' + index,
     age: index + 10,
     gmail: 'pedrofofao2014@gmial.com'
   };
 })
+
+export const TABLE_CONFIG: ITableConfig<unknown> = {
+  hasExpansion: false,
+  hasPaginator: true,
+  paginatorOptions: {
+    pageSize: 2,
+    pageSizeOptions: [2, 10, 50, 100]
+  },
+  hasDefaultPaginator: false,
+  defaultPaginatorOptions: {
+    totalSize: DATA.length,
+    currentPage: 1,
+    pageSize: 2,
+    previousLabel: 'Anterior',
+    nextLabel: 'Proximo'
+  },
+  columns: COLUMNS
+}
 

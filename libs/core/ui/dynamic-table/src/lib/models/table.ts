@@ -10,13 +10,23 @@ export interface ITableColumn<T> {
 
 export interface ITableConfig<T> {
     columns: ITableColumn<T>[]
-    hasPaginator: boolean;
     hasExpansion: boolean
+    hasPaginator: boolean;
     paginatorOptions?: IPaginatorOptions
+    hasDefaultPaginator?: boolean
+    defaultPaginatorOptions?: IDefaultPaginatorOptions
 }
 export interface IPaginatorOptions {
     pageSize: number
     pageSizeOptions: number[]
+}
+
+export interface IDefaultPaginatorOptions {
+    pageSize: number,
+    totalSize: number,
+    currentPage: number,
+    previousLabel: string,
+    nextLabel: string
 }
 export interface DefaultInput<T> {
     tableElement: T

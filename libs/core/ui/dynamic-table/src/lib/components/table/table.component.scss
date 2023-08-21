@@ -5,12 +5,13 @@ $border-radius-value: 5px;
     width: 100%;
   }
 
+  ::ng-deep nav,
   mat-paginator{
-    background-color: #f4efff;
+    background-color: #f4efff !important;
     border-bottom-right-radius: $border-radius-value;
     border-bottom-left-radius: $border-radius-value;
-
   }
+
 
   th {
     text-align: left;

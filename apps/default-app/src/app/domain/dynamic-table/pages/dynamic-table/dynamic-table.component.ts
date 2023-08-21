@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -11,7 +11,7 @@ import {
   IInputBuilder,
 } from '@my-monorepo/core/features/dynamic-forms';
 import { CoreUiDynamicTableModule } from '@my-monorepo/core/ui/dynamic-table';
-import { of } from 'rxjs';
+import { of, tap } from 'rxjs';
 import { DATA, TABLE_CONFIG } from '../../helpers/table-mocks';
 @Component({
   selector: 'app-dynamic-table',
@@ -28,7 +28,10 @@ import { DATA, TABLE_CONFIG } from '../../helpers/table-mocks';
 })
 export class DynamicTableComponent implements OnInit {
   tableConfig = TABLE_CONFIG;
-  data$ = of(DATA);
+  data$ = of(DATA).pipe(tap(() => {
+    this.cdr.detectChanges()
+  }));
+  DATA = DATA
 
   form = new FormGroup({
     teste: new FormControl('aaa'),
@@ -46,7 +49,7 @@ export class DynamicTableComponent implements OnInit {
     },
   ];
 
-  constructor() { }
+  constructor(private readonly cdr: ChangeDetectorRef) { }
 
   ngOnInit() { }
 }
