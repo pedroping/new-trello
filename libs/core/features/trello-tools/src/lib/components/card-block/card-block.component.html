@@ -1,8 +1,20 @@
 <div class="header">
   <span class="headerLogo">To Do</span>
 </div>
-<div class="cards">
-  <trello-card></trello-card>
-  <trello-card></trello-card>
-  <trello-card></trello-card>
+<div
+  class="cards"
+  cdkDropList
+  [cdkDropListData]="cards"
+  (cdkDropListDropped)="drop($event)"
+>
+  <ng-container *ngFor="let item of cards">
+    <div cdkDrag>
+      <div style="display: flex"><trello-card></trello-card>{{ item }}</div>
+      <div *cdkDragPreview>
+        <div class="card-preview">
+          <trello-card></trello-card>{{ item }}
+        </div>
+      </div>
+    </div>
+  </ng-container>
 </div>

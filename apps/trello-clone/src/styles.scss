@@ -9,3 +9,15 @@ body {
   padding: 0;
   height: 100%;
 }
+
+::ng-deep {
+  .cdk-drag .cdk-drag-preview {
+    color: red !important;
+    background-color: red;
+  }
+}
+
+.cdk-drag .cdk-drag-preview {
+  color: red !important;
+  background-color: red;
+}
