@@ -19,7 +19,9 @@
     align-items: center;
     flex-direction: column;
     margin: 20px;
-    height: 50px;
+    min-height: 100px;
+    padding: 10px;
+    border: 1px dotted black;
   }
 
   ::ng-deep .aaaa {
@@ -29,17 +31,32 @@
   }
 }
 
-.cdk-drag-preview {
-  .card-preview{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    height: 20px;
-    width: 100px;
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  width: 240px;
+  background-color: lightgray;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 5px 0px 5px 0px;
+
+  &.preview {
     transform: rotate(10deg);
-    background-color: lightgray;
-    border: 1px solid black;
-    border-radius: 50%;
   }
 }
+
+// .cdk-drag-preview {
+//   .card-preview {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     height: 30px;
+//     width: 100px;
+//     transform: rotate(10deg);
+//     background-color: lightgray;
+//     border: 1px solid black;
+//     border-radius: 5px;
+//   }
+// }

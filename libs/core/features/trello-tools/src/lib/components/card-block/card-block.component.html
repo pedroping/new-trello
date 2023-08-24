@@ -9,12 +9,17 @@
 >
   <ng-container *ngFor="let item of cards">
     <div cdkDrag>
-      <div style="display: flex"><trello-card></trello-card>{{ item }}</div>
+
+      <div class="card">
+        <trello-card></trello-card>
+      </div>
+
       <div *cdkDragPreview>
-        <div class="card-preview">
-          <trello-card></trello-card>{{ item }}
+        <div class="card preview">
+          <trello-card></trello-card>
         </div>
       </div>
+      
     </div>
   </ng-container>
 </div>
