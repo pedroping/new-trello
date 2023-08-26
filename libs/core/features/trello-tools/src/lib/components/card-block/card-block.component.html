@@ -11,6 +11,9 @@
 >
   <ng-container *ngFor="let item of cards">
     <div cdkDrag>
+      <div class="example-custom-placeholder" *cdkDragPlaceholder>
+        <div class="card"></div>
+      </div>
       <div class="card">
         <trello-card> {{ item }} </trello-card>
       </div>
