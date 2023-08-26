@@ -11,6 +11,6 @@ export class CardBlockComponent implements OnInit {
 
   ngOnInit() {}
 
-  cards = Array.from({ length: 1 }, (_, i) => i + 1);
+  cards = Array.from({ length: 5 }, (_, i) => i + 1);
   drop = this.dragAndDropService.drop;
 }
