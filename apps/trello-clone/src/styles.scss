@@ -13,10 +13,10 @@ body {
 .cdk-drag-preview {
   box-sizing: border-box;
   border-radius: 4px;
-  box-shadow: 0 5px 5px -3px transparent, 0 8px 10px 1px transparent,
-    0 3px 14px 2px transparent;
-  .example-box {
-    transform: rotate(10deg) !important;
+  cursor: grabbing;
+  .card {
+    transform: rotate(5deg) !important;
+    cursor: grabbing;
   }
 }
 

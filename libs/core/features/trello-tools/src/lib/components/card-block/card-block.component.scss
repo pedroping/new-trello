@@ -1,8 +1,7 @@
 :host {
-  min-height: 250px;
   width: 300px;
-  background-color: rgb(233, 233, 233);
-  border-radius: 5px;
+  border-radius: 10px;
+  height: auto;
 
   .header {
     height: 30px;
@@ -11,21 +10,26 @@
     justify-content: space-between;
     align-items: center;
     font-size: 20px;
+    padding-bottom: 15px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: rgb(233, 233, 233);
   }
 }
 
-.example-list {
-  height: 90vh;
+.card-list {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 4px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
   overflow: hidden;
   padding: 10px;
+  background-color: rgb(233, 233, 233);
 }
 
-.example-box {
-  padding: 20px 10px;
+.card {
+  padding: 5px;
   width: 250px;
   color: rgba(0, 0, 0, 0.87);
   display: flex;
@@ -33,9 +37,11 @@
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
-  cursor: move;
+  cursor: grab;
   font-size: 14px;
-  border: 1px solid black;
+  border: 1px solid white;
+  background-color: white;
+  border-radius: 10px;
   margin: 2px;
-  background-color: rgb(233, 233, 233);
+  box-shadow: 0px 10px 20px rgb(233, 233, 233);
 }

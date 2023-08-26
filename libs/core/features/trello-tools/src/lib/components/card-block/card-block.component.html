@@ -1,16 +1,17 @@
 <div class="header">
-  <span class="headerLogo">To Do</span>
+  <span>To Do</span>
 </div>
 
 <div
-  class="example-list"
+  class="card-list"
   cdkDropList
   [cdkDropListData]="cards"
   (cdkDropListDropped)="drop($event)"
+  [style.height]="cards.length * 35 + 35 + 'px' + '!important'"
 >
   <ng-container *ngFor="let item of cards">
     <div cdkDrag>
-      <div class="example-box" >
+      <div class="card">
         <trello-card> {{ item }} </trello-card>
       </div>
     </div>
