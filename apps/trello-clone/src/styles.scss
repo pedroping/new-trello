@@ -14,7 +14,7 @@ body {
   box-sizing: border-box;
   border-radius: 4px;
   cursor: grabbing;
-  .card {
+  trello-card {
     transform: rotate(5deg) !important;
     cursor: grabbing;
   }
@@ -29,7 +29,7 @@ body {
 }
 
 .example-custom-placeholder {
-  .card {
+  trello-card {
     height: 32px;
     background-color: lightgray !important;
   }
