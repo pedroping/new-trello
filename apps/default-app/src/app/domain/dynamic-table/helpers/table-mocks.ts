@@ -28,12 +28,12 @@ export const DATA = Array.from({ length: 10 }, (_, index) => {
 
 export const TABLE_CONFIG: ITableConfig<unknown> = {
   hasExpansion: false,
-  hasPaginator: true,
+  hasPaginator: false,
   paginatorOptions: {
     pageSize: 2,
     pageSizeOptions: [2, 10, 50, 100]
   },
-  hasDefaultPaginator: false,
+  hasDefaultPaginator: true,
   defaultPaginatorOptions: {
     totalSize: DATA.length,
     currentPage: 1,
