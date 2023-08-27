@@ -15,7 +15,7 @@ $border-radius-value: 5px;
   ::ng-deep nav {
     padding: 10px 5px 1px 5px;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
   }
 
   th {
