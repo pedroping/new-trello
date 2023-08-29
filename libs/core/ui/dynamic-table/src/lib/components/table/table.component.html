@@ -15,7 +15,12 @@
           {{ column.label }}
         </cdk-header-cell>
         <cdk-cell *cdkCellDef="let element">
-          <div appGenerateCustomField [selector]="column.selector" [element]="element" [column]="column"></div>
+          <div
+            appGenerateCustomField
+            [selector]="column.selector"
+            [element]="element"
+            [column]="column"
+          ></div>
         </cdk-cell>
       </ng-template>
     </ng-container>
@@ -23,28 +28,35 @@
 
   <cdk-header-row *cdkHeaderRowDef="displayedColumns"></cdk-header-row>
   <cdk-row *cdkRowDef="let row; columns: displayedColumns"></cdk-row>
-
 </table>
 
 <ng-container *ngIf="config.hasPaginator">
-  <mat-paginator [length]="length" [pageSize]="config.paginatorOptions!.pageSize"
-    [pageSizeOptions]="config.paginatorOptions!.pageSizeOptions" aria-label="Select page">
+  <mat-paginator
+    [length]="length"
+    [pageSize]="config.paginatorOptions!.pageSize"
+    [pageSizeOptions]="config.paginatorOptions!.pageSizeOptions"
+    aria-label="Select page"
+  >
   </mat-paginator>
 </ng-container>
 
-
 <ng-container *ngIf="config.hasDefaultPaginator">
-  <ng-container *ngFor="let item of data 
-      | paginate : 
-        { 
-          itemsPerPage: config.defaultPaginatorOptions?.pageSize, 
-          currentPage: config.defaultPaginatorOptions?.currentPage, 
-          totalItems: config.defaultPaginatorOptions?.totalSize
-        }
-    ">
+  <ng-container
+    *ngFor="
+      let item of data
+        | paginate
+          : {
+              itemsPerPage: config.defaultPaginatorOptions?.pageSize,
+              currentPage: config.defaultPaginatorOptions?.currentPage,
+              totalItems: config.defaultPaginatorOptions?.totalSize
+            }
+    "
+  >
   </ng-container>
-  <pagination-controls (pageChange)="handlePageChange($event)"
+  <pagination-controls
+    (pageChange)="handlePageChange($event)"
     [previousLabel]="config.defaultPaginatorOptions?.previousLabel ?? ''"
-    [nextLabel]="config.defaultPaginatorOptions?.nextLabel ?? ''">
+    [nextLabel]="config.defaultPaginatorOptions?.nextLabel ?? ''"
+  >
   </pagination-controls>
 </ng-container>
