@@ -27,13 +27,13 @@ export const DATA = Array.from({ length: 10 }, (_, index) => {
 });
 
 export const TABLE_CONFIG: ITableConfig<unknown> = {
-  hasExpansion: false,
-  hasPaginator: false,
+  hasExpansion: true,
+  hasPaginator: true,
   paginatorOptions: {
     pageSize: 2,
     pageSizeOptions: [2, 10, 50, 100],
   },
-  hasDefaultPaginator: true,
+  hasDefaultPaginator: false,
   defaultPaginatorOptions: {
     totalSize: DATA.length,
     currentPage: 1,
@@ -42,5 +42,4 @@ export const TABLE_CONFIG: ITableConfig<unknown> = {
     nextLabel: 'Proximo',
   },
   columns: COLUMNS,
-  hasExpand: true,
 };

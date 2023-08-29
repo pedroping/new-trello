@@ -15,7 +15,6 @@ export interface ITableConfig<T> {
   paginatorOptions?: IPaginatorOptions;
   hasDefaultPaginator?: boolean;
   defaultPaginatorOptions?: IDefaultPaginatorOptions;
-  hasExpand: boolean;
 }
 export interface IPaginatorOptions {
   pageSize: number;
