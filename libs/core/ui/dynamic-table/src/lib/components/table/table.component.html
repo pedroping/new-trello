@@ -32,7 +32,7 @@
 
 
   <cdk-header-row *cdkHeaderRowDef="displayedColumns"></cdk-header-row>
-  <cdk-row *cdkRowDef="let row; columns: displayedColumns" expandTable></cdk-row>
+  <cdk-row *cdkRowDef="let row; columns: displayedColumns" expandTable [rowElement]="row"></cdk-row>
   <ng-container *ngIf="config.hasExpand">
     <cdk-row *cdkRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></cdk-row>
   </ng-container>
