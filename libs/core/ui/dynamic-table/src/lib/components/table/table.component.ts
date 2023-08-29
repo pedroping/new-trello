@@ -18,6 +18,7 @@ export class TableComponent<T> implements OnInit, AfterViewInit {
   dataSource!: MatTableDataSource<T>
   viewDataSource!: T[]
   displayedColumns!: string[]
+  columnsLength = 0
   length = 0
 
   constructor(private cdr: ChangeDetectorRef) { }
@@ -37,6 +38,7 @@ export class TableComponent<T> implements OnInit, AfterViewInit {
       this.paginate()
     this.length = this.data.length
     this.displayedColumns = this.config.columns.map(item => item.selector)
+    this.columnsLength = this.displayedColumns.length
   }
 
   handlePageChange(event: number | PageEvent) {

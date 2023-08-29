@@ -7,9 +7,9 @@ import { TuiTagModule } from '@taiga-ui/kit';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { TableComponent } from './components/table/table.component';
 import { GenerateCustomFieldDirective } from './directives/generate-custom-field.directive';
-
+import { CoreFeaturesExpandTableModule } from '@my-monorepo/core/features/expand-table';
 @NgModule({
-  imports: [CommonModule, TuiTagModule, CdkTableModule, CoreFeaturesDynamicFormsModule, MatPaginatorModule, NgxPaginationModule],
+  imports: [CommonModule, TuiTagModule, CdkTableModule, CoreFeaturesDynamicFormsModule, MatPaginatorModule, NgxPaginationModule, CoreFeaturesExpandTableModule],
   declarations: [TableComponent, GenerateCustomFieldDirective],
   exports: [TableComponent, GenerateCustomFieldDirective],
   providers: [GenerateCustomFieldDirective]

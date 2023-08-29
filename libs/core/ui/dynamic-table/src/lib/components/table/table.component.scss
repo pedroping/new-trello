@@ -5,6 +5,14 @@ $border-radius-value: 5px;
     width: 100%;
   }
 
+  .example-detail-row {
+    display: none;
+  }
+
+  .expand-detail-row + .example-detail-row {
+    display: table-row;
+  }
+
   ::ng-deep nav,
   mat-paginator {
     background-color: #f4efff !important;
