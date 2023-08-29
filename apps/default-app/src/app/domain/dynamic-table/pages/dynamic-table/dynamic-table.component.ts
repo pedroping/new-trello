@@ -28,11 +28,12 @@ import { DATA, TABLE_CONFIG } from '../../helpers/table-mocks';
 })
 export class DynamicTableComponent implements OnInit {
   tableConfig = TABLE_CONFIG;
-  data$ = of(DATA).pipe(tap(() => {
-    this.cdr.detectChanges()
-  }));
-  DATA = DATA
-
+  data$ = of(DATA).pipe(
+    tap(() => {
+      this.cdr.detectChanges();
+    })
+  );
+  DATA = DATA;
   form = new FormGroup({
     teste: new FormControl('aaa'),
   });
@@ -49,7 +50,7 @@ export class DynamicTableComponent implements OnInit {
     },
   ];
 
-  constructor(private readonly cdr: ChangeDetectorRef) { }
+  constructor(private readonly cdr: ChangeDetectorRef) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 }
