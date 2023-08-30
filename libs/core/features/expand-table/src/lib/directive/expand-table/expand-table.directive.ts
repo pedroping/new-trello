@@ -1,5 +1,5 @@
 import { Directive, HostBinding, HostListener, Input } from '@angular/core';
-import { SelectedRowService } from '../service/selected-row.service';
+import { SelectedRowService } from '../../service/selected-row.service';
 
 @Directive({
   selector: '[expandTable]'
