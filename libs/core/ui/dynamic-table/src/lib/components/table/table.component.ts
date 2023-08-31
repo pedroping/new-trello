@@ -56,7 +56,7 @@ export class TableComponent<T> implements OnInit, AfterViewInit {
   constructor(
     private cdr: ChangeDetectorRef,
     readonly selectedRowService: SelectedRowService<T>
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.createDataSource();
@@ -67,6 +67,7 @@ export class TableComponent<T> implements OnInit, AfterViewInit {
       this.dataSource.paginator = this.paginator;
   }
 
+
   createDataSource() {
     this.viewDataSource = this.data;
     this.dataSource = new MatTableDataSource(this.viewDataSource);
@@ -74,7 +75,7 @@ export class TableComponent<T> implements OnInit, AfterViewInit {
     this.length = this.data.length;
     this.displayedColumns = this.config.columns.map((item) => item.selector);
     this.columnsLength = this.displayedColumns.length;
-    if (this.config.hasExpansion) this.displayedColumns.push('expandeIcon');
+    if (this.config.hasExpansion) this.displayedColumns = [...this.displayedColumns, 'expandeIcon']
   }
 
   handlePageChange(event: number | PageEvent) {
