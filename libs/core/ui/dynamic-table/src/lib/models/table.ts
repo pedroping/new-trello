@@ -17,6 +17,7 @@ export interface ITableConfig<T> {
   paginatorOptions?: IPaginatorOptions;
   hasDefaultPaginator?: boolean;
   defaultPaginatorOptions?: IDefaultPaginatorOptions;
+  customPagination?: () => void
 }
 export interface IPaginatorOptions {
   pageSize: number;
@@ -43,6 +44,7 @@ export interface DefaultInput<T> {
 
 export interface IBaseTableFather<T> {
   getValueChanges: (valueChanges$: Observable<T>, id: number, element: T, selector: keyof T) => void
+  customPagination?: () => void
 }
 
 export type IControls = AbstractControl | FormControl

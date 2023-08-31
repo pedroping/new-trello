@@ -1,22 +1,23 @@
 import {
+  animate,
+  style,
+  transition,
+  trigger
+} from '@angular/animations';
+import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
   Input,
+  OnChanges,
   OnInit,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { ITableConfig } from '../../models/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { SelectedRowService } from '@my-monorepo/core/features/expand-table';
-import {
-  trigger,
-  state,
-  style,
-  transition,
-  animate,
-} from '@angular/animations';
+import { ITableConfig } from '../../models/table';
 
 @Component({
   selector: 'dynamic-table',
@@ -41,7 +42,7 @@ import {
     ]),
   ],
 })
-export class TableComponent<T> implements OnInit, AfterViewInit {
+export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
   @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
 
   @Input({ required: true }) config!: ITableConfig<T>;
@@ -67,11 +68,18 @@ export class TableComponent<T> implements OnInit, AfterViewInit {
       this.dataSource.paginator = this.paginator;
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['data']) {
+      this.createDataSource();
+    }
+  }
+
 
   createDataSource() {
     this.viewDataSource = this.data;
     this.dataSource = new MatTableDataSource(this.viewDataSource);
-    if (this.config.hasDefaultPaginator) this.paginate();
+    if (this.config.hasDefaultPaginator && !this.config?.customPagination)
+      this.paginate();
     this.length = this.data.length;
     this.displayedColumns = this.config.columns.map((item) => item.selector);
     this.columnsLength = this.displayedColumns.length;
@@ -82,6 +90,8 @@ export class TableComponent<T> implements OnInit, AfterViewInit {
     if (typeof event == 'number' && this.config.defaultPaginatorOptions) {
       this.config.defaultPaginatorOptions.currentPage = event;
     }
+    if (this.config.customPagination)
+      return this.config.customPagination()
     this.paginate();
   }
 

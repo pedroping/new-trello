@@ -9,23 +9,27 @@ export const DATA = Array.from({ length: 10 }, (_, index) => {
     age: index + 10,
     gmail: 'pedrofofao2014@gmial.com',
   };
-});
+}) as IBasicTableTest[];
 
 export const CREATE_TABLE_CONFIG = (component: IBaseTableFather<IBasicTableTest>) => {
   return {
     hasExpansion: true,
-    hasPaginator: true,
+    hasPaginator: false,
     paginatorOptions: {
       pageSize: 5,
       pageSizeOptions: [2, 5, 10, 50, 100],
     },
-    hasDefaultPaginator: false,
+    hasDefaultPaginator: true,
     defaultPaginatorOptions: {
       totalSize: DATA.length,
       currentPage: 1,
       pageSize: 2,
       previousLabel: 'Anterior',
       nextLabel: 'Proximo',
+    },
+    customPagination: () => {
+      if (component?.customPagination)
+        component.customPagination()
     },
     columns: [
       {
