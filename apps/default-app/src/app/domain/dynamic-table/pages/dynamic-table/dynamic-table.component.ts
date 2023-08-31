@@ -56,7 +56,7 @@ export class DynamicTableComponent implements OnInit, IBaseTableFather<IBasicTab
 
   getValueChanges(valueChanges$: Observable<IBasicTableTest>, id: number, element: IBasicTableTest, selector: keyof IBasicTableTest) {
     valueChanges$.pipe(startWith(element[selector])).subscribe((value) => {
-      console.log(`${id} Mudou para ${value} elemento`, element, selector, this.findControl(selector, id));
+      console.log(`${id}- ${selector.toUpperCase()} Mudou para ${value} elemento`, element, this.findControl(selector, id));
     })
   }
 

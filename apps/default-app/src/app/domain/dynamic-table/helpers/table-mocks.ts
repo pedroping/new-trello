@@ -14,10 +14,10 @@ export const DATA = Array.from({ length: 10 }, (_, index) => {
 export const CREATE_TABLE_CONFIG = (component: IBaseTableFather<IBasicTableTest>) => {
   return {
     hasExpansion: true,
-    hasPaginator: false,
+    hasPaginator: true,
     paginatorOptions: {
-      pageSize: 2,
-      pageSizeOptions: [2, 10, 50, 100],
+      pageSize: 5,
+      pageSizeOptions: [2, 5, 10, 50, 100],
     },
     hasDefaultPaginator: false,
     defaultPaginatorOptions: {
