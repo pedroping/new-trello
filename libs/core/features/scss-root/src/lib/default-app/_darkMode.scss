@@ -3,16 +3,6 @@
 .darkMode {
   @include setDarkMode();
 
-  cdk-cell {
-    background-color: $table-row-dark !important;
-  }
-
-  cdk-row:nth-child(odd) {
-    cdk-cell {
-      background-color: $table-selected-row-dark !important;
-    }
-  }
-
   p,
   mat-label,
   input:not(.whiteInput),

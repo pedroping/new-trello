@@ -34,7 +34,7 @@ export const TABLE_CONFIG: ITableConfig<unknown> = {
   hasExpansion: true,
   hasPaginator: true,
   paginatorOptions: {
-    pageSize: 2,
+    pageSize: 10,
     pageSizeOptions: [2, 10, 50, 100],
   },
   hasDefaultPaginator: false,
