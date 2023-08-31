@@ -13,6 +13,16 @@ $border-radius-value: 5px;
     display: table-row;
   }
 
+  .cdk-column-expandeIcon{
+    width: 40px;
+    max-width: 40px;
+  }
+
+  cdk-cell.cdk-column-expandeIcon {
+    cursor: pointer;
+  }
+  
+
   ::ng-deep nav,
   mat-paginator {
     background-color: #f4efff !important;

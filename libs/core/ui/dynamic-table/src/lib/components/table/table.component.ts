@@ -74,6 +74,7 @@ export class TableComponent<T> implements OnInit, AfterViewInit {
     this.length = this.data.length;
     this.displayedColumns = this.config.columns.map((item) => item.selector);
     this.columnsLength = this.displayedColumns.length;
+    if (this.config.hasExpansion) this.displayedColumns.push('expandeIcon');
   }
 
   handlePageChange(event: number | PageEvent) {

@@ -1,11 +1,13 @@
 import { Type } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { AbstractControl, FormControl } from '@angular/forms';
 
 export interface ITableColumn<T> {
   label: string;
   selector: string;
   hasCustomField?: boolean;
+  hasControls?: boolean;
   component?: Type<DefaultInput<T>>;
+  controls?: AbstractControl;
 }
 
 export interface ITableConfig<T> {
@@ -33,3 +35,5 @@ export interface DefaultInput<T> {
   selector: keyof T;
   formControl: FormControl;
 }
+
+export type IControl = AbstractControl | FormControl;

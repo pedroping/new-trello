@@ -14,7 +14,7 @@
         <cdk-header-cell *cdkHeaderCellDef>
           {{ column.label }}
         </cdk-header-cell>
-        <cdk-cell *cdkCellDef="let element">
+        <cdk-cell *cdkCellDef="let element" (click)="$event.stopPropagation()">
           <div
             appGenerateCustomField
             [selector]="column.selector"
@@ -29,6 +29,15 @@
   <ng-container cdkColumnDef="expandedDetail">
     <cdk-cell *cdkCellDef="let element" [attr.colspan]="columnsLength">
       <div *appHasElement="element" [@inOutPaneAnimation]>aaa</div>
+    </cdk-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="expandeIcon">
+    <cdk-header-cell *cdkHeaderCellDef></cdk-header-cell>
+    <cdk-cell *cdkCellDef="let element">
+      <div [appHasElement]="element" #HasElement="appHasElement">
+        <mat-icon>{{ HasElement.expandedIcon }}</mat-icon>
+      </div>
     </cdk-cell>
   </ng-container>
 
