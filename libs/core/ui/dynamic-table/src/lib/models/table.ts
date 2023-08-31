@@ -1,5 +1,6 @@
 import { Type } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 export interface ITableColumn<T> {
   label: string;
@@ -7,9 +8,8 @@ export interface ITableColumn<T> {
   hasCustomField?: boolean;
   hasControls?: boolean;
   component?: Type<DefaultInput<T>>;
-  controlsOptions?: IColumnFormOptions
+  controlsOptions?: IColumnFormOptions<T>
 }
-
 export interface ITableConfig<T> {
   columns: ITableColumn<T>[];
   hasExpansion: boolean;
@@ -23,8 +23,9 @@ export interface IPaginatorOptions {
   pageSizeOptions: number[];
 }
 
-export interface IColumnFormOptions {
-  controls: IControls[]
+export interface IColumnFormOptions<T> {
+  controls: IControls[],
+  getValueChanges: (valueChanges$: Observable<T>, id: number, element: T, selector: keyof T) => void
 }
 export interface IDefaultPaginatorOptions {
   pageSize: number;
@@ -40,4 +41,15 @@ export interface DefaultInput<T> {
   columnOption: ITableColumn<T>
 }
 
+export interface IBaseTableFather<T> {
+  getValueChanges: (valueChanges$: Observable<T>, id: number, element: T, selector: keyof T) => void
+}
+
 export type IControls = AbstractControl | FormControl
+
+export interface IBasicTableTest {
+  id: number;
+  name: string;
+  age: number;
+  gmail: string;
+}

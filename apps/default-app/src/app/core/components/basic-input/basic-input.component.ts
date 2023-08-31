@@ -20,11 +20,17 @@ export class BasicInputComponent extends BasicTableInput<unknown> implements OnI
       id: number
     }
 
-    if (this.columnOption?.controlsOptions?.controls) {
-      this.columnOption.controlsOptions.controls[element.id] = this.formControl
-      console.log(this.columnOption.controlsOptions.controls);
+    const valueChanges$ = this.formControl.valueChanges
+
+    if (this.columnOption?.controlsOptions) {
+
+      if (this.columnOption?.controlsOptions?.controls) {
+        this.columnOption.controlsOptions.controls[element.id] = this.formControl
+      }
       
+      this.columnOption?.controlsOptions.getValueChanges(valueChanges$, element.id, element, this.selector)
     }
+
 
   }
 

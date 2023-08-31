@@ -10,9 +10,9 @@ import {
   CoreFeaturesDynamicFormsModule,
   IInputBuilder,
 } from '@my-monorepo/core/features/dynamic-forms';
-import { CoreUiDynamicTableModule } from '@my-monorepo/core/ui/dynamic-table';
-import { of, tap } from 'rxjs';
-import { DATA, TABLE_CONFIG } from '../../helpers/table-mocks';
+import { CoreUiDynamicTableModule, IBaseTableFather, IBasicTableTest } from '@my-monorepo/core/ui/dynamic-table';
+import { Observable, of, startWith, tap } from 'rxjs';
+import { CREATE_TABLE_CONFIG, DATA } from '../../helpers/table-mocks';
 @Component({
   selector: 'app-dynamic-table',
   templateUrl: './dynamic-table.component.html',
@@ -26,8 +26,8 @@ import { DATA, TABLE_CONFIG } from '../../helpers/table-mocks';
     ReactiveFormsModule,
   ],
 })
-export class DynamicTableComponent implements OnInit {
-  tableConfig = TABLE_CONFIG;
+export class DynamicTableComponent implements OnInit, IBaseTableFather<IBasicTableTest> {
+  tableConfig = CREATE_TABLE_CONFIG(this);
   data$ = of(DATA).pipe(
     tap(() => {
       this.cdr.detectChanges();
@@ -50,7 +50,19 @@ export class DynamicTableComponent implements OnInit {
     },
   ];
 
-  constructor(private readonly cdr: ChangeDetectorRef) {}
+  constructor(private readonly cdr: ChangeDetectorRef) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
+
+  getValueChanges(valueChanges$: Observable<IBasicTableTest>, id: number, element: IBasicTableTest, selector: keyof IBasicTableTest) {
+    valueChanges$.pipe(startWith(element[selector])).subscribe((value) => {
+      console.log(`${id} Mudou para ${value} elemento`, element, selector, this.findControl(selector, id));
+    })
+  }
+
+  findControl(selector: keyof IBasicTableTest, id: number) {
+    const column = this.tableConfig.columns.find(column => column.selector == selector)
+    if (!column) return null
+    return column.controlsOptions?.controls[id]
+  }
 }
