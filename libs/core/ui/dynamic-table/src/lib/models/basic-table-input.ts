@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { FormControl } from "@angular/forms";
-import { DefaultInput } from "./table";
+import { DefaultInput, ITableColumn } from "./table";
 
 @Injectable()
 export abstract class BasicTableInput<T> implements DefaultInput<T>{
@@ -8,8 +8,11 @@ export abstract class BasicTableInput<T> implements DefaultInput<T>{
     tableElement!: T
     selector!: keyof T
     formControl!: FormControl
+    columnOption!: ITableColumn<T>
 
-    constructor() { }
+    constructor() {
+
+    }
 
     setValueChanges() {
         this.formControl.setValue(this.tableElement[this.selector])

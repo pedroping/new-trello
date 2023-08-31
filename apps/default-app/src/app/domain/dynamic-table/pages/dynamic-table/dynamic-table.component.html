@@ -2,8 +2,8 @@
   <dynamic-table [config]="tableConfig" [data]="data"></dynamic-table>
 </ng-container>
 
-{{ data$ | async | json }}
+<!-- {{ data$ | async | json }} -->
 
 <form [formGroup]="form">
-    <dynamic-forms [config]="formsConfig"></dynamic-forms>
+  <dynamic-forms [config]="formsConfig"></dynamic-forms>
 </form>

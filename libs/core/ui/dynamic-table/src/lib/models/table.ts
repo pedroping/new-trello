@@ -7,7 +7,7 @@ export interface ITableColumn<T> {
   hasCustomField?: boolean;
   hasControls?: boolean;
   component?: Type<DefaultInput<T>>;
-  controls?: AbstractControl;
+  controlsOptions?: IColumnFormOptions
 }
 
 export interface ITableConfig<T> {
@@ -23,6 +23,9 @@ export interface IPaginatorOptions {
   pageSizeOptions: number[];
 }
 
+export interface IColumnFormOptions {
+  controls: IControls[]
+}
 export interface IDefaultPaginatorOptions {
   pageSize: number;
   totalSize: number;
@@ -34,6 +37,7 @@ export interface DefaultInput<T> {
   tableElement: T;
   selector: keyof T;
   formControl: FormControl;
+  columnOption: ITableColumn<T>
 }
 
-export type IControl = AbstractControl | FormControl;
+export type IControls = AbstractControl | FormControl

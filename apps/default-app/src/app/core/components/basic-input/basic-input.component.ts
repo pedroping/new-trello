@@ -15,6 +15,17 @@ export class BasicInputComponent extends BasicTableInput<unknown> implements OnI
 
   ngOnInit() {
     this.setValueChanges()
+
+    const element = this.tableElement as unknown & {
+      id: number
+    }
+
+    if (this.columnOption?.controlsOptions?.controls) {
+      this.columnOption.controlsOptions.controls[element.id] = this.formControl
+      console.log(this.columnOption.controlsOptions.controls);
+      
+    }
+
   }
 
 }

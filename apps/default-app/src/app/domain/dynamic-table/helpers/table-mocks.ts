@@ -11,6 +11,9 @@ const COLUMNS: ITableColumn<unknown>[] = [
     selector: 'age',
     hasCustomField: true,
     component: BasicInputComponent,
+    controlsOptions: {
+      controls: []
+    }
   },
   {
     label: 'E-mail',
@@ -20,6 +23,7 @@ const COLUMNS: ITableColumn<unknown>[] = [
 
 export const DATA = Array.from({ length: 10 }, (_, index) => {
   return {
+    id: index,
     name: 'Pedro ' + index,
     age: index + 10,
     gmail: 'pedrofofao2014@gmial.com',
