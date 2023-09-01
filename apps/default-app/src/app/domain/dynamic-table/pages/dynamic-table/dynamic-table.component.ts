@@ -5,6 +5,7 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import {
   CoreFeaturesDynamicFormsModule,
@@ -13,6 +14,7 @@ import {
 import { CoreUiDynamicTableModule, IBaseTableFather, IBasicTableTest } from '@my-monorepo/core/ui/dynamic-table';
 import { BehaviorSubject, Observable, pipe, startWith, tap } from 'rxjs';
 import { CREATE_TABLE_CONFIG, DATA } from '../../helpers/table-mocks';
+import { CoreFeaturesFormErrorModule } from "@my-monorepo/core/features/form-error"
 @Component({
   selector: 'app-dynamic-table',
   templateUrl: './dynamic-table.component.html',
@@ -24,6 +26,7 @@ import { CREATE_TABLE_CONFIG, DATA } from '../../helpers/table-mocks';
     CoreFeaturesDynamicFormsModule,
     FormsModule,
     ReactiveFormsModule,
+    CoreFeaturesFormErrorModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -32,7 +35,7 @@ export class DynamicTableComponent implements OnInit, IBaseTableFather<IBasicTab
   data$ = new BehaviorSubject<IBasicTableTest[]>(DATA);
   DATA = DATA;
   form = new FormGroup({
-    teste: new FormControl('aaa'),
+    teste: new FormControl('aaa', Validators.required),
   });
 
   formsConfig: IInputBuilder<unknown>[] = [

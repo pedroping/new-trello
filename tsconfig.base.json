@@ -24,6 +24,9 @@
       "@my-monorepo/core/features/expand-table": [
         "libs/core/features/expand-table/src/index.ts"
       ],
+      "@my-monorepo/core/features/form-error": [
+        "libs/core/features/form-error/src/index.ts"
+      ],
       "@my-monorepo/core/features/scss-root": [
         "libs/core/features/scss-root/src/index.ts"
       ],
