@@ -2,6 +2,7 @@ $dark-background: #333;
 $dark-text-color: whitesmoke;
 $scroll-bar-color: #7e69b4;
 $selected-sidenav-color: #43788a;
+$gray-01: gray;
 
 $table-header: #8574c7;
 $table-row: #f4efff;
@@ -49,6 +50,8 @@ $project-colors: (
   'primary-color': #7a57ff,
   'table-row': $table-row,
   'table-selected-row': $table-selected-row,
+  'gray-01': $gray-01,
+  'selected-sidenav': $selected-sidenav-color,
 );
 
 $project-colors-dark-mode: (
