@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BasicTableInput } from '@my-monorepo/core/ui/dynamic-table';
+import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-basic-input',
@@ -15,6 +16,23 @@ export class BasicInputComponent extends BasicTableInput<unknown> implements OnI
 
   ngOnInit() {
     this.setValueChanges()
+
+    const element = this.tableElement as unknown & {
+      id: number
+    }
+
+    const valueChanges$ = this.formControl.valueChanges.pipe(takeUntil(this.destroy$))
+
+    if (this.columnOption?.controlsOptions) {
+
+      if (this.columnOption?.controlsOptions?.controls) {
+        this.columnOption.controlsOptions.controls[element.id] = this.formControl
+      }
+
+      this.columnOption?.controlsOptions.getValueChanges(valueChanges$, element.id, element, this.selector)
+    }
+
+
   }
 
 }

@@ -1,6 +1,39 @@
+$border-radius-value: 5px;
+
 :host {
   table {
     width: 100%;
+  }
+
+  .example-detail-row {
+    display: none;
+  }
+
+  .expand-detail-row + .example-detail-row {
+    display: table-row;
+  }
+
+  .cdk-column-expandeIcon{
+    width: 40px;
+    max-width: 40px;
+  }
+
+  cdk-cell.cdk-column-expandeIcon {
+    cursor: pointer;
+  }
+  
+
+  ::ng-deep nav,
+  mat-paginator {
+    background-color: #f4efff !important;
+    border-bottom-right-radius: $border-radius-value;
+    border-bottom-left-radius: $border-radius-value;
+  }
+
+  ::ng-deep nav {
+    padding: 10px 5px 1px 5px;
+    display: flex;
+    justify-content: flex-end;
   }
 
   th {
@@ -28,19 +61,18 @@
   cdk-cell:first-child {
     padding-left: 5px;
   }
-  
+
   cdk-header-cell {
     background-color: gray;
     padding-top: 10px;
   }
-  
+
   cdk-header-cell:last-child {
-    border-top-right-radius: 5px;
+    border-top-right-radius: $border-radius-value;
   }
   cdk-header-cell:first-child {
-    border-top-left-radius: 5px;
+    border-top-left-radius: $border-radius-value;
   }
-
 
   cdk-cell {
     background-color: rgb(214, 214, 214);
@@ -53,12 +85,6 @@
   cdk-row:last-child {
     cdk-cell {
       padding-bottom: 2px;
-    }
-    cdk-cell:first-child {
-      border-bottom-left-radius: 5px;
-    }
-    cdk-cell:last-child {
-      border-bottom-right-radius: 5px;
     }
   }
 

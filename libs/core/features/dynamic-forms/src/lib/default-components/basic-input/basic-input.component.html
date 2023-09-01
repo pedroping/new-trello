@@ -1,0 +1,8 @@
+<mat-form-field [appearance]="config.appearance ?? 'outline'">
+  <mat-label>{{ config.label }}</mat-label>
+  <input
+    matInput
+    [placeholder]="config.placeholder"
+    [formControlName]="config.formName!"
+  />
+</mat-form-field>

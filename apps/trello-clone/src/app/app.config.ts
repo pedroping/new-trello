@@ -1,11 +1,19 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import {
   provideRouter,
   withEnabledBlockingInitialNavigation,
 } from '@angular/router';
 import { appRoutes } from './app.routes';
-import { provideAnimations } from '@angular/platform-browser/animations';
+import {
+  BrowserAnimationsModule,
+  provideAnimations,
+} from '@angular/platform-browser/animations';
+import { TuiRootModule } from '@taiga-ui/core';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(appRoutes, withEnabledBlockingInitialNavigation()), provideAnimations()],
+  providers: [
+    provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
+    provideAnimations(),
+    importProvidersFrom(TuiRootModule, BrowserAnimationsModule),
+  ],
 };

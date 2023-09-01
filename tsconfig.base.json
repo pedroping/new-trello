@@ -18,6 +18,9 @@
       "@my-monorepo/core/features/dark-mode": [
         "libs/core/features/dark-mode/src/index.ts"
       ],
+      "@my-monorepo/core/features/dynamic-forms": [
+        "libs/core/features/dynamic-forms/src/index.ts"
+      ],
       "@my-monorepo/core/features/expand-table": [
         "libs/core/features/expand-table/src/index.ts"
       ],
@@ -26,6 +29,9 @@
       ],
       "@my-monorepo/core/features/selected-route": [
         "libs/core/features/selected-route/src/index.ts"
+      ],
+      "@my-monorepo/core/features/trello-tools": [
+        "libs/core/features/trello-tools/src/index.ts"
       ],
       "@my-monorepo/core/ui": ["libs/core/ui/src/index.ts"],
       "@my-monorepo/core/ui/dynamic-table": [

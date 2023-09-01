@@ -9,7 +9,6 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "myMonorepo",
             "style": "camelCase"
           }
         ],
@@ -17,7 +16,6 @@
           "error",
           {
             "type": "element",
-            "prefix": "my-monorepo",
             "style": "kebab-case"
           }
         ]

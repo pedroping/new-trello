@@ -1,5 +1,9 @@
 <ng-container *ngIf="data$ | async as data">
-    <dynamic-table [columns]="colums" [data]="data"></dynamic-table>
+  <dynamic-table [config]="tableConfig" [data]="data"></dynamic-table>
 </ng-container>
 
 {{ data$ | async | json }}
+
+<form [formGroup]="form">
+  <dynamic-forms [config]="formsConfig"></dynamic-forms>
+</form>

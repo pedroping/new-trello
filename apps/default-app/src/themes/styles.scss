@@ -11,6 +11,7 @@ body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 
 .mat-drawer-content,
@@ -40,3 +41,19 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: darken($scroll-bar-color, 20%);
 }
+
+// @media (prefers-color-scheme: light) {
+//   :root {
+//     @each $name, $color in $project-colors {
+//       --#{$name}: #{$color} !important;
+//     }
+//   }
+// }
+
+// @media (prefers-color-scheme: dark) {
+//   :root {
+//     @each $name, $color in $project-colors-dark-mode {
+//       --#{$name}: #{$color} !important;
+//     }
+//   }
+// }

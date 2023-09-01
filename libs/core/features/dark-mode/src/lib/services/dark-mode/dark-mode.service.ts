@@ -16,7 +16,7 @@ export class DarkModeService {
       document
         .querySelector('meta[name="theme-color"]')
         ?.setAttribute('content', DARK_COLORS);
-      document.body.classList.add('darkMode');
+      document.querySelector('html')?.classList.add('darkMode')
     }
   }
 
@@ -28,13 +28,13 @@ export class DarkModeService {
       document
         .querySelector('meta[name="theme-color"]')
         ?.setAttribute('content', DARK_COLORS);
-      document.body.classList.add('darkMode');
+      document.querySelector('html')?.classList.add('darkMode')
       return;
     }
     sessionStorage.removeItem('darkMode');
     document
       .querySelector('meta[name="theme-color"]')
       ?.setAttribute('content', LIGHT_COLORS);
-    document.body.classList.remove('darkMode');
+    document.querySelector('html')?.classList.remove('darkMode')
   }
 }

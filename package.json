@@ -35,6 +35,7 @@
     "@tinkoff/ng-dompurify": "3.0.0",
     "dompurify": "2.2.9",
     "http-server": "^14.1.1",
+    "ngx-pagination": "^6.0.3",
     "ngx-toastr": "^17.0.2",
     "rxjs": "~7.8.0",
     "text-mask-core": "^5.1.2",
