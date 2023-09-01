@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -25,10 +25,11 @@ import { CREATE_TABLE_CONFIG, DATA } from '../../helpers/table-mocks';
     FormsModule,
     ReactiveFormsModule,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicTableComponent implements OnInit, IBaseTableFather<IBasicTableTest> {
   tableConfig = CREATE_TABLE_CONFIG(this);
-  data$ = new BehaviorSubject<IBasicTableTest[]>([]);
+  data$ = new BehaviorSubject<IBasicTableTest[]>(DATA);
   DATA = DATA;
   form = new FormGroup({
     teste: new FormControl('aaa'),
@@ -49,8 +50,8 @@ export class DynamicTableComponent implements OnInit, IBaseTableFather<IBasicTab
   constructor(private readonly cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.data$.next(DATA)
-    this.customPagination()
+    if (this.tableConfig.customPagination)
+      this.customPagination()
   }
 
   getValueChanges(valueChanges$: Observable<IBasicTableTest>, id: number, element: IBasicTableTest, selector: keyof IBasicTableTest) {

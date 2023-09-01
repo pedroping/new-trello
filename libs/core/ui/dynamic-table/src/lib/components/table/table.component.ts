@@ -6,6 +6,7 @@ import {
 } from '@angular/animations';
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   Input,
@@ -41,6 +42,7 @@ import { ITableConfig } from '../../models/table';
       ]),
     ]),
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
   @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;

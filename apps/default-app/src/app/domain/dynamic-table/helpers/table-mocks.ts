@@ -27,10 +27,10 @@ export const CREATE_TABLE_CONFIG = (component: IBaseTableFather<IBasicTableTest>
       previousLabel: 'Anterior',
       nextLabel: 'Proximo',
     },
-    customPagination: () => {
-      if (component?.customPagination)
-        component.customPagination()
-    },
+    // customPagination: () => {
+    //   if (component?.customPagination)
+    //     component.customPagination()
+    // },
     columns: [
       {
         label: 'Nome',
