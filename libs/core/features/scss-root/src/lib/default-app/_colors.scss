@@ -10,6 +10,8 @@ $table-selected-row: #c4b9dd;
 
 $table-row-dark: #9f8acf;
 $table-selected-row-dark: #c4b9dd;
+$main-red: red;
+$red-01: rgb(236, 99, 99);
 
 $my-custom-theme: (
   50: #edeaf4,
@@ -52,6 +54,8 @@ $project-colors: (
   'table-selected-row': $table-selected-row,
   'gray-01': $gray-01,
   'selected-sidenav': $selected-sidenav-color,
+  'main-red': $main-red,
+  'red-01': $red-01
 );
 
 $project-colors-dark-mode: (
