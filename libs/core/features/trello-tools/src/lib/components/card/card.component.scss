@@ -1,4 +1,7 @@
+@import '../../scss/root.scss';
+
 :host {
+  @include default-box-shadow;
   padding: 5px;
   width: 250px;
   color: rgba(0, 0, 0, 0.87);
@@ -13,9 +16,4 @@
   background-color: white;
   border-radius: 10px;
   margin: 2px;
-  // box-shadow: 0px 10px 20px rgb(233, 233, 233);
-  // -webkit-box-shadow: 0 5px 6px -6px #777;
-  // -moz-box-shadow: 0 5px 6px -6px #777;
-  // box-shadow: 0 5px 6px -6px #777;
-  box-shadow: -1px 2px 4px hsla(0, 0%, 0%, 0.49);
 }
