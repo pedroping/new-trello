@@ -7,8 +7,8 @@
 
   .header {
     height: 30px;
-    display: flex;
     padding: 10px 15px 0px 15px;
+    display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 20px;
@@ -16,6 +16,19 @@
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     background-color: white;
+
+    .more-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 32px;
+      aspect-ratio: 1/1;
+      border-radius: 5px;
+      cursor: pointer;
+      &:hover {
+        background-color: lightgray;
+      }
+    }
   }
 }
 

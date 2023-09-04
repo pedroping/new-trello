@@ -1,10 +1,9 @@
-<div
-  class="content"
-  [style.height]="cards.length * 35 + 115 + 'px' + '!important'"
->
+<div class="content" [trelloCardBlockHeight]="cards.length" [baseSize]="115">
   <div class="header">
     <span>To Do</span>
-    <mat-icon>more</mat-icon>
+    <div class="more-icon" [cdkMenuTriggerFor]="cardOptions">
+      <mat-icon>more_horiz</mat-icon>
+    </div>
   </div>
 
   <div
@@ -12,7 +11,8 @@
     cdkDropList
     [cdkDropListData]="cards"
     (cdkDropListDropped)="drop($event)"
-    [style.height]="cards.length * 35 + 35 + 'px' + '!important'"
+    [trelloCardBlockHeight]="cards.length"
+    [baseSize]="35"
   >
     <ng-container *ngFor="let item of cards">
       <div cdkDrag>
@@ -24,3 +24,7 @@
     </ng-container>
   </div>
 </div>
+
+<ng-template #cardOptions>
+  <trello-card-options cdkMenu></trello-card-options>
+</ng-template>
