@@ -7,7 +7,7 @@ export const DATA = Array.from({ length: 10 }, (_, index) => {
     id: index,
     name: 'Pedro ' + index,
     age: index + 10,
-    gmail: 'pedrofofao2014@gmial.com',
+    gmail: 'pedrofofao2014@gmail.com',
   };
 }) as IBasicTableTest[];
 
