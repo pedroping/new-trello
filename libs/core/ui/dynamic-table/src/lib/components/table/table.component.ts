@@ -78,11 +78,16 @@ export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
 
 
   createDataSource() {
+    this.setColumns()
     this.viewDataSource = this.data;
+    this.length = this.data.length;
     this.dataSource = new MatTableDataSource(this.viewDataSource);
+
     if (this.config.hasDefaultPaginator && !this.config?.customPagination)
       this.paginate();
-    this.length = this.data.length;
+  }
+
+  setColumns() {
     this.displayedColumns = this.config.columns.map((item) => item.selector);
     this.columnsLength = this.displayedColumns.length;
     if (this.config.hasExpansion) this.displayedColumns = [...this.displayedColumns, 'expandeIcon']

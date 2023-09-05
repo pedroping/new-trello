@@ -16,14 +16,14 @@ import {
   CoreFeaturesDynamicFormsModule,
   IInputBuilder,
 } from '@my-monorepo/core/features/dynamic-forms';
+import { CoreFeaturesFormErrorModule } from '@my-monorepo/core/features/form-error';
 import {
   CoreUiDynamicTableModule,
   IBaseTableFather,
   IBasicTableTest,
 } from '@my-monorepo/core/ui/dynamic-table';
-import { BehaviorSubject, Observable, pipe, startWith, tap } from 'rxjs';
+import { BehaviorSubject, Observable, startWith } from 'rxjs';
 import { CREATE_TABLE_CONFIG, DATA } from '../../helpers/table-mocks';
-import { CoreFeaturesFormErrorModule } from '@my-monorepo/core/features/form-error';
 @Component({
   selector: 'app-dynamic-table',
   templateUrl: './dynamic-table.component.html',
@@ -46,7 +46,7 @@ export class DynamicTableComponent
   data$ = new BehaviorSubject<IBasicTableTest[]>(DATA);
   DATA = DATA;
   form = new FormGroup({
-    teste: new FormControl(null as any, Validators.required),
+    teste: new FormControl(null, Validators.required),
   });
 
   formsConfig: IInputBuilder<unknown>[] = [
@@ -61,7 +61,7 @@ export class DynamicTableComponent
     },
   ];
 
-  constructor(private readonly cdr: ChangeDetectorRef) {}
+  constructor(private readonly cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     if (this.tableConfig.customPagination) this.customPagination();
@@ -91,24 +91,16 @@ export class DynamicTableComponent
   }
 
   customPagination() {
-    if (this.tableConfig.defaultPaginatorOptions) {
+    const paginatorOptions = this.tableConfig.defaultPaginatorOptions
+    if (paginatorOptions) {
       const start =
-        this.tableConfig.defaultPaginatorOptions.pageSize *
-        (this.tableConfig.defaultPaginatorOptions.currentPage - 1);
+        paginatorOptions.pageSize *
+        (paginatorOptions.currentPage - 1);
       const end =
-        this.tableConfig.defaultPaginatorOptions.pageSize *
-        this.tableConfig.defaultPaginatorOptions.currentPage;
+        paginatorOptions.pageSize *
+        paginatorOptions.currentPage;
       const newData = this.DATA.slice(start, end);
       this.data$.next(newData);
-      this.cdr.detectChanges();
     }
-  }
-
-  cdrTap() {
-    return pipe(
-      tap(() => {
-        this.cdr.detectChanges();
-      })
-    );
   }
 }
