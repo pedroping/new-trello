@@ -8,6 +8,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { CardBlockHeightDirective } from './directives/cardBlock-height.directive';
 import { CdkMenuModule } from '@angular/cdk/menu';
 import { CardOptionsComponent } from './components/card-options/card-options.component';
+import { CardHeaderComponent } from './components/card-header/card-header.component';
+import { CardFooterComponent } from './components/card-footer/card-footer.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -23,8 +25,10 @@ import { CardOptionsComponent } from './components/card-options/card-options.com
     CardComponent,
     CardBlockHeightDirective,
     CardOptionsComponent,
+    CardHeaderComponent,
+    CardFooterComponent,
   ],
-  exports: [CardBlockComponent, CardOptionsComponent],
+  exports: [CardBlockComponent],
   providers: [CardBlockHeightDirective],
 })
 export class CoreFeaturesTrelloToolsModule {}

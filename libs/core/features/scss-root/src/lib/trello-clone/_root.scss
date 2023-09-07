@@ -1,0 +1,31 @@
+@mixin default-box-shadow {
+  box-shadow: 0px 1px 1px var(--box-shadow-color-01),
+    0px 0px 1px var(--box-shadow-color-02);
+}
+
+$project-variables: (
+  'card-width': 280px,
+  'card-height': 36px,
+  'font-size-01': 12px,
+  'font-size-02': 20px,
+  'font-weight-01': 400,
+  'text-01': #172b4d,
+  'white-01': white,
+  'block-color': #f1f2f4,
+  'disabled-01': lightgray,
+  'box-shadow-color-01': #091e4240,
+  'box-shadow-color-02': #091e424f,
+);
+:root {
+  @each $name, $value in $project-variables {
+    --#{$name}: #{$value} !important;
+  }
+}
+
+// box-shadow: -2px 2px 3px 0px hsla(0, 0%, 0%, 0.49);
+// #091e4240, #091e424f
+// box-shadow: 0px 10px 20px rgb(233, 233, 233);
+// -webkit-box-shadow: 0 5px 6px -6px #777;
+// -moz-box-shadow: 0 5px 6px -6px #777;
+// box-shadow: 0 5px 6px -6px #777;
+// 0px 1px 1px #091E4240, 0px 0px 1px #091E424F;

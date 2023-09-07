@@ -1,3 +1,5 @@
+@import 'root';
+
 html,
 body {
   height: 100%;
@@ -8,6 +10,8 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
+  font-size: var(--font-size-01) !important;
+  font-weight: var(--font-weight-01) !important;
 }
 
 .cdk-drag-preview {
@@ -30,8 +34,7 @@ body {
 
 .example-custom-placeholder {
   trello-card {
-    height: 32px;
-    background-color: lightgray !important;
+    background-color: var(--disabled-01) !important;
     border: none;
   }
 }
