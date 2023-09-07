@@ -3,14 +3,15 @@ import {
   Directive,
   HostBinding,
   Input,
-  QueryList
+  QueryList,
 } from '@angular/core';
+import { DragAndDropService } from '../services/drag-and-drop/drag-and-drop.service';
 
 @Directive({
   selector: '[trelloCardBlockHeight]',
 })
 export class CardBlockHeightDirective {
-  constructor() {}
+  constructor(private readonly dragAndDropService: DragAndDropService) {}
 
   @Input('trelloCardBlockHeight') length!: number;
   @Input() baseSize!: number;
@@ -18,6 +19,10 @@ export class CardBlockHeightDirective {
   @ContentChildren('card') cards?: QueryList<HTMLDivElement>;
 
   @HostBinding('style.height') get cardHeight() {
-    return (this.length ) * 38 + this.baseSize + 'px';
+    console.log(this.dragAndDropService.onMove$.value);
+
+    if (this.dragAndDropService.onMove$.value)
+      return (this.length + 1) * 36 + this.baseSize + 'px';
+    return this.length * 36 + this.baseSize + 'px';
   }
 }

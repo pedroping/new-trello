@@ -4,11 +4,14 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class DragAndDropService {
+  
   cards = new Array(5);
-
+  onMove$ = new BehaviorSubject<boolean>(false);
+  
   constructor() {}
 
   drop(event: CdkDragDrop<number[]>) {
