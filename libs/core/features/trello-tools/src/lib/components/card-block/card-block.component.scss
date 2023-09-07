@@ -3,7 +3,7 @@
 .content {
   @include default-box-shadow;
   width: 300px;
-  border-radius: 10px;
+  border-radius: 20px;
   background-color: var(--block-color);
   display: flex;
   flex-direction: column;
