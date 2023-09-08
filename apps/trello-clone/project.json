@@ -39,7 +39,7 @@
         "scripts": [],
         "stylePreprocessorOptions": {
           "includePaths": [
-            "libs/core/features/scss-root/src/lib/trello-clone"
+            "libs/core/themes/trello-clone"
           ]
         }
       },

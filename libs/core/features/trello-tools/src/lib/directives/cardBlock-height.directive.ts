@@ -19,8 +19,6 @@ export class CardBlockHeightDirective {
   @ContentChildren('card') cards?: QueryList<HTMLDivElement>;
 
   @HostBinding('style.height') get cardHeight() {
-    console.log(this.dragAndDropService.onMove$.value);
-
     if (this.dragAndDropService.onMove$.value)
       return (this.length + 1) * 36 + this.baseSize + 'px';
     return this.length * 36 + this.baseSize + 'px';
