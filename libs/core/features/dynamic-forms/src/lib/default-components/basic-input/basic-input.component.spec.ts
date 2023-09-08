@@ -11,9 +11,8 @@ describe('BasicInputComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BasicInputComponent ]
-    })
-    .compileComponents();
+      declarations: [BasicInputComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

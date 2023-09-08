@@ -6,11 +6,14 @@ import { SelectedRowService } from './selected-row.service';
 describe('Service: SelectedRow', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SelectedRowService]
+      providers: [SelectedRowService],
     });
   });
 
-  it('should ...', inject([SelectedRowService], (service: SelectedRowService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [SelectedRowService],
+    (service: SelectedRowService) => {
+      expect(service).toBeTruthy();
+    }
+  ));
 });

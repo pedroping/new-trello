@@ -18,15 +18,15 @@ import { displayedRoutes } from '../../../app.routes';
     CommonModule,
     RouterModule,
     CoreFeaturesSelectedRouteModule,
-    MatExpansionModule
+    MatExpansionModule,
   ],
 })
 export class SideNavComponent implements OnInit {
-  constructor(private readonly toolbarService: ToolbarService) { }
+  constructor(private readonly toolbarService: ToolbarService) {}
 
-  displayedRoutes = displayedRoutes
+  displayedRoutes = displayedRoutes;
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   emitEvent() {
     this.toolbarService.menuEvent$.next(false);

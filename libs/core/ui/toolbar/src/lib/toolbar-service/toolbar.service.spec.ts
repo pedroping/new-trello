@@ -6,7 +6,7 @@ import { ToolbarService } from './toolbar.service';
 describe('Service: Toolbar', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ToolbarService]
+      providers: [ToolbarService],
     });
   });
 

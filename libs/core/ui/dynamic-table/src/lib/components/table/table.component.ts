@@ -1,9 +1,4 @@
-import {
-  animate,
-  style,
-  transition,
-  trigger
-} from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -42,7 +37,7 @@ import { ITableConfig } from '../../models/table';
       ]),
     ]),
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
   @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
@@ -59,7 +54,7 @@ export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
   constructor(
     private cdr: ChangeDetectorRef,
     readonly selectedRowService: SelectedRowService<T>
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.createDataSource();
@@ -76,9 +71,8 @@ export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
     }
   }
 
-
   createDataSource() {
-    this.setColumns()
+    this.setColumns();
     this.viewDataSource = this.data;
     this.length = this.data.length;
     this.dataSource = new MatTableDataSource(this.viewDataSource);
@@ -90,15 +84,15 @@ export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
   setColumns() {
     this.displayedColumns = this.config.columns.map((item) => item.selector);
     this.columnsLength = this.displayedColumns.length;
-    if (this.config.hasExpansion) this.displayedColumns = [...this.displayedColumns, 'expandeIcon']
+    if (this.config.hasExpansion)
+      this.displayedColumns = [...this.displayedColumns, 'expandeIcon'];
   }
 
   handlePageChange(event: number | PageEvent) {
     if (typeof event == 'number' && this.config.defaultPaginatorOptions) {
       this.config.defaultPaginatorOptions.currentPage = event;
     }
-    if (this.config.customPagination)
-      return this.config.customPagination()
+    if (this.config.customPagination) return this.config.customPagination();
     this.paginate();
   }
 

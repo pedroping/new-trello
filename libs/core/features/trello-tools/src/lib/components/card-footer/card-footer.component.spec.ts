@@ -11,9 +11,8 @@ describe('CardFooterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CardFooterComponent ]
-    })
-    .compileComponents();
+      declarations: [CardFooterComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

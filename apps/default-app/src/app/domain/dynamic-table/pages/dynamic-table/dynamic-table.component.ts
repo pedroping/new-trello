@@ -61,7 +61,7 @@ export class DynamicTableComponent
     },
   ];
 
-  constructor(private readonly cdr: ChangeDetectorRef) { }
+  constructor(private readonly cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     if (this.tableConfig.customPagination) this.customPagination();
@@ -91,14 +91,11 @@ export class DynamicTableComponent
   }
 
   customPagination() {
-    const paginatorOptions = this.tableConfig.defaultPaginatorOptions
+    const paginatorOptions = this.tableConfig.defaultPaginatorOptions;
     if (paginatorOptions) {
       const start =
-        paginatorOptions.pageSize *
-        (paginatorOptions.currentPage - 1);
-      const end =
-        paginatorOptions.pageSize *
-        paginatorOptions.currentPage;
+        paginatorOptions.pageSize * (paginatorOptions.currentPage - 1);
+      const end = paginatorOptions.pageSize * paginatorOptions.currentPage;
       const newData = this.DATA.slice(start, end);
       this.data$.next(newData);
     }

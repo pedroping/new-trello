@@ -11,9 +11,8 @@ describe('CardHeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CardHeaderComponent ]
-    })
-    .compileComponents();
+      declarations: [CardHeaderComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

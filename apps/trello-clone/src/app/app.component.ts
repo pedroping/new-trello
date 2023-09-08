@@ -19,7 +19,7 @@ import { TuiAccordionModule } from '@taiga-ui/kit';
     TuiAlertModule,
     TuiDialogModule,
     TuiRootModule,
-    TuiAccordionModule
+    TuiAccordionModule,
   ],
   selector: 'my-monorepo-root',
   templateUrl: './app.component.html',

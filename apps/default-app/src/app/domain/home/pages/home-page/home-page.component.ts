@@ -29,9 +29,9 @@ export class HomePageComponent implements OnInit {
   constructor(
     private readonly darkModeService: DarkModeService,
     private toastr: ToastrService
-  ) { }
+  ) {}
 
-  ngOnInit() { 
+  ngOnInit() {
     // this.toastr.success('HELLO WORLD!')
   }
 

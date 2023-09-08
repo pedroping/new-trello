@@ -1,5 +1,17 @@
-import { Directive, Inject, Input, OnInit, ViewContainerRef } from '@angular/core';
-import { BASIC_INPUTS, DEFAULT_COMPS, IBaseInput, IInputBuilder, IInputClass } from '../../models/models';
+import {
+  Directive,
+  Inject,
+  Input,
+  OnInit,
+  ViewContainerRef,
+} from '@angular/core';
+import {
+  BASIC_INPUTS,
+  DEFAULT_COMPS,
+  IBaseInput,
+  IInputBuilder,
+  IInputClass,
+} from '../../models/models';
 
 @Directive({
   selector: '[generateDirective]',
@@ -8,7 +20,10 @@ export class GenerateDirective<T> implements OnInit {
   @Input({ required: true }) config!: IInputBuilder<T>;
   basicInputs = BASIC_INPUTS;
 
-  constructor(@Inject(DEFAULT_COMPS) private inputs: IInputClass<IBaseInput>, private vcr: ViewContainerRef) {}
+  constructor(
+    @Inject(DEFAULT_COMPS) private inputs: IInputClass<IBaseInput>,
+    private vcr: ViewContainerRef
+  ) {}
 
   ngOnInit(): void {
     this.vcr.clear();

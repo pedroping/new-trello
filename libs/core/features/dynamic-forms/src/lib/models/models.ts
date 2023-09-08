@@ -26,15 +26,18 @@ export interface IComponentBase<T> {
 }
 
 export interface IInputClass<T> {
-  [key: string]: Type<IComponentBase<T>>
+  [key: string]: Type<IComponentBase<T>>;
 }
 
 export const BASIC_INPUTS: IInputClass<IBaseInput> = {
   basicInput: BasicInputComponent,
 };
 
-export const DEFAULT_COMPS = new InjectionToken<IInputClass<IBaseInput>>('DEFAULT_COMPS', {
-  factory: () => {
-    return BASIC_INPUTS
-  },
-})
+export const DEFAULT_COMPS = new InjectionToken<IInputClass<IBaseInput>>(
+  'DEFAULT_COMPS',
+  {
+    factory: () => {
+      return BASIC_INPUTS;
+    },
+  }
+);
