@@ -16,7 +16,7 @@
   align-items: center;
   position: absolute;
   margin-left: 10px;
-  height: 90vh;
+  height: calc(90vh - 64px);
   min-height: 80px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;

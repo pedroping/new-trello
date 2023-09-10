@@ -10,6 +10,7 @@ import {
   TUI_SANITIZER,
 } from '@taiga-ui/core';
 import { TuiAccordionModule } from '@taiga-ui/kit';
+import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
 @Component({
   standalone: true,
   imports: [
@@ -20,6 +21,7 @@ import { TuiAccordionModule } from '@taiga-ui/kit';
     TuiDialogModule,
     TuiRootModule,
     TuiAccordionModule,
+    CoreUiToolbarModule
   ],
   selector: 'my-monorepo-root',
   templateUrl: './app.component.html',

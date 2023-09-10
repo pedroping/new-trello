@@ -1,15 +1,17 @@
 import { Route } from '@angular/router';
-import { HomePageComponent } from './domain/home/home-page/home-page.component';
+import { WelcomePageComponent } from './domain/welcome-page/welcome-page.component';
+import { HomePageComponent } from './domain/home-page/home-page.component';
 
 export const appRoutes: Route[] = [
   {
-    path: 'home',
-    component: HomePageComponent,
-    pathMatch: 'full',
-  },
-  {
     path: '',
-    redirectTo: 'home',
+    component: WelcomePageComponent,
     pathMatch: 'full',
+    children: [
+      {
+        path: '',
+        component: HomePageComponent,
+      },
+    ],
   },
 ];

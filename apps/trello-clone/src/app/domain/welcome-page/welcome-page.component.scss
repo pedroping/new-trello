@@ -1,0 +1,12 @@
+:host {
+  app-toolbar {
+    width: 100%;
+    position: fixed;
+    z-index: 1000;
+  }
+
+  .routes {
+    position: relative;
+    top: 64px;
+  }
+}

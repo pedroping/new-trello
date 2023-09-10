@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  width: calc(340px * 6);
+  height: calc(98vh - 64px);
+  background-image: url('../../../../../../libs/core/themes/trello-clone/assets/img.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  overflow-y: auto;
+
+  .container {
+    padding: 15px;
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    overflow: auto;
+  }
+}
