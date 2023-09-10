@@ -20,7 +20,7 @@ export class CardBlockHeightDirective {
 
   @HostBinding('style.height') get cardHeight() {
     if (this.dragAndDropService.onMove$.value)
-      return (this.length + 0.5) * 39 + this.baseSize + 'px';
+      return (this.length + 0.8) * 39 + this.baseSize + 'px';
     return this.length * 39 + this.baseSize + 'px';
   }
 }
