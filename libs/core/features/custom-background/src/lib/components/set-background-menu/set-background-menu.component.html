@@ -1,0 +1,29 @@
+<div class="title" (click)="$event.stopPropagation()">
+  <span> Selecione uma imagem </span>
+  <mat-icon (click)="fileInput.click(); $event.stopPropagation()">add</mat-icon>
+</div>
+
+<div class="images">
+  <ng-container *ngIf="images$ | async as images">
+    <ng-container *ngIf="images.length > 0; else noImage">
+      <ng-container *ngFor="let item of images">
+        <img [src]="item" (click)="selectImg(item)" />
+      </ng-container>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #noImage>
+    <span class="noImage">Nenhuma imagem encontrada ):</span>
+  </ng-template>
+</div>
+
+<footer>
+  <mat-icon (click)="cdkMenuTrigger.close()">close</mat-icon>
+</footer>
+
+<input
+  type="file"
+  (change)="uploadImage($event)"
+  style="display: none"
+  #fileInput
+/>

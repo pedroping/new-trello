@@ -1,16 +1,4 @@
 :host {
-  display: block;
-  min-width: calc(340px * 6);
-  height: 100%;
-  background-image: url('../../../../../../libs/core/themes/trello-clone/assets/img.jpg');
-  background-position: center;
-  background-repeat: no-repeat;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  overflow-y: auto;
-
   .container {
     padding: 15px;
     display: flex;
