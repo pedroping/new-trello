@@ -1,0 +1,17 @@
+<div class="block">
+  <button mat-icon-button class="example-icon" (click)="emitEvent()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Meu Mono Repositorio</span>
+</div>
+
+<div class="block">
+  <button
+    mat-icon-button
+    class="setDarkModeIcon"
+    appGenerateIcon
+    #getIcon="getIcon"
+  >
+    <mat-icon>{{ getIcon.icon }}</mat-icon>
+  </button>
+</div>

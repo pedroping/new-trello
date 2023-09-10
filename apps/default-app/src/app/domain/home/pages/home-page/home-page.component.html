@@ -4,9 +4,7 @@
   </div>
   <div mainContent>
     <app-toolbar>
-      <button mat-icon-button class="setDarkModeIcon" appGenerateIcon #getIcon="getIcon">
-        <mat-icon>{{ getIcon.icon }}</mat-icon>
-      </button>
+      <app-toolBar></app-toolBar>
     </app-toolbar>
     <div class="pages">
       <router-outlet></router-outlet>
