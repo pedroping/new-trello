@@ -6,15 +6,13 @@ import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.s
   templateUrl: './card-block.component.html',
   styleUrls: ['./card-block.component.scss'],
 })
-export class CardBlockComponent implements OnInit {
+export class CardBlockComponent {
   constructor(
     readonly dragAndDropService: DragAndDropService,
     readonly cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
-  ngOnInit() {}
-
-  cards = Array.from({ length: 5 }, (_, i) => i + 1);
+  cards = Array.from({ length: 15 }, (_, i) => i + 1);
   drop = this.dragAndDropService.drop;
 
   onMove() {
