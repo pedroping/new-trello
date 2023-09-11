@@ -2,7 +2,7 @@
   <trello-card-header></trello-card-header>
 
   <div class="card-list" cdkDropList [cdkDropListData]="cards" (cdkDropListDropped)="drop($event)"
-    (cdkDropListDropped)="onDrop()">
+    (cdkDropListDropped)="onDrop()" [cdkDropListAutoScrollStep]="10">
     <ng-container *ngFor="let item of cards; let last = last">
       <div cdkDrag #card [class.last-card]="last" (cdkDragMoved)="onMove()">
         <div class="example-custom-placeholder" *cdkDragPlaceholder>
