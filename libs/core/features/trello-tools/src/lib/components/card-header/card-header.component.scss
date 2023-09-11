@@ -1,13 +1,24 @@
 :host {
-  height: 10px;
+  height: 25px;
   padding: 15px 15px 0px 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-bottom: 15px;
-  font-size: var(--font-size-02) !important;
+  font-size: var(--font-size-03) !important;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+
+  .title {
+    display: flex;
+    flex-direction: column;
+
+    span {
+      &:nth-child(2) {
+        font-size: var(--font-size-01) !important;
+      }
+    }
+  }
 
   .more-icon {
     display: flex;

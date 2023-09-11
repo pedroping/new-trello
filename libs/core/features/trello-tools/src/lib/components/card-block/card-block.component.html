@@ -1,5 +1,5 @@
 <div class="content" [trelloCardBlockHeight]="cards.length" [baseSize]="90">
-  <trello-card-header></trello-card-header>
+  <trello-card-header [cardLength]="cards.length"></trello-card-header>
 
   <div class="card-list" cdkDropList [cdkDropListData]="cards" (cdkDropListDropped)="drop($event)"
     (cdkDropListDropped)="onDrop()" [cdkDropListAutoScrollStep]="10">
