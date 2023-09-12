@@ -28,9 +28,8 @@ export class DragScrollDirective {
 
   @HostListener('mouseup', ['$event'])
   @HostListener('mouseleave', ['$event'])
-  stopDragging(e: MouseEvent) {
+  stopDragging() {
     this.mouseDown = false;
-    const el = this.el.nativeElement;
   }
 
   @HostListener('mousemove', ['$event'])
@@ -43,8 +42,8 @@ export class DragScrollDirective {
     }
 
     if (this.dragAndDropService.onMove$.value) {
-      console.log(e.pageX / 1.5);
-      const scroll = e.pageX < 70 ? 0 : e.pageX / 2;
+      console.log(e.pageX, window.innerWidth);
+      const scroll = e.pageX < 160 ? e.pageX / 4 : e.pageX / 1.5;
       el.scrollLeft = scroll;
       return;
     }
