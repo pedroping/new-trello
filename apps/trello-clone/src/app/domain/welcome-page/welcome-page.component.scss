@@ -1,6 +1,5 @@
 .content {
   display: block;
-  min-width: calc(340px * 6);
   height: 100%;
   background-image: url('../../../../../../libs/core/themes/trello-clone/assets/img.jpg');
   background-position: center;
@@ -30,7 +29,7 @@
   ::ng-deep {
     mat-toolbar {
       padding: 0px 10px 0px 10px !important;
-      background-color:var(--toolbar-background) !important;
+      background-color: var(--toolbar-background) !important;
       color: var(--text-01) !important;
     }
   }
@@ -39,5 +38,7 @@
     position: relative;
     top: 64px;
     height: calc(100% - 64px);
+    min-width: calc(340px * 6);
+    overflow-x: hidden;
   }
 }
