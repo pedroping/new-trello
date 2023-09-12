@@ -43,13 +43,13 @@ export class DragScrollDirective {
 
     if (this.dragAndDropService.onMove$.value) {
       console.log(e.pageX, window.innerWidth);
-      const scroll = e.pageX < 70 ? e.pageX / 4 : window.innerWidth - e.pageX < 100 ? window.innerWidth : e.pageX + 5;
+      const scroll = e.pageX < 100 ? e.pageX / 4 : window.innerWidth - e.pageX < 100 ? window.innerWidth : e.pageX;
       el.scrollLeft = scroll;
       return;
     }
 
-    const x = e.pageX - el.offsetLeft;
-    const scroll = x - this.startX;
+    const xPosition = e.pageX - el.offsetLeft;
+    const scroll = xPosition - this.startX;
     el.scrollLeft = this.scrollLeft - scroll;
   }
 }
