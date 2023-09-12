@@ -1,10 +1,10 @@
-<div class="content" customBackground dragScroll>
+<div class="content" dragScroll customBackground>
   <app-toolbar>
     <trello-toolbar-content></trello-toolbar-content>
   </app-toolbar>
 
-  <div class="routes" >
-    <router-outlet dragScroll></router-outlet>
+  <div class="routes" cdkDropListGroup>
+    <router-outlet></router-outlet>
   </div>
 </div>
 
