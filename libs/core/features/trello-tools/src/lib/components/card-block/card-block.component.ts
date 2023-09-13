@@ -16,7 +16,7 @@ export class CardBlockComponent {
     })
   }
 
-  cards = Array.from({ length: 15 }, (_, i) => i + 1);
+  cards = Array.from({ length: 10 }, (_, i) => i + 1);
   drop = this.dragAndDropService.drop;
 
   isSelectedBlock = false;
