@@ -1,19 +1,8 @@
-<div
-  class="content"
-  [trelloCardBlockHeight]="cards.length"
-  [baseSize]="90"
-  [class.isSelectedBlock]="isSelectedBlock"
->
+<div class="content" [trelloCardBlockHeight]="cards.length" [baseSize]="90" [isSelected]="isSelectedBlock">
   <trello-card-header [cardLength]="cards.length"></trello-card-header>
 
-  <div
-    class="card-list"
-    cdkDropList
-    [cdkDropListData]="cards"
-    (cdkDropListDropped)="drop($event)"
-    (cdkDropListDropped)="onDrop()"
-    [cdkDropListAutoScrollStep]="10"
-  >
+  <div class="card-list" cdkDropList [cdkDropListData]="cards" (cdkDropListDropped)="drop($event)"
+    (cdkDropListDropped)="onDrop()" [cdkDropListAutoScrollStep]="10">
     <ng-container *ngFor="let item of cards">
       <div cdkDrag #card (cdkDragMoved)="onMove()">
         <div class="example-custom-placeholder" *cdkDragPlaceholder>
