@@ -4,6 +4,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CoreFeaturesTrelloToolsModule } from '@my-monorepo/core/features/trello-tools';
 import { CoreUiSidenavModule } from '@my-monorepo/core/ui/sidenav';
 import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
+import { CoreFeaturesDragScrollModule } from '@my-monorepo/core/features/drag-scroll';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -15,6 +16,7 @@ import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
     DragDropModule,
     CoreUiSidenavModule,
     CoreUiToolbarModule,
+    CoreFeaturesDragScrollModule
   ],
 })
 export class HomePageComponent {}

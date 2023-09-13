@@ -1,9 +1,6 @@
 :host {
-  .container {
-    padding: 15px;
-    display: flex;
-    gap: 20px;
-    justify-content: space-between;
-    overflow: auto;
-  }
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
 }

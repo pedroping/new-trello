@@ -1,6 +1,7 @@
 import {
   ContentChildren,
   Directive,
+  ElementRef,
   HostBinding,
   Input,
   QueryList,
@@ -11,19 +12,23 @@ import { DragAndDropService } from '../services/drag-and-drop/drag-and-drop.serv
   selector: '[trelloCardBlockHeight]',
 })
 export class CardBlockHeightDirective {
-  constructor(private readonly dragAndDropService: DragAndDropService) { }
+  constructor(
+    private readonly dragAndDropService: DragAndDropService,
+    private readonly elementRef: ElementRef
+  ) { }
 
   @Input('trelloCardBlockHeight') length!: number;
   @Input() baseSize!: number;
+  @Input() isSelected = false
 
   @ContentChildren('card') cards?: QueryList<HTMLDivElement>;
 
   @HostBinding('style.height') get cardHeight() {
-    if (this.dragAndDropService.onMove$.value) {
-      const calcedHeight = (this.length + 1) * 40 + this.baseSize
+    if (this.dragAndDropService.onMove$.value && !this.isSelected) {
+      const calcedHeight = (this.length + 1) * 40 + this.baseSize;
       return calcedHeight < 100 ? 150 + 'px' : calcedHeight + 'px';
     }
-    const calcedHeight = (this.length) * 40 + this.baseSize
+    const calcedHeight = this.length * 40 + this.baseSize;
     return calcedHeight < 100 ? 150 + 'px' : calcedHeight + 'px';
   }
 }
