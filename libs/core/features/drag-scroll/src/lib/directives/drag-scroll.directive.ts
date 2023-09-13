@@ -1,8 +1,4 @@
-import {
-  Directive,
-  ElementRef,
-  HostListener
-} from '@angular/core';
+import { Directive, ElementRef, HostListener } from '@angular/core';
 import { DragAndDropService } from '@my-monorepo/core/features/trello-tools';
 import { Subject, takeUntil, timer } from 'rxjs';
 @Directive({
@@ -19,7 +15,8 @@ export class DragScrollDirective {
   startX = 0;
   scrollLeft = 0;
 
-  stopEvent$ = new Subject<void>()
+  stopLeftEvent$ = new Subject<void>();
+  stopRightEvent$ = new Subject<void>();
 
   @HostListener('mousedown', ['$event'])
   startDragging(e: MouseEvent) {
@@ -39,28 +36,26 @@ export class DragScrollDirective {
   moveEvent(e: MouseEvent) {
     const el = this.el.nativeElement;
     e.preventDefault();
+    this.stopRightEvent$.next();
+    this.stopLeftEvent$.next();
 
     if (!this.mouseDown && !this.dragAndDropService.onMove$.value) {
       return;
     }
 
     if (this.dragAndDropService.onMove$.value) {
-      // console.log(e.pageX, window.innerWidth);
       if (window.innerWidth - 50 < e.pageX) {
-        console.log('On right border');
-        return
+        this.startRightEvent();
+        return;
       }
-
-      this.stopEvent$.next()
+      this.stopRightEvent$.next();
 
       if (50 > e.pageX) {
-        console.log('On left border');
-        this.startLeftEvent()
+        this.startLeftEvent();
+        return;
       }
+      this.stopLeftEvent$.next();
 
-
-      // const scroll = e.pageX < 100 ? e.pageX / 4 : window.innerWidth - e.pageX < 100 ? window.innerWidth : e.pageX;
-      // el.scrollLeft = scroll;
       return;
     }
 
@@ -70,10 +65,20 @@ export class DragScrollDirective {
   }
 
   startLeftEvent() {
-    timer(0, 10).pipe(takeUntil(this.stopEvent$)).subscribe(() => {
-      console.log('event');
-      if (this.dragAndDropService.onMove$.value)
-        this.el.nativeElement.scrollLeft--
-    })
+    timer(0, 1)
+      .pipe(takeUntil(this.stopLeftEvent$))
+      .subscribe(() => {
+        if (this.dragAndDropService.onMove$.value)
+          this.el.nativeElement.scrollLeft--;
+      });
+  }
+
+  startRightEvent() {
+    timer(0, 1)
+      .pipe(takeUntil(this.stopRightEvent$))
+      .subscribe(() => {
+        if (this.dragAndDropService.onMove$.value)
+          this.el.nativeElement.scrollLeft += 2;
+      });
   }
 }

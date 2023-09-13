@@ -26,10 +26,10 @@ export class CardBlockHeightDirective {
     const hasSelect =
       this.elementRef.nativeElement.classList.value.includes('isSelectedBlock');
     if (this.dragAndDropService.onMove$.value && !hasSelect) {
-      const calcedHeight = (this.length + 1) * 42 + this.baseSize;
+      const calcedHeight = (this.length + 1) * 40 + this.baseSize;
       return calcedHeight < 100 ? 150 + 'px' : calcedHeight + 'px';
     }
-    const calcedHeight = this.length * 42 + this.baseSize;
+    const calcedHeight = this.length * 40 + this.baseSize;
     return calcedHeight < 100 ? 150 + 'px' : calcedHeight + 'px';
   }
 }
