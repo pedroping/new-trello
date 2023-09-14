@@ -8,9 +8,7 @@ export class DragScrollDirective {
   constructor(
     private el: ElementRef,
     readonly dragAndDropService: DragAndDropService
-  ) {
-    console.log(el.nativeElement.parentElement);
-  }
+  ) { this.el.nativeElement.style.width = '2000px'; }
   mouseDown = false;
   startX = 0;
   scrollLeft = 0;
@@ -22,8 +20,8 @@ export class DragScrollDirective {
   startDragging(e: MouseEvent) {
     const el = this.el.nativeElement;
     this.mouseDown = true;
-    this.startX = e.pageX - el.offsetLeft;
-    this.scrollLeft = el.scrollLeft;
+    this.startX = e.pageX - el.parentElement.offsetLeft;
+    this.scrollLeft = el.parentElement.scrollLeft;
   }
 
   @HostListener('mouseup', ['$event'])
@@ -49,31 +47,30 @@ export class DragScrollDirective {
         return;
       }
       this.stopRightEvent$.next();
-      if (!this.dragAndDropService.onMove$.value)
-        this.el.nativeElement.style.width = 'auto';
 
       if (50 > e.pageX) {
         this.startLeftEvent();
         return;
       }
       this.stopLeftEvent$.next();
-      if (!this.dragAndDropService.onMove$.value)
-        this.el.nativeElement.style.width = 'auto';
 
       return;
     }
 
-    const xPosition = e.pageX - el.offsetLeft;
+    // this.el.nativeElement.style.width = 'auto';
+    const xPosition = e.pageX - el.parentElement.offsetLeft;
     const scroll = xPosition - this.startX;
-    el.scrollLeft = this.scrollLeft - scroll;
+    el.parentElement.scrollLeft = this.scrollLeft - scroll;
   }
 
   startLeftEvent() {
     timer(0, 1)
       .pipe(takeUntil(this.stopLeftEvent$))
       .subscribe(() => {
-        if (this.dragAndDropService.onMove$.value)
-          this.el.nativeElement.scrollLeft--;
+        if (this.dragAndDropService.onMove$.value) {
+          // this.el.nativeElement.style.width = '2000px';
+          this.el.nativeElement.parentElement.scrollLeft--;
+        }
       });
   }
 
@@ -82,8 +79,8 @@ export class DragScrollDirective {
       .pipe(takeUntil(this.stopRightEvent$))
       .subscribe(() => {
         if (this.dragAndDropService.onMove$.value) {
-          this.el.nativeElement.style.width = '2000px';
-          this.el.nativeElement.scrollLeft += 5;
+          // this.el.nativeElement.style.width = '2000px';
+          this.el.nativeElement.parentElement.scrollLeft += 5;
         }
       });
   }

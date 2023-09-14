@@ -37,6 +37,7 @@
   .route-content {
     position: relative;
     top: 64px;
-    height: calc(100% - 84px);
+    height: calc(100% - 64px);
+    overflow-x: hidden;
   }
 }
