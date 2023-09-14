@@ -1,14 +1,8 @@
 .content {
+  width: 100vw;
   display: block;
-  height: 100%;
-  background-image: url('../../../../../../libs/core/themes/trello-clone/assets/img.jpg');
-  background-position: center;
-  background-repeat: repeat;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  overflow-x: auto;
+  overflow: auto;
+  height: 100% !important;
 
   app-toolbar {
     width: 100%;
@@ -37,6 +31,6 @@
   .route-content {
     position: relative;
     top: 64px;
-    height: calc(100% - 84px);
+    height: calc(100% - 64px);
   }
 }

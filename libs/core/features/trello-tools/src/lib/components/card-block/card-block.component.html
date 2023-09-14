@@ -16,7 +16,7 @@
       (cdkDropListDropped)="onDrop()"
       [cdkDropListAutoScrollStep]="10"
       [trelloCardBlockHeight]="cards.length"
-      [baseSize]="90"
+      [baseSize]="30"
     >
       <ng-container *ngFor="let item of cards">
         <div cdkDrag #card (cdkDragMoved)="onMove()">

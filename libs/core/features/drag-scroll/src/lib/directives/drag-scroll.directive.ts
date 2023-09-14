@@ -1,6 +1,6 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
 import { DragAndDropService } from '@my-monorepo/core/features/trello-tools';
-import { Subject, takeUntil, timer } from 'rxjs';
+import { BehaviorSubject, Subject, delay, takeUntil, timer } from 'rxjs';
 @Directive({
   selector: '[dragScroll]',
 })
@@ -9,7 +9,7 @@ export class DragScrollDirective {
     private el: ElementRef,
     readonly dragAndDropService: DragAndDropService
   ) {
-    console.log(el.nativeElement.parentElement);
+    this.el.nativeElement.style.width = '2000px';
   }
   mouseDown = false;
   startX = 0;
@@ -44,47 +44,48 @@ export class DragScrollDirective {
     }
 
     if (this.dragAndDropService.onMove$.value) {
-      if (window.innerWidth - 50 < e.pageX) {
-        this.startRightEvent();
-        return;
-      }
-      this.stopRightEvent$.next();
-      if (!this.dragAndDropService.onMove$.value)
+      if (this.el.nativeElement.style.width != 'auto')
         this.el.nativeElement.style.width = 'auto';
-
-      if (50 > e.pageX) {
-        this.startLeftEvent();
-        return;
-      }
-      this.stopLeftEvent$.next();
-      if (!this.dragAndDropService.onMove$.value)
-        this.el.nativeElement.style.width = 'auto';
-
       return;
     }
 
+    console.log('run');
+
     const xPosition = e.pageX - el.offsetLeft;
     const scroll = xPosition - this.startX;
+
+    if (this.el.nativeElement.style.width != '100vw')
+      this.el.nativeElement.style.width = '100vw';
+
+
     el.scrollLeft = this.scrollLeft - scroll;
+
   }
 
-  startLeftEvent() {
-    timer(0, 1)
-      .pipe(takeUntil(this.stopLeftEvent$))
-      .subscribe(() => {
-        if (this.dragAndDropService.onMove$.value)
-          this.el.nativeElement.scrollLeft--;
-      });
-  }
+  // startLeftEvent() {
+  //   timer(0, 1)
+  //     .pipe(takeUntil(this.stopLeftEvent$))
+  //     .subscribe(() => {
+  //       if (this.dragAndDropService.onMove$.value) {
+  //         console.log(this.el.nativeElement.style.width);
 
-  startRightEvent() {
-    timer(0, 1)
-      .pipe(takeUntil(this.stopRightEvent$))
-      .subscribe(() => {
-        if (this.dragAndDropService.onMove$.value) {
-          this.el.nativeElement.style.width = '2000px';
-          this.el.nativeElement.scrollLeft += 5;
-        }
-      });
-  }
+  //         if (this.el.nativeElement.style.width != '2000px')
+  //           this.el.nativeElement.style.width = '2000px';
+  //         this.el.nativeElement.scrollLeft--;
+  //       }
+  //     });
+  // }
+
+  // startRightEvent() {
+  //   timer(0, 1)
+  //     .pipe(takeUntil(this.stopRightEvent$))
+  //     .subscribe(() => {
+  //       if (this.dragAndDropService.onMove$.value) {
+  //         console.log(this.el.nativeElement.style.width);
+  //         if (this.el.nativeElement.style.width != '2000px')
+  //           this.el.nativeElement.style.width = '2000px';
+  //         this.el.nativeElement.scrollLeft += 5;
+  //       }
+  //     });
+  // }
 }

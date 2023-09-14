@@ -11,6 +11,8 @@ import {
 } from '@taiga-ui/core';
 import { TuiAccordionModule } from '@taiga-ui/kit';
 import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
+import { CoreFeaturesDragScrollModule } from '@my-monorepo/core/features/drag-scroll';
+import { CoreFeaturesCustomBackgroundModule } from '@my-monorepo/core/features/custom-background';
 @Component({
   standalone: true,
   imports: [
@@ -21,7 +23,9 @@ import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
     TuiDialogModule,
     TuiRootModule,
     TuiAccordionModule,
-    CoreUiToolbarModule
+    CoreUiToolbarModule,
+    CoreFeaturesDragScrollModule,
+    CoreFeaturesCustomBackgroundModule
   ],
   selector: 'my-monorepo-root',
   templateUrl: './app.component.html',
