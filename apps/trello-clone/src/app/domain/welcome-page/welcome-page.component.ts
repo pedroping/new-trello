@@ -5,6 +5,7 @@ import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
 import { ToolbarContentComponent } from '../../core/toolbar-content/toolbar-content.component';
 import { CoreFeaturesCustomBackgroundModule } from '@my-monorepo/core/features/custom-background';
 import { CoreFeaturesDragScrollModule } from '@my-monorepo/core/features/drag-scroll';
+import { DragAndDropService } from '@my-monorepo/core/features/trello-tools';
 @Component({
   selector: 'app-welcome-page',
   templateUrl: './welcome-page.component.html',
@@ -20,7 +21,7 @@ import { CoreFeaturesDragScrollModule } from '@my-monorepo/core/features/drag-sc
   ],
 })
 export class WelcomePageComponent implements OnInit {
-  constructor() {}
+  constructor(readonly dragAndDropService: DragAndDropService) {}
 
   ngOnInit() {}
 }

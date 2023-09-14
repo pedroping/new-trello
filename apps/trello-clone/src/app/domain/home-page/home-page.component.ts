@@ -1,7 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { DragDropModule } from '@angular/cdk/drag-drop';
-import { CoreFeaturesTrelloToolsModule } from '@my-monorepo/core/features/trello-tools';
+import { ChangeDetectorRef, Component } from '@angular/core';
+import {
+  CdkDragDrop,
+  DragDropModule,
+  moveItemInArray,
+} from '@angular/cdk/drag-drop';
+import {
+  CoreFeaturesTrelloToolsModule,
+  DragAndDropService,
+} from '@my-monorepo/core/features/trello-tools';
 import { CoreUiSidenavModule } from '@my-monorepo/core/ui/sidenav';
 import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
 import { CoreFeaturesDragScrollModule } from '@my-monorepo/core/features/drag-scroll';
@@ -16,7 +23,32 @@ import { CoreFeaturesDragScrollModule } from '@my-monorepo/core/features/drag-sc
     DragDropModule,
     CoreUiSidenavModule,
     CoreUiToolbarModule,
-    CoreFeaturesDragScrollModule
+    CoreFeaturesDragScrollModule,
   ],
 })
-export class HomePageComponent {}
+export class HomePageComponent {
+  blocks = Array.from({ length: 5 }, (_, i) => i + 1);
+
+  constructor(
+    readonly dragAndDropService: DragAndDropService,
+    readonly cdr: ChangeDetectorRef
+  ) {}
+
+  drop(event: CdkDragDrop<number[]>) {
+    moveItemInArray(this.blocks, event.previousIndex, event.currentIndex);
+  }
+
+  onMove() {
+    this.dragAndDropService.onBlockMove = true;
+    if (this.dragAndDropService.onMove$.value) return;
+    this.dragAndDropService.onMove$.next(true);
+    this.cdr.detectChanges();
+  }
+
+  onDrop() {
+    this.dragAndDropService.onBlockMove = false;
+    if (!this.dragAndDropService.onMove$.value) return;
+    this.dragAndDropService.onMove$.next(false);
+    this.cdr.detectChanges();
+  }
+}

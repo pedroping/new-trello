@@ -29,12 +29,12 @@
   ::ng-deep {
     mat-toolbar {
       padding: 0px 10px 0px 10px !important;
-      background-color:var(--toolbar-background) !important;
+      background-color: var(--toolbar-background) !important;
       color: var(--text-01) !important;
     }
   }
 
-  .routes {
+  .route-content {
     position: relative;
     top: 64px;
     height: calc(100% - 84px);

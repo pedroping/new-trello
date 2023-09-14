@@ -9,7 +9,7 @@ export class DragScrollDirective {
     private el: ElementRef,
     readonly dragAndDropService: DragAndDropService
   ) {
-    console.log(el.nativeElement);
+    console.log(el.nativeElement.parentElement);
   }
   mouseDown = false;
   startX = 0;
@@ -49,12 +49,16 @@ export class DragScrollDirective {
         return;
       }
       this.stopRightEvent$.next();
+      if (!this.dragAndDropService.onMove$.value)
+        this.el.nativeElement.style.width = 'auto';
 
       if (50 > e.pageX) {
         this.startLeftEvent();
         return;
       }
       this.stopLeftEvent$.next();
+      if (!this.dragAndDropService.onMove$.value)
+        this.el.nativeElement.style.width = 'auto';
 
       return;
     }
@@ -77,8 +81,10 @@ export class DragScrollDirective {
     timer(0, 1)
       .pipe(takeUntil(this.stopRightEvent$))
       .subscribe(() => {
-        if (this.dragAndDropService.onMove$.value)
-          this.el.nativeElement.scrollLeft += 2;
+        if (this.dragAndDropService.onMove$.value) {
+          this.el.nativeElement.style.width = '2000px';
+          this.el.nativeElement.scrollLeft += 5;
+        }
       });
   }
 }

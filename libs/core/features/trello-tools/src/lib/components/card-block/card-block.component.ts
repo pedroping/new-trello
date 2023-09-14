@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
 
 @Component({
@@ -7,13 +7,15 @@ import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.s
   styleUrls: ['./card-block.component.scss'],
 })
 export class CardBlockComponent {
+  @Input() isPreview = false;
+
   constructor(
     readonly dragAndDropService: DragAndDropService,
     readonly cdr: ChangeDetectorRef
   ) {
-    this.dragAndDropService.onMove$.subscribe(val => {
-      if(!val) this.isSelectedBlock = false
-    })
+    this.dragAndDropService.onMove$.subscribe((val) => {
+      if (!val) this.isSelectedBlock = false;
+    });
   }
 
   cards = Array.from({ length: 10 }, (_, i) => i + 1);
@@ -23,7 +25,7 @@ export class CardBlockComponent {
 
   onMove() {
     if (this.dragAndDropService.onMove$.value) return;
-    this.isSelectedBlock = true
+    this.isSelectedBlock = true;
     this.dragAndDropService.onMove$.next(true);
     this.cdr.detectChanges();
   }
