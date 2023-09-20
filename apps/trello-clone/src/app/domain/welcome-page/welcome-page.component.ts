@@ -1,5 +1,5 @@
-import { DragDropModule } from '@angular/cdk/drag-drop';
-import { Component } from '@angular/core';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CoreFeaturesCustomBackgroundModule } from '@my-monorepo/core/features/custom-background';
 import { CoreFeaturesDragScrollModule } from '@my-monorepo/core/features/drag-scroll';
@@ -21,7 +21,28 @@ import { ToolbarContentComponent } from '../../core/toolbar-content/toolbar-cont
   ],
 })
 export class WelcomePageComponent {
-  constructor(readonly dragAndDropService: DragAndDropService) { }
+  blocks = Array.from({ length: 5 }, (_, i) => i + 1);
 
+  constructor(
+    readonly dragAndDropService: DragAndDropService,
+    readonly cdr: ChangeDetectorRef
+  ) {}
 
+  drop(event: CdkDragDrop<number[]>) {
+    moveItemInArray(this.blocks, event.previousIndex, event.currentIndex);
+  }
+
+  onMove() {
+    this.dragAndDropService.onBlockMove = true;
+    if (this.dragAndDropService.onMove$.value) return;
+    this.dragAndDropService.onMove$.next(true);
+    this.cdr.detectChanges();
+  }
+
+  onDrop() {
+    this.dragAndDropService.onBlockMove = false;
+    if (!this.dragAndDropService.onMove$.value) return;
+    this.dragAndDropService.onMove$.next(false);
+    this.cdr.detectChanges();
+  }
 }

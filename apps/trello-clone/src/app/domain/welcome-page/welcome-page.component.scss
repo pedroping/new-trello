@@ -1,8 +1,9 @@
 .content {
-  width: 100vw;
   display: block;
   overflow: auto;
   height: 100% !important;
+  overflow-x: auto;
+  width: 100vw;
 
   app-toolbar {
     width: 100%;

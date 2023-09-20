@@ -8,9 +8,7 @@ export class DragScrollDirective {
   constructor(
     private el: ElementRef,
     readonly dragAndDropService: DragAndDropService
-  ) {
-    this.el.nativeElement.style.width = '2000px';
-  }
+  ) { }
   mouseDown = false;
   startX = 0;
   scrollLeft = 0;
@@ -20,7 +18,7 @@ export class DragScrollDirective {
 
   @HostListener('mousedown', ['$event'])
   startDragging(e: MouseEvent) {
-    const el = this.el.nativeElement;
+    const el = this.el.nativeElement.parentElement;
     this.mouseDown = true;
     this.startX = e.pageX - el.offsetLeft;
     this.scrollLeft = el.scrollLeft;
@@ -44,8 +42,8 @@ export class DragScrollDirective {
     }
 
     if (this.dragAndDropService.onMove$.value) {
-      if (this.el.nativeElement.style.width != 'auto')
-        this.el.nativeElement.style.width = 'auto';
+      // if (this.el.nativeElement.style.width != 'auto')
+      //   this.el.nativeElement.style.width = 'auto';
       return;
     }
 
@@ -54,12 +52,12 @@ export class DragScrollDirective {
     const xPosition = e.pageX - el.offsetLeft;
     const scroll = xPosition - this.startX;
 
-    if (this.el.nativeElement.style.width != '100vw')
-      this.el.nativeElement.style.width = '100vw';
+    // if (this.el.nativeElement.style.width != '100vw')
+    //   this.el.nativeElement.style.width = '100vw';
 
 
-    el.scrollLeft = this.scrollLeft - scroll;
-
+    // el.scrollLeft = this.scrollLeft - scroll;
+    this.el.nativeElement.parentElement.scrollLeft = this.scrollLeft - scroll;    
   }
 
   // startLeftEvent() {
