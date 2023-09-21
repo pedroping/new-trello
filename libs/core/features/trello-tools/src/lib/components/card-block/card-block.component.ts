@@ -24,15 +24,13 @@ export class CardBlockComponent {
   isSelectedBlock = false;
 
   onMove() {
-    if (this.dragAndDropService.onMove$.value) return;
     this.isSelectedBlock = true;
-    this.dragAndDropService.onMove$.next(true);
+    this.dragAndDropService.onCardMove$.next(true);
     this.cdr.detectChanges();
   }
 
   onDrop() {
-    if (!this.dragAndDropService.onMove$.value) return;
-    this.dragAndDropService.onMove$.next(false);
+    this.dragAndDropService.onCardMove$.next(false);
     this.cdr.detectChanges();
   }
 }

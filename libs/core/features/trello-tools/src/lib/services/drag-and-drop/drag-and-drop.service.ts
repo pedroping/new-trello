@@ -8,12 +8,11 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class DragAndDropService {
-  
+
   cards = new Array(5);
   onMove$ = new BehaviorSubject<boolean>(false);
+  onCardMove$ = new BehaviorSubject<boolean>(false);
   onBlockMove = false
-
-  constructor() {}
 
   drop(event: CdkDragDrop<number[]>) {
     if (event.previousContainer === event.container) {
