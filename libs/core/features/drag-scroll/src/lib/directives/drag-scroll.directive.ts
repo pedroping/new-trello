@@ -57,7 +57,7 @@ export class DragScrollDirective {
       return;
     }
 
-    if (!this.mouseDown) {
+    if (!this.mouseDown || this.dragAndDropService.onMove$.value) {
       return;
     }
 
