@@ -1,6 +1,6 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
 import { DragAndDropService } from '@my-monorepo/core/features/trello-tools';
-import { BehaviorSubject, Subject, delay, takeUntil, timer } from 'rxjs';
+import { Subject } from 'rxjs';
 @Directive({
   selector: '[dragScroll]',
 })
@@ -8,7 +8,9 @@ export class DragScrollDirective {
   constructor(
     private el: ElementRef,
     readonly dragAndDropService: DragAndDropService
-  ) { }
+  ) {
+    this.el.nativeElement.style.width = 5 * 320 + 340 + 'px'
+   }
   mouseDown = false;
   startX = 0;
   scrollLeft = 0;
@@ -42,21 +44,12 @@ export class DragScrollDirective {
     }
 
     if (this.dragAndDropService.onMove$.value) {
-      // if (this.el.nativeElement.style.width != 'auto')
-      //   this.el.nativeElement.style.width = 'auto';
       return;
     }
-
-    console.log('run');
 
     const xPosition = e.pageX - el.offsetLeft;
     const scroll = xPosition - this.startX;
 
-    // if (this.el.nativeElement.style.width != '100vw')
-    //   this.el.nativeElement.style.width = '100vw';
-
-
-    // el.scrollLeft = this.scrollLeft - scroll;
     this.el.nativeElement.parentElement.scrollLeft = this.scrollLeft - scroll;    
   }
 
