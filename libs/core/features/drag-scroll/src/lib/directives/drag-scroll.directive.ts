@@ -27,7 +27,7 @@ export class DragScrollDirective {
   startDragging(e: MouseEvent) {
     const el = this.el.nativeElement.parentElement;
     this.mouseDown = true;
-    this.startX = e.pageX - el.offsetLeft;
+    this.startX = e.pageX - el.offsetLeft + 250;
     this.scrollLeft = el.scrollLeft;
   }
 
@@ -61,7 +61,7 @@ export class DragScrollDirective {
       }
       this.stopRightEvent$.next();
 
-      if (50 > e.pageX) {
+      if (350 > e.pageX) {
         this.startLeftEvent();
         return;
       }
