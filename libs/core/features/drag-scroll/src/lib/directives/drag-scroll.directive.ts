@@ -1,14 +1,21 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
-import { DragAndDropService } from '@my-monorepo/core/features/trello-tools';
-import { Subject, takeUntil, timer } from 'rxjs';
+import {
+  CardMocksService,
+  DragAndDropService,
+} from '@my-monorepo/core/features/trello-tools';
+import { Subject, startWith, takeUntil, timer } from 'rxjs';
 @Directive({
   selector: '[dragScroll]',
 })
 export class DragScrollDirective {
   constructor(
-    private el: ElementRef,
-    readonly dragAndDropService: DragAndDropService
-  ) { this.el.nativeElement.style.width = '2000px'; }
+    private readonly el: ElementRef,
+    private readonly dragAndDropService: DragAndDropService,
+    private readonly cardMocksService: CardMocksService
+  ) {
+    this.setSize();
+  }
+
   mouseDown = false;
   startX = 0;
   scrollLeft = 0;
@@ -18,7 +25,7 @@ export class DragScrollDirective {
 
   @HostListener('mousedown', ['$event'])
   startDragging(e: MouseEvent) {
-    const el = this.el.nativeElement;
+    const el = this.el.nativeElement.parentElement;
     this.mouseDown = true;
     this.startX = e.pageX - el.parentElement.offsetLeft;
     this.scrollLeft = el.parentElement.scrollLeft;
@@ -37,12 +44,18 @@ export class DragScrollDirective {
     this.stopRightEvent$.next();
     this.stopLeftEvent$.next();
 
-    if (!this.mouseDown && !this.dragAndDropService.onMove$.value) {
-      return;
-    }
+    console.log(
+      this.dragAndDropService.onMove$.value,
+      this.dragAndDropService.onCardMove$.value,
+      !this.dragAndDropService.onMove$.value &&
+        this.dragAndDropService.onCardMove$.value
+    );
 
-    if (this.dragAndDropService.onMove$.value) {
-      if (window.innerWidth - 50 < e.pageX) {
+    if (
+      !this.dragAndDropService.onMove$.value &&
+      this.dragAndDropService.onCardMove$.value
+    ) {
+      if (window.innerWidth - 350 < e.pageX) {
         this.startRightEvent();
         return;
       }
@@ -57,19 +70,23 @@ export class DragScrollDirective {
       return;
     }
 
-    // this.el.nativeElement.style.width = 'auto';
-    const xPosition = e.pageX - el.parentElement.offsetLeft;
+    if (!this.mouseDown || this.dragAndDropService.onMove$.value) {
+      return;
+    }
+
+    const xPosition = e.pageX - el.offsetLeft;
     const scroll = xPosition - this.startX;
-    el.parentElement.scrollLeft = this.scrollLeft - scroll;
+
+    this.el.nativeElement.parentElement.scrollLeft = this.scrollLeft - scroll;
   }
 
   startLeftEvent() {
     timer(0, 1)
       .pipe(takeUntil(this.stopLeftEvent$))
       .subscribe(() => {
-        if (this.dragAndDropService.onMove$.value) {
-          // this.el.nativeElement.style.width = '2000px';
-          this.el.nativeElement.parentElement.scrollLeft--;
+        if (this.dragAndDropService.onCardMove$.value) {
+          this.el.nativeElement.scrollLeft -= 2;
+          this.el.nativeElement.parentElement.scrollLeft -= 2;
         }
       });
   }
@@ -78,10 +95,19 @@ export class DragScrollDirective {
     timer(0, 1)
       .pipe(takeUntil(this.stopRightEvent$))
       .subscribe(() => {
-        if (this.dragAndDropService.onMove$.value) {
-          // this.el.nativeElement.style.width = '2000px';
-          this.el.nativeElement.parentElement.scrollLeft += 5;
+        if (this.dragAndDropService.onCardMove$.value) {
+          this.el.nativeElement.scrollLeft += 2;
+          this.el.nativeElement.parentElement.scrollLeft += 2;
         }
+      });
+  }
+
+  setSize() {
+    this.cardMocksService.blocks$
+      .pipe(startWith(this.cardMocksService.blocks$.value))
+      .subscribe((blocks) => {
+        const length = blocks.length;
+        this.el.nativeElement.style.width = length * 320 + 340 + 'px';
       });
   }
 }

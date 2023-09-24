@@ -4,6 +4,8 @@ body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
   margin: 0;
   padding: 0;
+  width: 100%;
+  overflow-x: auto;
   font-size: var(--font-size-01) !important;
   font-weight: var(--font-weight-01) !important;
 }
@@ -12,9 +14,20 @@ body {
   box-sizing: border-box;
   border-radius: 4px;
   cursor: grabbing;
+
   trello-card {
     transform: rotate(5deg) !important;
     cursor: grabbing;
+  }
+
+  trello-card-block {
+    trello-card {
+      transform: rotate(0deg) !important;
+    }
+
+    .card-list {
+      top: 50px;
+    }
   }
 }
 

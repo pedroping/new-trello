@@ -1,17 +1,25 @@
 :host {
   display: flex;
   justify-content: flex-start;
-
-  .body {
-    display: flex;
-    justify-content: flex-start;
-    gap: 20px;
-    padding: 20px;
-  }
+  gap: 20px;
+  padding: 20px;
 
   .addNew {
     background-color: red;
     width: 300px;
     height: 300px;
   }
+
+  .teste {
+    background-color: blue;
+    height: 500px;
+    width: 350px;
+    color: white;
+    font-size: 50px;
+    padding: 20px;
+  }
+
+  // .block {
+  //   box-sizing: border-box;
+  // }
 }

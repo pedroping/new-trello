@@ -1,29 +1,14 @@
 .content {
   display: block;
-  height: 100%;
-  background-image: url('../../../../../../libs/core/themes/trello-clone/assets/img.jpg');
-  background-position: center;
-  background-repeat: repeat;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  overflow: auto;
+  height: 100% !important;
   overflow-x: auto;
+  width: calc(100vw - 250px);
 
   app-toolbar {
     width: 100%;
     position: fixed;
     z-index: 1000;
-  }
-
-  .sidenav {
-    bottom: 0;
-    position: absolute;
-    right: 0;
-    top: 64px;
-    background-color: red;
-    width: 250px;
-    height: calc(100% - 64px);
   }
 
   ::ng-deep {
@@ -38,6 +23,16 @@
     position: relative;
     top: 64px;
     height: calc(100% - 64px);
-    overflow-x: hidden;
   }
+}
+
+.sidenav {
+  bottom: 0;
+  position: absolute;
+  right: -250px;
+  top: 64px;
+  z-index: 15000;
+  background-color: red;
+  width: 250px;
+  height: calc(100% - 64px);
 }

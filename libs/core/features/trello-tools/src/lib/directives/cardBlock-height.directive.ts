@@ -26,7 +26,7 @@ export class CardBlockHeightDirective {
 
   @HostBinding('style.height') get cardHeight() {
     if (
-      this.dragAndDropService.onMove$.value &&
+      this.dragAndDropService.onCardMove$.value &&
       !this.isSelected &&
       this.isBlock
     ) {

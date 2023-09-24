@@ -1,17 +1,26 @@
-import { DragDropModule } from '@angular/cdk/drag-drop';
-import { Component, OnInit } from '@angular/core';
+import {
+  CdkDragDrop,
+  DragDropModule,
+  moveItemInArray,
+} from '@angular/cdk/drag-drop';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
-import { ToolbarContentComponent } from '../../core/toolbar-content/toolbar-content.component';
 import { CoreFeaturesCustomBackgroundModule } from '@my-monorepo/core/features/custom-background';
 import { CoreFeaturesDragScrollModule } from '@my-monorepo/core/features/drag-scroll';
-import { DragAndDropService } from '@my-monorepo/core/features/trello-tools';
+import {
+  CardMocksService,
+  DragAndDropService,
+} from '@my-monorepo/core/features/trello-tools';
+import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
+import { ToolbarContentComponent } from '../../core/toolbar-content/toolbar-content.component';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-welcome-page',
   templateUrl: './welcome-page.component.html',
   styleUrls: ['./welcome-page.component.scss'],
   standalone: true,
   imports: [
+    CommonModule,
     DragDropModule,
     RouterModule,
     CoreUiToolbarModule,
@@ -20,8 +29,39 @@ import { DragAndDropService } from '@my-monorepo/core/features/trello-tools';
     CoreFeaturesDragScrollModule,
   ],
 })
-export class WelcomePageComponent implements OnInit {
-  constructor(readonly dragAndDropService: DragAndDropService) {}
+export class WelcomePageComponent {
+  blocks$ = this.cardMocksService.blocks$;
 
-  ngOnInit() {}
+  constructor(
+    readonly dragAndDropService: DragAndDropService,
+    readonly cdr: ChangeDetectorRef,
+    private cardMocksService: CardMocksService
+  ) {}
+
+  drop(
+    event: CdkDragDrop<
+      {
+        name: string;
+        cards: number[];
+      }[]
+    >
+  ) {
+    let blocks = this.cardMocksService.blocks$.value;
+    moveItemInArray(blocks, event.previousIndex, event.currentIndex);
+    this.cardMocksService.blocks$.next(blocks);
+  }
+
+  onMove() {
+    this.dragAndDropService.onBlockMove = true;
+    if (this.dragAndDropService.onMove$.value) return;
+    this.dragAndDropService.onMove$.next(true);
+    this.cdr.detectChanges();
+  }
+
+  onDrop() {
+    this.dragAndDropService.onBlockMove = false;
+    if (!this.dragAndDropService.onMove$.value) return;
+    this.dragAndDropService.onMove$.next(false);
+    this.cdr.detectChanges();
+  }
 }

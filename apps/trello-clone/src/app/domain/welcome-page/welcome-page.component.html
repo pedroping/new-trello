@@ -1,4 +1,12 @@
-<div class="content" customBackground>
+<div
+  class="content"
+  cdkDropList
+  [cdkDropListData]="blocks$.value"
+  cdkDropListOrientation="horizontal"
+  [cdkDropListAutoScrollStep]="10"
+  (cdkDropListDropped)="drop($event); onDrop()"
+  cdkDropListGroup
+>
   <app-toolbar>
     <trello-toolbar-content></trello-toolbar-content>
   </app-toolbar>
@@ -7,3 +15,4 @@
     <router-outlet></router-outlet>
   </div>
 </div>
+<div class="sidenav"></div>
