@@ -8,6 +8,8 @@ import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.s
 })
 export class CardBlockComponent {
   @Input() isPreview = false;
+  @Input({ required: true }) title = '';
+  @Input({ required: true }) cards: number[] = [];
 
   constructor(
     readonly dragAndDropService: DragAndDropService,
@@ -16,9 +18,10 @@ export class CardBlockComponent {
     this.dragAndDropService.onMove$.subscribe((val) => {
       if (!val) this.isSelectedBlock = false;
     });
+
+    console.log(this.title);
   }
 
-  cards = Array.from({ length: 10 }, (_, i) => i + 1);
   drop = this.dragAndDropService.drop;
 
   isSelectedBlock = false;

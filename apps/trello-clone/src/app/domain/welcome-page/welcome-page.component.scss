@@ -3,22 +3,12 @@
   overflow: auto;
   height: 100% !important;
   overflow-x: auto;
-  width: 100vw;
+  width: calc(100vw - 250px);
 
   app-toolbar {
     width: 100%;
     position: fixed;
     z-index: 1000;
-  }
-
-  .sidenav {
-    bottom: 0;
-    position: absolute;
-    right: 0;
-    top: 64px;
-    background-color: red;
-    width: 250px;
-    height: calc(100% - 64px);
   }
 
   ::ng-deep {
@@ -34,4 +24,15 @@
     top: 64px;
     height: calc(100% - 64px);
   }
+}
+
+.sidenav {
+  bottom: 0;
+  position: absolute;
+  right: -250px;
+  top: 64px;
+  z-index: 15000;
+  background-color: red;
+  width: 250px;
+  height: calc(100% - 64px);
 }
