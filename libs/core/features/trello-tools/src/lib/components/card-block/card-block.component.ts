@@ -15,11 +15,9 @@ export class CardBlockComponent {
     readonly dragAndDropService: DragAndDropService,
     readonly cdr: ChangeDetectorRef
   ) {
-    this.dragAndDropService.onMove$.subscribe((val) => {
+    this.dragAndDropService.onCardMove$.subscribe((val) => {
       if (!val) this.isSelectedBlock = false;
     });
-
-    console.log(this.title);
   }
 
   drop = this.dragAndDropService.drop;

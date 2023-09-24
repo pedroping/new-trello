@@ -27,8 +27,8 @@ export class DragScrollDirective {
   startDragging(e: MouseEvent) {
     const el = this.el.nativeElement.parentElement;
     this.mouseDown = true;
-    this.startX = e.pageX - el.parentElement.offsetLeft;
-    this.scrollLeft = el.parentElement.scrollLeft;
+    this.startX = e.pageX - el.offsetLeft;
+    this.scrollLeft = el.scrollLeft;
   }
 
   @HostListener('mouseup', ['$event'])
