@@ -1,7 +1,7 @@
 <div
   class="content"
   [trelloCardBlockHeight]="cards.length"
-  [baseSize]="90"
+  [baseSize]="100"
   [isSelected]="isSelectedBlock"
   [isBlock]="true"
 >
@@ -20,7 +20,7 @@
       [cdkDropListAutoScrollStep]="10"
       [trelloCardBlockHeight]="cards.length"
       [isSelected]="isSelectedBlock"
-      [baseSize]="30"
+      [baseSize]="50"
     >
       <ng-container *ngFor="let item of cards">
         <div cdkDrag #card (cdkDragMoved)="onMove()">
