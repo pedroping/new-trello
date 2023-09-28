@@ -3,7 +3,7 @@
   [trelloCardBlockHeight]="cards.length"
   [baseSize]="100"
   [isSelected]="isSelectedBlock"
-  [isBlock]="true"
+  [type]="'block'"
 >
   <ng-container *ngIf="!isPreview; else preview">
     <trello-card-header
@@ -20,6 +20,7 @@
       [cdkDropListAutoScrollStep]="10"
       [trelloCardBlockHeight]="cards.length"
       [isSelected]="isSelectedBlock"
+      type="card"
       [baseSize]="50"
     >
       <ng-container *ngFor="let item of cards">
@@ -39,6 +40,7 @@
     <div
       class="card-list"
       [trelloCardBlockHeight]="cards.length"
+      [type]="'block'"
       [baseSize]="50"
     ></div>
   </ng-template>

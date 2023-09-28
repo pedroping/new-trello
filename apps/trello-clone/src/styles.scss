@@ -26,14 +26,14 @@ body {
     }
 
     .card-list {
-      top: 50px;
+      position: static;
     }
   }
 }
 
 .cdk-drag-placeholder ~ trello-card-block {
   .card-list {
-    top: 10px !important;
+    position: static !important;
   }
 }
 

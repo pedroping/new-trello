@@ -15,25 +15,37 @@ export class CardBlockHeightDirective {
   constructor(
     private readonly dragAndDropService: DragAndDropService,
     private readonly elementRef: ElementRef
-  ) {}
+  ) { this.setValueChanges() }
 
-  @Input('trelloCardBlockHeight') length!: number;
   @Input() baseSize!: number;
   @Input() isSelected = false;
-  @Input() isBlock = false;
+  @Input({ required: true }) type?: 'card' | 'block';
+  @Input('trelloCardBlockHeight') length!: number;
 
   @ContentChildren('card') cards?: QueryList<HTMLDivElement>;
 
   @HostBinding('style.height') get cardHeight() {
     if (
       this.dragAndDropService.onCardMove$.value &&
-      !this.isSelected &&
-      this.isBlock
+      !this.isSelected
     ) {
       const calcedHeight = (this.length + 1) * 40 + this.baseSize;
       return calcedHeight < 100 ? 150 + 'px' : calcedHeight + 'px';
     }
     const calcedHeight = this.length * 40 + this.baseSize;
     return calcedHeight < 100 ? 150 + 'px' : calcedHeight + 'px';
+  }
+
+  setValueChanges() {
+    this.dragAndDropService.onMove$.subscribe((value) => {
+
+      if (!this.type || this.type != 'card') return;
+
+      if (value && !this.isSelected) {
+        this.elementRef.nativeElement.style.position = 'static'
+        return
+      }
+      this.elementRef.nativeElement.style.position = 'absolute'
+    })
   }
 }

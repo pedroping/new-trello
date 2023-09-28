@@ -23,7 +23,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: absolute;
   margin-left: 10px;
+  top: 70px;
   max-height: 74vh;
   width: var(--card-width);
   min-height: 80px;
