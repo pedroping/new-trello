@@ -1,7 +1,21 @@
 $border-radius-value: 5px;
 
 :host {
+  .content {
+    width: 100%;
+    overflow-y: hidden;
+    overflow-x: auto;
+  }
+
   table {
+    width: 100%;
+  }
+
+  .text-overflow {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     width: 100%;
   }
 
@@ -13,7 +27,7 @@ $border-radius-value: 5px;
     display: table-row;
   }
 
-  .cdk-column-expandeIcon{
+  .cdk-column-expandeIcon {
     width: 40px;
     max-width: 40px;
   }
@@ -21,7 +35,6 @@ $border-radius-value: 5px;
   cdk-cell.cdk-column-expandeIcon {
     cursor: pointer;
   }
-  
 
   ::ng-deep nav,
   mat-paginator {
@@ -36,14 +49,17 @@ $border-radius-value: 5px;
     justify-content: flex-end;
   }
 
-  th {
-    text-align: left;
+  cdk-cell,
+  cdk-header-cell {
+    padding-left: 10px;
   }
 
   cdk-row,
   cdk-header-row,
   cdk-footer-row {
     display: flex;
+    text-align: left;
+    box-sizing: border-box;
   }
 
   cdk-cell,
@@ -92,5 +108,10 @@ $border-radius-value: 5px;
     cdk-cell {
       background-color: rgb(182, 182, 182);
     }
+  }
+
+  pagination-controls {
+    position: fixed;
+    width: calc(100% - 30px);
   }
 }
