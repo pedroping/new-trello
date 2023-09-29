@@ -46,15 +46,16 @@ export class DragScrollDirective {
 
     const onMove = this.dragAndDropService.onMove$.value;
     const onCardMove = this.dragAndDropService.onCardMove$.value;
+    const moveSize = window.innerWidth / 5 < 50 ? 50 : window.innerWidth / 5
 
     if (!onMove && onCardMove) {
-      if (window.innerWidth - 350 < e.pageX) {
+      if (window.innerWidth - (moveSize + 300) < e.pageX) {
         this.startRightEvent();
         return;
       }
       this.stopRightEvent$.next();
 
-      if (50 > e.pageX) {
+      if (moveSize > e.pageX) {
         this.startLeftEvent();
         return;
       }
