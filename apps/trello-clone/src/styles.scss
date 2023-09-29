@@ -21,6 +21,9 @@ body {
   }
 
   trello-card-block {
+    display: block;
+    transform: rotate(2.5deg) !important;
+
     trello-card {
       transform: rotate(0deg) !important;
     }

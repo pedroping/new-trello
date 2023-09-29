@@ -44,17 +44,10 @@ export class DragScrollDirective {
     this.stopRightEvent$.next();
     this.stopLeftEvent$.next();
 
-    console.log(
-      this.dragAndDropService.onMove$.value,
-      this.dragAndDropService.onCardMove$.value,
-      !this.dragAndDropService.onMove$.value &&
-        this.dragAndDropService.onCardMove$.value
-    );
+    const onMove = this.dragAndDropService.onMove$.value;
+    const onCardMove = this.dragAndDropService.onCardMove$.value;
 
-    if (
-      !this.dragAndDropService.onMove$.value &&
-      this.dragAndDropService.onCardMove$.value
-    ) {
+    if (!onMove && onCardMove) {
       if (window.innerWidth - 350 < e.pageX) {
         this.startRightEvent();
         return;
@@ -70,13 +63,12 @@ export class DragScrollDirective {
       return;
     }
 
-    if (!this.mouseDown || this.dragAndDropService.onMove$.value) {
+    if (!this.mouseDown || onMove) {
       return;
     }
 
     const xPosition = e.pageX - el.offsetLeft;
     const scroll = xPosition - this.startX;
-
     this.el.nativeElement.parentElement.scrollLeft = this.scrollLeft - scroll;
   }
 
