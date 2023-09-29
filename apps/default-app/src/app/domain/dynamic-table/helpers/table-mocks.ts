@@ -12,6 +12,7 @@ export const DATA = Array.from({ length: 10 }, (_, index) => {
     name: 'Pedro ' + index,
     age: index + 10,
     gmail: 'pedrofofao2014@gmail.com',
+    gmail2: 'pedrofofao2014@gmail.com',
   };
 }) as IBasicTableTest[];
 
@@ -61,6 +62,10 @@ export const CREATE_TABLE_CONFIG = (
       {
         label: 'E-mail',
         selector: 'gmail',
+      },
+      {
+        label: 'E-mail',
+        selector: 'gmail2',
       },
     ],
   } as ITableConfig<IBasicTableTest>;
