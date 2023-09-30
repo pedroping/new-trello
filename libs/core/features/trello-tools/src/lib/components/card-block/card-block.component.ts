@@ -14,24 +14,11 @@ export class CardBlockComponent {
   constructor(
     readonly dragAndDropService: DragAndDropService,
     readonly cdr: ChangeDetectorRef
-  ) {
-    this.dragAndDropService.onCardMove$.subscribe((val) => {
-      if (!val) this.isSelectedBlock = false;
-    });
-  }
-
-  drop = this.dragAndDropService.drop;
+  ) {}
 
   isSelectedBlock = false;
 
-  onMove() {
-    this.isSelectedBlock = true;
-    this.dragAndDropService.onCardMove$.next(true);
-    this.cdr.detectChanges();
-  }
-
-  onDrop() {
-    this.dragAndDropService.onCardMove$.next(false);
-    this.cdr.detectChanges();
+  cardMove(event: boolean) {
+    this.isSelectedBlock = event;
   }
 }
