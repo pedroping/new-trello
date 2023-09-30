@@ -44,17 +44,23 @@ export class DragScrollDirective {
     this.stopRightEvent$.next();
     this.stopLeftEvent$.next();
 
+    const hasRightSidenav = false;
+    const hasLeftSidenav = false;
+
     const onMove = this.dragAndDropService.onMove$.value;
     const onCardMove = this.dragAndDropService.onCardMove$.value;
-  
+
+    const rightCalc = hasRightSidenav ? 350 : 100;
+    const leftCalc = hasLeftSidenav ? 350 : 100;
+
     if (!onMove && onCardMove) {
-      if (window.innerWidth - 400 < e.pageX) {
+      if (window.innerWidth - rightCalc < e.pageX) {
         this.startRightEvent();
         return;
       }
       this.stopRightEvent$.next();
 
-      if (100 > e.pageX) {
+      if (leftCalc > e.pageX) {
         this.startLeftEvent();
         return;
       }
