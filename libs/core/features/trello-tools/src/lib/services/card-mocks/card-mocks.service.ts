@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { DragScrollService } from '@my-monorepo/core/features/drag-scroll';
 import { BehaviorSubject } from 'rxjs';
 
 export const BLOCKS = Array.from({ length: 5 }, (_, i) => {
@@ -12,6 +13,7 @@ export const BLOCKS = Array.from({ length: 5 }, (_, i) => {
   providedIn: 'root',
 })
 export class CardMocksService {
+  private readonly dragScrollService = inject(DragScrollService);
   blocks$ = new BehaviorSubject(BLOCKS);
 
   constructor() {}
@@ -26,5 +28,6 @@ export class CardMocksService {
       },
     ];
     this.blocks$.next(blocks);
+    this.dragScrollService.scrollToEnd$.next();
   }
 }
