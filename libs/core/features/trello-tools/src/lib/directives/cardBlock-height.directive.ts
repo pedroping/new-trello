@@ -37,15 +37,14 @@ export class CardBlockHeightDirective {
   }
 
   setValueChanges() {
-    this.dragAndDropService.onMove$.subscribe((value) => {
+    this.dragAndDropService.onCardMove$.subscribe((value) => {
 
-      if (!this.type || this.type != 'card') return;
-
-      if (value && !this.isSelected) {
-        this.elementRef.nativeElement.style.position = 'static'
-        return
+      if (this.type == 'block' && this.isSelected) {
+        if(value) return this.elementRef.nativeElement.classList.add('onMove')
+        this.elementRef.nativeElement.classList.remove('onMove')
       }
-      this.elementRef.nativeElement.style.position = 'absolute'
+
+    
     })
   }
 }

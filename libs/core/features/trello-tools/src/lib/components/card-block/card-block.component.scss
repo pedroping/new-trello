@@ -17,6 +17,30 @@
   max-height: 84vh !important;
   overflow-y: auto;
   overflow-x: hidden;
+
+  &.oneCard {
+    trello-card-footer {
+      top: -110px;
+    }
+  }
+
+  &.noCard {
+    trello-card-footer {
+      top: -145px;
+    }
+  }
+
+  &.noAndMove {
+    trello-card-footer {
+      top: -110px !important;
+    }
+  }
+
+  &.onMove {
+    trello-card-footer {
+      top: -90px;
+    }
+  }
 }
 
 .drag-area {
