@@ -20,25 +20,21 @@
 
   &.oneCard {
     trello-card-footer {
-      top: -110px;
+      position: relative;
+      top: -40px;
     }
   }
 
   &.noCard {
     trello-card-footer {
-      top: -145px;
+      position: relative;
+      top: -80px;
     }
   }
 
-  &.noAndMove {
+  &.lastTobeHoveredAndOne {
     trello-card-footer {
-      top: -110px;
-    }
-  }
-
-  &.onMove {
-    trello-card-footer {
-      top: -90px;
+      position: static;
     }
   }
 }

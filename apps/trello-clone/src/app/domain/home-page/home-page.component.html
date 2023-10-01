@@ -21,12 +21,14 @@
         [isPreview]="true"
         [title]="timePeriod.name"
         [cards]="timePeriod.cards"
+        [id]="index"
       ></trello-card-block>
     </div>
     <trello-card-block
       cdkDragHandle
       [title]="timePeriod.name"
       [cards]="timePeriod.cards"
+      [id]="index"
     ></trello-card-block>
   </div>
   <div class="addNew" (click)="cardMocksService.addNew()"></div>

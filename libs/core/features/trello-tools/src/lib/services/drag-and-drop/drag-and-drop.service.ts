@@ -4,15 +4,17 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class DragAndDropService {
-
   cards = new Array(5);
   onMove$ = new BehaviorSubject<boolean>(false);
   onCardMove$ = new BehaviorSubject<boolean>(false);
-  onBlockMove = false
+  onCardDrop$ = new Subject<boolean>();
+  onBlockMove = false;
+
+  lastToBeHoverd: number = -1;
 
   drop(event: CdkDragDrop<number[]>) {
     if (event.previousContainer === event.container) {
@@ -29,5 +31,6 @@ export class DragAndDropService {
         event.currentIndex
       );
     }
+    this.onCardDrop$.next(true);
   }
 }

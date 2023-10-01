@@ -10,6 +10,7 @@ export class CardBlockComponent {
   @Input() isPreview = false;
   @Input({ required: true }) title = '';
   @Input({ required: true }) cards: number[] = [];
+  @Input({ required: true }) id!: number;
 
   constructor(
     readonly dragAndDropService: DragAndDropService,

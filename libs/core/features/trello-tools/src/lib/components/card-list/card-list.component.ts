@@ -20,7 +20,7 @@ export class CardListComponent implements OnInit {
 
   readonly dragAndDropService = inject(DragAndDropService);
   private readonly cdr = inject(ChangeDetectorRef);
-  drop = this.dragAndDropService.drop;
+  drop = this.dragAndDropService.drop.bind(this.dragAndDropService);
 
   ngOnInit(): void {
     this.dragAndDropService.onCardMove$.subscribe((val) => {
