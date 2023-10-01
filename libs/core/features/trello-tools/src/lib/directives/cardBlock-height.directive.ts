@@ -43,8 +43,6 @@ export class CardBlockHeightDirective {
         if(value) return this.elementRef.nativeElement.classList.add('onMove')
         this.elementRef.nativeElement.classList.remove('onMove')
       }
-
-    
     })
   }
 }

@@ -1,23 +1,33 @@
 <div
-  class="block"
-  cdkDrag
+  cdkDropList
+  [cdkDropListData]="blocks$.value"
+  cdkDropListOrientation="horizontal"
+  [cdkDropListAutoScrollStep]="10"
+  (cdkDropListDropped)="drop($event); onDrop()"
+  cdkDropListGroup
   cdkScrollable
-  (cdkDragMoved)="onMove()"
-  cdkDragPreviewContainer="global"
-  *ngFor="let timePeriod of blocks$ | async; let index = index"
+  class="allBlocks"
 >
-  <div *cdkDragPlaceholder>
+  <div
+    class="block"
+    cdkDrag
+    cdkScrollable
+    (cdkDragMoved)="onMove()"
+    cdkDragPreviewContainer="global"
+    *ngFor="let timePeriod of blocks$ | async; let index = index"
+  >
+    <div *cdkDragPlaceholder>
+      <trello-card-block
+        [isPreview]="true"
+        [title]="timePeriod.name"
+        [cards]="timePeriod.cards"
+      ></trello-card-block>
+    </div>
     <trello-card-block
-      [isPreview]="true"
+      cdkDragHandle
       [title]="timePeriod.name"
       [cards]="timePeriod.cards"
     ></trello-card-block>
   </div>
-  <trello-card-block
-    cdkDragHandle
-    [title]="timePeriod.name"
-    [cards]="timePeriod.cards"
-  ></trello-card-block>
+  <div class="addNew" (click)="cardMocksService.addNew()"></div>
 </div>
-
-<div class="addNew" (click)="cardMocksService.addNew()"></div>

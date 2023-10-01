@@ -3,12 +3,12 @@
   [trelloCardBlockHeight]="cards.length"
   [baseSize]="100"
   [isSelected]="isSelectedBlock"
+  [type]="'block'"
   [ngClass]="{
-    oneCard: cards.length === 1,
     noCard: cards.length === 0,
+    oneCard: cards.length === 1 && !dragAndDropService.onCardMove$.value,
     noAndMove: cards.length === 0 && dragAndDropService.onCardMove$.value
   }"
-  [type]="'block'"
 >
   <ng-container *ngIf="!isPreview; else preview">
     <trello-card-header
