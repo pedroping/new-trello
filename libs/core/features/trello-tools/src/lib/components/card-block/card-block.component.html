@@ -1,14 +1,5 @@
 <div
   class="content"
-  [trelloCardBlockHeight]="cards.length"
-  [baseSize]="100"
-  [isSelected]="isSelectedBlock"
-  [type]="'block'"
-  [ngClass]="{
-    noCard: cards.length === 0,
-    oneCard: cards.length === 1 && !dragAndDropService.onCardMove$.value,
-    noAndMove: cards.length === 0 && dragAndDropService.onCardMove$.value
-  }"
 >
   <ng-container *ngIf="!isPreview; else preview">
     <trello-card-header
@@ -28,3 +19,14 @@
     ></div>
   </ng-template>
 </div>
+
+<!-- 
+[trelloCardBlockHeight]="cards.length"
+  [baseSize]="100"
+  [isSelected]="isSelectedBlock"
+  [type]="'block'"
+  [ngClass]="{
+    noCard: cards.length === 0,
+    oneCard: cards.length === 1 && !dragAndDropService.onCardMove$.value,
+    noAndMove: cards.length === 0 && dragAndDropService.onCardMove$.value
+  }" -->
