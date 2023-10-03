@@ -1,22 +1,16 @@
-<div
-  class="content"
->
+<div class="content" [trelloCardBlockHeight]="cards.length" [baseSize]="100" [type]="'block'">
   <ng-container *ngIf="!isPreview; else preview">
-    <trello-card-header
-      [cardLength]="cards.length"
-      [title]="title"
-    ></trello-card-header>
+    <trello-card-header [cardLength]="cards.length" [title]="title"></trello-card-header>
     <card-list [cards]="cards" (cardMove)="cardMove($event)"></card-list>
-    <trello-card-footer></trello-card-footer>
+    <trello-card-footer style="position: relative;" [style.top]="
+      ((cards.length * 40) + (dragAndDropService.onCardMove$.value ? 40 : 0))
+        > window.innerHeight * 0.7 
+        ? window.innerHeight * 0.7 
+        : ((cards.length * 40) + (dragAndDropService.onCardMove$.value ? 40 : 0)) + 'px' "></trello-card-footer>
   </ng-container>
 
   <ng-template #preview>
-    <div
-      class="card-list"
-      [trelloCardBlockHeight]="cards.length"
-      [type]="'block'"
-      [baseSize]="50"
-    ></div>
+    <div class="card-list" [trelloCardBlockHeight]="cards.length" [type]="'block'" [baseSize]="50"></div>
   </ng-template>
 </div>
 
