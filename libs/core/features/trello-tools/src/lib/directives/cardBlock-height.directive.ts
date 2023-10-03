@@ -1,10 +1,9 @@
 import {
   ContentChildren,
   Directive,
-  ElementRef,
   HostBinding,
   Input,
-  QueryList,
+  QueryList
 } from '@angular/core';
 import { DragAndDropService } from '../services/drag-and-drop/drag-and-drop.service';
 
@@ -13,9 +12,8 @@ import { DragAndDropService } from '../services/drag-and-drop/drag-and-drop.serv
 })
 export class CardBlockHeightDirective {
   constructor(
-    private readonly dragAndDropService: DragAndDropService,
-    private readonly elementRef: ElementRef
-  ) { this.setValueChanges() }
+    private readonly dragAndDropService: DragAndDropService
+  ) { }
 
   @Input() baseSize!: number;
   @Input() isSelected = false;
@@ -34,15 +32,5 @@ export class CardBlockHeightDirective {
     }
     const calcedHeight = this.length * 40 + this.baseSize;
     return calcedHeight + 'px';
-  }
-
-  setValueChanges() {
-    this.dragAndDropService.onCardMove$.subscribe((value) => {
-
-      if (this.type == 'block' && this.isSelected) {
-        if (value) return this.elementRef.nativeElement.classList.add('onMove')
-        this.elementRef.nativeElement.classList.remove('onMove')
-      }
-    })
   }
 }
