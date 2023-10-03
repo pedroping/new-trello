@@ -11,6 +11,8 @@ export class CardBlockComponent {
   @Input({ required: true }) title = '';
   @Input({ required: true }) cards: number[] = [];
 
+  window = window
+  
   constructor(
     readonly dragAndDropService: DragAndDropService,
     readonly cdr: ChangeDetectorRef
