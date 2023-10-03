@@ -30,17 +30,17 @@ export class CardBlockHeightDirective {
       !this.isSelected
     ) {
       const calcedHeight = (this.length + 1) * 40 + this.baseSize;
-      return calcedHeight < 100 ? 150 + 'px' : calcedHeight + 'px';
+      return calcedHeight + 'px';
     }
     const calcedHeight = this.length * 40 + this.baseSize;
-    return calcedHeight < 100 ? 150 + 'px' : calcedHeight + 'px';
+    return calcedHeight + 'px';
   }
 
   setValueChanges() {
     this.dragAndDropService.onCardMove$.subscribe((value) => {
 
       if (this.type == 'block' && this.isSelected) {
-        if(value) return this.elementRef.nativeElement.classList.add('onMove')
+        if (value) return this.elementRef.nativeElement.classList.add('onMove')
         this.elementRef.nativeElement.classList.remove('onMove')
       }
     })
