@@ -16,11 +16,7 @@ export class CardBlockHeightDirective {
   @Input({ required: true }) type?: 'card' | 'block';
   @Input('trelloCardBlockHeight') length!: number;
 
-  footerTop = 0;
-
   @HostBinding('style.height') get cardHeight() {
-    this.setFooterTop();
-
     if (this.footer)
       this.footer.nativeElement.style.top = this.footerTop + 'px'
 
@@ -32,12 +28,12 @@ export class CardBlockHeightDirective {
     return calcedHeight + 'px';
   }
 
-  setFooterTop() {
+  get footerTop() {
     const hasExpand =
       this.dragAndDropService.onCardMove$.value && !this.isSelected;
     const baseTop = this.length * 40 + (hasExpand ? 40 : 0);
     const maxTop = window.innerHeight * 0.7;
 
-    this.footerTop = Math.min(baseTop, maxTop);
+    return Math.min(baseTop, maxTop);
   }
 }
