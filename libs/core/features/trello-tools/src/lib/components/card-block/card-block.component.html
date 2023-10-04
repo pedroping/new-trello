@@ -12,10 +12,7 @@
       [title]="title"
     ></trello-card-header>
     <card-list [cards]="cards" (cardMove)="cardMove($event)"></card-list>
-    <trello-card-footer
-      style="position: relative"
-      [style.top]="values.footerTop + 'px'"
-    ></trello-card-footer>
+    <trello-card-footer></trello-card-footer>
   </ng-container>
 
   <ng-template #preview>
@@ -27,24 +24,3 @@
     ></div>
   </ng-template>
 </div>
-
-
-
-<!-- cards.length * 40 + (dragAndDropService.onCardMove$.value ? 40 : 0) >
-window.innerHeight * 0.7
-  ? window.innerHeight * 0.7 + 'px'
-  : cards.length * 40 +
-    (dragAndDropService.onCardMove$.value ? 40 : 0) +
-    'px' -->
-
-
-<!-- 
-[trelloCardBlockHeight]="cards.length"
-  [baseSize]="100"
-  [isSelected]="isSelectedBlock"
-  [type]="'block'"
-  [ngClass]="{
-    noCard: cards.length === 0,
-    oneCard: cards.length === 1 && !dragAndDropService.onCardMove$.value,
-    noAndMove: cards.length === 0 && dragAndDropService.onCardMove$.value
-  }" -->

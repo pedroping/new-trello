@@ -1,22 +1,29 @@
-import { Directive, HostBinding, Input } from '@angular/core';
+import { ContentChild, Directive, ElementRef, HostBinding, Input } from '@angular/core';
 import { DragAndDropService } from '../services/drag-and-drop/drag-and-drop.service';
+import { CardFooterComponent } from '../components/card-footer/card-footer.component';
 
 @Directive({
   selector: '[trelloCardBlockHeight]',
   exportAs: 'trelloCardBlockHeight',
 })
 export class CardBlockHeightDirective {
-  constructor(private readonly dragAndDropService: DragAndDropService) {}
+  constructor(private readonly dragAndDropService: DragAndDropService) { }
+
+  @ContentChild(CardFooterComponent, { read: ElementRef }) footer?: ElementRef
 
   @Input() baseSize!: number;
   @Input() isSelected = false;
   @Input({ required: true }) type?: 'card' | 'block';
   @Input('trelloCardBlockHeight') length!: number;
 
-  footerTop: number = 0;
+  footerTop = 0;
 
   @HostBinding('style.height') get cardHeight() {
     this.setFooterTop();
+
+    if (this.footer)
+      this.footer.nativeElement.style.top = this.footerTop + 'px'
+
     if (this.dragAndDropService.onCardMove$.value && !this.isSelected) {
       const calcedHeight = (this.length + 1) * 40 + this.baseSize;
       return calcedHeight + 'px';
