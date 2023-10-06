@@ -4,7 +4,8 @@ import {
   DragAndDropService,
 } from '@my-monorepo/core/features/trello-tools';
 import { Subject, startWith, takeUntil, timer } from 'rxjs';
-import { DragScrollService } from '../services/drag-scroll.service';
+import { ScrollEventsService } from "@my-monorepo/core/facades"
+
 @Directive({
   selector: '[dragScroll]',
 })
@@ -13,7 +14,7 @@ export class DragScrollDirective {
     private readonly el: ElementRef,
     private readonly dragAndDropService: DragAndDropService,
     private readonly cardMocksService: CardMocksService,
-    private readonly dragScrollService: DragScrollService
+    private readonly scrollEventsService: ScrollEventsService
   ) {
     this.setSubscriptions();
   }
@@ -110,7 +111,7 @@ export class DragScrollDirective {
         this.el.nativeElement.style.width = length * 320 + 340 + 'px';
       });
 
-    this.dragScrollService.scrollToEnd$.subscribe(() => {
+    this.scrollEventsService.scrollToEnd$.subscribe(() => {
       const length = this.cardMocksService.blocks$.value.length;
       this.el.nativeElement.parentElement.scrollLeft +=
         (length + 1) * 320 + 340;
