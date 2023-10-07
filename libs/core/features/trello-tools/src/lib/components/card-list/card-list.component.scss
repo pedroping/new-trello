@@ -2,7 +2,7 @@
   ::-webkit-scrollbar {
     display: none;
   }
-  
+
   .card-list {
     display: flex;
     flex-direction: column;
@@ -15,8 +15,8 @@
     border-bottom-right-radius: 10px;
     overflow: auto;
     overflow-x: hidden;
-
     position: absolute;
     height: 70vh;
+    z-index: 150;
   }
 }
