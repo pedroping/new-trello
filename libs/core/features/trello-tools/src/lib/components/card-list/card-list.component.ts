@@ -8,6 +8,7 @@ import {
   inject,
 } from '@angular/core';
 import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'card-list',
@@ -21,6 +22,10 @@ export class CardListComponent implements OnInit {
   readonly dragAndDropService = inject(DragAndDropService);
   private readonly cdr = inject(ChangeDetectorRef);
   drop = this.dragAndDropService.drop;
+
+  customZIndex$ = this.dragAndDropService.onCardMove$.pipe(
+    map((val) => (val ? 1000 : 0))
+  );
 
   ngOnInit(): void {
     this.dragAndDropService.onCardMove$.subscribe((val) => {

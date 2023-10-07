@@ -1,5 +1,13 @@
-<div class="card-list" cdkDropList [cdkDropListData]="cards" (cdkDropListDropped)="drop($event)"
-  (cdkDropListDropped)="onDrop()" [cdkDropListAutoScrollStep]="10" type="card">
+<div
+  class="card-list"
+  cdkDropList
+  [cdkDropListData]="cards"
+  (cdkDropListDropped)="drop($event)"
+  (cdkDropListDropped)="onDrop()"
+  [cdkDropListAutoScrollStep]="10"
+  [style.z-index]="customZIndex$ | async"
+  type="card"
+>
   <ng-container *ngFor="let item of cards">
     <div cdkDrag #card (cdkDragMoved)="onMove()">
       <div class="example-custom-placeholder" *cdkDragPlaceholder>
