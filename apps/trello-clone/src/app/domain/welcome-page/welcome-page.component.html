@@ -1,3 +1,4 @@
+<!-- hasSidenav -->
 <div
   class="content"
   cdkDropList
@@ -6,6 +7,7 @@
   [cdkDropListAutoScrollStep]="10"
   (cdkDropListDropped)="drop($event); onDrop()"
   cdkDropListGroup
+  cdkScrollable
 >
   <app-toolbar>
     <trello-toolbar-content></trello-toolbar-content>

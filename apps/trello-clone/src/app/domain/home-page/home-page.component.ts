@@ -1,7 +1,9 @@
 import {
   CdkDrag,
+  CdkDragDrop,
   CdkDropList,
-  DragDropModule
+  DragDropModule,
+  moveItemInArray
 } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component } from '@angular/core';
@@ -51,5 +53,16 @@ export class HomePageComponent {
     if (!this.dragAndDropService.onMove$.value) return;
     this.dragAndDropService.onMove$.next(false);
     this.cdr.detectChanges();
+  }
+
+  drop(
+    event: CdkDragDrop<
+      {
+        name: string;
+        cards: number[];
+      }[]
+    >
+  ) {
+    moveItemInArray(this.cardMocksService.blocks$.value, event.previousIndex, event.currentIndex);
   }
 }

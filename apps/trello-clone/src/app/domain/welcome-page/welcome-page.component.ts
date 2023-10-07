@@ -36,7 +36,7 @@ export class WelcomePageComponent {
     readonly dragAndDropService: DragAndDropService,
     readonly cdr: ChangeDetectorRef,
     private cardMocksService: CardMocksService
-  ) {}
+  ) { }
 
   drop(
     event: CdkDragDrop<
@@ -46,9 +46,7 @@ export class WelcomePageComponent {
       }[]
     >
   ) {
-    let blocks = this.cardMocksService.blocks$.value;
-    moveItemInArray(blocks, event.previousIndex, event.currentIndex);
-    this.cardMocksService.blocks$.next(blocks);
+    moveItemInArray(this.cardMocksService.blocks$.value, event.previousIndex, event.currentIndex);
   }
 
   onMove() {

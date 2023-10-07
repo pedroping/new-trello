@@ -10,6 +10,7 @@ import { CdkMenuModule } from '@angular/cdk/menu';
 import { CardOptionsComponent } from './components/card-options/card-options.component';
 import { CardHeaderComponent } from './components/card-header/card-header.component';
 import { CardFooterComponent } from './components/card-footer/card-footer.component';
+import { CardListComponent } from './components/card-list/card-list.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -27,6 +28,7 @@ import { CardFooterComponent } from './components/card-footer/card-footer.compon
     CardOptionsComponent,
     CardHeaderComponent,
     CardFooterComponent,
+    CardListComponent,
   ],
   exports: [CardBlockComponent],
   providers: [CardBlockHeightDirective],

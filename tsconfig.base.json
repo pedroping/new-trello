@@ -47,7 +47,8 @@
       "@my-monorepo/core/ui/splash-page": [
         "libs/core/ui/splash-page/src/index.ts"
       ],
-      "@my-monorepo/core/ui/toolbar": ["libs/core/ui/toolbar/src/index.ts"]
+      "@my-monorepo/core/ui/toolbar": ["libs/core/ui/toolbar/src/index.ts"],
+      "@my-monorepo/core/facades": ["libs/core/facades/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

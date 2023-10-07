@@ -21,13 +21,22 @@ body {
   }
 
   trello-card-block {
+    display: block;
+    transform: rotate(2.5deg) !important;
+
     trello-card {
       transform: rotate(0deg) !important;
     }
 
     .card-list {
-      top: 50px;
+      position: static;
     }
+  }
+}
+
+.cdk-drag-placeholder ~ trello-card-block {
+  .card-list {
+    position: static !important;
   }
 }
 
