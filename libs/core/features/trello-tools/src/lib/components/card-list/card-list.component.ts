@@ -17,6 +17,7 @@ import { map } from 'rxjs';
 })
 export class CardListComponent implements OnInit {
   @Input({ required: true }) cards: number[] = [];
+  @Input({ required: true }) id: number = -1;
   @Output() cardMove = new EventEmitter<boolean>();
 
   readonly dragAndDropService = inject(DragAndDropService);
