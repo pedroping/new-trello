@@ -13,6 +13,7 @@ export class DragAndDropService {
   onMove$ = new BehaviorSubject<boolean>(false);
   onCardMove$ = new BehaviorSubject<boolean>(false);
   onBlockMove = false
+  lastToBeHovered = -1
 
   drop(event: CdkDragDrop<number[]>) {
     if (event.previousContainer === event.container) {
