@@ -5,7 +5,11 @@ export function ClearMocks() {
     const original = constructor.prototype.ngOnDestroy;
 
     constructor.prototype.ngOnDestroy = function () {
-      const cardMocks = this['injector'].get(CardMocksService);
+      const cardMocks = this['injector']?.get(CardMocksService);
+      if (!cardMocks)
+        throw new Error( 
+          'card Mocks service not Found, Try to inject the service or set the injector property'
+        );
       cardMocks.clearMocks();
       original?.apply(this, arguments);
     };
