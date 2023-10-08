@@ -12,7 +12,7 @@ import {
   DragAndDropService,
 } from '@my-monorepo/core/features/trello-tools';
 import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
-import { ToolbarContentComponent } from '../../core/toolbar-content/toolbar-content.component';
+import { ToolbarContentComponent } from '../../../core/toolbar-content/toolbar-content.component';
 import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-welcome-page',

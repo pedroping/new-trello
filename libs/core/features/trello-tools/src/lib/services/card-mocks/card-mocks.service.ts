@@ -39,7 +39,6 @@ export class CardMocksService {
   }
 
   clearMocks() {
-    localStorage.setItem('Teste', 'aaa')
     this.blocks$.next([]);
   }
 }

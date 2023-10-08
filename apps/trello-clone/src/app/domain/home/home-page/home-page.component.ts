@@ -1,10 +1,7 @@
-import {
-  CdkDrag,
-  CdkDropList,
-  DragDropModule
-} from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDropList, DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, Injector } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { CoreFeaturesDragScrollModule } from '@my-monorepo/core/features/drag-scroll';
 import {
   CardMocksService,
@@ -28,6 +25,7 @@ import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
     CoreFeaturesDragScrollModule,
     CdkDropList,
     CdkDrag,
+    RouterLink
   ],
 })
 @ClearMocks()

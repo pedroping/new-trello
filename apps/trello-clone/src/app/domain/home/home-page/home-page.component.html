@@ -23,5 +23,7 @@
       [id]="index"
     ></trello-card-block>
   </div>
-  <div class="addNew" (click)="cardMocksService.addNew()"></div>
+  <div class="addNew" [routerLink]="['/']" ></div>
+
+  <!-- (click)="cardMocksService.addNew()" -->
 </div>
