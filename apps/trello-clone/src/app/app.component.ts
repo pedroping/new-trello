@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatChipsModule } from '@angular/material/chips';
@@ -25,13 +25,11 @@ import { CoreFeaturesCustomBackgroundModule } from '@my-monorepo/core/features/c
     TuiAccordionModule,
     CoreUiToolbarModule,
     CoreFeaturesDragScrollModule,
-    CoreFeaturesCustomBackgroundModule
+    CoreFeaturesCustomBackgroundModule,
   ],
   selector: 'my-monorepo-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }],
 })
-export class AppComponent {
-  title = 'trello-clone';
-}
+export class AppComponent {}

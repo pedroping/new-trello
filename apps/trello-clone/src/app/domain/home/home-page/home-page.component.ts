@@ -1,15 +1,11 @@
-import {
-  CdkDrag,
-  CdkDragDrop,
-  CdkDropList,
-  DragDropModule,
-  moveItemInArray
-} from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDropList, DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { CoreFeaturesDragScrollModule } from '@my-monorepo/core/features/drag-scroll';
 import {
   CardMocksService,
+  ClearMocks,
   CoreFeaturesTrelloToolsModule,
   DragAndDropService,
 } from '@my-monorepo/core/features/trello-tools';
@@ -29,40 +25,27 @@ import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
     CoreFeaturesDragScrollModule,
     CdkDropList,
     CdkDrag,
+    RouterLink
   ],
 })
+@ClearMocks()
 export class HomePageComponent {
+  blocks$ = this.cardMocksService.blocks$;
+  injector: Injector;
 
-  blocks$ = this.cardMocksService.blocks$
-  
   constructor(
     readonly dragAndDropService: DragAndDropService,
     readonly cdr: ChangeDetectorRef,
-    readonly cardMocksService: CardMocksService
-  ) {}
+    readonly cardMocksService: CardMocksService,
+    private readonly _injector: Injector
+  ) {
+    this.injector = this._injector;
+  }
 
   onMove() {
     this.dragAndDropService.onBlockMove = true;
     if (this.dragAndDropService.onMove$.value) return;
     this.dragAndDropService.onMove$.next(true);
     this.cdr.detectChanges();
-  }
-
-  onDrop() {
-    this.dragAndDropService.onBlockMove = false;
-    if (!this.dragAndDropService.onMove$.value) return;
-    this.dragAndDropService.onMove$.next(false);
-    this.cdr.detectChanges();
-  }
-
-  drop(
-    event: CdkDragDrop<
-      {
-        name: string;
-        cards: number[];
-      }[]
-    >
-  ) {
-    moveItemInArray(this.cardMocksService.blocks$.value, event.previousIndex, event.currentIndex);
   }
 }

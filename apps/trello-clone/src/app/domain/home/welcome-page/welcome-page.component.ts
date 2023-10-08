@@ -3,7 +3,7 @@ import {
   DragDropModule,
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CoreFeaturesCustomBackgroundModule } from '@my-monorepo/core/features/custom-background';
 import { CoreFeaturesDragScrollModule } from '@my-monorepo/core/features/drag-scroll';
@@ -12,7 +12,7 @@ import {
   DragAndDropService,
 } from '@my-monorepo/core/features/trello-tools';
 import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
-import { ToolbarContentComponent } from '../../core/toolbar-content/toolbar-content.component';
+import { ToolbarContentComponent } from '../../../core/toolbar-content/toolbar-content.component';
 import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-welcome-page',
@@ -29,14 +29,19 @@ import { CommonModule } from '@angular/common';
     CoreFeaturesDragScrollModule,
   ],
 })
-export class WelcomePageComponent {
+export class WelcomePageComponent implements OnInit {
   blocks$ = this.cardMocksService.blocks$;
 
   constructor(
     readonly dragAndDropService: DragAndDropService,
     readonly cdr: ChangeDetectorRef,
     private cardMocksService: CardMocksService
-  ) { }
+  ) {}
+
+  ngOnInit(): void {
+    this.blocks$.subscribe(() => this.cdr.detectChanges());
+    this.cardMocksService.getAllCards();
+  }
 
   drop(
     event: CdkDragDrop<
@@ -46,7 +51,11 @@ export class WelcomePageComponent {
       }[]
     >
   ) {
-    moveItemInArray(this.cardMocksService.blocks$.value, event.previousIndex, event.currentIndex);
+    moveItemInArray(
+      this.cardMocksService.blocks$.value,
+      event.previousIndex,
+      event.currentIndex
+    );
   }
 
   onMove() {
