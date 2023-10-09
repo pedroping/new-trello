@@ -32,7 +32,7 @@ import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
 export class HomePageComponent {
   blocks$ = this.cardMocksService.blocks$;
   injector: Injector;
-
+  onMove = this.dragAndDropService.onMove
   constructor(
     readonly dragAndDropService: DragAndDropService,
     readonly cdr: ChangeDetectorRef,
@@ -40,12 +40,5 @@ export class HomePageComponent {
     private readonly _injector: Injector
   ) {
     this.injector = this._injector;
-  }
-
-  onMove() {
-    this.dragAndDropService.onBlockMove = true;
-    if (this.dragAndDropService.onMove$.value) return;
-    this.dragAndDropService.onMove$.next(true);
-    this.cdr.detectChanges();
   }
 }

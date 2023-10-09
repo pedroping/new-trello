@@ -3,8 +3,9 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { Injectable } from '@angular/core';
+import { ChangeDetectorRef, Injectable, inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { CardMocksService } from '../card-mocks/card-mocks.service';
 
 @Injectable({ providedIn: 'root' })
 export class DragAndDropService {
@@ -14,6 +15,8 @@ export class DragAndDropService {
   onCardMove$ = new BehaviorSubject<boolean>(false);
   onBlockMove = false
   lastToBeHovered = -1
+
+  readonly cardMocksService = inject(CardMocksService)
 
   drop(event: CdkDragDrop<number[]>) {
     if (event.previousContainer === event.container) {
@@ -30,5 +33,34 @@ export class DragAndDropService {
         event.currentIndex
       );
     }
+  }
+
+  blockDrop(
+    event: CdkDragDrop<
+      {
+        name: string;
+        cards: number[];
+      }[]
+    >
+  ) {
+    moveItemInArray(
+      this.cardMocksService.blocks$.value,
+      event.previousIndex,
+      event.currentIndex
+    );
+  }
+
+  onMove(cdr: ChangeDetectorRef) {
+    this.onBlockMove = true;
+    if (this.onMove$.value) return;
+    this.onMove$.next(true);
+    cdr.detectChanges();
+  }
+
+  onDrop(cdr: ChangeDetectorRef) {
+    this.onBlockMove = false;
+    if (!this.onMove$.value) return;
+    this.onMove$.next(false);
+    cdr.detectChanges();
   }
 }

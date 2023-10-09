@@ -3,7 +3,7 @@
     class="block"
     cdkDrag
     cdkScrollable
-    (cdkDragMoved)="onMove()"
+    (cdkDragMoved)="onMove(cdr)"
     cdkDragPreviewContainer="global"
     cdkScrollable
     *ngFor="let timePeriod of blocks$ | async; let index = index"

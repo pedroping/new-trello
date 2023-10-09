@@ -5,7 +5,7 @@
   [cdkDropListData]="blocks$.value"
   cdkDropListOrientation="horizontal"
   [cdkDropListAutoScrollStep]="18"
-  (cdkDropListDropped)="drop($event); onDrop()"
+  (cdkDropListDropped)="drop($event); onDrop(cdr)"
   cdkDropListGroup
   cdkScrollable
 >
