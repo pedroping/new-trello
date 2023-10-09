@@ -52,14 +52,12 @@ export class DragAndDropService {
 
   onMove(cdr: ChangeDetectorRef) {
     this.onBlockMove = true;
-    if (this.onMove$.value) return;
     this.onMove$.next(true);
     cdr.detectChanges();
   }
 
   onDrop(cdr: ChangeDetectorRef) {
     this.onBlockMove = false;
-    if (!this.onMove$.value) return;
     this.onMove$.next(false);
     cdr.detectChanges();
   }

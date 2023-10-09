@@ -30,8 +30,8 @@ import { ToolbarContentComponent } from '../../../core/toolbar-content/toolbar-c
 export class WelcomePageComponent implements OnInit {
 
   blocks$ = this.cardMocksService.blocks$;
-  onDrop = this.dragAndDropService.onDrop
-  drop = this.dragAndDropService.blockDrop
+  onDrop = this.dragAndDropService.onDrop.bind(this.dragAndDropService)
+  drop = this.dragAndDropService.blockDrop.bind(this.dragAndDropService)
 
   constructor(
     readonly dragAndDropService: DragAndDropService,
