@@ -1,14 +1,5 @@
 <!-- hasSidenav -->
-<div
-  class="content"
-  cdkDropList
-  [cdkDropListData]="blocks$.value"
-  cdkDropListOrientation="horizontal"
-  [cdkDropListAutoScrollStep]="18"
-  (cdkDropListDropped)="drop($event); onDrop(cdr)"
-  cdkDropListGroup
-  cdkScrollable
->
+<div class="content" cdkScrollable>
   <app-toolbar>
     <trello-toolbar-content></trello-toolbar-content>
   </app-toolbar>

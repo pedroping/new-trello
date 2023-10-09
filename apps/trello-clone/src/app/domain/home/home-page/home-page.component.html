@@ -1,4 +1,13 @@
-<div class="allBlocks" cdkScrollable>
+<div 
+  class="allBlocks"   
+  cdkDropList
+  [cdkDropListData]="blocks$.value"
+  cdkDropListOrientation="horizontal"
+  [cdkDropListAutoScrollStep]="18"
+  (cdkDropListDropped)="drop($event); onDrop(cdr)"
+  cdkDropListGroup 
+  cdkScrollable
+>
   <div
     class="block"
     cdkDrag
