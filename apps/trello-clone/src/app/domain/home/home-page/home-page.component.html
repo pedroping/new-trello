@@ -1,18 +1,18 @@
-<div 
-  class="allBlocks"   
+<div
+  class="allBlocks"
   cdkDropList
   [cdkDropListData]="blocks$.value"
   cdkDropListOrientation="horizontal"
   [cdkDropListAutoScrollStep]="18"
-  (cdkDropListDropped)="drop($event); onDrop(cdr)"
-  cdkDropListGroup 
+  (cdkDropListDropped)="listDropped($event)"
+  cdkDropListGroup
   cdkScrollable
 >
   <div
     class="block"
     cdkDrag
     cdkScrollable
-    (cdkDragMoved)="onMove(cdr)"
+    (cdkDragMoved)="onMove()"
     cdkDragPreviewContainer="global"
     cdkScrollable
     *ngFor="let timePeriod of blocks$ | async; let index = index"
