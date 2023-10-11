@@ -4,7 +4,7 @@ import {
   DragAndDropService,
 } from '@my-monorepo/core/features/trello-tools';
 import { Subject, startWith, takeUntil, timer } from 'rxjs';
-import { ScrollEventsService } from "@my-monorepo/core/facades"
+import { ScrollEventsService } from '@my-monorepo/core/facades';
 
 export const BASE_BLOCK_SIZE = 320;
 export const BASE_SIDENAV_SIZE = 350;
@@ -39,7 +39,11 @@ export class DragScrollDirective {
     this.scrollLeft = el.scrollLeft;
   }
 
-  @HostListener('mouseup', ['$event'])
+  @HostListener('mouseup', ['$event']) onMouseUp() {
+    this.scrollEventsService.onMouseDown$.next(false);
+    this.mouseDown = false;
+  }
+
   @HostListener('mouseleave', ['$event'])
   stopDragging() {
     this.mouseDown = false;
@@ -91,8 +95,8 @@ export class DragScrollDirective {
       .pipe(takeUntil(this.stopLeftEvent$))
       .subscribe(() => {
         if (this.dragAndDropService.onCardMove$.value)
-          this.el.nativeElement.parentElement.scrollLeft -= BASE_SCROLL_MOVE_TICK;
-
+          this.el.nativeElement.parentElement.scrollLeft -=
+            BASE_SCROLL_MOVE_TICK;
       });
   }
 
@@ -101,8 +105,8 @@ export class DragScrollDirective {
       .pipe(takeUntil(this.stopRightEvent$))
       .subscribe(() => {
         if (this.dragAndDropService.onCardMove$.value)
-          this.el.nativeElement.parentElement.scrollLeft += BASE_SCROLL_MOVE_TICK;
-
+          this.el.nativeElement.parentElement.scrollLeft +=
+            BASE_SCROLL_MOVE_TICK;
       });
   }
 
@@ -111,7 +115,8 @@ export class DragScrollDirective {
       .pipe(startWith(this.cardMocksService.blocks$.value))
       .subscribe((blocks) => {
         const length = blocks.length;
-        this.el.nativeElement.style.width = length * BASE_BLOCK_SIZE + BASE_ADD_NEW_SIZE + 'px';
+        this.el.nativeElement.style.width =
+          length * BASE_BLOCK_SIZE + BASE_ADD_NEW_SIZE + 'px';
       });
 
     this.scrollEventsService.scrollToEnd$.subscribe(() => {
