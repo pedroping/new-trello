@@ -23,7 +23,7 @@ export class CardBlockHeightDirective {
   @ContentChild(CardFooterComponent, { read: ElementRef }) footer?: ElementRef;
   @ContentChild('cardList') cardList?: ElementRef;
 
-  @Input({ required: true }) id: number = -1;
+  @Input({ required: true }) id = -1;
   @Input() baseSize!: number;
   @Input() isSelected = false;
   @Input('trelloCardBlockHeight') length!: number;
