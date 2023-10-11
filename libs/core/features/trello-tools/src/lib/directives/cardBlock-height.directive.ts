@@ -18,7 +18,7 @@ export class CardBlockHeightDirective {
   constructor(
     private readonly dragAndDropService: DragAndDropService,
     private readonly scrollEventsService: ScrollEventsService
-  ) {}
+  ) { }
 
   @ContentChild(CardFooterComponent, { read: ElementRef }) footer?: ElementRef;
   @ContentChild('cardList') cardList?: ElementRef;
@@ -33,14 +33,20 @@ export class CardBlockHeightDirective {
       this.footer.nativeElement.style.top = this.footerTop + 'px';
 
     const isLastHovered = this.dragAndDropService.lastToBeHovered === this.id;
+
+    const expandedCalcedHeight = (this.length + 1) * 40 + this.baseSize;
+
+    if (this.scrollEventsService.onMouseDown$.value && this.isSelected && isLastHovered && this.dragAndDropService.onCardMove$.value) {
+      return expandedCalcedHeight + 'px'
+    }
+
     if (
       this.dragAndDropService.onCardMove$.value &&
       !this.isSelected &&
-      isLastHovered &&
-      this.scrollEventsService.onMouseDown$.value
+      isLastHovered
     ) {
-      const calcedHeight = (this.length + 1) * 40 + this.baseSize;
-      return calcedHeight + 'px';
+
+      return expandedCalcedHeight + 'px';
     }
 
     const calcedHeight = this.length * 40 + this.baseSize;
@@ -48,7 +54,7 @@ export class CardBlockHeightDirective {
   }
 
   @HostListener('mouseenter') onMouseEnter() {
-    if (this.dragAndDropService.onCardMove$.value) {
+    if (this.dragAndDropService.onCardMove$.value && this.scrollEventsService.onMouseDown$.value) {
       this.dragAndDropService.lastToBeHovered = this.id;
       if (this.isSelected) this.dragAndDropService.lastToBeHovered = -1;
     }
@@ -56,12 +62,14 @@ export class CardBlockHeightDirective {
 
   get footerTop() {
     const isLastHovered = this.dragAndDropService.lastToBeHovered === this.id;
+
+    const isOnMouseDown = this.scrollEventsService.onMouseDown$.value && this.isSelected && isLastHovered && this.dragAndDropService.onCardMove$.value
+
     const hasExpand =
       this.dragAndDropService.onCardMove$.value &&
       !this.isSelected &&
-      isLastHovered &&
-      this.scrollEventsService.onMouseDown$.value;
-    const baseTop = this.length * 40 + (hasExpand ? 40 : 0);
+      isLastHovered;
+    const baseTop = this.length * 40 + (hasExpand || isOnMouseDown ? 40 : 0);
     const maxTop = window.innerHeight * 0.7;
 
     return Math.min(baseTop, maxTop);

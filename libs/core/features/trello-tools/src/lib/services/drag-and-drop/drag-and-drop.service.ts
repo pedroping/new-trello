@@ -5,7 +5,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { ChangeDetectorRef, Injectable, inject } from '@angular/core';
 import { ScrollEventsService } from '@my-monorepo/core/facades';
-import { BehaviorSubject, distinctUntilChanged } from 'rxjs';
+import { BehaviorSubject, tap, throttleTime } from 'rxjs';
 import { CardMocksService } from '../card-mocks/card-mocks.service';
 
 @Injectable({ providedIn: 'root' })
@@ -25,9 +25,13 @@ export class DragAndDropService {
 
   setValueChanges(): void {
     this.onCardMove$
-      .pipe(distinctUntilChanged((prev, curr) => prev == curr))
+      .pipe(tap(value => {
+        if (value)
+          this.scrollEventsService.onMouseDown$.next(true);
+      }), throttleTime(1000))
       .subscribe((value) => {
-        this.scrollEventsService.onMouseDown$.next(value);
+        if (!value)
+          this.scrollEventsService.onMouseDown$.next(false);
       });
   }
 
