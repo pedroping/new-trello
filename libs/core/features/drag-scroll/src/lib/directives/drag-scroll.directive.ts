@@ -56,8 +56,8 @@ export class DragScrollDirective {
     this.stopRightEvent$.next();
     this.stopLeftEvent$.next();
 
-    const hasRightSidenav = false;
-    const hasLeftSidenav = false;
+    const hasRightSidenav = true;
+    const hasLeftSidenav = true;
 
     const onMove = this.dragAndDropService.onMove$.value;
     const onCardMove = this.dragAndDropService.onCardMove$.value;
