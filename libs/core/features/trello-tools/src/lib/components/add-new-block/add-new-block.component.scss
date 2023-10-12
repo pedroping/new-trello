@@ -1,0 +1,76 @@
+@import 'libs/core/themes/trello-clone/root.scss';
+
+:host {
+  display: block;
+  width: 300px;
+
+  .base-content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 10px;
+    height: 48px;
+    border-radius: 10px;
+    background-color: var(--add-new-background);
+    cursor: pointer;
+    &:hover {
+      background-color: var(--add-new-background-hovered);
+    }
+  }
+
+  .add-new-content {
+    @include default-box-shadow;
+    width: 300px;
+    height: 80px;
+    border-radius: 20px;
+    padding: 10px;
+    padding-top: 15px;
+    background-color: var(--block-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    input {
+      height: 32px;
+      border: none !important;
+      outline: none !important;
+      border-radius: 5px;
+      padding-left: 8px;
+      box-shadow: inset 0 0 0 1px black;
+
+      &:focus {
+        box-shadow: inset 0 0 0 2px var(--blue-01, #388bff);
+      }
+
+      &::placeholder {
+        margin-left: 10px;
+      }
+    }
+
+    .add-new-footer {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-top: 10px;
+      height: 35px;
+
+      button {
+        border-radius: 5px;
+        background-color: var(--blue-01);
+        border: 1px solid var(--white-01);
+        color: var(--white-01);
+        height: 32px;
+        margin-top: 0;
+        min-height: 32px;
+        padding-bottom: 4px;
+        padding-top: 4px;
+        margin-right: 10px;
+      }
+
+      button,
+      mat-icon {
+        cursor: pointer;
+      }
+    }
+  }
+}

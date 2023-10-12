@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ScrollEventsService } from '@my-monorepo/core/facades';
 
-export const BLOCKS = Array.from({ length: 5 }, (_, i) => {
+export const BLOCKS = Array.from({ length: 2 }, (_, i) => {
   return {
     name: `To Do ${i}`,
     cards: Array.from({ length: 5 }, (_, i) => i + 1),
@@ -21,12 +21,12 @@ export class CardMocksService {
     }[]
   >([]);
 
-  addNew() {
+  addNew(listName: string) {
     const index = this.blocks$.value.length + 1;
     const blocks = [
       ...this.blocks$.value,
       {
-        name: `To Do ${index}`,
+        name: listName,
         cards: Array.from({ length: 5 }, (_, i) => i + 1),
       },
     ];

@@ -1,0 +1,26 @@
+<ng-template #baseContent>
+  <div class="base-content" (click)="setState(true)">
+    <mat-icon>add</mat-icon><span>Adicionar outra lista</span>
+  </div>
+</ng-template>
+
+<ng-template #addNew>
+  <div class="add-new-content">
+    <input
+      #listNameInput
+      type="text"
+      id="add-New"
+      autocomplete="add-New"
+      placeholder="Insira o titulo da lista..."
+      [formControl]="listName"
+    />
+    <div class="add-new-footer">
+      <button (click)="addList()">Adicionar Lista</button>
+      <mat-icon (click)="setState(false)">close</mat-icon>
+    </div>
+  </div>
+</ng-template>
+
+<ng-container
+  [ngTemplateOutlet]="onAddNew ? addNew : baseContent"
+></ng-container>
