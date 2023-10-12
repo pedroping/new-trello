@@ -6,8 +6,8 @@ import {
   HostListener,
   Input,
 } from '@angular/core';
-import { CardFooterComponent } from '../components/card-footer/card-footer.component';
-import { DragAndDropService } from '../services/drag-and-drop/drag-and-drop.service';
+import { CardFooterComponent } from '../../components/card-footer/card-footer.component';
+import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
 import { ScrollEventsService } from '@my-monorepo/core/facades';
 
 @Directive({

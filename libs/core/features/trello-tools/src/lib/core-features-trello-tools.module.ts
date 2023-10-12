@@ -12,7 +12,8 @@ import { CardHeaderComponent } from './components/card-header/card-header.compon
 import { CardListComponent } from './components/card-list/card-list.component';
 import { CardOptionsComponent } from './components/card-options/card-options.component';
 import { CardComponent } from './components/card/card.component';
-import { CardBlockHeightDirective } from './directives/cardBlock-height.directive';
+import { CardBlockHeightDirective } from './directives/card-block-height/cardBlock-height.directive';
+import { OutsideAddBlockClickDirective } from './directives/outside-add-block-click/outside-add-block-click.directive';
 @NgModule({
   imports: [
     ReactiveFormsModule,
@@ -34,8 +35,9 @@ import { CardBlockHeightDirective } from './directives/cardBlock-height.directiv
     CardFooterComponent,
     CardListComponent,
     AddNewBlockComponent,
+    OutsideAddBlockClickDirective
   ],
   exports: [CardBlockComponent, AddNewBlockComponent],
-  providers: [CardBlockHeightDirective],
+  providers: [CardBlockHeightDirective, OutsideAddBlockClickDirective],
 })
 export class CoreFeaturesTrelloToolsModule {}
