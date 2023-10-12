@@ -65,6 +65,10 @@
         padding-bottom: 4px;
         padding-top: 4px;
         margin-right: 10px;
+
+        &:disabled {
+          background-color: lighten($add-new-btn-background, 20%);
+        }
       }
 
       button,

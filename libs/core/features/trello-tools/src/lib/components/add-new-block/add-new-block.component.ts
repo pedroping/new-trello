@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild, inject } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { CardMocksService } from '../../services/card-mocks/card-mocks.service';
 import { timer } from 'rxjs';
 
@@ -13,7 +13,10 @@ export class AddNewBlockComponent {
   listNameInput?: ElementRef;
 
   onAddNew = false;
-  listName = new FormControl<string>('', { nonNullable: true });
+  listName = new FormControl<string>('', {
+    nonNullable: true,
+    validators: [Validators.required],
+  });
 
   private readonly cardMocksService = inject(CardMocksService);
 

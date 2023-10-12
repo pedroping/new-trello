@@ -15,7 +15,9 @@
       [formControl]="listName"
     />
     <div class="add-new-footer">
-      <button (click)="addList()">Adicionar Lista</button>
+      <button (click)="addList()" [disabled]="listName.invalid">
+        Adicionar Lista
+      </button>
       <mat-icon (click)="setState(false)">close</mat-icon>
     </div>
   </div>
