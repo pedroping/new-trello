@@ -30,7 +30,9 @@ export class AddNewBlockComponent {
   addList() {
     const listName = this.listName.value;
     if (!listName) return;
+
     this.cardMocksService.addNew(listName);
     this.setState(false);
+    this.listName.reset();
   }
 }
