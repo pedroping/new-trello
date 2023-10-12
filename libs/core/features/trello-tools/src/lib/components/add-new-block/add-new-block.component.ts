@@ -2,11 +2,12 @@ import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { CardMocksService } from '../../services/card-mocks/card-mocks.service';
 import { timer } from 'rxjs';
-
+import { ENTER_ANIMATION } from '@my-monorepo/core/ui/animations';
 @Component({
   selector: 'trello-add-new-block',
   templateUrl: './add-new-block.component.html',
   styleUrls: ['./add-new-block.component.scss'],
+  animations: [ENTER_ANIMATION],
 })
 export class AddNewBlockComponent {
   @ViewChild('listNameInput', { static: false })
