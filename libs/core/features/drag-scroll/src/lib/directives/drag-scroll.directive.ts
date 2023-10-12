@@ -4,8 +4,13 @@ import {
   DragAndDropService,
 } from '@my-monorepo/core/features/trello-tools';
 import { Subject, startWith, takeUntil, timer } from 'rxjs';
-import { ScrollEventsService } from "@my-monorepo/core/facades"
+import { ScrollEventsService } from '@my-monorepo/core/facades';
 
+export const BASE_BLOCK_SIZE = 320;
+export const BASE_SIDENAV_SIZE = 350;
+export const BASE_ADD_NEW_SIZE = 340;
+export const BASE_SCROLL_AREA = 100;
+export const BASE_SCROLL_MOVE_TICK = 2;
 @Directive({
   selector: '[dragScroll]',
 })
@@ -34,7 +39,11 @@ export class DragScrollDirective {
     this.scrollLeft = el.scrollLeft;
   }
 
-  @HostListener('mouseup', ['$event'])
+  @HostListener('mouseup', ['$event']) onMouseUp() {
+    this.scrollEventsService.onMouseDown$.next(false);
+    this.mouseDown = false;
+  }
+
   @HostListener('mouseleave', ['$event'])
   stopDragging() {
     this.mouseDown = false;
@@ -53,8 +62,8 @@ export class DragScrollDirective {
     const onMove = this.dragAndDropService.onMove$.value;
     const onCardMove = this.dragAndDropService.onCardMove$.value;
 
-    const rightCalc = hasRightSidenav ? 350 : 100;
-    const leftCalc = hasLeftSidenav ? 350 : 100;
+    const rightCalc = hasRightSidenav ? BASE_SIDENAV_SIZE : BASE_SCROLL_AREA;
+    const leftCalc = hasLeftSidenav ? BASE_SIDENAV_SIZE : BASE_SCROLL_AREA;
 
     if (!onMove && onCardMove) {
       if (window.innerWidth - rightCalc < e.pageX) {
@@ -85,10 +94,9 @@ export class DragScrollDirective {
     timer(0, 1)
       .pipe(takeUntil(this.stopLeftEvent$))
       .subscribe(() => {
-        if (this.dragAndDropService.onCardMove$.value) {
-          this.el.nativeElement.scrollLeft -= 2;
-          this.el.nativeElement.parentElement.scrollLeft -= 2;
-        }
+        if (this.dragAndDropService.onCardMove$.value)
+          this.el.nativeElement.parentElement.scrollLeft -=
+            BASE_SCROLL_MOVE_TICK;
       });
   }
 
@@ -96,10 +104,9 @@ export class DragScrollDirective {
     timer(0, 1)
       .pipe(takeUntil(this.stopRightEvent$))
       .subscribe(() => {
-        if (this.dragAndDropService.onCardMove$.value) {
-          this.el.nativeElement.scrollLeft += 2;
-          this.el.nativeElement.parentElement.scrollLeft += 2;
-        }
+        if (this.dragAndDropService.onCardMove$.value)
+          this.el.nativeElement.parentElement.scrollLeft +=
+            BASE_SCROLL_MOVE_TICK;
       });
   }
 
@@ -108,13 +115,14 @@ export class DragScrollDirective {
       .pipe(startWith(this.cardMocksService.blocks$.value))
       .subscribe((blocks) => {
         const length = blocks.length;
-        this.el.nativeElement.style.width = length * 320 + 340 + 'px';
+        this.el.nativeElement.style.width =
+          length * BASE_BLOCK_SIZE + BASE_ADD_NEW_SIZE + 'px';
       });
 
     this.scrollEventsService.scrollToEnd$.subscribe(() => {
       const length = this.cardMocksService.blocks$.value.length;
       this.el.nativeElement.parentElement.scrollLeft +=
-        (length + 1) * 320 + 340;
+        (length + 1) * BASE_BLOCK_SIZE + BASE_ADD_NEW_SIZE;
     });
   }
 }

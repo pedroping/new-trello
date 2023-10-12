@@ -8,12 +8,9 @@ import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.s
 })
 export class CardBlockComponent {
   @Input() isPreview = false;
-  @Input({ required: true }) title = '';
-  @Input({ required: true }) cards: number[] = [];
-  @Input({ required: true }) id: number = -1;
-
-  window = window
-  
+  @Input() title = '';
+  @Input() cards: number[] = [];
+  @Input() id = -1;
   constructor(
     readonly dragAndDropService: DragAndDropService,
     readonly cdr: ChangeDetectorRef

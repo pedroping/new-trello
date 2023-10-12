@@ -1,4 +1,9 @@
-import { CdkDrag, CdkDropList, DragDropModule } from '@angular/cdk/drag-drop';
+import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDropList,
+  DragDropModule,
+} from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, Injector } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -25,7 +30,7 @@ import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
     CoreFeaturesDragScrollModule,
     CdkDropList,
     CdkDrag,
-    RouterLink
+    RouterLink,
   ],
 })
 @ClearMocks()
@@ -35,17 +40,27 @@ export class HomePageComponent {
 
   constructor(
     readonly dragAndDropService: DragAndDropService,
-    readonly cdr: ChangeDetectorRef,
     readonly cardMocksService: CardMocksService,
+    private readonly cdr: ChangeDetectorRef,
     private readonly _injector: Injector
   ) {
     this.injector = this._injector;
+    this.cardMocksService.getAllCards();
+  }
+
+  listDropped(
+    event: CdkDragDrop<
+      {
+        name: string;
+        cards: number[];
+      }[]
+    >
+  ) {
+    this.dragAndDropService.blockDrop(event);
+    this.dragAndDropService.onDrop(this.cdr);
   }
 
   onMove() {
-    this.dragAndDropService.onBlockMove = true;
-    if (this.dragAndDropService.onMove$.value) return;
-    this.dragAndDropService.onMove$.next(true);
-    this.cdr.detectChanges();
+    this.dragAndDropService.onMove(this.cdr)
   }
 }

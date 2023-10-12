@@ -1,16 +1,5 @@
-<!-- hasOneSidenav -->
-<!-- hasTwoSidenav -->
-<!-- hasRightSidenav -->
-<div
-  class="content hasTwoSidenav hasRightSidenav"
-  cdkDropList
-  [cdkDropListData]="blocks$.value"
-  cdkDropListOrientation="horizontal"
-  [cdkDropListAutoScrollStep]="18"
-  (cdkDropListDropped)="drop($event); onDrop()"
-  cdkDropListGroup
-  cdkScrollable
->
+<!-- hasSidenav -->
+<div class="content hasTwoSidenav hasRightSidenav" cdkScrollable>
   <app-toolbar>
     <trello-toolbar-content></trello-toolbar-content>
   </app-toolbar>

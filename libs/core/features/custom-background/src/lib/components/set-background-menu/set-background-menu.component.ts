@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { HandleImageService } from '../../services/handleImage.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { HandleImageService } from '../../services/handleImage.service';
   templateUrl: './set-background-menu.component.html',
   styleUrls: ['./set-background-menu.component.scss'],
 })
-export class SetBackgroundMenuComponent implements OnInit {
+export class SetBackgroundMenuComponent {
   @Input({ required: true }) cdkMenuTrigger!: unknown & {
     close: () => void;
   };
@@ -14,8 +14,6 @@ export class SetBackgroundMenuComponent implements OnInit {
   images$ = this.handleImageService.imgSrc$;
 
   constructor(readonly handleImageService: HandleImageService) {}
-
-  ngOnInit() {}
 
   uploadImage(event: Event) {
     this.handleImageService.uploadImage(event);
