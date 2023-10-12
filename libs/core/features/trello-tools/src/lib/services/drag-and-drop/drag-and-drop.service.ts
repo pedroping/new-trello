@@ -25,13 +25,14 @@ export class DragAndDropService {
 
   setValueChanges(): void {
     this.onCardMove$
-      .pipe(tap(value => {
-        if (value)
-          this.scrollEventsService.onMouseDown$.next(true);
-      }), throttleTime(1000))
+      .pipe(
+        tap((value) => {
+          if (value) this.scrollEventsService.onMouseDown$.next(true);
+        }),
+        throttleTime(1000)
+      )
       .subscribe((value) => {
-        if (!value)
-          this.scrollEventsService.onMouseDown$.next(false);
+        if (!value) this.scrollEventsService.onMouseDown$.next(false);
       });
   }
 

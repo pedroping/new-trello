@@ -42,6 +42,7 @@ export class CardListComponent implements OnInit {
 
   onDrop() {
     this.dragAndDropService.onCardMove$.next(false);
+    this.dragAndDropService.lastToBeHovered = -1;
     this.cardMove.emit(false);
     this.cdr.detectChanges();
   }
