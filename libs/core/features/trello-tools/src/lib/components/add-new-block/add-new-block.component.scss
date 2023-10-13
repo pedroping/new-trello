@@ -8,6 +8,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    width: 300px;
     padding-left: 10px;
     height: 48px;
     border-radius: 10px;
@@ -20,24 +21,26 @@
 
   .add-new-content {
     @include default-box-shadow;
-    width: 300px;
-    height: 80px;
-    border-radius: 20px;
-    padding: 10px;
-    padding-top: 15px;
+    position: absolute;
+    top: 20px;
+    width: 310px !important;
+    height: 100px;
+    border-radius: 10px;
     background-color: var(--block-color);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
 
     input {
+      width: 278px;
       height: 32px;
       border: none !important;
       outline: none !important;
       border-radius: 5px;
       padding-left: 8px;
       box-shadow: inset 0 0 0 0.5px black;
-
+      margin-top: 10px;
       &:focus {
         box-shadow: inset 0 0 0 2px var(--blue-01, #388bff);
       }
@@ -51,8 +54,9 @@
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      margin-top: 10px;
+      margin: 10px 0 5px 0;
       height: 35px;
+      width: 290px;
 
       button {
         border-radius: 5px;

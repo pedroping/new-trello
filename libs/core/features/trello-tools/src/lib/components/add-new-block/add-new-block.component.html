@@ -1,19 +1,13 @@
-<ng-template #baseContent>
+<ng-container *ngIf="!onAddNew">
   <div class="base-content" (click)="setState(true)">
     <mat-icon>add</mat-icon><span>Adicionar outra lista</span>
   </div>
-</ng-template>
+</ng-container>
 
-<ng-template #addNew>
-  <div class="add-new-content" @inPaneAnimation outsideAddBlockClick>
-    <input
-      #listNameInput
-      type="text"
-      id="add-New"
-      autocomplete="add-New"
-      placeholder="Insira o titulo da lista..."
-      [formControl]="listName"
-    />
+<ng-container *ngIf="onAddNew">
+  <div class="add-new-content" @inOutPaneAnimation outsideAddBlockClick>
+    <input #listNameInput type="text" id="add-New" autocomplete="add-New" placeholder="Insira o titulo da lista..."
+      [formControl]="listName" />
     <div class="add-new-footer">
       <button (click)="addList()" [disabled]="listName.invalid">
         Adicionar Lista
@@ -21,8 +15,4 @@
       <mat-icon (click)="setState(false)">close</mat-icon>
     </div>
   </div>
-</ng-template>
-
-<ng-container
-  [ngTemplateOutlet]="onAddNew ? addNew : baseContent"
-></ng-container>
+</ng-container>

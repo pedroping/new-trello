@@ -6,15 +6,15 @@ import {
   inject,
 } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { ENTER_ANIMATION } from '@my-monorepo/core/ui/animations';
+import { OutsideClickEventsService } from '@my-monorepo/core/facades';
+import { ENTER_LEAVE_ANIMATION } from '@my-monorepo/core/ui/animations';
 import { take, timer } from 'rxjs';
 import { CardMocksService } from '../../services/card-mocks/card-mocks.service';
-import { OutsideClickEventsService } from '@my-monorepo/core/facades';
 @Component({
   selector: 'trello-add-new-block',
   templateUrl: './add-new-block.component.html',
   styleUrls: ['./add-new-block.component.scss'],
-  animations: [ENTER_ANIMATION],
+  animations: [ENTER_LEAVE_ANIMATION],
 })
 export class AddNewBlockComponent implements OnInit {
   @ViewChild('listNameInput', { static: false })
