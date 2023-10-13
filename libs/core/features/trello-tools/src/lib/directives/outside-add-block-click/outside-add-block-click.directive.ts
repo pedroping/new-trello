@@ -1,15 +1,17 @@
-import { Directive, ElementRef } from '@angular/core';
-import { filter, fromEvent, of, switchMap, takeUntil } from 'rxjs';
+import { Directive, ElementRef, OnInit } from '@angular/core';
 import { OutsideClickEventsService } from '@my-monorepo/core/facades';
+import { fromEvent, of, switchMap, takeUntil } from 'rxjs';
 
 @Directive({
   selector: '[outsideAddBlockClick]',
 })
-export class OutsideAddBlockClickDirective {
+export class OutsideAddBlockClickDirective implements OnInit {
   constructor(
     private readonly elementRef: ElementRef,
     private readonly outsideClickEventsService: OutsideClickEventsService
-  ) {
+  ) { }
+
+  ngOnInit(): void {
     this.setValueChanges();
   }
 
@@ -24,12 +26,13 @@ export class OutsideAddBlockClickDirective {
           return fromEvent(body, 'click').pipe(
             takeUntil(this.outsideClickEventsService.stopTaking$)
           );
-        }),
-        filter((event) => !!event)
+        })
       )
       .subscribe((event) => {
+        if (!event) return;
+
         const isChildClick = this.elementRef.nativeElement.contains(
-          event!.target
+          event.target
         );
 
         if (!isChildClick) this.outsideClickEventsService.outSideClick$.next();
