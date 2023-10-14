@@ -1,12 +1,14 @@
-import { Directive, ElementRef, OnInit } from '@angular/core';
+import { Directive, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { OutsideClickEventsService } from '@my-monorepo/core/facades';
-import { filter, fromEvent, of, switchMap, takeUntil } from 'rxjs';
+import { Subject, filter, fromEvent, of, switchMap, takeUntil } from 'rxjs';
 import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
 
 @Directive({
   selector: '[outsideAddBlockClick]',
 })
-export class OutsideAddBlockClickDirective implements OnInit {
+export class OutsideAddBlockClickDirective implements OnInit, OnDestroy {
+  onDestroy$ = new Subject<void>();
+
   constructor(
     private readonly elementRef: ElementRef,
     private readonly outsideClickEventsService: OutsideClickEventsService,
@@ -18,19 +20,29 @@ export class OutsideAddBlockClickDirective implements OnInit {
   }
 
   setValueChanges() {
-    this.dragAndDropService.onCardMove$
-      .pipe(filter((move) => !!move))
-      .subscribe(() => this.outsideClickEventsService.outSideClick$.next());
-      
+    [
+      this.dragAndDropService.onCardMove$,
+      this.dragAndDropService.onMove$,
+    ].forEach((subscription) => {
+      subscription
+        .pipe(
+          filter((move) => !!move),
+          takeUntil(this.onDestroy$)
+        )
+        .subscribe(() => this.outsideClickEventsService.outSideClick$.next());
+    });
+
     this.outsideClickEventsService.startTaking$
       .pipe(
         takeUntil(this.outsideClickEventsService.stopTaking$),
+        takeUntil(this.onDestroy$),
         switchMap(() => {
           const body = document.querySelector('body');
           if (!body) return of(null);
 
           return fromEvent(body, 'click').pipe(
-            takeUntil(this.outsideClickEventsService.stopTaking$)
+            takeUntil(this.outsideClickEventsService.stopTaking$),
+            takeUntil(this.onDestroy$)
           );
         })
       )
@@ -43,5 +55,9 @@ export class OutsideAddBlockClickDirective implements OnInit {
 
         if (!isChildClick) this.outsideClickEventsService.outSideClick$.next();
       });
+  }
+
+  ngOnDestroy(): void {
+    this.onDestroy$.next();
   }
 }
