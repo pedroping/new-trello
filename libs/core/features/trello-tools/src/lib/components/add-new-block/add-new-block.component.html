@@ -6,8 +6,12 @@
 
 <ng-container *ngIf="onAddNew">
   <div class="add-new-content" @inOutPaneAnimation outsideAddBlockClick>
-    <input #listNameInput type="text" id="add-New" autocomplete="add-New" placeholder="Insira o titulo da lista..."
-      [formControl]="listName" />
+    <input
+      #listNameInput
+      type="text"
+      placeholder="Insira o titulo da lista..."
+      [formControl]="listName"
+    />
     <div class="add-new-footer">
       <button (click)="addList()" [disabled]="listName.invalid">
         Adicionar Lista

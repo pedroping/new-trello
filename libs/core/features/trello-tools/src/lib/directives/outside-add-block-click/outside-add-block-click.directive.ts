@@ -1,6 +1,7 @@
 import { Directive, ElementRef, OnInit } from '@angular/core';
 import { OutsideClickEventsService } from '@my-monorepo/core/facades';
-import { fromEvent, of, switchMap, takeUntil } from 'rxjs';
+import { filter, fromEvent, of, switchMap, takeUntil } from 'rxjs';
+import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
 
 @Directive({
   selector: '[outsideAddBlockClick]',
@@ -8,14 +9,19 @@ import { fromEvent, of, switchMap, takeUntil } from 'rxjs';
 export class OutsideAddBlockClickDirective implements OnInit {
   constructor(
     private readonly elementRef: ElementRef,
-    private readonly outsideClickEventsService: OutsideClickEventsService
-  ) { }
+    private readonly outsideClickEventsService: OutsideClickEventsService,
+    private readonly dragAndDropService: DragAndDropService
+  ) {}
 
   ngOnInit(): void {
     this.setValueChanges();
   }
 
   setValueChanges() {
+    this.dragAndDropService.onCardMove$
+      .pipe(filter((move) => !!move))
+      .subscribe(() => this.outsideClickEventsService.outSideClick$.next());
+      
     this.outsideClickEventsService.startTaking$
       .pipe(
         takeUntil(this.outsideClickEventsService.stopTaking$),
