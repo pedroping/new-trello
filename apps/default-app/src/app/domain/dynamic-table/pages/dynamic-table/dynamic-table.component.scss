@@ -9,12 +9,12 @@
       background-color: var(--table-row) !important;
     }
 
-    // .defaultRow:nth-child(odd) {
-    //   cdk-cell {
-    //     background-color: $table-selected-row !important;
-    //   }
-    // }
-    cdk-row:nth-child(4n+1) {
+    cdk-row:nth-child(4n + 1) {
+      & + cdk-row {
+        cdk-cell {
+          background-color: var(--table-selected-row) !important;
+        }
+      }
       cdk-cell {
         background-color: var(--table-selected-row) !important;
       }

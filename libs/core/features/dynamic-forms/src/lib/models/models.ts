@@ -2,6 +2,8 @@ import { FormControl } from '@angular/forms';
 import { BasicInputComponent } from '../default-components/basic-input/basic-input.component';
 import { InjectionToken, Type } from '@angular/core';
 
+export type IInputTypes = 'text' | 'number' | 'email';
+
 export interface IBaseInput {
   label: string;
   placeholder: string;
@@ -12,29 +14,30 @@ export interface IBaseInput {
   isBasicInput: boolean;
   inputName: string;
 }
+
 export interface ISelectInput<T> extends IBaseInput {
   options: T[];
 }
+
+export type IInputBuilder<T> = IBaseInput | ISelectInput<T>;
 
 export interface IComponentBase<T> {
   config: IInputBuilder<T>;
 }
 
 export interface IInputClass<T> {
-  [key: string]: Type<IComponentBase<T>>
+  [key: string]: Type<IComponentBase<T>>;
 }
-
 
 export const BASIC_INPUTS: IInputClass<IBaseInput> = {
   basicInput: BasicInputComponent,
 };
 
-export type IInputTypes = 'text' | 'number' | 'email';
-
-export type IInputBuilder<T> = IBaseInput | ISelectInput<T>;
-
-export const DEFAULT_COMPS = new InjectionToken<IInputClass<IBaseInput>>('DEFAULT_COMPS', {
-  factory: () => {
-    return BASIC_INPUTS
-  },
-})
+export const DEFAULT_COMPS = new InjectionToken<IInputClass<IBaseInput>>(
+  'DEFAULT_COMPS',
+  {
+    factory: () => {
+      return BASIC_INPUTS;
+    },
+  }
+);

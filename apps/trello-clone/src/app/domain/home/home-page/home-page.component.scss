@@ -1,8 +1,22 @@
-:host {
-    display: block;
-    padding: 15px;
-    .container {
-        display: flex;
-        justify-content: space-between;
-    }
+.allBlocks {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  padding: 20px;
+
+  .addNew {
+    background-color: red;
+    width: 300px;
+    height: 300px;
+  }
+
+  .block {
+    box-sizing: border-box;
+  }
+
+  .cdk-drag-handle {
+    width: 300px;
+    height: 50px;
+    position: absolute;
+  }
 }

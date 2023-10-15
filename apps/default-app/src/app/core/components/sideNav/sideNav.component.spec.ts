@@ -11,9 +11,8 @@ describe('SideNavComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SideNavComponent ]
-    })
-    .compileComponents();
+      declarations: [SideNavComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,0 +1,43 @@
+.content {
+  display: block;
+  overflow: auto;
+  height: 100% !important;
+  overflow-x: auto;
+  width: 100vw;
+
+  &.hasSidenav {
+    width: calc(100vw - 250px);
+  }
+
+  app-toolbar {
+    width: 100%;
+    position: fixed;
+    z-index: 1000;
+    left: 0px;
+  }
+
+  ::ng-deep {
+    mat-toolbar {
+      padding: 0px 10px 0px 10px !important;
+      background-color: var(--toolbar-background) !important;
+      color: var(--text-01) !important;
+    }
+  }
+
+  .route-content {
+    position: relative;
+    top: 64px;
+    height: calc(100% - 64px);
+  }
+}
+
+.sidenav {
+  bottom: 0;
+  position: absolute;
+  right: -250px;
+  top: 64px;
+  z-index: 15000;
+  background-color: red;
+  width: 250px;
+  height: calc(100% - 64px);
+}

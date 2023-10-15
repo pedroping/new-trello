@@ -15,8 +15,15 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@my-monorepo/core/facades": ["libs/core/facades/index.ts"],
+      "@my-monorepo/core/features/custom-background": [
+        "libs/core/features/custom-background/src/index.ts"
+      ],
       "@my-monorepo/core/features/dark-mode": [
         "libs/core/features/dark-mode/src/index.ts"
+      ],
+      "@my-monorepo/core/features/drag-scroll": [
+        "libs/core/features/drag-scroll/src/index.ts"
       ],
       "@my-monorepo/core/features/dynamic-forms": [
         "libs/core/features/dynamic-forms/src/index.ts"
@@ -24,8 +31,8 @@
       "@my-monorepo/core/features/expand-table": [
         "libs/core/features/expand-table/src/index.ts"
       ],
-      "@my-monorepo/core/features/scss-root": [
-        "libs/core/features/scss-root/src/index.ts"
+      "@my-monorepo/core/features/form-error": [
+        "libs/core/features/form-error/src/index.ts"
       ],
       "@my-monorepo/core/features/selected-route": [
         "libs/core/features/selected-route/src/index.ts"
@@ -34,6 +41,9 @@
         "libs/core/features/trello-tools/src/index.ts"
       ],
       "@my-monorepo/core/ui": ["libs/core/ui/src/index.ts"],
+      "@my-monorepo/core/ui/animations": [
+        "libs/core/ui/animations/src/index.ts"
+      ],
       "@my-monorepo/core/ui/dynamic-table": [
         "libs/core/ui/dynamic-table/src/index.ts"
       ],

@@ -8,6 +8,7 @@ import {
 import { DefaultFormInput } from '../../models/defaultInput';
 import { IBaseInput, IComponentBase } from '../../models/models';
 import { MatInputModule } from '@angular/material/input';
+import { CoreFeaturesFormErrorModule } from '@my-monorepo/core/features/form-error';
 
 @Component({
   selector: 'app-basic-input',
@@ -21,7 +22,12 @@ import { MatInputModule } from '@angular/material/input';
     },
   ],
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, MatInputModule],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    CoreFeaturesFormErrorModule,
+  ],
 })
 export class BasicInputComponent
   extends DefaultFormInput<IBaseInput>

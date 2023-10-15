@@ -36,7 +36,12 @@
           "@angular/material/prebuilt-themes/deeppurple-amber.css",
           "apps/trello-clone/src/styles.scss"
         ],
-        "scripts": []
+        "scripts": [],
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "libs/core/themes/trello-clone"
+          ]
+        }
       },
       "configurations": {
         "production": {

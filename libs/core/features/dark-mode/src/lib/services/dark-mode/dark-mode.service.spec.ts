@@ -6,7 +6,7 @@ import { DarkModeService } from './dark-mode.service';
 describe('Service: DarkMode', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [DarkModeService]
+      providers: [DarkModeService],
     });
   });
 

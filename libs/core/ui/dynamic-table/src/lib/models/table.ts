@@ -8,7 +8,7 @@ export interface ITableColumn<T> {
   hasCustomField?: boolean;
   hasControls?: boolean;
   component?: Type<DefaultInput<T>>;
-  controlsOptions?: IColumnFormOptions<T>
+  controlsOptions?: IColumnFormOptions<T>;
 }
 export interface ITableConfig<T> {
   columns: ITableColumn<T>[];
@@ -17,7 +17,7 @@ export interface ITableConfig<T> {
   paginatorOptions?: IPaginatorOptions;
   hasDefaultPaginator?: boolean;
   defaultPaginatorOptions?: IDefaultPaginatorOptions;
-  customPagination?: () => void
+  customPagination?: () => void;
 }
 export interface IPaginatorOptions {
   pageSize: number;
@@ -25,8 +25,13 @@ export interface IPaginatorOptions {
 }
 
 export interface IColumnFormOptions<T> {
-  controls: IControls[],
-  getValueChanges: (valueChanges$: Observable<T>, id: number, element: T, selector: keyof T) => void
+  controls: IControls[];
+  getValueChanges: (
+    valueChanges$: Observable<T>,
+    id: number,
+    element: T,
+    selector: keyof T
+  ) => void;
 }
 export interface IDefaultPaginatorOptions {
   pageSize: number;
@@ -39,15 +44,20 @@ export interface DefaultInput<T> {
   tableElement: T;
   selector: keyof T;
   formControl: FormControl;
-  columnOption: ITableColumn<T>
+  columnOption: ITableColumn<T>;
 }
 
 export interface IBaseTableFather<T> {
-  getValueChanges: (valueChanges$: Observable<T>, id: number, element: T, selector: keyof T) => void
-  customPagination?: () => void
+  getValueChanges: (
+    valueChanges$: Observable<T>,
+    id: number,
+    element: T,
+    selector: keyof T
+  ) => void;
+  customPagination?: () => void;
 }
 
-export type IControls = AbstractControl | FormControl
+export type IControls = AbstractControl | FormControl;
 
 export interface IBasicTableTest {
   id: number;

@@ -3,7 +3,7 @@ import { DARK_COLORS, LIGHT_COLORS } from '../../helpers/colors';
 import { Subject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DarkModeService {
   darkMode = false;
@@ -16,7 +16,7 @@ export class DarkModeService {
       document
         .querySelector('meta[name="theme-color"]')
         ?.setAttribute('content', DARK_COLORS);
-      document.querySelector('html')?.classList.add('darkMode')
+      document.querySelector('html')?.classList.add('darkMode');
     }
   }
 
@@ -28,13 +28,13 @@ export class DarkModeService {
       document
         .querySelector('meta[name="theme-color"]')
         ?.setAttribute('content', DARK_COLORS);
-      document.querySelector('html')?.classList.add('darkMode')
+      document.querySelector('html')?.classList.add('darkMode');
       return;
     }
     sessionStorage.removeItem('darkMode');
     document
       .querySelector('meta[name="theme-color"]')
       ?.setAttribute('content', LIGHT_COLORS);
-    document.querySelector('html')?.classList.remove('darkMode')
+    document.querySelector('html')?.classList.remove('darkMode');
   }
 }

@@ -57,7 +57,7 @@
             "node_modules",
             "src/themes/",
             "src/app/",
-            "libs/core/features/scss-root/src/lib/default-app"
+            "libs/core/themes/default-app"
           ]
         },
         "scripts": [],

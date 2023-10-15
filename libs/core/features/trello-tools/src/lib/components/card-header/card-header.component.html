@@ -1,0 +1,11 @@
+<div class="title">
+  <span>{{ title }}</span>
+  <span>{{ cardLength }} cartões </span>
+</div>
+<div class="more-icon" [cdkMenuTriggerFor]="cardOptions">
+  <mat-icon>more_horiz</mat-icon>
+</div>
+
+<ng-template #cardOptions>
+  <trello-card-options cdkMenu></trello-card-options>
+</ng-template>

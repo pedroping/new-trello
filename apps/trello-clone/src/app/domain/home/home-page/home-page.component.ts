@@ -1,12 +1,66 @@
+import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDropList,
+  DragDropModule,
+} from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { DragDropModule } from '@angular/cdk/drag-drop';
-import { CoreFeaturesTrelloToolsModule } from '@my-monorepo/core/features/trello-tools';
+import { ChangeDetectorRef, Component, Injector } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { CoreFeaturesDragScrollModule } from '@my-monorepo/core/features/drag-scroll';
+import {
+  CardMocksService,
+  ClearMocks,
+  CoreFeaturesTrelloToolsModule,
+  DragAndDropService,
+} from '@my-monorepo/core/features/trello-tools';
+import { CoreUiSidenavModule } from '@my-monorepo/core/ui/sidenav';
+import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
   standalone: true,
-  imports: [CommonModule, CoreFeaturesTrelloToolsModule, DragDropModule],
+  imports: [
+    CommonModule,
+    CoreFeaturesTrelloToolsModule,
+    DragDropModule,
+    CoreUiSidenavModule,
+    CoreUiToolbarModule,
+    CoreFeaturesDragScrollModule,
+    CdkDropList,
+    CdkDrag,
+    RouterLink,
+  ],
 })
-export class HomePageComponent {}
+@ClearMocks()
+export class HomePageComponent {
+  blocks$ = this.cardMocksService.blocks$;
+  injector: Injector;
+
+  constructor(
+    readonly dragAndDropService: DragAndDropService,
+    readonly cardMocksService: CardMocksService,
+    private readonly cdr: ChangeDetectorRef,
+    private readonly _injector: Injector
+  ) {
+    this.injector = this._injector;
+    this.cardMocksService.getAllCards();
+  }
+
+  listDropped(
+    event: CdkDragDrop<
+      {
+        name: string;
+        cards: number[];
+      }[]
+    >
+  ) {
+    this.dragAndDropService.blockDrop(event);
+    this.dragAndDropService.onDrop(this.cdr);
+  }
+
+  onMove() {
+    this.dragAndDropService.onMove(this.cdr)
+  }
+}

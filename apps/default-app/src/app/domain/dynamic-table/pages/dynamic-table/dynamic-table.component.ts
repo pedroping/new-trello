@@ -1,17 +1,28 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import {
   CoreFeaturesDynamicFormsModule,
   IInputBuilder,
 } from '@my-monorepo/core/features/dynamic-forms';
-import { CoreUiDynamicTableModule, IBaseTableFather, IBasicTableTest } from '@my-monorepo/core/ui/dynamic-table';
-import { BehaviorSubject, Observable, pipe, startWith, tap } from 'rxjs';
+import { CoreFeaturesFormErrorModule } from '@my-monorepo/core/features/form-error';
+import {
+  CoreUiDynamicTableModule,
+  IBaseTableFather,
+  IBasicTableTest,
+} from '@my-monorepo/core/ui/dynamic-table';
+import { BehaviorSubject, Observable, startWith } from 'rxjs';
 import { CREATE_TABLE_CONFIG, DATA } from '../../helpers/table-mocks';
 @Component({
   selector: 'app-dynamic-table',
@@ -24,15 +35,18 @@ import { CREATE_TABLE_CONFIG, DATA } from '../../helpers/table-mocks';
     CoreFeaturesDynamicFormsModule,
     FormsModule,
     ReactiveFormsModule,
+    CoreFeaturesFormErrorModule,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DynamicTableComponent implements OnInit, IBaseTableFather<IBasicTableTest> {
+export class DynamicTableComponent
+  implements OnInit, IBaseTableFather<IBasicTableTest>
+{
   tableConfig = CREATE_TABLE_CONFIG(this);
   data$ = new BehaviorSubject<IBasicTableTest[]>(DATA);
   DATA = DATA;
   form = new FormGroup({
-    teste: new FormControl('aaa'),
+    teste: new FormControl(null, Validators.required),
   });
 
   formsConfig: IInputBuilder<unknown>[] = [
@@ -47,40 +61,43 @@ export class DynamicTableComponent implements OnInit, IBaseTableFather<IBasicTab
     },
   ];
 
-  constructor(private readonly cdr: ChangeDetectorRef) { }
+  constructor(private readonly cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
-    if (this.tableConfig.customPagination)
-      this.customPagination()
+    if (this.tableConfig.customPagination) this.customPagination();
   }
 
-  getValueChanges(valueChanges$: Observable<IBasicTableTest>, id: number, element: IBasicTableTest, selector: keyof IBasicTableTest) {
+  getValueChanges(
+    valueChanges$: Observable<IBasicTableTest>,
+    id: number,
+    element: IBasicTableTest,
+    selector: keyof IBasicTableTest
+  ) {
     valueChanges$.pipe(startWith(element[selector])).subscribe((value) => {
-      console.log(`${id}- ${selector.toUpperCase()} Mudou para ${value} elemento`, element, this.findControl(selector, id));
-    })
+      console.log(
+        `${id}- ${selector.toUpperCase()} Mudou para ${value} elemento`,
+        element,
+        this.findControl(selector, id)
+      );
+    });
   }
 
   findControl(selector: keyof IBasicTableTest, id: number) {
-    const column = this.tableConfig.columns.find(column => column.selector == selector)
-    if (!column) return null
-    return column.controlsOptions?.controls[id]
+    const column = this.tableConfig.columns.find(
+      (column) => column.selector == selector
+    );
+    if (!column) return null;
+    return column.controlsOptions?.controls[id];
   }
 
   customPagination() {
-    if (this.tableConfig.defaultPaginatorOptions) {
-      const start = this.tableConfig.defaultPaginatorOptions.pageSize * (this.tableConfig.defaultPaginatorOptions.currentPage - 1)
-      const end = this.tableConfig.defaultPaginatorOptions.pageSize * this.tableConfig.defaultPaginatorOptions.currentPage
-      const newData = this.DATA.slice(start, end)
-      this.data$.next(newData)
-      this.cdr.detectChanges();
+    const paginatorOptions = this.tableConfig.defaultPaginatorOptions;
+    if (paginatorOptions) {
+      const start =
+        paginatorOptions.pageSize * (paginatorOptions.currentPage - 1);
+      const end = paginatorOptions.pageSize * paginatorOptions.currentPage;
+      const newData = this.DATA.slice(start, end);
+      this.data$.next(newData);
     }
-  }
-
-  cdrTap() {
-    return pipe(
-      tap(() => {
-        this.cdr.detectChanges()
-      })
-    )
   }
 }

@@ -1,0 +1,10 @@
+<div class="block">Initial Board</div>
+<div class="block">
+  <button mat-icon-button [cdkMenuTriggerFor]="imgMenu" #menuTrigger="cdkMenuTriggerFor">
+    <mat-icon>menu</mat-icon>
+  </button>
+</div>
+
+<ng-template #imgMenu>
+    <set-background-menu [cdkMenuTrigger]="menuTrigger"></set-background-menu>
+</ng-template>

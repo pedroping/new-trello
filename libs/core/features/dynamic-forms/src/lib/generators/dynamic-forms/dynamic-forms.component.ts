@@ -8,7 +8,6 @@ import { IBaseInput, IInputBuilder } from '../../models/models';
   styleUrls: ['./dynamic-forms.component.scss'],
 })
 export class DynamicFormsComponent<T> {
-
   @Input({ required: true }) config!: IInputBuilder<T>[];
 
   constructor() {}

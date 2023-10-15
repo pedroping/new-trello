@@ -1,0 +1,36 @@
+:host {
+  height: 25px;
+  padding: 15px 15px 0px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+  font-size: var(--font-size-03) !important;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+
+  .title {
+    display: flex;
+    flex-direction: column;
+
+    span {
+      &:nth-child(2) {
+        font-size: var(--font-size-01) !important;
+      }
+    }
+  }
+
+  .more-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    aspect-ratio: 1/1;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1005;
+    &:hover {
+      background-color: var(--disabled-01);
+    }
+  }
+}

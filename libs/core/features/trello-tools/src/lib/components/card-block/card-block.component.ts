@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
 
 @Component({
@@ -6,11 +6,19 @@ import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.s
   templateUrl: './card-block.component.html',
   styleUrls: ['./card-block.component.scss'],
 })
-export class CardBlockComponent implements OnInit {
-  constructor(readonly dragAndDropService: DragAndDropService) {}
+export class CardBlockComponent {
+  @Input() isPreview = false;
+  @Input() title = '';
+  @Input() cards: number[] = [];
+  @Input() id = -1;
+  constructor(
+    readonly dragAndDropService: DragAndDropService,
+    readonly cdr: ChangeDetectorRef
+  ) {}
 
-  ngOnInit() {}
+  isSelectedBlock = false;
 
-  cards = Array.from({ length: 5 }, (_, i) => i + 1);
-  drop = this.dragAndDropService.drop;
+  cardMove(event: boolean) {
+    this.isSelectedBlock = event;
+  }
 }

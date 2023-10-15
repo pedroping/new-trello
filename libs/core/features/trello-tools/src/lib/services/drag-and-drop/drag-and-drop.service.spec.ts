@@ -6,11 +6,14 @@ import { DragAndDropService } from './drag-and-drop.service';
 describe('Service: DragAndDrop', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [DragAndDropService]
+      providers: [DragAndDropService],
     });
   });
 
-  it('should ...', inject([DragAndDropService], (service: DragAndDropService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [DragAndDropService],
+    (service: DragAndDropService) => {
+      expect(service).toBeTruthy();
+    }
+  ));
 });

@@ -1,22 +1,42 @@
-html,
-body {
-  height: 100%;
-}
+@import 'root';
 
 body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
   margin: 0;
   padding: 0;
-  height: 100%;
+  width: 100%;
+  overflow-x: auto;
+  font-size: var(--font-size-01) !important;
+  font-weight: var(--font-weight-01) !important;
 }
 
 .cdk-drag-preview {
   box-sizing: border-box;
   border-radius: 4px;
   cursor: grabbing;
+
   trello-card {
     transform: rotate(5deg) !important;
     cursor: grabbing;
+  }
+
+  trello-card-block {
+    display: block;
+    transform: rotate(2.5deg) !important;
+
+    trello-card {
+      transform: rotate(0deg) !important;
+    }
+
+    .card-list {
+      position: static;
+    }
+  }
+}
+
+.cdk-drag-placeholder ~ trello-card-block {
+  .card-list {
+    position: static !important;
   }
 }
 
@@ -30,7 +50,7 @@ body {
 
 .example-custom-placeholder {
   trello-card {
-    height: 32px;
-    background-color: lightgray !important;
+    background-color: var(--disabled-01) !important;
+    border: none;
   }
 }

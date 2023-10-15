@@ -8,8 +8,8 @@ import {
 } from '@my-monorepo/core/features/dark-mode';
 import { CoreUiSidenavModule } from '@my-monorepo/core/ui/sidenav';
 import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
+import { ToolBarComponent } from 'apps/default-app/src/app/core/components/toolBar/toolBar.component';
 import { SideNavComponent } from '../../../../core/components/sideNav/sideNav.component';
-import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -23,19 +23,9 @@ import { ToastrService } from 'ngx-toastr';
     RouterModule,
     CoreFeaturesDarkModeModule,
     SideNavComponent,
+    ToolBarComponent,
   ],
 })
-export class HomePageComponent implements OnInit {
-  constructor(
-    private readonly darkModeService: DarkModeService,
-    private toastr: ToastrService
-  ) { }
-
-  ngOnInit() { 
-    // this.toastr.success('HELLO WORLD!')
-  }
-
-  toggleDarkMode() {
-    this.darkModeService.toggleDarkMode();
-  }
+export class HomePageComponent {
+  constructor() {}
 }
