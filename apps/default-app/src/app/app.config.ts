@@ -5,8 +5,12 @@ import {
   isDevMode,
 } from '@angular/core';
 import {
+  PreloadAllModules,
   provideRouter,
+  withComponentInputBinding,
+  withDebugTracing,
   withEnabledBlockingInitialNavigation,
+  withPreloading,
 } from '@angular/router';
 import { appRoutes } from './app.routes';
 import {
@@ -18,7 +22,13 @@ import { provideToastr } from 'ngx-toastr';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
+    provideRouter(
+      appRoutes,
+      withEnabledBlockingInitialNavigation(),
+      withPreloading(PreloadAllModules),
+      withComponentInputBinding()
+      // withDebugTracing()
+    ),
     provideAnimations(),
     provideToastr(),
     importProvidersFrom(TuiRootModule, BrowserAnimationsModule),
