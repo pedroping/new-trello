@@ -21,12 +21,12 @@ export class CardMocksService {
     }[]
   >([]);
 
-  addNew() {
+  addNew(listName: string) {
     const index = this.blocks$.value.length + 1;
     const blocks = [
       ...this.blocks$.value,
       {
-        name: `To Do ${index}`,
+        name: listName,
         cards: Array.from({ length: 5 }, (_, i) => i + 1),
       },
     ];

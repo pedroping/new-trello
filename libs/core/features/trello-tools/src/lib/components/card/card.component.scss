@@ -1,7 +1,7 @@
 @import 'libs/core/themes/trello-clone/root.scss';
 
 :host {
-  @include default-box-shadow;
+  @include second-box-shadow;
   width: var(--card-width);
   height: var(--card-height);
   padding: 5px;
