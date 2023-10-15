@@ -11,6 +11,7 @@
       type="text"
       placeholder="Insira o titulo da lista..."
       [formControl]="listName"
+      (keyup.enter)="addList()"
     />
     <div class="add-new-footer">
       <button (click)="addList()" [disabled]="listName.invalid">
