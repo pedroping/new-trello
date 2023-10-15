@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { BehaviorSubject, fromEvent, startWith } from 'rxjs';
+import { UntilDestroy } from '@ngneat/until-destroy';
+import { BehaviorSubject, fromEvent, merge, startWith } from 'rxjs';
 
 @UntilDestroy()
 @Injectable({ providedIn: 'root' })
@@ -12,15 +12,12 @@ export class OnlineOfflineStateService {
   }
 
   private setStatesChanges() {
-    [fromEvent(window, 'online'), fromEvent(window, 'offline')].forEach(
-      (subscription) => {
-        subscription
-          .pipe(startWith(window.navigator.onLine), untilDestroyed(this))
-          .subscribe(() => {
-            this.isOnline$$.next(!!window.navigator.onLine);
-          });
-      }
-    );
+    const initialState = window.navigator.onLine;
+    merge(fromEvent(window, 'online'), fromEvent(window, 'offline'))
+      .pipe(startWith([initialState, initialState]))
+      .subscribe(() => {
+        this.isOnline$$.next(!!window.navigator.onLine);
+      });
   }
 
   get state() {
