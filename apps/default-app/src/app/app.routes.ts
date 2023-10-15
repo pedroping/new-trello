@@ -7,24 +7,7 @@ import { DynamicTableComponent } from './domain/dynamic-table/pages/dynamic-tabl
 export const appRoutes: Route[] = [
   {
     path: '',
-    component: HomePageComponent,
-    children: [
-      {
-        path: 'home',
-        component: WelcomePageComponent,
-        pathMatch: 'full',
-      },
-      {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'full',
-      },
-      {
-        path: 'dynamic-table',
-        component: DynamicTableComponent,
-        pathMatch: 'full',
-      },
-    ],
+    loadChildren: () => import('./domain/home/routes'),
   },
   {
     path: '**',
