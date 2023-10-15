@@ -2,6 +2,7 @@ $dark-background: #333;
 $dark-text-color: whitesmoke;
 $scroll-bar-color: #7e69b4;
 $selected-sidenav-color: #43788a;
+$selected-sidenav-color-dm: #7dc2d9;
 $gray-01: gray;
 
 $table-header: #8574c7;
@@ -55,7 +56,7 @@ $project-colors: (
   'gray-01': $gray-01,
   'selected-sidenav': $selected-sidenav-color,
   'main-red': $main-red,
-  'red-01': $red-01
+  'red-01': $red-01,
 );
 
 $project-colors-dark-mode: (
@@ -63,6 +64,7 @@ $project-colors-dark-mode: (
   'background': $dark-background,
   'table-row': $table-row-dark,
   'table-selected-row': $table-selected-row-dark,
+  'selected-sidenav': $selected-sidenav-color-dm,
 );
 
 @mixin setDarkMode() {
