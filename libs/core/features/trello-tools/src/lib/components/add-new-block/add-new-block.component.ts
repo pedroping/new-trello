@@ -54,7 +54,6 @@ export class AddNewBlockComponent implements OnInit {
     if (!listName) return;
 
     this.cardMocksService.addNew(listName);
-    this.setState(false);
     this.listName.reset();
   }
 }
