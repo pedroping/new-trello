@@ -1,7 +1,7 @@
 import { Directive, ElementRef, OnInit } from '@angular/core';
 import { OutsideClickEventsService } from '@my-monorepo/core/facades';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { filter, fromEvent, of, switchMap, takeUntil } from 'rxjs';
+import { filter, fromEvent, merge, of, switchMap, takeUntil } from 'rxjs';
 import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
 
 @Directive({
@@ -9,29 +9,23 @@ import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.s
 })
 @UntilDestroy()
 export class OutsideAddBlockClickDirective implements OnInit {
-
   constructor(
     private readonly elementRef: ElementRef,
     private readonly outsideClickEventsService: OutsideClickEventsService,
     private readonly dragAndDropService: DragAndDropService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.setValueChanges();
   }
 
   setValueChanges() {
-    [
-      this.dragAndDropService.onCardMove$,
-      this.dragAndDropService.onMove$,
-    ].forEach((subscription) => {
-      subscription
-        .pipe(
-          filter((move) => !!move),
-          untilDestroyed(this)
-        )
-        .subscribe(() => this.outsideClickEventsService.outSideClick$.next());
-    });
+    merge(this.dragAndDropService.onCardMove$, this.dragAndDropService.onMove$)
+      .pipe(
+        filter((move) => !!move),
+        untilDestroyed(this)
+      )
+      .subscribe(() => this.outsideClickEventsService.outSideClick$.next());
 
     this.outsideClickEventsService.startTaking$
       .pipe(
