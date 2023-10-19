@@ -22,7 +22,6 @@ export class CardMocksService {
   >([]);
 
   addNew(listName: string) {
-    const index = this.blocks$.value.length + 1;
     const blocks = [
       ...this.blocks$.value,
       {

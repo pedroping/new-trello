@@ -1,7 +1,7 @@
 import { Directive, ElementRef, NgZone, OnInit } from '@angular/core';
 import { OutsideClickEventsService } from '@my-monorepo/core/facades';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { filter, fromEvent, merge, switchMap, takeUntil } from 'rxjs';
+import { filter, fromEvent, merge, skip, switchMap, takeUntil } from 'rxjs';
 import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
 
 @Directive({
@@ -40,6 +40,7 @@ export class OutsideAddBlockClickDirective implements OnInit {
         untilDestroyed(this),
         switchMap(() => {
           return fromEvent(document, 'click').pipe(
+            skip(1),
             takeUntil(this.outsideClickEventsService.stopTaking$),
             untilDestroyed(this)
           );

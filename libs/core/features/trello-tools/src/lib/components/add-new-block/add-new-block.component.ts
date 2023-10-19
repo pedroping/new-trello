@@ -8,7 +8,6 @@ import {
 import { FormControl, Validators } from '@angular/forms';
 import { OutsideClickEventsService } from '@my-monorepo/core/facades';
 import { ENTER_LEAVE_ANIMATION } from '@my-monorepo/core/ui/animations';
-import { take, timer } from 'rxjs';
 import { CardMocksService } from '../../services/card-mocks/card-mocks.service';
 @Component({
   selector: 'trello-add-new-block',
@@ -17,8 +16,13 @@ import { CardMocksService } from '../../services/card-mocks/card-mocks.service';
   animations: [ENTER_LEAVE_ANIMATION],
 })
 export class AddNewBlockComponent implements OnInit {
-  @ViewChild('listNameInput', { static: false })
-  listNameInput?: ElementRef;
+
+  @ViewChild('listNameInput', { static: false }) set listNameInput(listNameInput: ElementRef) {
+    if (this.onAddNew) {
+      listNameInput.nativeElement.focus();
+      this.outsideClickEventsService.startTaking$.next();
+    }
+  }
 
   onAddNew = false;
   listName = new FormControl<string>('', {
@@ -39,14 +43,6 @@ export class AddNewBlockComponent implements OnInit {
 
   setState(value: boolean) {
     this.onAddNew = value;
-    timer(100)
-      .pipe(take(1))
-      .subscribe(() => {
-        if (!value) this.outsideClickEventsService.stopTaking$.next();
-        if (value && this.listNameInput)
-          this.listNameInput.nativeElement.focus();
-        this.outsideClickEventsService.startTaking$.next();
-      });
   }
 
   addList() {
