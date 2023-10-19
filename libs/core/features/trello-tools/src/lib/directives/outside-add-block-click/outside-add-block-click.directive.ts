@@ -1,7 +1,7 @@
-import { Directive, ElementRef, OnInit } from '@angular/core';
+import { Directive, ElementRef, NgZone, OnInit } from '@angular/core';
 import { OutsideClickEventsService } from '@my-monorepo/core/facades';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { filter, fromEvent, merge, of, switchMap, takeUntil } from 'rxjs';
+import { filter, fromEvent, merge, switchMap, takeUntil } from 'rxjs';
 import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
 
 @Directive({
@@ -12,11 +12,16 @@ export class OutsideAddBlockClickDirective implements OnInit {
   constructor(
     private readonly elementRef: ElementRef,
     private readonly outsideClickEventsService: OutsideClickEventsService,
-    private readonly dragAndDropService: DragAndDropService
-  ) {}
+    private readonly dragAndDropService: DragAndDropService,
+    private readonly ngZone: NgZone
+  ) {
+
+  }
 
   ngOnInit(): void {
-    this.setValueChanges();
+    this.ngZone.runOutsideAngular(() => {
+      this.setValueChanges();
+    })
   }
 
   setValueChanges() {
@@ -25,17 +30,16 @@ export class OutsideAddBlockClickDirective implements OnInit {
         filter((move) => !!move),
         untilDestroyed(this)
       )
-      .subscribe(() => this.outsideClickEventsService.outSideClick$.next());
+      .subscribe(() => this.ngZone.run(() => {
+        this.outsideClickEventsService.outSideClick$.next();
+      }));
 
     this.outsideClickEventsService.startTaking$
       .pipe(
         takeUntil(this.outsideClickEventsService.stopTaking$),
         untilDestroyed(this),
         switchMap(() => {
-          const body = document.querySelector('body');
-          if (!body) return of(null);
-
-          return fromEvent(body, 'click').pipe(
+          return fromEvent(document, 'click').pipe(
             takeUntil(this.outsideClickEventsService.stopTaking$),
             untilDestroyed(this)
           );
@@ -48,7 +52,9 @@ export class OutsideAddBlockClickDirective implements OnInit {
           event.target
         );
 
-        if (!isChildClick) this.outsideClickEventsService.outSideClick$.next();
+        if (!isChildClick) this.ngZone.run(() => {
+          this.outsideClickEventsService.outSideClick$.next();
+        })
       });
   }
 }
