@@ -15,18 +15,24 @@
     (cdkDragMoved)="onMove()"
     cdkDragPreviewContainer="global"
     cdkScrollable
-    *ngFor="let timePeriod of blocks$ | async; let index = index"
+    *ngFor="let cardBlock of blocks$ | async; let index = index"
   >
-    <div cdkDragHandle></div>
+    <div
+      cdkDragHandle
+      obsavableBasedElement
+      *obsavableBasedElement
+      [creatEvent$]="creatEvent$"
+      [deleteEvent$]="deleteEvent$"
+    ></div>
     <div *cdkDragPlaceholder>
       <trello-card-block
         [isPreview]="true"
-        [cards]="timePeriod.cards"
+        [cards]="cardBlock.cards"
       ></trello-card-block>
     </div>
     <trello-card-block
-      [title]="timePeriod.name"
-      [cards]="timePeriod.cards"
+      [title]="cardBlock.name"
+      [cards]="cardBlock.cards"
       [id]="index"
     ></trello-card-block>
   </div>
