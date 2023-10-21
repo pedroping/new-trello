@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { CdkMenuModule } from '@angular/cdk/menu';
+import { CdkMenuModule, CdkMenuTrigger } from '@angular/cdk/menu';
 import { CoreFeaturesCustomBackgroundModule } from '@my-monorepo/core/features/custom-background';
+import { CoreFeaturesOutsideElementClickModule } from '@my-monorepo/core/features/outside-element-click';
+import { OutsideClickEventsService } from '@my-monorepo/core/facades';
+
 @Component({
   selector: 'trello-toolbar-content',
   templateUrl: './toolbar-content.component.html',
@@ -13,11 +16,23 @@ import { CoreFeaturesCustomBackgroundModule } from '@my-monorepo/core/features/c
     MatButtonModule,
     CdkMenuModule,
     CoreFeaturesCustomBackgroundModule,
+    CoreFeaturesOutsideElementClickModule,
   ],
 })
 export class ToolbarContentComponent implements OnInit {
- 
-  constructor() {}
+  @ViewChild(CdkMenuTrigger) menuTrigger?: CdkMenuTrigger;
 
-  ngOnInit() {}
+  constructor(
+    private readonly outsideClickEventsService: OutsideClickEventsService
+  ) {}
+
+  ngOnInit() {
+    this.setValueChanges();
+  }
+
+  setValueChanges() {
+    this.outsideClickEventsService.outSideClick$.subscribe(() =>
+      this.menuTrigger?.close()
+    );
+  }
 }
