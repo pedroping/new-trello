@@ -19,10 +19,7 @@
   >
     <div
       cdkDragHandle
-      obsavableBasedElement
-      *obsavableBasedElement
-      [creatEvent$]="creatEvent$"
-      [deleteEvent$]="deleteEvent$"
+      *obsavableBasedElement="creatEvent$; delete: deleteEvent$"
     ></div>
     <div *cdkDragPlaceholder>
       <trello-card-block

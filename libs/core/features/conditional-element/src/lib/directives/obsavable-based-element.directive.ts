@@ -1,26 +1,26 @@
 import {
   Directive,
-  ElementRef,
   Input,
   OnInit,
+  TemplateRef,
   ViewContainerRef,
-  inject,
+  inject
 } from '@angular/core';
-import { Observable } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { Observable } from 'rxjs';
 
 @Directive({
   selector: '[obsavableBasedElement]',
 })
 @UntilDestroy()
 export class ObsavableBasedElementDirective implements OnInit {
-  @Input({ required: true }) creatEvent$: Observable<void> =
-    new Observable<void>();
-  @Input({ required: true }) deleteEvent$: Observable<void> =
-    new Observable<void>();
+  @Input('obsavableBasedElement')
+  creatEvent$: Observable<void> = new Observable<void>();
+  @Input('obsavableBasedElementDelete')
+  deleteEvent$: Observable<void> = new Observable<void>();
 
   private readonly vcr = inject(ViewContainerRef);
-  private readonly elementRef = inject(ElementRef);
+  private readonly templateRef = inject(TemplateRef<unknown>);
 
   ngOnInit(): void {
     this.vcr.clear();
@@ -30,7 +30,7 @@ export class ObsavableBasedElementDirective implements OnInit {
   setValueChanges() {
     this.creatEvent$.pipe(untilDestroyed(this)).subscribe(() => {
       this.vcr.clear();
-      this.vcr.createEmbeddedView(this.elementRef.nativeElement);
+      this.vcr.createEmbeddedView(this.templateRef);
     });
 
     this.deleteEvent$.pipe(untilDestroyed(this)).subscribe(() => {
