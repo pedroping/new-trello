@@ -5,7 +5,11 @@ import {
   DragDropModule,
 } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, Injector } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Injector
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CoreFeaturesDragScrollModule } from '@my-monorepo/core/features/drag-scroll';
 import {
@@ -16,6 +20,7 @@ import {
 } from '@my-monorepo/core/features/trello-tools';
 import { CoreUiSidenavModule } from '@my-monorepo/core/ui/sidenav';
 import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -34,15 +39,18 @@ import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
   ],
 })
 @ClearMocks()
-export class HomePageComponent {
+export class HomePageComponent  {
   blocks$ = this.cardMocksService.blocks$;
   injector: Injector;
+
+  creatEvent$!: Observable<void>;
+  deleteEvent$!: Observable<void>;
 
   constructor(
     readonly dragAndDropService: DragAndDropService,
     readonly cardMocksService: CardMocksService,
     private readonly cdr: ChangeDetectorRef,
-    private readonly _injector: Injector
+    private readonly _injector: Injector,
   ) {
     this.injector = this._injector;
     this.cardMocksService.getAllCards();
@@ -61,6 +69,6 @@ export class HomePageComponent {
   }
 
   onMove() {
-    this.dragAndDropService.onMove(this.cdr)
+    this.dragAndDropService.onMove(this.cdr);
   }
 }
