@@ -1,11 +1,18 @@
 import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 import { ScrollEventsService } from '@my-monorepo/core/facades';
+import { BehaviorSubject } from 'rxjs';
+
+export interface IBlock {
+  name: string;
+  cards: number[];
+  addNewEvent$: BehaviorSubject<boolean>;
+}
 
 export const BLOCKS = Array.from({ length: 5 }, (_, i) => {
   return {
     name: `To Do ${i}`,
     cards: Array.from({ length: 5 }, (_, i) => i + 1),
+    addNewEvent$: new BehaviorSubject<boolean>(false),
   };
 });
 
@@ -14,12 +21,7 @@ export const BLOCKS = Array.from({ length: 5 }, (_, i) => {
 })
 export class CardMocksService {
   private readonly scrollEventsService = inject(ScrollEventsService);
-  blocks$ = new BehaviorSubject<
-    {
-      name: string;
-      cards: number[];
-    }[]
-  >([]);
+  blocks$ = new BehaviorSubject<IBlock[]>([]);
 
   addNew(listName: string) {
     const blocks = [
@@ -27,6 +29,7 @@ export class CardMocksService {
       {
         name: listName,
         cards: Array.from({ length: 5 }, (_, i) => i + 1),
+        addNewEvent$: new BehaviorSubject<boolean>(false),
       },
     ];
     this.blocks$.next(blocks);

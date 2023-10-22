@@ -7,6 +7,7 @@
   (cdkDropListDropped)="onDrop()"
   [cdkDropListAutoScrollStep]="10"
   [style.z-index]="customZIndex$ | async"
+  [scrollToEnd]="addNewEvent$"
 >
   <ng-container *ngFor="let item of cards">
     <div cdkDrag #card (cdkDragMoved)="onMove()">
@@ -15,5 +16,8 @@
       </div>
       <trello-card> {{ item }} </trello-card>
     </div>
+  </ng-container>
+  <ng-container *ngIf="addNewEvent$ | async">
+    <trello-card [addNewEvent$]="addNewEvent$" [cards]="cards"></trello-card>
   </ng-container>
 </div>

@@ -9,6 +9,7 @@ import {
 import { ScrollEventsService } from '@my-monorepo/core/facades';
 import { CardFooterComponent } from '../../components/card-footer/card-footer.component';
 import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Directive({
   selector: '[trelloCardBlockHeight]',
@@ -27,6 +28,8 @@ export class CardBlockHeightDirective {
   @Input() baseSize!: number;
   @Input() isSelected = false;
   @Input('trelloCardBlockHeight') length!: number;
+  @Input() addNewEvent$: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(false);
 
   @HostBinding('style.height') get cardHeight() {
     if (this.footer)
@@ -35,8 +38,10 @@ export class CardBlockHeightDirective {
     const expandedCalcedHeight = (this.length + 1) * 40 + this.baseSize;
     const isLastHovered = this.dragAndDropService.lastToBeHovered === this.id;
     const onCardMove = this.dragAndDropService.onCardMove$.value;
+    const isOnAddnew = this.addNewEvent$.value;
 
-    if (onCardMove && isLastHovered) return expandedCalcedHeight + 'px';
+    if ((onCardMove && isLastHovered) || isOnAddnew)
+      return expandedCalcedHeight + 'px';
 
     const calcedHeight = this.length * 40 + this.baseSize;
     return calcedHeight + 'px';
@@ -55,7 +60,8 @@ export class CardBlockHeightDirective {
   get footerTop() {
     const isLastHovered = this.dragAndDropService.lastToBeHovered === this.id;
     const onCardMove = this.dragAndDropService.onCardMove$.value;
-    const hasExpand = onCardMove && isLastHovered;
+    const isOnAddnew = this.addNewEvent$.value;
+    const hasExpand = (onCardMove && isLastHovered) || isOnAddnew;
 
     const baseTop = this.length * 40 + (hasExpand ? 40 : 0);
     const maxTop = window.innerHeight * 0.7;

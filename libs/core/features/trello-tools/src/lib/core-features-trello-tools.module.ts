@@ -14,6 +14,7 @@ import { CardListComponent } from './components/card-list/card-list.component';
 import { CardOptionsComponent } from './components/card-options/card-options.component';
 import { CardComponent } from './components/card/card.component';
 import { CardBlockHeightDirective } from './directives/card-block-height/cardBlock-height.directive';
+import { ScrollToEndDirective } from './services/scroll-to-end/scroll-to-end.directive';
 @NgModule({
   imports: [
     ReactiveFormsModule,
@@ -36,6 +37,7 @@ import { CardBlockHeightDirective } from './directives/card-block-height/cardBlo
     CardFooterComponent,
     CardListComponent,
     AddNewBlockComponent,
+    ScrollToEndDirective,
   ],
   exports: [CardBlockComponent, AddNewBlockComponent],
   providers: [CardBlockHeightDirective],
