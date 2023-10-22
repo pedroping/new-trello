@@ -38,7 +38,7 @@ export class OutsideAddBlockClickDirective implements OnInit {
   setValueChanges() {
     const baseElemnt = this.outSideElement ?? DEFAULT_ELEMENT;
 
-    fromEvent(baseElemnt, 'click')
+    merge(fromEvent(baseElemnt, 'click'), fromEvent(baseElemnt, 'mousedown'))
       .pipe(
         skip(1),
         untilDestroyed(this),

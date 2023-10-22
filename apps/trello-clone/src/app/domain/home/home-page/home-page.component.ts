@@ -8,12 +8,9 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
-  ElementRef,
-  Injector,
-  OnInit,
+  Injector
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CoreFeaturesConditionalElementModule } from '@my-monorepo/core/features/conditional-element';
 import { CoreFeaturesDragScrollModule } from '@my-monorepo/core/features/drag-scroll';
 import {
   CardMocksService,
@@ -23,7 +20,7 @@ import {
 } from '@my-monorepo/core/features/trello-tools';
 import { CoreUiSidenavModule } from '@my-monorepo/core/ui/sidenav';
 import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
-import { Observable, fromEvent } from 'rxjs';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -39,11 +36,10 @@ import { Observable, fromEvent } from 'rxjs';
     CdkDropList,
     CdkDrag,
     RouterLink,
-    CoreFeaturesConditionalElementModule,
   ],
 })
 @ClearMocks()
-export class HomePageComponent implements OnInit {
+export class HomePageComponent  {
   blocks$ = this.cardMocksService.blocks$;
   injector: Injector;
 
@@ -55,16 +51,9 @@ export class HomePageComponent implements OnInit {
     readonly cardMocksService: CardMocksService,
     private readonly cdr: ChangeDetectorRef,
     private readonly _injector: Injector,
-    private readonly elementRef: ElementRef
   ) {
     this.injector = this._injector;
     this.cardMocksService.getAllCards();
-  }
-
-  ngOnInit(): void {
-    const element = this.elementRef.nativeElement;
-    this.creatEvent$ = fromEvent(element, 'mousedown');
-    this.deleteEvent$ = fromEvent(element, 'mouseup');
   }
 
   listDropped(
