@@ -17,6 +17,13 @@
   border-radius: 10px;
   margin: 2px;
 
+  .card-text{
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
   input {
     width: 100%;
     height: 33px;
