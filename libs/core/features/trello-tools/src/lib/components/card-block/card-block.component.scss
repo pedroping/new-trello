@@ -13,7 +13,7 @@
   background-color: var(--block-color);
   display: flex;
   flex-direction: column;
-  max-height: 82vh !important;
+  max-height: calc(100vh - 110px) !important;
   overflow-y: auto;
   overflow-x: hidden;
 }

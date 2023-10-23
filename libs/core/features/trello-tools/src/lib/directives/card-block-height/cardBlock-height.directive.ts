@@ -64,7 +64,7 @@ export class CardBlockHeightDirective {
     const hasExpand = (onCardMove && isLastHovered) || isOnAddnew;
 
     const baseTop = this.length * 40 + (hasExpand ? 40 : 0);
-    const maxTop = window.innerHeight * 0.7;
+    const maxTop = window.innerHeight - 210;
 
     return Math.min(baseTop, maxTop);
   }
