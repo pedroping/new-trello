@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { BehaviorSubject, filter } from 'rxjs';
+import { Icard } from '../../models/card.models';
 
 @Component({
   selector: 'trello-card',
@@ -18,7 +19,7 @@ export class CardComponent implements OnInit, AfterViewInit {
   @ViewChild('nameInput', { static: false })
   input?: ElementRef<HTMLInputElement>;
   @Input() isPreview?: boolean;
-  @Input() cards: number[] = [];
+  @Input() cards: Icard[] = [];
   @Input() addNewEvent$: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);
 
@@ -43,8 +44,11 @@ export class CardComponent implements OnInit, AfterViewInit {
 
   addCard() {
     if (this.cardNameControl.invalid) return;
-    this.cards.push(this.cards.length + 1);
+    this.cards.push({
+      id: this.cards.length + 1,
+      name: this.cardNameControl.value,
+    });
     this.cardNameControl.reset();
-    this.addNewEvent$.next(true)
+    this.addNewEvent$.next(true);
   }
 }

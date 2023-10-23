@@ -9,7 +9,8 @@ import {
   ScrollEventsService,
 } from '@my-monorepo/core/facades';
 import { BehaviorSubject, merge, tap, throttleTime } from 'rxjs';
-import { CardMocksService, IBlock } from '../card-mocks/card-mocks.service';
+import { CardMocksService } from '../card-mocks/card-mocks.service';
+import { IBlock, Icard } from '../../models/card.models';
 
 @Injectable({ providedIn: 'root' })
 export class DragAndDropService {
@@ -30,7 +31,7 @@ export class DragAndDropService {
 
   setValueChanges(): void {
     const outSideClick$$ = this.outsideClickEventsService.outSideClick$$;
-    
+
     merge(this.onCardMove$, this.onMove$, outSideClick$$).subscribe(() => {
       const blockCards = this.cardMocksService.blocks$.value;
       blockCards.forEach((block) => {
@@ -50,7 +51,7 @@ export class DragAndDropService {
       });
   }
 
-  drop(event: CdkDragDrop<number[]>) {
+  drop(event: CdkDragDrop<Icard[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,

@@ -13,10 +13,10 @@ import {
   ClearMocks,
   CoreFeaturesTrelloToolsModule,
   DragAndDropService,
-  IBlock,
 } from '@my-monorepo/core/features/trello-tools';
 import { CoreUiSidenavModule } from '@my-monorepo/core/ui/sidenav';
 import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
+import { IBlock } from 'libs/core/features/trello-tools/src/lib/models/card.models';
 import { Observable } from 'rxjs';
 @Component({
   selector: 'app-home-page',

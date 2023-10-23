@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
 import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
+import { Icard } from '../../models/card.models';
 
 @Component({
   selector: 'card-list',
@@ -16,7 +17,7 @@ import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.s
   styleUrls: ['./card-list.component.scss'],
 })
 export class CardListComponent implements OnInit {
-  @Input({ required: true }) cards: number[] = [];
+  @Input({ required: true }) cards: Icard[] = [];
   @Input({ required: true }) id: number = -1;
   @Input() addNewEvent$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   @Output() cardMove = new EventEmitter<boolean>();
