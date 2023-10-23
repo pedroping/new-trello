@@ -8,7 +8,14 @@ import {
   OutsideClickEventsService,
   ScrollEventsService,
 } from '@my-monorepo/core/facades';
-import { BehaviorSubject, filter, merge, takeUntil, tap, throttleTime } from 'rxjs';
+import {
+  BehaviorSubject,
+  filter,
+  merge,
+  takeUntil,
+  tap,
+  throttleTime,
+} from 'rxjs';
 import { CardMocksService } from '../card-mocks/card-mocks.service';
 import { IBlock, Icard } from '../../models/card.models';
 import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
@@ -33,24 +40,13 @@ export class DragAndDropService {
   }
 
   setValueChanges(): void {
-    const outSideClick$$ = this.outsideClickEventsService.outSideClick$$;
-
     merge(this.onCardMove$, this.onMove$)
       .pipe(
         filter((move) => !!move),
         untilDestroyed(this),
         takeUntil(this.outsideClickEventsService.stopTaking$)
       )
-      .subscribe(() =>
-        this.outsideClickEventsService.outSideClick$.next()
-      );
-
-    merge(this.onCardMove$, this.onMove$, outSideClick$$).subscribe(() => {
-      const blockCards = this.cardMocksService.blocks$.value;
-      blockCards.forEach((block) => {
-        block.addNewEvent$.next(false);
-      });
-    });
+      .subscribe(() => this.outsideClickEventsService.outSideClick$.next());
 
     this.onCardMove$
       .pipe(

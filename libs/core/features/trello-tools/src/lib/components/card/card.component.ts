@@ -5,10 +5,13 @@ import {
   Input,
   OnInit,
   ViewChild,
+  inject,
 } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { BehaviorSubject, filter } from 'rxjs';
+import { BehaviorSubject, filter, merge, skip } from 'rxjs';
 import { Icard } from '../../models/card.models';
+import { OutsideClickEventsService } from '@my-monorepo/core/facades';
+import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
 
 @Component({
   selector: 'trello-card',
@@ -28,14 +31,31 @@ export class CardComponent implements OnInit, AfterViewInit {
     validators: [Validators.required],
   });
 
+  private readonly outsideClickEventsService = inject(
+    OutsideClickEventsService
+  );
+  private readonly dragAndDropService = inject(DragAndDropService);
+
   ngOnInit() {
     this.setValueChanges();
   }
 
   setValueChanges() {
+    const outSideClick$$ = this.outsideClickEventsService.outSideClick$$;
     this.addNewEvent$.pipe(filter((val) => !!val)).subscribe(() => {
       this.input?.nativeElement.focus({ preventScroll: true });
     });
+
+    merge(
+      this.dragAndDropService.onCardMove$,
+      this.dragAndDropService.onMove$,
+      outSideClick$$
+    )
+      .pipe(skip(2))
+      .subscribe(() => {    
+        this.addCard();
+        this.addNewEvent$.next(false);
+      });
   }
 
   ngAfterViewInit(): void {
