@@ -18,7 +18,7 @@ import { Icard } from '../../models/card.models';
 })
 export class CardListComponent implements OnInit {
   @Input({ required: true }) cards: Icard[] = [];
-  @Input({ required: true }) id: number = -1;
+  @Input({ required: true }) id = -1;
   @Input() addNewEvent$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   @Output() cardMove = new EventEmitter<boolean>();
 
