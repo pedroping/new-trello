@@ -16,6 +16,8 @@ import {
 } from '@my-monorepo/core/features/trello-tools';
 import { CoreUiSidenavModule } from '@my-monorepo/core/ui/sidenav';
 import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
+import { IBlock } from 'libs/core/features/trello-tools/src/lib/models/card.models';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -38,6 +40,9 @@ export class HomePageComponent {
   blocks$ = this.cardMocksService.blocks$;
   injector: Injector;
 
+  creatEvent$!: Observable<void>;
+  deleteEvent$!: Observable<void>;
+
   constructor(
     readonly dragAndDropService: DragAndDropService,
     readonly cardMocksService: CardMocksService,
@@ -48,19 +53,12 @@ export class HomePageComponent {
     this.cardMocksService.getAllCards();
   }
 
-  listDropped(
-    event: CdkDragDrop<
-      {
-        name: string;
-        cards: number[];
-      }[]
-    >
-  ) {
+  listDropped(event: CdkDragDrop<IBlock[]>) {
     this.dragAndDropService.blockDrop(event);
     this.dragAndDropService.onDrop(this.cdr);
   }
 
   onMove() {
-    this.dragAndDropService.onMove(this.cdr)
+    this.dragAndDropService.onMove(this.cdr);
   }
 }

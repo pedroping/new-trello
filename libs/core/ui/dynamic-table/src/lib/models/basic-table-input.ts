@@ -1,18 +1,17 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Subject, takeUntil } from 'rxjs';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { DefaultInput, ITableColumn } from './table';
 
 @Injectable()
-export abstract class BasicTableInput<T> implements DefaultInput<T>, OnDestroy {
+@UntilDestroy()
+export abstract class BasicTableInput<T> implements DefaultInput<T> {
   tableElement!: T;
   selector!: keyof T;
   formControl!: FormControl;
   columnOption!: ITableColumn<T>;
 
-  destroy$ = new Subject<boolean>();
-
-  constructor() {}
+  constructor() { }
 
   setValueChanges() {
     this.formControl = new FormControl();
@@ -23,10 +22,6 @@ export abstract class BasicTableInput<T> implements DefaultInput<T>, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-  }
-
   buildElement() {
     this.setValueChanges();
 
@@ -35,15 +30,18 @@ export abstract class BasicTableInput<T> implements DefaultInput<T>, OnDestroy {
     };
 
     const valueChanges$ = this.formControl.valueChanges.pipe(
-      takeUntil(this.destroy$)
+      untilDestroyed(this)
     );
 
-    if (this.columnOption?.controlsOptions) {
-      if (this.columnOption?.controlsOptions?.controls) {
-        this.columnOption.controlsOptions.controls[element.id] =
+    const controlsOptions = this.columnOption?.controlsOptions
+
+    if (controlsOptions) {
+      if (controlsOptions?.controls) {
+        controlsOptions.controls[element.id] =
           this.formControl;
       }
-      this.columnOption?.controlsOptions.getValueChanges(
+
+      controlsOptions.getValueChanges(
         valueChanges$,
         element.id,
         element,

@@ -4,9 +4,13 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { ChangeDetectorRef, Injectable, inject } from '@angular/core';
-import { ScrollEventsService } from '@my-monorepo/core/facades';
-import { BehaviorSubject, tap, throttleTime } from 'rxjs';
+import {
+  OutsideClickEventsService,
+  ScrollEventsService,
+} from '@my-monorepo/core/facades';
+import { BehaviorSubject, merge, tap, throttleTime } from 'rxjs';
 import { CardMocksService } from '../card-mocks/card-mocks.service';
+import { IBlock, Icard } from '../../models/card.models';
 
 @Injectable({ providedIn: 'root' })
 export class DragAndDropService {
@@ -16,14 +20,25 @@ export class DragAndDropService {
   onBlockMove = false;
   lastToBeHovered = -1;
 
-  readonly cardMocksService = inject(CardMocksService);
-  readonly scrollEventsService = inject(ScrollEventsService);
-
+  private readonly cardMocksService = inject(CardMocksService);
+  private readonly scrollEventsService = inject(ScrollEventsService);
+  private readonly outsideClickEventsService = inject(
+    OutsideClickEventsService
+  );
   constructor() {
     this.setValueChanges();
   }
 
   setValueChanges(): void {
+    const outSideClick$$ = this.outsideClickEventsService.outSideClick$$;
+
+    merge(this.onCardMove$, this.onMove$, outSideClick$$).subscribe(() => {
+      const blockCards = this.cardMocksService.blocks$.value;
+      blockCards.forEach((block) => {
+        block.addNewEvent$.next(false);
+      });
+    });
+
     this.onCardMove$
       .pipe(
         tap((value) => {
@@ -36,7 +51,7 @@ export class DragAndDropService {
       });
   }
 
-  drop(event: CdkDragDrop<number[]>) {
+  drop(event: CdkDragDrop<Icard[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -53,14 +68,7 @@ export class DragAndDropService {
     }
   }
 
-  blockDrop(
-    event: CdkDragDrop<
-      {
-        name: string;
-        cards: number[];
-      }[]
-    >
-  ) {
+  blockDrop(event: CdkDragDrop<IBlock[]>) {
     moveItemInArray(
       this.cardMocksService.blocks$.value,
       event.previousIndex,

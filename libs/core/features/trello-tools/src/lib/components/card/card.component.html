@@ -1,3 +1,15 @@
-<ng-container *ngIf="!isPreview">
-  card works! <ng-content></ng-content>
+<ng-container *ngIf="addNewEvent$ | async; else defaultTemplate">
+  <input
+    type="text"
+    outsideClick
+    #nameInput
+    [formControl]="cardNameControl"
+    (keyup.enter)="addCard()"
+  />
 </ng-container>
+
+<ng-template #defaultTemplate>
+  <ng-container *ngIf="!isPreview">
+    <span class="card-text"><ng-content></ng-content></span>
+  </ng-container>
+</ng-template>

@@ -1,6 +1,9 @@
 $border-radius-value: 5px;
 
 :host {
+  display: block;
+  margin-bottom: 20px;
+
   .content {
     width: 100%;
     overflow-y: hidden;
@@ -111,7 +114,7 @@ $border-radius-value: 5px;
   }
 
   pagination-controls {
-    position: fixed;
-    width: calc(100% - 30px);
+    position: relative;
+    width: 100%;
   }
 }

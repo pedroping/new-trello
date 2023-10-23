@@ -143,5 +143,12 @@
         "buildTarget": "default-app:build"
       }
     }
+  },
+  "schematics": {
+    "@schematics/angular": {
+      "component": {
+        "changeDetection": "OnPush"
+      }
+    }
   }
 }

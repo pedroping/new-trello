@@ -1,11 +1,16 @@
 import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 import { ScrollEventsService } from '@my-monorepo/core/facades';
+import { BehaviorSubject } from 'rxjs';
+import { IBlock } from '../../models/card.models';
 
 export const BLOCKS = Array.from({ length: 5 }, (_, i) => {
   return {
     name: `To Do ${i}`,
-    cards: Array.from({ length: 5 }, (_, i) => i + 1),
+    cards: Array.from({ length: 5 }, (_, i) => ({
+      id: i,
+      name: `Card ${i}`,
+    })),
+    addNewEvent$: new BehaviorSubject<boolean>(false),
   };
 });
 
@@ -14,20 +19,15 @@ export const BLOCKS = Array.from({ length: 5 }, (_, i) => {
 })
 export class CardMocksService {
   private readonly scrollEventsService = inject(ScrollEventsService);
-  blocks$ = new BehaviorSubject<
-    {
-      name: string;
-      cards: number[];
-    }[]
-  >([]);
+  blocks$ = new BehaviorSubject<IBlock[]>([]);
 
   addNew(listName: string) {
-    const index = this.blocks$.value.length + 1;
     const blocks = [
       ...this.blocks$.value,
       {
         name: listName,
-        cards: Array.from({ length: 5 }, (_, i) => i + 1),
+        cards: [],
+        addNewEvent$: new BehaviorSubject<boolean>(false),
       },
     ];
     this.blocks$.next(blocks);
@@ -35,7 +35,7 @@ export class CardMocksService {
   }
 
   getAllCards() {
-    this.blocks$.next(BLOCKS);
+    this.blocks$.next([]);
   }
 
   clearMocks() {

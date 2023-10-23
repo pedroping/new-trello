@@ -1,32 +1,29 @@
 <div
   class="allBlocks"
   cdkDropList
-  [cdkDropListData]="blocks$.value"
+  cdkDropListGroup
   cdkDropListOrientation="horizontal"
+  [cdkDropListData]="blocks$.value"
   [cdkDropListAutoScrollStep]="18"
   (cdkDropListDropped)="listDropped($event)"
-  cdkDropListGroup
-  cdkScrollable
 >
   <div
     class="block"
     cdkDrag
-    cdkScrollable
     (cdkDragMoved)="onMove()"
-    cdkDragPreviewContainer="global"
-    cdkScrollable
-    *ngFor="let timePeriod of blocks$ | async; let index = index"
+    *ngFor="let blockCard of blocks$ | async; let index = index"
   >
     <div cdkDragHandle></div>
     <div *cdkDragPlaceholder>
       <trello-card-block
         [isPreview]="true"
-        [cards]="timePeriod.cards"
+        [cards]="blockCard.cards"
       ></trello-card-block>
     </div>
     <trello-card-block
-      [title]="timePeriod.name"
-      [cards]="timePeriod.cards"
+      [addNewEvent$]="blockCard.addNewEvent$"
+      [cards]="blockCard.cards"
+      [title]="blockCard.name"
       [id]="index"
     ></trello-card-block>
   </div>

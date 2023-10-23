@@ -1,4 +1,6 @@
 import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { Icard } from '../../models/card.models';
 import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
 
 @Component({
@@ -9,14 +11,17 @@ import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.s
 export class CardBlockComponent {
   @Input() isPreview = false;
   @Input() title = '';
-  @Input() cards: number[] = [];
+  @Input() cards: Icard[] = [];
   @Input() id = -1;
+  @Input() addNewEvent$: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(false);
+
+  isSelectedBlock = false;
+
   constructor(
     readonly dragAndDropService: DragAndDropService,
     readonly cdr: ChangeDetectorRef
   ) {}
-
-  isSelectedBlock = false;
 
   cardMove(event: boolean) {
     this.isSelectedBlock = event;

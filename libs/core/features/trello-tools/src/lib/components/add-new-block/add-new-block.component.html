@@ -5,12 +5,14 @@
 </ng-container>
 
 <ng-container *ngIf="onAddNew">
-  <div class="add-new-content" @inOutPaneAnimation outsideAddBlockClick>
+  <div class="add-new-content" @inOutPaneAnimation outsideClick>
     <input
+      default-input
       #listNameInput
       type="text"
       placeholder="Insira o titulo da lista..."
       [formControl]="listName"
+      (keyup.enter)="addList()"
     />
     <div class="add-new-footer">
       <button (click)="addList()" [disabled]="listName.invalid">
