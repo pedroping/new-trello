@@ -26,10 +26,7 @@ export class CardMocksService {
       ...this.blocks$.value,
       {
         name: listName,
-        cards: Array.from({ length: 5 }, (_, i) => ({
-          id: i,
-          name: `Card ${i}`,
-        })),
+        cards: [],
         addNewEvent$: new BehaviorSubject<boolean>(false),
       },
     ];
@@ -38,7 +35,7 @@ export class CardMocksService {
   }
 
   getAllCards() {
-    this.blocks$.next(BLOCKS);
+    this.blocks$.next([]);
   }
 
   clearMocks() {
