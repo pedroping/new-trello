@@ -5,7 +5,7 @@ import {
   NgZone,
   OnInit
 } from '@angular/core';
-import { OutsideClickEventsService } from '@my-monorepo/core/facades';
+import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { fromEvent, merge, skip, takeUntil } from 'rxjs';
 

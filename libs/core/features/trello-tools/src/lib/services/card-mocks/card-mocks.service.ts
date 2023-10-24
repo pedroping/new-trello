@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { ScrollEventsService } from '@my-monorepo/core/facades';
+import { ScrollEventsService } from '@my-monorepo/core/utlis';
 import { BehaviorSubject } from 'rxjs';
 import { IBlock } from '../../models/card.models';
 

@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@my-monorepo/core/facades": ["libs/core/facades/index.ts"],
+      "@my-monorepo/core/utlis": ["libs/core/utlis/index.ts"],
       "@my-monorepo/core/features/conditional-element": [
         "libs/core/features/conditional-element/src/index.ts"
       ],

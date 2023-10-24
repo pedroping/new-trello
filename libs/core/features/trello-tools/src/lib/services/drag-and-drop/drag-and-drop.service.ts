@@ -7,7 +7,7 @@ import { ChangeDetectorRef, Injectable, inject } from '@angular/core';
 import {
   OutsideClickEventsService,
   ScrollEventsService,
-} from '@my-monorepo/core/facades';
+} from '@my-monorepo/core/utlis';
 import {
   BehaviorSubject,
   filter,

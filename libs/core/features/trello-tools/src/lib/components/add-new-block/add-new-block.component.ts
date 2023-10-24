@@ -6,7 +6,7 @@ import {
   inject,
 } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { OutsideClickEventsService } from '@my-monorepo/core/facades';
+import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
 import { ENTER_LEAVE_ANIMATION } from '@my-monorepo/core/ui/animations';
 import { CardMocksService } from '../../services/card-mocks/card-mocks.service';
 @Component({

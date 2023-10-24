@@ -6,7 +6,7 @@ import {
   HostListener,
   Input,
 } from '@angular/core';
-import { ScrollEventsService } from '@my-monorepo/core/facades';
+import { ScrollEventsService } from '@my-monorepo/core/utlis';
 import { CardFooterComponent } from '../../components/card-footer/card-footer.component';
 import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
 import { BehaviorSubject } from 'rxjs';

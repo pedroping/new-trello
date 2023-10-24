@@ -4,7 +4,7 @@ import {
   DragAndDropService,
 } from '@my-monorepo/core/features/trello-tools';
 import { Subject, startWith, takeUntil, timer } from 'rxjs';
-import { ScrollEventsService } from '@my-monorepo/core/facades';
+import { ScrollEventsService } from '@my-monorepo/core/utlis';
 
 export const BASE_BLOCK_SIZE = 320;
 export const BASE_SIDENAV_SIZE = 350;

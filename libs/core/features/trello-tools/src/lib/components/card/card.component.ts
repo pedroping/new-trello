@@ -5,12 +5,12 @@ import {
   Input,
   OnInit,
   ViewChild,
-  inject,
+  inject, 
 } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { BehaviorSubject, filter, merge, skip } from 'rxjs';
 import { Icard } from '../../models/card.models';
-import { OutsideClickEventsService } from '@my-monorepo/core/facades';
+import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
 import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
 
 @Component({
