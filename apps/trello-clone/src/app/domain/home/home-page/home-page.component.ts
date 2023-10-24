@@ -50,7 +50,6 @@ export class HomePageComponent implements OnInit {
     private readonly _injector: Injector
   ) {
     this.injector = this._injector;
-
   }
 
   ngOnInit(): void {
