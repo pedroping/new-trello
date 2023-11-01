@@ -6,7 +6,7 @@ import {
 import { Observable } from 'rxjs';
 import { BasicInputComponent } from '../../../core/components/basic-input/basic-input.component';
 
-export const DATA = Array.from({ length: 10 }, (_, index) => {
+export const DATA = Array.from({ length: 100 }, (_, index) => {
   return {
     id: index,
     name: 'Pedro ' + index,
@@ -33,12 +33,12 @@ export const CREATE_TABLE_CONFIG = (
 ) => {
   return {
     hasExpansion: true,
-    hasPaginator: true,
+    hasPaginator: false,
     paginatorOptions: {
       pageSize: 5,
       pageSizeOptions: [2, 5, 10, 50, 100],
     },
-    hasDefaultPaginator: false,
+    hasDefaultPaginator: true,
     defaultPaginatorOptions: {
       totalSize: DATA.length,
       currentPage: 1,

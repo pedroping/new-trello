@@ -54,7 +54,7 @@ export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
   constructor(
     private cdr: ChangeDetectorRef,
     readonly selectedRowService: SelectedRowService<T>
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.createDataSource();
@@ -77,8 +77,7 @@ export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
     this.length = this.data.length;
     this.dataSource = new MatTableDataSource(this.viewDataSource);
 
-    if (this.config.hasDefaultPaginator && !this.config?.customPagination)
-      this.paginate();
+    if (this.config.hasDefaultPaginator && this.config.customPagination) this.config.customPagination();
   }
 
   setColumns() {
@@ -89,22 +88,15 @@ export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
   }
 
   handlePageChange(event: number | PageEvent) {
+    this.scrollToTop();
     if (typeof event == 'number' && this.config.defaultPaginatorOptions) {
       this.config.defaultPaginatorOptions.currentPage = event;
     }
     if (this.config.customPagination) return this.config.customPagination();
-    this.paginate();
   }
 
-  paginate() {
-    const paginatorOptions = this.config.defaultPaginatorOptions;
-    if (paginatorOptions) {
-      const start =
-        paginatorOptions.pageSize * (paginatorOptions.currentPage - 1);
-      const end = paginatorOptions.pageSize * paginatorOptions.currentPage;
-      this.viewDataSource = this.data.slice(start, end);
-      this.dataSource.data = this.viewDataSource;
-      this.cdr.detectChanges();
-    }
+  scrollToTop() {
+    console.log('afasfasf');
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   }
 }
