@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import {
-  CoreFeaturesDarkModeModule,
-  DarkModeService,
+  CoreFeaturesDarkModeModule
 } from '@my-monorepo/core/features/dark-mode';
 import { CoreUiSidenavModule } from '@my-monorepo/core/ui/sidenav';
 import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
-import { ToolBarComponent } from 'apps/default-app/src/app/core/components/toolBar/toolBar.component';
 import { SideNavComponent } from '../../../../core/components/sideNav/sideNav.component';
+import { ToolBarComponent } from '../../../../core/components/toolBar/toolBar.component';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -21,11 +20,11 @@ import { SideNavComponent } from '../../../../core/components/sideNav/sideNav.co
     CoreUiSidenavModule,
     MatButtonModule,
     RouterModule,
-    CoreFeaturesDarkModeModule,
     SideNavComponent,
     ToolBarComponent,
+    CoreFeaturesDarkModeModule,
   ],
 })
 export class HomePageComponent {
-  constructor() {}
+  constructor() { }
 }

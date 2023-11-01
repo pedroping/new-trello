@@ -12,7 +12,11 @@ export class ExpandTableDirective<T> {
     return actualRow.includes(this.rowElement);
   }
 
-  @HostListener('click') onClick() {
+  @HostListener('click', ['$event']) onClick(event: Event) {
+    const target = event.target as HTMLElement
+
+    if (target.id !== 'expandIcon') return;
+
     const actualRow = this.selectedRowService.selectedRows$.value;
     if (actualRow.includes(this.rowElement)) {
       this.selectedRowService.selectedRows$.next(
@@ -23,5 +27,5 @@ export class ExpandTableDirective<T> {
     this.selectedRowService.selectedRows$.next([...actualRow, this.rowElement]);
   }
 
-  constructor(private readonly selectedRowService: SelectedRowService<T>) {}
+  constructor(private readonly selectedRowService: SelectedRowService<T>) { }
 }

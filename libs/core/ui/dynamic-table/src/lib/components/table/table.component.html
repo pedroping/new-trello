@@ -36,7 +36,7 @@
       <cdk-header-cell *cdkHeaderCellDef></cdk-header-cell>
       <cdk-cell *cdkCellDef="let element">
         <div [appHasElement]="element" #HasElement="appHasElement">
-          <mat-icon>{{ HasElement.expandedIcon }}</mat-icon>
+          <mat-icon id="expandIcon">{{ HasElement.expandedIcon }}</mat-icon>
         </div>
       </cdk-cell>
     </ng-container>
