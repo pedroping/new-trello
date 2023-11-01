@@ -7,7 +7,7 @@ export interface ITableColumn<T> {
   selector: string;
   hasCustomField?: boolean;
   hasControls?: boolean;
-  customEvent: Subject<ICustomEvent<T>>
+  customEvent$?: Subject<ICustomEvent<T>>
   component?: Type<DefaultInput<T>>;
   controlsOptions?: IColumnFormOptions<T>;
 }
