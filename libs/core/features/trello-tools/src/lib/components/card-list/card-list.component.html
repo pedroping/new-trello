@@ -14,7 +14,7 @@
       <div class="example-custom-placeholder" *cdkDragPlaceholder>
         <trello-card [isPreview]="true"></trello-card>
       </div>
-      <trello-card> {{ item.name }} </trello-card>
+      <trello-card [card]="item"> {{ item.name }} </trello-card>
     </div>
   </ng-container>
   <ng-container *ngIf="addNewEvent$ | async">

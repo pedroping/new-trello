@@ -1,16 +1,15 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   Input,
   OnInit,
   ViewChild,
-  inject,
+  inject
 } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { BehaviorSubject, filter, merge, skip } from 'rxjs';
-import { Icard } from '../../models/card.models';
 import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
+import { BehaviorSubject, merge, skip } from 'rxjs';
+import { Icard } from '../../models/card.models';
 import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
 
 @Component({
@@ -18,11 +17,10 @@ import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.s
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
 })
-export class CardComponent implements OnInit, AfterViewInit {
-  @ViewChild('nameInput', { static: false })
-  input?: ElementRef<HTMLInputElement>;
-  @Input() isPreview?: boolean;
+export class CardComponent implements OnInit {
+  @Input() card?: Icard
   @Input() cards: Icard[] = [];
+  @Input() isPreview?: boolean;
   @Input() addNewEvent$: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);
 
@@ -40,11 +38,13 @@ export class CardComponent implements OnInit, AfterViewInit {
     this.setValueChanges();
   }
 
+  @ViewChild('nameInput') set inputFocus(input: ElementRef<HTMLInputElement>) {
+    if (!this.addNewEvent$.value || !input) return;
+    input.nativeElement.focus({ preventScroll: true });
+  }
+
   setValueChanges() {
     const outSideClick$$ = this.outsideClickEventsService.outSideClick$$;
-    this.addNewEvent$.pipe(filter((val) => !!val)).subscribe(() => {
-      this.input?.nativeElement.focus({ preventScroll: true });
-    });
 
     merge(
       this.dragAndDropService.onCardMove$,
@@ -58,12 +58,14 @@ export class CardComponent implements OnInit, AfterViewInit {
       });
   }
 
-  ngAfterViewInit(): void {
-    this.input?.nativeElement.focus({ preventScroll: true });
-  }
-
   addCard() {
     if (this.cardNameControl.invalid) return;
+
+    if (this.card) {
+      this.card.name = this.cardNameControl.value;
+      return;
+    }
+
     this.cards.push({
       id: this.cards.length + 1,
       name: this.cardNameControl.value,
@@ -75,5 +77,7 @@ export class CardComponent implements OnInit, AfterViewInit {
   editclick(event: Event) {
     event.preventDefault();
     event.stopPropagation();
+    if (this.card) this.cardNameControl.setValue(this.card.name);
+    this.addNewEvent$.next(true);
   }
 }

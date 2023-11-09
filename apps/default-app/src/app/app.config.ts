@@ -1,25 +1,23 @@
-import { TuiRootModule } from '@taiga-ui/core';
 import {
   ApplicationConfig,
   importProvidersFrom,
   isDevMode,
 } from '@angular/core';
 import {
+  BrowserAnimationsModule,
+  provideAnimations,
+} from '@angular/platform-browser/animations';
+import {
   PreloadAllModules,
   provideRouter,
   withComponentInputBinding,
-  withDebugTracing,
   withEnabledBlockingInitialNavigation,
-  withPreloading,
+  withPreloading
 } from '@angular/router';
-import { appRoutes } from './app.routes';
-import {
-  provideAnimations,
-  BrowserAnimationsModule,
-} from '@angular/platform-browser/animations';
 import { provideServiceWorker } from '@angular/service-worker';
+import { TuiRootModule } from '@taiga-ui/core';
 import { provideToastr } from 'ngx-toastr';
-
+import { appRoutes } from './app.routes';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(
