@@ -5,7 +5,7 @@ import {
   Input,
   OnInit,
   ViewChild,
-  inject, 
+  inject,
 } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { BehaviorSubject, filter, merge, skip } from 'rxjs';
@@ -52,7 +52,7 @@ export class CardComponent implements OnInit, AfterViewInit {
       outSideClick$$
     )
       .pipe(skip(2))
-      .subscribe(() => {    
+      .subscribe(() => {
         this.addCard();
         this.addNewEvent$.next(false);
       });
@@ -70,5 +70,10 @@ export class CardComponent implements OnInit, AfterViewInit {
     });
     this.cardNameControl.reset();
     this.addNewEvent$.next(true);
+  }
+
+  editclick(event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
   }
 }

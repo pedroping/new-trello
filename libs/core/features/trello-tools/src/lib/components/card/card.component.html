@@ -11,5 +11,8 @@
 <ng-template #defaultTemplate>
   <ng-container *ngIf="!isPreview">
     <span class="card-text"><ng-content></ng-content></span>
+    <div class="edit-content" (click)="editclick($event)">
+      <mat-icon>edit</mat-icon>
+    </div>
   </ng-container>
 </ng-template>

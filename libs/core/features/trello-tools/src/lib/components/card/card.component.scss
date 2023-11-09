@@ -17,7 +17,7 @@
   border-radius: 10px;
   margin: 2px;
 
-  .card-text{
+  .card-text {
     width: 100%;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -29,5 +29,22 @@
     height: 33px;
     border: none !important;
     outline: none !important;
+  }
+
+  &:hover {
+    .edit-content {
+      opacity: 1;
+    }
+  }
+
+  .edit-content {
+    opacity: 0;
+    cursor: pointer;
+    transition: opacity 500ms ease;
+
+    mat-icon {
+      margin-top: 7px;
+      transform: scale(0.9);
+    }
   }
 }
