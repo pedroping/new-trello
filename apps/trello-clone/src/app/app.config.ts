@@ -1,4 +1,4 @@
-import { ApplicationConfig, importProvidersFrom, isDevMode } from '@angular/core';
+import { ApplicationConfig, InjectionToken, importProvidersFrom, isDevMode } from '@angular/core';
 import {
   PreloadAllModules,
   provideRouter,
@@ -14,6 +14,8 @@ import {
 import { TuiRootModule } from '@taiga-ui/core';
 import { provideServiceWorker } from '@angular/service-worker';
 
+export const testToken = new InjectionToken<string>('testToke')
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(
@@ -28,5 +30,9 @@ export const appConfig: ApplicationConfig = {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000',
     }),
+    {
+      provide: testToken,
+      useValue: 'Meu Valor'
+    }
   ],
 };
