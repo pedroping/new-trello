@@ -45,11 +45,13 @@ export class CardComponent implements OnInit {
 
   setValueChanges() {
     const outSideClick$$ = this.outsideClickEventsService.outSideClick$$;
+    const editClick$$ = this.outsideClickEventsService.editClick$$;
 
     merge(
-      this.dragAndDropService.onCardMove$,
+      editClick$$,
+      outSideClick$$,
       this.dragAndDropService.onMove$,
-      outSideClick$$
+      this.dragAndDropService.onCardMove$
     )
       .pipe(skip(2))
       .subscribe(() => {
@@ -77,6 +79,7 @@ export class CardComponent implements OnInit {
   editclick(event: Event) {
     event.preventDefault();
     event.stopPropagation();
+    this.outsideClickEventsService.editClick$.next();
     if (this.card) this.cardNameControl.setValue(this.card.name);
     this.addNewEvent$.next(true);
   }

@@ -1,11 +1,11 @@
 <div
   class="content"
-  [trelloCardBlockHeight]="cards.length"
-  [isSelected]="isSelectedBlock"
-  [addNewEvent$]="addNewEvent$"
-  [baseSize]="105"
   [id]="id"
+  [baseSize]="105"
+  [addNewEvent$]="addNewEvent$"
+  [isSelected]="isSelectedBlock"
   #values="trelloCardBlockHeight"
+  [trelloCardBlockHeight]="cards.length"
 >
   <ng-container *ngIf="!isPreview; else preview">
     <trello-card-header
