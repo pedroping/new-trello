@@ -1,4 +1,4 @@
-<ng-container *ngIf="addNewEvent$ | async; else defaultTemplate">
+<ng-container *ngIf="showInput$ | async; else defaultTemplate">
   <input
     type="text"
     outsideClick
@@ -11,7 +11,7 @@
 <ng-template #defaultTemplate>
   <ng-container *ngIf="!isPreview">
     <span class="card-text"><ng-content></ng-content></span>
-    <div class="edit-content" (click)="editclick($event)">
+    <div class="edit-content" (click)="editclick()">
       <mat-icon>edit</mat-icon>
     </div>
   </ng-container>

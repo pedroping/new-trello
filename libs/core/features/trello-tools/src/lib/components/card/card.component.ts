@@ -4,11 +4,11 @@ import {
   Input,
   OnInit,
   ViewChild,
-  inject
+  inject,
 } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
-import { BehaviorSubject, merge, skip } from 'rxjs';
+import { BehaviorSubject, Observable, map, merge, skip } from 'rxjs';
 import { Icard } from '../../models/card.models';
 import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
 
@@ -18,12 +18,14 @@ import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.s
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit {
-  @Input() card?: Icard
+  @Input() card?: Icard;
   @Input() cards: Icard[] = [];
   @Input() isPreview?: boolean;
   @Input() addNewEvent$: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);
 
+  showInput$!: Observable<boolean>;
+  editEvent$ = new BehaviorSubject<boolean>(false);
   cardNameControl = new FormControl('', {
     nonNullable: true,
     validators: [Validators.required],
@@ -39,7 +41,7 @@ export class CardComponent implements OnInit {
   }
 
   @ViewChild('nameInput') set inputFocus(input: ElementRef<HTMLInputElement>) {
-    if (!this.addNewEvent$.value || !input) return;
+    if (!input) return;
     input.nativeElement.focus({ preventScroll: true });
   }
 
@@ -58,13 +60,27 @@ export class CardComponent implements OnInit {
         this.addCard();
         this.addNewEvent$.next(false);
       });
+
+    this.addNewEvent$.subscribe((val) => {
+      this.editEvent$.next(val);
+    });
+
+    this.showInput$ = merge(
+      this.addNewEvent$.asObservable(),
+      this.editEvent$.asObservable()
+    ).pipe(
+      map(() => {
+        return this.addNewEvent$.value || this.editEvent$.value;
+      })
+    );
   }
 
   addCard() {
     if (this.cardNameControl.invalid) return;
 
-    if (this.card) {
+    if (this.editEvent$.value && this.card) {
       this.card.name = this.cardNameControl.value;
+      this.editEvent$.next(false);
       return;
     }
 
@@ -76,11 +92,9 @@ export class CardComponent implements OnInit {
     this.addNewEvent$.next(true);
   }
 
-  editclick(event: Event) {
-    event.preventDefault();
-    event.stopPropagation();
+  editclick() {
     this.outsideClickEventsService.editClick$.next();
     if (this.card) this.cardNameControl.setValue(this.card.name);
-    this.addNewEvent$.next(true);
+    this.editEvent$.next(true);
   }
 }

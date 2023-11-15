@@ -9,9 +9,8 @@ import { BehaviorSubject } from 'rxjs';
 export class CardFooterComponent {
   @Input() addNewEvent$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  handelAddNew(event: Event) {
-    event.stopPropagation();
-    event.preventDefault();
+  handelAddNew() {
+    this.addNewEvent$.next(false);
     this.addNewEvent$.next(true);
   }
 }
