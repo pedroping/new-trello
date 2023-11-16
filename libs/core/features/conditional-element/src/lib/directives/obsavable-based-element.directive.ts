@@ -4,7 +4,7 @@ import {
   OnInit,
   TemplateRef,
   ViewContainerRef,
-  inject
+  inject,
 } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
