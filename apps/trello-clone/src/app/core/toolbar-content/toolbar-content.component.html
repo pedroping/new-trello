@@ -1,10 +1,18 @@
 <div class="block">Initial Board</div>
 <div class="block">
-  <button mat-icon-button [cdkMenuTriggerFor]="imgMenu" #menuTrigger="cdkMenuTriggerFor">
+  <button
+    mat-icon-button
+    [cdkMenuTriggerFor]="imgMenu"
+    #menuTrigger="cdkMenuTriggerFor"
+    aria-label="Open WallPaper Menu"
+  >
     <mat-icon>menu</mat-icon>
   </button>
 </div>
 
 <ng-template #imgMenu>
-    <set-background-menu [cdkMenuTrigger]="menuTrigger" outsideClick></set-background-menu>
+  <set-background-menu
+    [cdkMenuTrigger]="menuTrigger"
+    outsideClick
+  ></set-background-menu>
 </ng-template>
