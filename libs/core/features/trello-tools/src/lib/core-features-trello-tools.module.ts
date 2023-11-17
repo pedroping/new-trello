@@ -14,6 +14,7 @@ import { CardListComponent } from './components/card-list/card-list.component';
 import { CardOptionsComponent } from './components/card-options/card-options.component';
 import { CardComponent } from './components/card/card.component';
 import { CardBlockHeightDirective } from './directives/card-block-height/cardBlock-height.directive';
+import { CloseMenuDirective } from './directives/close-menu/close-menu.directive';
 import { ScrollToEndDirective } from './services/scroll-to-end/scroll-to-end.directive';
 @NgModule({
   imports: [
@@ -38,8 +39,9 @@ import { ScrollToEndDirective } from './services/scroll-to-end/scroll-to-end.dir
     CardListComponent,
     AddNewBlockComponent,
     ScrollToEndDirective,
+    CloseMenuDirective,
   ],
-  exports: [CardBlockComponent, AddNewBlockComponent],
+  exports: [CardBlockComponent, AddNewBlockComponent, CloseMenuDirective],
   providers: [CardBlockHeightDirective],
 })
 export class CoreFeaturesTrelloToolsModule {}

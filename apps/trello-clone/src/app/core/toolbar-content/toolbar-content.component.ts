@@ -5,6 +5,7 @@ import { CdkMenuModule, CdkMenuTrigger } from '@angular/cdk/menu';
 import { CoreFeaturesCustomBackgroundModule } from '@my-monorepo/core/features/custom-background';
 import { CoreFeaturesOutsideElementClickModule } from '@my-monorepo/core/features/outside-element-click';
 import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
+import { CoreFeaturesTrelloToolsModule } from '@my-monorepo/core/features/trello-tools';
 
 @Component({
   selector: 'trello-toolbar-content',
@@ -13,8 +14,9 @@ import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
   standalone: true,
   imports: [
     MatIconModule,
-    MatButtonModule,
     CdkMenuModule,
+    MatButtonModule,
+    CoreFeaturesTrelloToolsModule,
     CoreFeaturesCustomBackgroundModule,
     CoreFeaturesOutsideElementClickModule,
   ],

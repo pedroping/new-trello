@@ -2,7 +2,12 @@
   <mat-icon>add</mat-icon> Adicionar um cartão
 </div>
 
-<div class="more-icon" [cdkMenuTriggerFor]="cardOptions">
+<div
+  class="more-icon"
+  [cdkMenuTriggerFor]="cardOptions"
+  #menuTrigger="cdkMenuTriggerFor"
+  [autoCloseMenu]="menuTrigger"
+>
   <mat-icon>more_horiz</mat-icon>
 </div>
 

@@ -7,7 +7,6 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
   selector: '[cursorDragging]',
   standalone: true,
 })
-
 @UntilDestroy()
 export class CursorDraggingDirective implements OnInit {
   private _body = document.querySelector('body');
@@ -26,10 +25,9 @@ export class CursorDraggingDirective implements OnInit {
 
     moveEvent$.pipe(untilDestroyed(this)).subscribe(() => {
       const hasMove =
-        this.dragAndDropService.onCardMove$.value || this.dragAndDropService.onMove$.value;
+        this.dragAndDropService.onCardMove$.value ||
+        this.dragAndDropService.onMove$.value;
 
-        console.log(hasMove);
-        
       const cursorType = hasMove ? 'grabbing' : 'default';
 
       if (!this._body) return;
