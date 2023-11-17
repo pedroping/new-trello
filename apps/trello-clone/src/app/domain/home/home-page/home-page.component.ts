@@ -12,6 +12,7 @@ import {
   CardMocksService,
   ClearMocks,
   CoreFeaturesTrelloToolsModule,
+  CursorDraggingDirective,
   DragAndDropService,
   IBlock,
 } from '@my-monorepo/core/features/trello-tools';
@@ -34,7 +35,9 @@ import { Observable } from 'rxjs';
     CdkDrag,
     RouterLink,
   ],
+  hostDirectives: [CursorDraggingDirective],
 })
+
 @ClearMocks()
 export class HomePageComponent implements OnInit {
   blocks$ = this.cardMocksService.blocks$;
