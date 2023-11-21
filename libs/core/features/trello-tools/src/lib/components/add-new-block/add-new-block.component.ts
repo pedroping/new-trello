@@ -16,8 +16,9 @@ import { CardMocksService } from '../../services/card-mocks/card-mocks.service';
   animations: [ENTER_LEAVE_ANIMATION],
 })
 export class AddNewBlockComponent implements OnInit {
-
-  @ViewChild('listNameInput', { static: false }) set listNameInput(listNameInput: ElementRef) {
+  @ViewChild('listNameInput', { static: false }) set listNameInput(
+    listNameInput: ElementRef
+  ) {
     if (this.onAddNew) {
       listNameInput.nativeElement.focus();
       this.outsideClickEventsService.startTaking$.next();
@@ -36,6 +37,10 @@ export class AddNewBlockComponent implements OnInit {
   );
 
   ngOnInit(): void {
+    this.setValueChanges();
+  }
+
+  setValueChanges() {
     this.outsideClickEventsService.outSideClick$$.subscribe(() => {
       if (this.onAddNew) this.setState(false);
     });

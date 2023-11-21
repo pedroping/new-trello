@@ -37,7 +37,6 @@ import { Observable } from 'rxjs';
   ],
   hostDirectives: [CursorDraggingDirective],
 })
-
 @ClearMocks()
 export class HomePageComponent implements OnInit {
   blocks$ = this.cardMocksService.blocks$;
@@ -47,8 +46,8 @@ export class HomePageComponent implements OnInit {
   deleteEvent$!: Observable<void>;
 
   constructor(
-    readonly dragAndDropService: DragAndDropService,
-    readonly cardMocksService: CardMocksService,
+    private readonly dragAndDropService: DragAndDropService,
+    private readonly cardMocksService: CardMocksService,
     private readonly cdr: ChangeDetectorRef,
     private readonly _injector: Injector
   ) {
