@@ -35,7 +35,6 @@ export class CardComponent implements OnInit {
     OutsideClickEventsService
   );
   private readonly dragAndDropService = inject(DragAndDropService);
-  private readonly elementRef = inject(ElementRef);
 
   ngOnInit() {
     this.setValueChanges();
@@ -64,11 +63,6 @@ export class CardComponent implements OnInit {
 
     this.addNewEvent$.subscribe((val) => {
       if (!val) this.editEvent$.next(val);
-    });
-
-    this.editEvent$.subscribe((val) => {
-      const method = val ? 'add' : 'remove';
-      this.elementRef.nativeElement.classList[method]('onEdit');
     });
 
     this.showInput$ = merge(
