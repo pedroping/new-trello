@@ -10,7 +10,7 @@ export class BackdropStateService {
     return this.showBackDrop$$;
   }
 
-  set backDropState(value: boolean) {
+  setBackDropState(value: boolean) {
     this.showBackDrop$.next(value);
   }
 }

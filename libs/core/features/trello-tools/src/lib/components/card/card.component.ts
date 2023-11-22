@@ -1,17 +1,10 @@
-import {
-  Component,
-  ElementRef,
-  Input,
-  OnInit,
-  ViewChild,
-  inject,
-} from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { BackdropStateService } from '@my-monorepo/core/features/backdrop-screen';
 import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
 import { BehaviorSubject, Observable, map, merge, skip } from 'rxjs';
 import { Icard } from '../../models/card.models';
 import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
-
 @Component({
   selector: 'trello-card',
   templateUrl: './card.component.html',
@@ -31,10 +24,11 @@ export class CardComponent implements OnInit {
     validators: [Validators.required],
   });
 
-  private readonly outsideClickEventsService = inject(
-    OutsideClickEventsService
-  );
-  private readonly dragAndDropService = inject(DragAndDropService);
+  constructor(
+    private readonly dragAndDropService: DragAndDropService,
+    private readonly backdropStateService: BackdropStateService,
+    private readonly outsideClickEventsService: OutsideClickEventsService
+  ) {}
 
   ngOnInit() {
     this.setValueChanges();
@@ -46,6 +40,19 @@ export class CardComponent implements OnInit {
   }
 
   setValueChanges() {
+    this.outsideClickEvents();
+    this.showInput$ = this.showInputObservable$();
+
+    this.addNewEvent$.subscribe((val) => {
+      if (!val) this.editEvent$.next(val);
+    });
+
+    this.editEvent$.subscribe((val) => {
+      this.backdropStateService.setBackDropState(val);
+    });
+  }
+
+  outsideClickEvents() {
     const outSideClick$$ = this.outsideClickEventsService.outSideClick$$;
     const editClick$$ = this.outsideClickEventsService.editClick$$;
 
@@ -60,12 +67,10 @@ export class CardComponent implements OnInit {
         this.addCard();
         this.addNewEvent$.next(false);
       });
+  }
 
-    this.addNewEvent$.subscribe((val) => {
-      if (!val) this.editEvent$.next(val);
-    });
-
-    this.showInput$ = merge(
+  showInputObservable$ = () =>
+    merge(
       this.addNewEvent$.asObservable(),
       this.editEvent$.asObservable()
     ).pipe(
@@ -73,7 +78,6 @@ export class CardComponent implements OnInit {
         return this.addNewEvent$.value || this.editEvent$.value;
       })
     );
-  }
 
   addCard() {
     if (this.cardNameControl.invalid) return;
