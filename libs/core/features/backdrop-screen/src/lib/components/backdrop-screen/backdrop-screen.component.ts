@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { BackdropStateService } from '../../services/backdrop-state/backdrop-state.service';
 
 @Component({
-  selector: 'app-backdrop-screen',
+  selector: 'backdrop-screen',
   templateUrl: './backdrop-screen.component.html',
-  styleUrls: ['./backdrop-screen.component.scss']
+  styleUrls: ['./backdrop-screen.component.scss'],
 })
-export class BackdropScreenComponent  {
-
-
+export class BackdropScreenComponent {
+  backDropSubscription$ = this.backdropStateService.backDropSubscription$;
+  constructor(private readonly backdropStateService: BackdropStateService) {}
 }
