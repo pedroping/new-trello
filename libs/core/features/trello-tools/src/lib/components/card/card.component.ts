@@ -62,7 +62,7 @@ export class CardComponent implements OnInit {
       });
 
     this.addNewEvent$.subscribe((val) => {
-      this.editEvent$.next(val);
+      if (!val) this.editEvent$.next(val);
     });
 
     this.showInput$ = merge(
