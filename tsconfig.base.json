@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@my-monorepo/core/utlis": ["libs/core/utlis/index.ts"],
+      "@my-monorepo/core/features/backdrop-screen": [
+        "libs/core/features/backdrop-screen/src/index.ts"
+      ],
       "@my-monorepo/core/features/conditional-element": [
         "libs/core/features/conditional-element/src/index.ts"
       ],
@@ -60,7 +62,8 @@
       "@my-monorepo/core/ui/splash-page": [
         "libs/core/ui/splash-page/src/index.ts"
       ],
-      "@my-monorepo/core/ui/toolbar": ["libs/core/ui/toolbar/src/index.ts"]
+      "@my-monorepo/core/ui/toolbar": ["libs/core/ui/toolbar/src/index.ts"],
+      "@my-monorepo/core/utlis": ["libs/core/utlis/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
