@@ -27,6 +27,7 @@ export class CardComponent implements OnInit {
   constructor(
     private readonly dragAndDropService: DragAndDropService,
     private readonly backdropStateService: BackdropStateService,
+    private readonly elementRef: ElementRef,
     private readonly outsideClickEventsService: OutsideClickEventsService
   ) {}
 
@@ -49,6 +50,8 @@ export class CardComponent implements OnInit {
 
     this.editEvent$.subscribe((val) => {
       this.backdropStateService.setBackDropState(val);
+      if (val)
+        console.log(this.elementRef.nativeElement.getBoundingClientRect());
     });
   }
 
