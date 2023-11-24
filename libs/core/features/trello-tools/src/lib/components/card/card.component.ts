@@ -1,8 +1,15 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { BackdropStateService } from '@my-monorepo/core/features/backdrop-screen';
 import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
-import { BehaviorSubject, Observable, map, merge, skip } from 'rxjs';
+import { BehaviorSubject, merge, skip } from 'rxjs';
 import { Icard } from '../../models/card.models';
 import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
 @Component({
@@ -11,13 +18,14 @@ import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.s
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit {
+  @ViewChild('editTemplate') editTemplate!: TemplateRef<unknown>;
+
   @Input() card?: Icard;
   @Input() cards: Icard[] = [];
   @Input() isPreview?: boolean;
   @Input() addNewEvent$: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);
 
-  showInput$!: Observable<boolean>;
   editEvent$ = new BehaviorSubject<boolean>(false);
   cardNameControl = new FormControl('', {
     nonNullable: true,
@@ -42,19 +50,9 @@ export class CardComponent implements OnInit {
 
   setValueChanges() {
     this.outsideClickEvents();
-    this.showInput$ = this.showInputObservable$();
 
     this.addNewEvent$.subscribe((val) => {
       if (!val) this.editEvent$.next(val);
-    });
-
-    this.editEvent$.subscribe((val) => {
-      this.backdropStateService.setBackDropState(val);
-      if (val) {
-        console.log(this.elementRef.nativeElement.getBoundingClientRect());
-        this.backdropStateService.domRect =
-          this.elementRef.nativeElement.getBoundingClientRect();
-      }
     });
   }
 
@@ -74,16 +72,6 @@ export class CardComponent implements OnInit {
         this.addNewEvent$.next(false);
       });
   }
-
-  showInputObservable$ = () =>
-    merge(
-      this.addNewEvent$.asObservable(),
-      this.editEvent$.asObservable()
-    ).pipe(
-      map(() => {
-        return this.addNewEvent$.value || this.editEvent$.value;
-      })
-    );
 
   addCard() {
     if (this.cardNameControl.invalid) return;
@@ -106,5 +94,9 @@ export class CardComponent implements OnInit {
     this.outsideClickEventsService.editClick$.next();
     if (this.card) this.cardNameControl.setValue(this.card.name);
     this.editEvent$.next(true);
+    this.backdropStateService.setBackDropState(this.editTemplate);
+    console.log(this.elementRef.nativeElement.getBoundingClientRect());
+    this.backdropStateService.domRect =
+      this.elementRef.nativeElement.getBoundingClientRect();
   }
 }

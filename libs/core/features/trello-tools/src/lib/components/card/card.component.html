@@ -1,8 +1,8 @@
-<ng-container *ngIf="showInput$ | async; else defaultTemplate">
+<ng-container *ngIf="addNewEvent$ | async; else defaultTemplate">
   <input
-    type="text"
-    outsideClick
     #nameInput
+    outsideClick
+    type="text"
     [formControl]="cardNameControl"
     (keyup.enter)="addCard()"
   />
@@ -16,3 +16,5 @@
     </div>
   </ng-container>
 </ng-template>
+
+<ng-template #editTemplate>Teste</ng-template>

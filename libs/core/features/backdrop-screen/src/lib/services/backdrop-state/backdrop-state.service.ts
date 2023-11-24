@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, TemplateRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class BackdropStateService {
-  private showBackDrop$ = new BehaviorSubject<boolean>(false);
+  private showBackDrop$ = new BehaviorSubject<
+    TemplateRef<unknown> | undefined | null
+  >(null);
   private showBackDrop$$ = this.showBackDrop$.asObservable();
 
   domRect!: DOMRect;
@@ -12,7 +14,7 @@ export class BackdropStateService {
     return this.showBackDrop$$;
   }
 
-  setBackDropState(value: boolean) {
+  setBackDropState(value: TemplateRef<unknown>) {
     this.showBackDrop$.next(value);
   }
 }
