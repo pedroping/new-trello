@@ -1,10 +1,9 @@
-<div *ngIf="backDropSubscription$ | async as template" class="backdrop">
+<div *ngIf="backDropSubscription$ | async as backDropContent" class="backdrop">
   <div
-    *ngIf="backdropStateService.domRect"
     class="content"
-    [style.top]="backdropStateService.domRect.top + 'px'"
-    [style.left]="backdropStateService.domRect.left + 'px'"
+    [style.top]="backDropContent.domRect.top + 'px'"
+    [style.left]="backDropContent.domRect.left + 'px'"
   >
-    <ng-container [ngTemplateOutlet]="template"></ng-container>
+    <ng-container [ngTemplateOutlet]="backDropContent.template"></ng-container>
   </div>
 </div>

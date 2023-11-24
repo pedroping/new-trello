@@ -1,10 +1,4 @@
-import {
-  Directive,
-  ElementRef,
-  Input,
-  NgZone,
-  OnInit
-} from '@angular/core';
+import { Directive, ElementRef, Input, NgZone, OnInit } from '@angular/core';
 import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { fromEvent, merge, skip, takeUntil } from 'rxjs';
@@ -20,12 +14,13 @@ export class OutsideAddBlockClickDirective implements OnInit {
   constructor(
     private readonly elementRef: ElementRef,
     private readonly ngZone: NgZone,
-    private readonly outsideClickEventsService: OutsideClickEventsService,
-  ) { }
+    private readonly outsideClickEventsService: OutsideClickEventsService
+  ) {}
 
   ngOnInit(): void {
-    this.setValueChanges();
+    console.log('a');
 
+    this.setValueChanges();
   }
 
   setValueChanges() {
@@ -44,11 +39,13 @@ export class OutsideAddBlockClickDirective implements OnInit {
           event.target as Node
         );
 
-        if (!isChildClick)
+        if (!isChildClick) {
+          console.log(event);
+
           this.ngZone.run(() => {
             this.outsideClickEventsService.outSideClick$.next();
           });
+        }
       });
-
   }
 }

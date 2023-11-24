@@ -94,9 +94,10 @@ export class CardComponent implements OnInit {
     this.outsideClickEventsService.editClick$.next();
     if (this.card) this.cardNameControl.setValue(this.card.name);
     this.editEvent$.next(true);
-    this.backdropStateService.setBackDropState(this.editTemplate);
-    console.log(this.elementRef.nativeElement.getBoundingClientRect());
-    this.backdropStateService.domRect =
-      this.elementRef.nativeElement.getBoundingClientRect();
+
+    const domRect = this.elementRef.nativeElement.getBoundingClientRect();
+    const template = this.editTemplate;
+
+    this.backdropStateService.setBackDropState({ domRect, template });
   }
 }
