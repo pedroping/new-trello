@@ -10,4 +10,11 @@
     z-index: 10;
     background-color: var(--backdrop-color);
   }
+
+  .content {
+    position: fixed;
+    width: var(--card-width);
+    height: var(--card-height);
+    background-color: red;
+  }
 }

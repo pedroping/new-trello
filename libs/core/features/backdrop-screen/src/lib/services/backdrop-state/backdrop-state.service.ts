@@ -6,6 +6,8 @@ export class BackdropStateService {
   private showBackDrop$ = new BehaviorSubject<boolean>(false);
   private showBackDrop$$ = this.showBackDrop$.asObservable();
 
+  domRect!: DOMRect;
+
   get backDropSubscription$() {
     return this.showBackDrop$$;
   }

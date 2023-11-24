@@ -50,8 +50,11 @@ export class CardComponent implements OnInit {
 
     this.editEvent$.subscribe((val) => {
       this.backdropStateService.setBackDropState(val);
-      if (val)
+      if (val) {
         console.log(this.elementRef.nativeElement.getBoundingClientRect());
+        this.backdropStateService.domRect =
+          this.elementRef.nativeElement.getBoundingClientRect();
+      }
     });
   }
 

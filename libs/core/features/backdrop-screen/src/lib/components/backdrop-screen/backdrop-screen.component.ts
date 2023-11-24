@@ -8,5 +8,5 @@ import { BackdropStateService } from '../../services/backdrop-state/backdrop-sta
 })
 export class BackdropScreenComponent {
   backDropSubscription$ = this.backdropStateService.backDropSubscription$;
-  constructor(private readonly backdropStateService: BackdropStateService) {}
+  constructor(readonly backdropStateService: BackdropStateService) {}
 }
