@@ -1,14 +1,15 @@
-import { Directive, ElementRef, Input, NgZone, OnInit } from '@angular/core';
+import { Directive, ElementRef, Input, NgZone } from '@angular/core';
+import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { fromEvent, merge, skip, takeUntil } from 'rxjs';
-
 export const DEFAULT_ELEMENT = document;
 @Directive({
   selector: '[outsideClick]',
 })
 @UntilDestroy()
-export class OutsideAddBlockClickDirective implements OnInit {
+@CallSetValueChanges()
+export class OutsideAddBlockClickDirective {
   @Input() outSideElement?: HTMLElement;
 
   constructor(
@@ -16,12 +17,6 @@ export class OutsideAddBlockClickDirective implements OnInit {
     private readonly ngZone: NgZone,
     private readonly outsideClickEventsService: OutsideClickEventsService
   ) {}
-
-  ngOnInit(): void {
-    console.log('a');
-
-    this.setValueChanges();
-  }
 
   setValueChanges() {
     const baseElemnt = this.outSideElement ?? DEFAULT_ELEMENT;

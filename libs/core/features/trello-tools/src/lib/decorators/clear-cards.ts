@@ -11,7 +11,7 @@ export function ClearMocks() {
           'card Mocks service not Found, Try to inject the service or set the injector property'
         );
       cardMocks.clearMocks();
-      original?.apply(this, arguments);
+      original?.apply(this);
     };
   };
 }

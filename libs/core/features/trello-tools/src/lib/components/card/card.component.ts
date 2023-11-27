@@ -2,22 +2,24 @@ import {
   Component,
   ElementRef,
   Input,
-  OnInit,
   TemplateRef,
-  ViewChild,
+  ViewChild
 } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { BackdropStateService } from '@my-monorepo/core/features/backdrop-screen';
+import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
 import { BehaviorSubject, merge, skip } from 'rxjs';
 import { Icard } from '../../models/card.models';
 import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
+
 @Component({
   selector: 'trello-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
 })
-export class CardComponent implements OnInit {
+@CallSetValueChanges()
+export class CardComponent {
   @ViewChild('editTemplate') editTemplate!: TemplateRef<unknown>;
 
   @Input() card?: Icard;
@@ -38,10 +40,6 @@ export class CardComponent implements OnInit {
     private readonly elementRef: ElementRef,
     private readonly outsideClickEventsService: OutsideClickEventsService
   ) {}
-
-  ngOnInit() {
-    this.setValueChanges();
-  }
 
   @ViewChild('nameInput') set inputFocus(input: ElementRef<HTMLInputElement>) {
     if (!input) return;

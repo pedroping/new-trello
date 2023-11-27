@@ -1,18 +1,17 @@
-import { Directive, ElementRef, Input, OnInit, inject } from '@angular/core';
+import { Directive, ElementRef, Input, inject } from '@angular/core';
+import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { BehaviorSubject, take, timer } from 'rxjs';
 
 @Directive({
   selector: '[scrollToEnd]',
 })
-export class ScrollToEndDirective implements OnInit {
+@CallSetValueChanges()
+export class ScrollToEndDirective  {
   @Input({ required: true, alias: 'scrollToEnd' })
   addNewEvent$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   private readonly elementRef = inject(ElementRef);
 
-  ngOnInit(): void {
-    this.setValueChanges();
-  }
 
   setValueChanges() {
     this.addNewEvent$.subscribe((value) => {

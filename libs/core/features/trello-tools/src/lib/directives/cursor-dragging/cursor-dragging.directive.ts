@@ -1,21 +1,19 @@
-import { Directive, OnInit } from '@angular/core';
-import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
-import { merge } from 'rxjs';
+import { Directive } from '@angular/core';
+import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { merge } from 'rxjs';
+import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
 
 @Directive({
   selector: '[cursorDragging]',
   standalone: true,
 })
 @UntilDestroy()
-export class CursorDraggingDirective implements OnInit {
+@CallSetValueChanges()
+export class CursorDraggingDirective {
   private _body = document.querySelector('body');
 
   constructor(private readonly dragAndDropService: DragAndDropService) {}
-
-  ngOnInit(): void {
-    this.setValueChanges();
-  }
 
   setValueChanges() {
     const moveEvent$ = merge(

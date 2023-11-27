@@ -11,7 +11,7 @@ export class BackdropStateService {
     return this.showBackDrop$$;
   }
 
-  setBackDropState(value: BackDropEvent) {
+  setBackDropState(value: BackDropEvent | null) {
     this.showBackDrop$.next(value);
   }
 }

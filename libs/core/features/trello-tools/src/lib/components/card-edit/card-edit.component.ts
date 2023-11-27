@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BackdropStateService } from '@my-monorepo/core/features/backdrop-screen';
 import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
 
 @Component({
@@ -8,7 +9,8 @@ import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
 })
 export class CardEditComponent implements OnInit {
   constructor(
-    private readonly outsideClickEventsService: OutsideClickEventsService
+    private readonly outsideClickEventsService: OutsideClickEventsService,
+    private readonly backdropStateService: BackdropStateService
   ) {}
 
   ngOnInit(): void {
@@ -19,7 +21,7 @@ export class CardEditComponent implements OnInit {
     const outSideClick$$ = this.outsideClickEventsService.outSideClick$$;
 
     outSideClick$$.subscribe(() => {
-      console.log('OutSide click');
+      this.backdropStateService.setBackDropState(null)
     });
   }
 }

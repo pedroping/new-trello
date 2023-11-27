@@ -6,13 +6,14 @@ import {
   ViewContainerRef,
   inject,
 } from '@angular/core';
+import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
-
 @Directive({
   selector: '[obsavableBasedElement]',
 })
 @UntilDestroy()
+@CallSetValueChanges()
 export class ObsavableBasedElementDirective implements OnInit {
   @Input('obsavableBasedElement')
   creatEvent$: Observable<void> = new Observable<void>();
@@ -24,7 +25,6 @@ export class ObsavableBasedElementDirective implements OnInit {
 
   ngOnInit(): void {
     this.vcr.clear();
-    this.setValueChanges();
   }
 
   setValueChanges() {

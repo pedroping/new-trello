@@ -1,5 +1,6 @@
 import { CdkMenuTrigger } from '@angular/cdk/menu';
-import { Directive, Input, OnInit } from '@angular/core';
+import { Directive, Input } from '@angular/core';
+import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { merge } from 'rxjs';
 import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
@@ -8,15 +9,12 @@ import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.s
   selector: '[autoCloseMenu]',
 })
 @UntilDestroy()
-export class CloseMenuDirective implements OnInit {
+@CallSetValueChanges()
+export class CloseMenuDirective {
   @Input({ alias: 'autoCloseMenu', required: true })
   menuTriger!: CdkMenuTrigger;
 
   constructor(private readonly dragAndDropService: DragAndDropService) {}
-
-  ngOnInit(): void {
-    this.setValueChanges();
-  }
 
   setValueChanges() {
     const moveEvent$ = merge(
