@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { BackdropStateService } from '@my-monorepo/core/features/backdrop-screen';
 import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
 import { Icard } from '../../models/card.models';
@@ -12,6 +12,11 @@ import { FormControl, Validators } from '@angular/forms';
 })
 @CallSetValueChanges()
 export class CardEditComponent implements OnInit {
+  @ViewChild('nameInput') set inputFocus(input: ElementRef<HTMLInputElement>) {
+    if (!input) return;
+    input.nativeElement.focus({ preventScroll: true });
+  }
+
   @Input({ required: true }) card?: Icard;
   cardNameControl = new FormControl('', {
     nonNullable: true,
