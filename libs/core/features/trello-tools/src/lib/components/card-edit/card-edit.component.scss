@@ -1,7 +1,21 @@
+@import 'libs/core/themes/trello-clone/root.scss';
+
 :host {
   .content {
+    @include second-box-shadow;
     width: var(--card-width);
     height: var(--card-height);
-    background-color: red;
+    padding: 5px;
+    color: var(--text-01);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    cursor: grab;
+    border: 1px solid var(--white-01);
+    background-color: var(--white-01);
+    border-radius: 10px;
+    margin: 2px;
   }
 }
