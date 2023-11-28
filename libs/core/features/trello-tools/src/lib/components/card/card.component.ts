@@ -3,7 +3,7 @@ import {
   ElementRef,
   Input,
   TemplateRef,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { BackdropStateService } from '@my-monorepo/core/features/backdrop-screen';
@@ -90,7 +90,6 @@ export class CardComponent {
 
   editclick() {
     this.outsideClickEventsService.editClick$.next();
-    if (this.card) this.cardNameControl.setValue(this.card.name);
     this.editEvent$.next(true);
 
     const domRect = this.elementRef.nativeElement.getBoundingClientRect();
