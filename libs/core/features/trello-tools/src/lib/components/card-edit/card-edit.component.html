@@ -1,1 +1,8 @@
-<div class="content" outsideClick></div>
+<div class="content" outsideClick>
+  <input
+    outsideClick
+    type="text"
+    [formControl]="cardNameControl"
+    (keyup.enter)="addCard()"
+  />
+</div>
