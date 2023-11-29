@@ -1,11 +1,13 @@
-<div class="content" outsideClick>
+<div class="content">
   <div class="card">
     <input
       #nameInput
+      outsideClick
+      [preventClickElement]="['save-btn']"
       type="text"
       [formControl]="cardNameControl"
       (keyup.enter)="addCard()"
     />
   </div>
-  <button class="save-btn" (click)="addCard()">Salvar</button>
+  <button class="save-btn" id="save-btn" (click)="addCard()">Salvar</button>
 </div>

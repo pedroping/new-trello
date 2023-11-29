@@ -42,6 +42,8 @@ export class CardEditComponent implements OnInit {
   }
 
   addCard() {
+    console.log('add card-');
+
     if (!this.card) return this.backdropStateService.setBackDropState();
     this.card.name = this.cardNameControl.value;
     this.backdropStateService.setBackDropState();

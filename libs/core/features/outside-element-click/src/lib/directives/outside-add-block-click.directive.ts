@@ -11,6 +11,7 @@ export const DEFAULT_ELEMENT = document;
 @CallSetValueChanges()
 export class OutsideAddBlockClickDirective {
   @Input() outSideElement?: HTMLElement;
+  @Input() preventClickElement: string[] = [];
 
   constructor(
     private readonly elementRef: ElementRef,
@@ -34,9 +35,11 @@ export class OutsideAddBlockClickDirective {
           event.target as Node
         );
 
-        if (!isChildClick) {
-          console.log(event);
+        const hasPreventElement = this.preventClickElement.includes(
+          (event.target as HTMLElement).id
+        );
 
+        if (!isChildClick && !hasPreventElement) {
           this.ngZone.run(() => {
             this.outsideClickEventsService.outSideClick$.next();
           });
