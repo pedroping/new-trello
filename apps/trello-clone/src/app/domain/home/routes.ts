@@ -1,11 +1,12 @@
 import { Routes } from '@angular/router';
-import { WelcomePageComponent } from './welcome-page/welcome-page.component';
-import { HomePageComponent } from './home-page/home-page.component';
 
 export default [
   {
     path: '',
-    component: WelcomePageComponent,
+    loadComponent: async () =>
+      (await import('../home/welcome-page/welcome-page.component'))
+        .WelcomePageComponent,
+
     children: [
       {
         path: '',
@@ -14,7 +15,9 @@ export default [
       },
       {
         path: 'home',
-        component: HomePageComponent,
+        loadComponent: async () =>
+          (await import('../home/home-page/home-page.component'))
+            .HomePageComponent,
       },
     ],
   },

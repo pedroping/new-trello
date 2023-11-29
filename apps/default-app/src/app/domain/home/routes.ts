@@ -1,13 +1,12 @@
 import { Routes } from '@angular/router';
-import { HomePageComponent } from './pages/home-page/home-page.component';
-import { DynamicTableComponent } from '../dynamic-table/pages/dynamic-table/dynamic-table.component';
-import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
-import { OnlineOfflineStateComponent } from '../online-offline-state/online-offline-state/online-offline-state.component';
 
 export default [
   {
     path: '',
-    component: HomePageComponent,
+    loadComponent: async () =>
+      (await import('../home/pages/home-page/home-page.component'))
+        .HomePageComponent,
+
     children: [
       {
         path: '',
@@ -16,15 +15,27 @@ export default [
       },
       {
         path: 'home',
-        component: WelcomePageComponent,
+        loadComponent: async () =>
+          (await import('../home/pages/welcome-page/welcome-page.component'))
+            .WelcomePageComponent,
       },
       {
         path: 'dynamic-table',
-        component: DynamicTableComponent,
+        loadComponent: async () =>
+          (
+            await import(
+              '../dynamic-table/pages/dynamic-table/dynamic-table.component'
+            )
+          ).DynamicTableComponent,
       },
       {
         path: 'online-offline-state',
-        component: OnlineOfflineStateComponent,
+        loadComponent: async () =>
+          (
+            await import(
+              '../online-offline-state/online-offline-state/online-offline-state.component'
+            )
+          ).OnlineOfflineStateComponent,
       },
     ],
   },
