@@ -34,8 +34,8 @@ export class CardMocksService {
     this.scrollEventsService.scrollToEnd$.next();
   }
 
-  getAllCards() {
-    this.blocks$.next([]);
+  getAllCards(hasMocks = false) {
+    this.blocks$.next(hasMocks ? BLOCKS : []);
   }
 
   clearMocks() {

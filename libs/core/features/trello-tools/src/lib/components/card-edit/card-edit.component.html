@@ -1,8 +1,11 @@
 <div class="content" outsideClick>
-  <input
-    #nameInput
-    type="text"
-    [formControl]="cardNameControl"
-    (keyup.enter)="addCard()"
-  />
+  <div class="card">
+    <input
+      #nameInput
+      type="text"
+      [formControl]="cardNameControl"
+      (keyup.enter)="addCard()"
+    />
+  </div>
+  <button class="save-btn" (click)="addCard()">Salvar</button>
 </div>

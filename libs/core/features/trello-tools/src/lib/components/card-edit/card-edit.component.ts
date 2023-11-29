@@ -37,16 +37,13 @@ export class CardEditComponent implements OnInit {
     const outSideClick$$ = this.outsideClickEventsService.outSideClick$$;
 
     outSideClick$$.subscribe(() => {
-      this.backdropStateService.setBackDropState(null);
-    });
-
-    this.cardNameControl.valueChanges.subscribe((val) => {
-      if (!this.card) return;
-      this.card.name = val;
+      this.backdropStateService.setBackDropState();
     });
   }
 
   addCard() {
-    this.cardNameControl;
+    if (!this.card) return this.backdropStateService.setBackDropState();
+    this.card.name = this.cardNameControl.value;
+    this.backdropStateService.setBackDropState();
   }
 }
