@@ -42,10 +42,12 @@ export class CardEditComponent implements OnInit {
   }
 
   addCard() {
-    console.log('add card-');
-
-    if (!this.card) return this.backdropStateService.setBackDropState();
+    if (!this.card) return this.closeEdit();
     this.card.name = this.cardNameControl.value;
+    this.closeEdit();
+  }
+
+  closeEdit() {
     this.backdropStateService.setBackDropState();
   }
 }

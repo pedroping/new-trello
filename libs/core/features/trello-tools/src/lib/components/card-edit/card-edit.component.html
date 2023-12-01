@@ -7,6 +7,7 @@
       type="text"
       [formControl]="cardNameControl"
       (keyup.enter)="addCard()"
+      (keyup.escape)="closeEdit()"
     />
   </div>
   <button class="save-btn" id="save-btn" (click)="addCard()">Salvar</button>

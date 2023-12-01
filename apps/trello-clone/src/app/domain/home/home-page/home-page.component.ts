@@ -56,7 +56,7 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.dragAndDropService.startDomain();
-    this.cardMocksService.getAllCards(true);
+    this.cardMocksService.getAllCards();
   }
 
   listDropped(event: CdkDragDrop<IBlock[]>) {
