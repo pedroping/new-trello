@@ -28,7 +28,6 @@ export class CardComponent {
   @Input() addNewEvent$: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);
 
-  editEvent$ = new BehaviorSubject<boolean>(false);
   cardNameControl = new FormControl('', {
     nonNullable: true,
     validators: [Validators.required],
@@ -48,10 +47,6 @@ export class CardComponent {
 
   setValueChanges() {
     this.outsideClickEvents();
-
-    this.addNewEvent$.subscribe((val) => {
-      if (!val) this.editEvent$.next(val);
-    });
   }
 
   outsideClickEvents() {
@@ -67,18 +62,12 @@ export class CardComponent {
       .pipe(skip(2))
       .subscribe(() => {
         this.addCard();
-        this.addNewEvent$.next(false);
+        this.cancelEvent();
       });
   }
 
   addCard() {
     if (this.cardNameControl.invalid) return;
-
-    if (this.editEvent$.value && this.card) {
-      this.card.name = this.cardNameControl.value;
-      this.editEvent$.next(false);
-      return;
-    }
 
     this.cards.push({
       id: this.cards.length + 1,
@@ -88,9 +77,13 @@ export class CardComponent {
     this.addNewEvent$.next(true);
   }
 
+  cancelEvent() {
+    this.cardNameControl.reset();
+    this.addNewEvent$.next(false);
+  }
+
   editclick() {
     this.outsideClickEventsService.editClick$.next();
-    this.editEvent$.next(true);
 
     const domRect = this.elementRef.nativeElement.getBoundingClientRect();
     const template = this.editTemplate;

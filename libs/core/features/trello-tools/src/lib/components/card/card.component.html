@@ -5,6 +5,7 @@
     type="text"
     [formControl]="cardNameControl"
     (keyup.enter)="addCard()"
+    (keyup.escape)="cancelEvent()"
   />
 </ng-container>
 
