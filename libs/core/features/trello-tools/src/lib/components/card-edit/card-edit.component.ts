@@ -42,6 +42,7 @@ export class CardEditComponent implements OnInit {
   }
 
   addCard() {
+    if (this.cardNameControl.invalid) return;
     if (!this.card) return this.closeEdit();
     this.card.name = this.cardNameControl.value;
     this.closeEdit();

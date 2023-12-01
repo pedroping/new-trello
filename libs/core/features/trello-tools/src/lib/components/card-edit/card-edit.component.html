@@ -10,5 +10,12 @@
       (keyup.escape)="closeEdit()"
     />
   </div>
-  <button class="save-btn" id="save-btn" (click)="addCard()">Salvar</button>
+  <button
+    class="save-btn"
+    id="save-btn"
+    [disabled]="cardNameControl.invalid"
+    (click)="addCard()"
+  >
+    Salvar
+  </button>
 </div>

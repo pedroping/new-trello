@@ -39,6 +39,11 @@
       border-radius: 5px;
       cursor: pointer;
       color: var(--white-01);
+
+      &:disabled {
+        color: var(--gray-01);
+        background-color: lighten($add-new-btn-background, 20%);
+      }
     }
   }
 }
