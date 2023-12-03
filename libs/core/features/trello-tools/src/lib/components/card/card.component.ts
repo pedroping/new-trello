@@ -84,7 +84,6 @@ export class CardComponent {
 
   editclick() {
     this.outsideClickEventsService.editClick$.next();
-
     const domRect = this.elementRef.nativeElement.getBoundingClientRect();
     const template = this.editTemplate;
 

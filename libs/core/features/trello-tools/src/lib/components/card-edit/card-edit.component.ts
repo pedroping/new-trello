@@ -18,6 +18,8 @@ export class CardEditComponent implements OnInit {
   }
 
   @Input({ required: true }) card?: Icard;
+  @Input({ required: true }) cards: Icard[] = [];
+
   cardNameControl = new FormControl('', {
     nonNullable: true,
     validators: [Validators.required],
@@ -49,6 +51,13 @@ export class CardEditComponent implements OnInit {
   }
 
   closeEdit() {
+    this.backdropStateService.setBackDropState();
+  }
+
+  archive() {
+    if (!this.card) return;
+    const index = this.cards.findIndex((card) => card.id === this.card?.id);
+    this.cards.splice(index, 1);
     this.backdropStateService.setBackDropState();
   }
 }

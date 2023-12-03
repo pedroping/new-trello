@@ -1,21 +1,28 @@
 <div class="content">
-  <div class="card">
-    <input
-      #nameInput
-      outsideClick
-      [preventClickElement]="['save-btn']"
-      type="text"
-      [formControl]="cardNameControl"
-      (keyup.enter)="addCard()"
-      (keyup.escape)="closeEdit()"
-    />
+  <div class="card-and-save">
+    <div class="card">
+      <input
+        #nameInput
+        outsideClick
+        [preventClickElement]="['save-btn', 'action']"
+        type="text"
+        [formControl]="cardNameControl"
+        (keyup.enter)="addCard()"
+        (keyup.escape)="closeEdit()"
+      />
+    </div>
+    <button
+      id="save-btn"
+      [disabled]="cardNameControl.invalid"
+      (click)="addCard()"
+    >
+      Salvar
+    </button>
   </div>
-  <button
-    class="save-btn"
-    id="save-btn"
-    [disabled]="cardNameControl.invalid"
-    (click)="addCard()"
-  >
-    Salvar
-  </button>
+  <div class="actions">
+    <button class="action-btn" id="action" (click)="archive()">
+      <mat-icon id="action">archive</mat-icon>
+      <span id="action">Arquivar</span>
+    </button>
+  </div>
 </div>
