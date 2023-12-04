@@ -1,9 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  ViewChild,
-  inject
-} from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { ENTER_LEAVE_ANIMATION } from '@my-monorepo/core/ui/animations';
@@ -17,9 +12,11 @@ import { CardMocksService } from '../../services/card-mocks/card-mocks.service';
 })
 @CallSetValueChanges()
 export class AddNewBlockComponent {
-  @ViewChild('listNameInput', { static: false }) set listNameInput(
+  @ViewChild('listNameInput', { static: false }) set listInput(
     listNameInput: ElementRef
   ) {
+    if (!listNameInput) return;
+    this.listNameInput = listNameInput;
     if (this.onAddNew) {
       listNameInput.nativeElement.focus();
       this.outsideClickEventsService.startTaking$.next();
@@ -27,15 +24,16 @@ export class AddNewBlockComponent {
   }
 
   onAddNew = false;
+  listNameInput?: ElementRef;
   listName = new FormControl<string>('', {
     nonNullable: true,
     validators: [Validators.required],
   });
 
-  private readonly cardMocksService = inject(CardMocksService);
-  private readonly outsideClickEventsService = inject(
-    OutsideClickEventsService
-  );
+  constructor(
+    private readonly cardMocksService: CardMocksService,
+    private readonly outsideClickEventsService: OutsideClickEventsService
+  ) {}
 
   setValueChanges() {
     this.outsideClickEventsService.outSideClick$$.subscribe(() => {
@@ -53,5 +51,6 @@ export class AddNewBlockComponent {
 
     this.cardMocksService.addNew(listName);
     this.listName.reset();
+    this.listNameInput && this.listNameInput.nativeElement.focus();
   }
 }
