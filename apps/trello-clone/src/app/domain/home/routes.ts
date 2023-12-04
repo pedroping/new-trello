@@ -9,15 +9,15 @@ export default [
 
     children: [
       {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'full',
-      },
-      {
         path: 'home',
         loadComponent: async () =>
           (await import('../home/home-page/home-page.component'))
             .HomePageComponent,
+      },
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
       },
     ],
   },

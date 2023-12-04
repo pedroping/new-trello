@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { ScrollEventsService } from '@my-monorepo/core/utlis';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of, tap } from 'rxjs';
 import { IBlock } from '../../models/card.models';
 
 export const BLOCKS = Array.from({ length: 5 }, (_, i) => {
@@ -35,7 +35,11 @@ export class CardMocksService {
   }
 
   getAllCards(hasMocks = false) {
-    this.blocks$.next(hasMocks ? BLOCKS : []);
+    return of(BLOCKS).pipe(
+      tap((blocks) => {
+        this.blocks$.next(hasMocks ? blocks : []);
+      })
+    );
   }
 
   clearMocks() {
