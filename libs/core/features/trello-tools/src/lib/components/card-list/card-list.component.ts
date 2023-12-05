@@ -8,8 +8,8 @@ import {
   inject,
 } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
-import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
 import { Icard } from '../../models/card.models';
+import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
 
 @Component({
   selector: 'card-list',
@@ -19,7 +19,8 @@ import { Icard } from '../../models/card.models';
 export class CardListComponent implements OnInit {
   @Input({ required: true }) cards: Icard[] = [];
   @Input({ required: true }) id = -1;
-  @Input() addNewEvent$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  @Input() addNewEvent$: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(false);
   @Output() cardMove = new EventEmitter<boolean>();
 
   readonly dragAndDropService = inject(DragAndDropService);

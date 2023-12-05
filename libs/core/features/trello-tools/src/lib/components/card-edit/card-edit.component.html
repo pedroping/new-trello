@@ -3,12 +3,12 @@
     <div class="card">
       <input
         #nameInput
-        outsideClick
-        [preventClickElement]="['save-btn', 'action']"
         type="text"
-        [formControl]="cardNameControl"
+        outsideClick
         (keyup.enter)="addCard()"
         (keyup.escape)="closeEdit()"
+        [formControl]="cardNameControl"
+        [preventClickElement]="['save-btn', 'action']"
       />
     </div>
     <button
