@@ -23,17 +23,16 @@ import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
 @Injectable({ providedIn: 'root' })
 @UntilDestroy()
 export class DragAndDropService {
-  cards = new Array(5);
   onMove$ = new BehaviorSubject<boolean>(false);
   onCardMove$ = new BehaviorSubject<boolean>(false);
   onBlockMove = false;
   lastToBeHovered = -1;
 
-  private readonly cardMocksService = inject(CardMocksService);
-  private readonly scrollEventsService = inject(ScrollEventsService);
-  private readonly outsideClickEventsService = inject(
-    OutsideClickEventsService
-  );
+  constructor(
+    private readonly cardMocksService: CardMocksService,
+    private readonly scrollEventsService: ScrollEventsService,
+    private readonly outsideClickEventsService: OutsideClickEventsService
+  ) {}
 
   startDomain() {
     this.setValueChanges();

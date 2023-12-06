@@ -18,8 +18,9 @@ export const BLOCKS = Array.from({ length: 5 }, (_, i) => {
   providedIn: 'root',
 })
 export class CardMocksService {
-  private readonly scrollEventsService = inject(ScrollEventsService);
   blocks$ = new BehaviorSubject<IBlock[]>([]);
+
+  constructor(private readonly scrollEventsService: ScrollEventsService) {}
 
   addNew(listName: string) {
     const blocks = [
