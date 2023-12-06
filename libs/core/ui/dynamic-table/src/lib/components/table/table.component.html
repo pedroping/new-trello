@@ -3,71 +3,97 @@
     <ng-container *ngFor="let column of config.columns">
       <ng-container [cdkColumnDef]="column.selector">
         <div *ngIf="!column?.hasCustomField; else customField">
-          <cdk-header-cell *cdkHeaderCellDef>
+          <th cdk-header-cell *cdkHeaderCellDef>
             {{ column.label }}
-          </cdk-header-cell>
-          <cdk-cell *cdkCellDef="let element">
+          </th>
+          <td cdk-cell *cdkCellDef="let element">
             <span class="text-overflow">
               <span>
                 {{ element[column.selector] }}
               </span>
             </span>
-          </cdk-cell>
+          </td>
         </div>
 
         <ng-template #customField>
-          <cdk-header-cell *cdkHeaderCellDef>
+          <th cdk-header-cell *cdkHeaderCellDef>
             {{ column.label }}
-          </cdk-header-cell>
-          <cdk-cell *cdkCellDef="let element" (click)="$event.stopPropagation()">
-            <div appGenerateCustomField [selector]="column.selector" [element]="element" [column]="column"></div>
-          </cdk-cell>
+          </th>
+          <td
+            cdk-cell
+            *cdkCellDef="let element"
+            (click)="$event.stopPropagation()"
+          >
+            <div
+              appGenerateCustomField
+              [selector]="column.selector"
+              [element]="element"
+              [column]="column"
+            ></div>
+          </td>
         </ng-template>
       </ng-container>
     </ng-container>
 
     <ng-container cdkColumnDef="expandedDetail">
-      <cdk-cell *cdkCellDef="let element" [attr.colspan]="columnsLength">
+      <td cdk-cell *cdkCellDef="let element" [attr.colspan]="columnsLength">
         <div *appHasElement="element" [@inOutPaneAnimation]>aaa</div>
-      </cdk-cell>
+      </td>
     </ng-container>
 
     <ng-container cdkColumnDef="expandeIcon">
-      <cdk-header-cell *cdkHeaderCellDef></cdk-header-cell>
-      <cdk-cell *cdkCellDef="let element">
+      <th cdk-header-cell *cdkHeaderCellDef></th>
+      <td cdk-cell *cdkCellDef="let element">
         <div [appHasElement]="element" #HasElement="appHasElement">
           <mat-icon id="expandIcon">{{ HasElement.expandedIcon }}</mat-icon>
         </div>
-      </cdk-cell>
+      </td>
     </ng-container>
 
-    <cdk-header-row *cdkHeaderRowDef="displayedColumns"></cdk-header-row>
-    <cdk-row *cdkRowDef="let row; columns: displayedColumns" expandTable [rowElement]="row"></cdk-row>
+    <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+    <tr
+      cdk-row
+      *cdkRowDef="let row; columns: displayedColumns"
+      expandTable
+      [rowElement]="row"
+    ></tr>
     <ng-container *ngIf="config.hasExpansion">
-      <cdk-row *cdkRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></cdk-row>
+      <tr
+        cdk-row
+        *cdkRowDef="let row; columns: ['expandedDetail']"
+        class="example-detail-row"
+      ></tr>
     </ng-container>
   </table>
-
-  <ng-container *ngIf="config.hasPaginator">
-    <mat-paginator [length]="length" [pageSize]="config.paginatorOptions!.pageSize"
-      [pageSizeOptions]="config.paginatorOptions!.pageSizeOptions" aria-label="Select page">
-    </mat-paginator>
-  </ng-container>
-
-  <ng-container *ngIf="config.hasDefaultPaginator">
-    <ng-container *ngFor="
-        let item of data
-          | paginate
-            : {
-                itemsPerPage: config.defaultPaginatorOptions?.pageSize,
-                currentPage: config.defaultPaginatorOptions?.currentPage,
-                totalItems: config.defaultPaginatorOptions?.totalSize
-              }
-      ">
-    </ng-container>
-    <pagination-controls (pageChange)="handlePageChange($event)"
-      [previousLabel]="config.defaultPaginatorOptions?.previousLabel ?? ''"
-      [nextLabel]="config.defaultPaginatorOptions?.nextLabel ?? ''">
-    </pagination-controls>
-  </ng-container>
 </div>
+
+<ng-container *ngIf="config.hasPaginator">
+  <mat-paginator
+    [length]="length"
+    [pageSize]="config.paginatorOptions!.pageSize"
+    [pageSizeOptions]="config.paginatorOptions!.pageSizeOptions"
+    aria-label="Select page"
+  >
+  </mat-paginator>
+</ng-container>
+
+<ng-container *ngIf="config.hasDefaultPaginator">
+  <ng-container
+    *ngFor="
+      let item of data
+        | paginate
+          : {
+              itemsPerPage: config.defaultPaginatorOptions?.pageSize,
+              currentPage: config.defaultPaginatorOptions?.currentPage,
+              totalItems: config.defaultPaginatorOptions?.totalSize
+            }
+    "
+  >
+  </ng-container>
+  <pagination-controls
+    (pageChange)="handlePageChange($event)"
+    [previousLabel]="config.defaultPaginatorOptions?.previousLabel ?? ''"
+    [nextLabel]="config.defaultPaginatorOptions?.nextLabel ?? ''"
+  >
+  </pagination-controls>
+</ng-container>
