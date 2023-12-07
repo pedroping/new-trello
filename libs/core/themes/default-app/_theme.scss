@@ -33,3 +33,15 @@ $dark-theme: mat.define-light-theme(
 .darkMode {
   @include mat.all-component-colors($dark-theme);
 }
+
+:root {
+  @each $name, $color in $project-colors {
+    --#{$name}: #{$color};
+  }
+
+  &.darkMode {
+    @each $name, $color in $project-colors-dark-mode {
+      --#{$name}: #{$color};
+    }
+  }
+}

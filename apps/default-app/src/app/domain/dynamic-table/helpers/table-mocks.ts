@@ -33,12 +33,12 @@ export const CREATE_TABLE_CONFIG = (
 ) => {
   return {
     hasExpansion: true,
-    hasPaginator: false,
+    hasPaginator: true,
     paginatorOptions: {
       pageSize: 5,
       pageSizeOptions: [2, 5, 10, 50, 100],
     },
-    hasDefaultPaginator: true,
+    hasDefaultPaginator: false,
     defaultPaginatorOptions: {
       totalSize: DATA.length,
       currentPage: 1,

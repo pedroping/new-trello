@@ -36,7 +36,7 @@
     </ng-container>
 
     <ng-container cdkColumnDef="expandedDetail">
-      <td cdk-cell *cdkCellDef="let element" [attr.colspan]="columnsLength">
+      <td cdk-cell *cdkCellDef="let element" [attr.colspan]="columnsLength + 1">
         <div *appHasElement="element" [@inOutPaneAnimation]>aaa</div>
       </td>
     </ng-container>

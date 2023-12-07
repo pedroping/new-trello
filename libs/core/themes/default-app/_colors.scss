@@ -57,6 +57,7 @@ $project-colors: (
   'selected-sidenav': $selected-sidenav-color,
   'main-red': $main-red,
   'red-01': $red-01,
+  'paginator-color': #f4efff,
 );
 
 $project-colors-dark-mode: (
@@ -70,16 +71,4 @@ $project-colors-dark-mode: (
 @mixin setDarkMode() {
   background-color: $dark-background !important;
   color: $dark-text-color !important;
-}
-
-:root {
-  @each $name, $color in $project-colors {
-    --#{$name}: #{$color};
-  }
-
-  &.darkMode {
-    @each $name, $color in $project-colors-dark-mode {
-      --#{$name}: #{$color};
-    }
-  }
 }
