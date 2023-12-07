@@ -18,7 +18,7 @@ export class HasElementDirective<T> implements OnInit {
   @Input('appHasElement') rowElement!: T;
 
   private lasState = false;
-  expandedIcon = DOWN_ICON;
+  iconState = DOWN_ICON;
 
   constructor(
     @Optional() private templateRef: TemplateRef<unknown>,
@@ -35,7 +35,7 @@ export class HasElementDirective<T> implements OnInit {
     const isSelectedRow = this.selectedRowService.selectedRows$.value.includes(
       this.rowElement
     );
-    this.expandedIcon = isSelectedRow ? UP_ICON : DOWN_ICON;
+    this.iconState = isSelectedRow ? UP_ICON : DOWN_ICON;
 
     if (isSelectedRow != this.lasState) {
       this.lasState = isSelectedRow;

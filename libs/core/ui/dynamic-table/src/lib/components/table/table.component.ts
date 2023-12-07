@@ -20,40 +20,14 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectedRowService } from '@my-monorepo/core/features/expand-table';
 import { ITableConfig } from '../../models/table';
+import { IN_OUT_PANE_ANIMATION } from '../../animations/inOutPane';
+import { ICON_STATE_ANIMATION } from '../../animations/iconState';
 
 @Component({
   selector: 'dynamic-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
-  animations: [
-    trigger('inOutPaneAnimation', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateX(-100%)' }),
-        animate(
-          '350ms ease-in-out',
-          style({ opacity: 1, transform: 'translateX(0)' })
-        ),
-      ]),
-      transition(':leave', [
-        style({ opacity: 1, transform: 'translateX(0)' }),
-        animate(
-          '300ms ease-in-out',
-          style({ opacity: 0, transform: 'translateX(-100%)' })
-        ),
-      ]),
-    ]),
-    trigger('animationTrigger', [
-      state(
-        'expanded',
-        style({
-          transform: 'rotate(180deg)',
-        })
-      ),
-      state('collapsed', style({ transform: 'rotate(0deg)' })),
-      transition('collapsed => expanded', animate('300ms ease-in')),
-      transition('expanded => collapsed', animate('300ms ease-out')),
-    ]),
-  ],
+  animations: [IN_OUT_PANE_ANIMATION, ICON_STATE_ANIMATION],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
