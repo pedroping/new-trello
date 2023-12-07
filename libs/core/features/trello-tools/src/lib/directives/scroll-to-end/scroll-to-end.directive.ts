@@ -6,12 +6,11 @@ import { BehaviorSubject, take, timer } from 'rxjs';
   selector: '[scrollToEnd]',
 })
 @CallSetValueChanges()
-export class ScrollToEndDirective  {
+export class ScrollToEndDirective {
   @Input({ required: true, alias: 'scrollToEnd' })
   addNewEvent$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   private readonly elementRef = inject(ElementRef);
-
 
   setValueChanges() {
     this.addNewEvent$.subscribe((value) => {

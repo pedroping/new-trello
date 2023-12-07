@@ -23,7 +23,7 @@ export class HandleImageService {
       reader.onload = () => {
         if (reader.result) {
           this.imgSrc$.next([...this.imgSrc$.value, reader.result]);
-          this.selectedImage$.next(reader.result)
+          this.selectedImage$.next(reader.result);
         }
       };
     }

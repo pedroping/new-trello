@@ -7,7 +7,8 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./card-footer.component.scss'],
 })
 export class CardFooterComponent {
-  @Input() addNewEvent$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  @Input() addNewEvent$: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(false);
 
   handelAddNew() {
     this.addNewEvent$.next(false);

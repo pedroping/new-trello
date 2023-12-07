@@ -6,11 +6,14 @@ import { OutsideClickEventsService } from './outside-click-events.service';
 describe('Service: OutsideClickEvents', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [OutsideClickEventsService]
+      providers: [OutsideClickEventsService],
     });
   });
 
-  it('should ...', inject([OutsideClickEventsService], (service: OutsideClickEventsService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [OutsideClickEventsService],
+    (service: OutsideClickEventsService) => {
+      expect(service).toBeTruthy();
+    }
+  ));
 });

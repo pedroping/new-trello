@@ -11,7 +11,7 @@ export abstract class BasicTableInput<T> implements DefaultInput<T> {
   formControl!: FormControl;
   columnOption!: ITableColumn<T>;
 
-  constructor() { }
+  constructor() {}
 
   setValueChanges() {
     this.formControl = new FormControl();
@@ -33,12 +33,11 @@ export abstract class BasicTableInput<T> implements DefaultInput<T> {
       untilDestroyed(this)
     );
 
-    const controlsOptions = this.columnOption?.controlsOptions
+    const controlsOptions = this.columnOption?.controlsOptions;
 
     if (controlsOptions) {
       if (controlsOptions?.controls) {
-        controlsOptions.controls[element.id] =
-          this.formControl;
+        controlsOptions.controls[element.id] = this.formControl;
       }
 
       controlsOptions.getValueChanges(

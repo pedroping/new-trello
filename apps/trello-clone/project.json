@@ -8,9 +8,7 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "allowedCommonJsDependencies": [
           "loadsh",
@@ -25,9 +23,7 @@
         "outputPath": "dist/apps/trello-clone",
         "index": "apps/trello-clone/src/index.html",
         "main": "apps/trello-clone/src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/trello-clone/tsconfig.app.json",
         "assets": [
           "apps/trello-clone/src/favicon.ico",
@@ -43,9 +39,7 @@
         ],
         "scripts": [],
         "stylePreprocessorOptions": {
-          "includePaths": [
-            "libs/core/themes/trello-clone"
-          ]
+          "includePaths": ["libs/core/themes/trello-clone"]
         },
         "serviceWorker": true,
         "ngswConfigPath": "apps/trello-clone/ngsw-config.json"
@@ -97,9 +91,7 @@
     },
     "lint": {
       "executor": "@nx/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
           "apps/trello-clone/**/*.ts",
@@ -109,9 +101,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectRoot}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "apps/trello-clone/jest.config.ts",
         "passWithNoTests": true

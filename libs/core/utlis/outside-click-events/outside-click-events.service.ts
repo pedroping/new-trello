@@ -13,5 +13,5 @@ export class OutsideClickEventsService {
     .asObservable()
     .pipe(tap(() => this.stopTaking$.next()));
 
-  constructor() { }
+  constructor() {}
 }

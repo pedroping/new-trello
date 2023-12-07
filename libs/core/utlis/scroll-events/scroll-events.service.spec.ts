@@ -6,11 +6,14 @@ import { ScrollEventsService } from './scroll-events.service';
 describe('Service: ScrollEvents', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ScrollEventsService]
+      providers: [ScrollEventsService],
     });
   });
 
-  it('should ...', inject([ScrollEventsService], (service: ScrollEventsService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [ScrollEventsService],
+    (service: ScrollEventsService) => {
+      expect(service).toBeTruthy();
+    }
+  ));
 });

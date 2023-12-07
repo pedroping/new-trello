@@ -1,2 +1,1 @@
-
-export * from './lib/decorator/setValueChange.decorator'
+export * from './lib/decorator/setValueChange.decorator';

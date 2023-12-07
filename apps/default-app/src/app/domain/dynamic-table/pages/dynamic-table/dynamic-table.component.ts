@@ -1,9 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -64,7 +60,11 @@ export class DynamicTableComponent
 
   ngOnInit() {
     this.startPagination();
-    if (this.tableConfig.hasDefaultPaginator && this.tableConfig.customPagination) this.customPagination();
+    if (
+      this.tableConfig.hasDefaultPaginator &&
+      this.tableConfig.customPagination
+    )
+      this.customPagination();
   }
 
   getValueChanges(

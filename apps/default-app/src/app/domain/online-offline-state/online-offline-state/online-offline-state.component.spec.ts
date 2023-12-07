@@ -11,9 +11,8 @@ describe('OnlineOfflineStateComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OnlineOfflineStateComponent ]
-    })
-    .compileComponents();
+      declarations: [OnlineOfflineStateComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

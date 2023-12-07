@@ -1,6 +1,4 @@
-import {
-  DragDropModule
-} from '@angular/cdk/drag-drop';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CoreFeaturesDragScrollModule } from '@my-monorepo/core/features/drag-scroll';
@@ -19,4 +17,4 @@ import { ToolbarContentComponent } from '../../../core/toolbar-content/toolbar-c
     CoreFeaturesDragScrollModule,
   ],
 })
-export class WelcomePageComponent { }
+export class WelcomePageComponent {}

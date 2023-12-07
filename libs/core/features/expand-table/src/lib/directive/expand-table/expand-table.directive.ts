@@ -13,7 +13,7 @@ export class ExpandTableDirective<T> {
   }
 
   @HostListener('click', ['$event']) onClick(event: Event) {
-    const target = event.target as HTMLElement
+    const target = event.target as HTMLElement;
 
     if (target.id !== 'expandIcon') return;
 
@@ -27,5 +27,5 @@ export class ExpandTableDirective<T> {
     this.selectedRowService.selectedRows$.next([...actualRow, this.rowElement]);
   }
 
-  constructor(private readonly selectedRowService: SelectedRowService<T>) { }
+  constructor(private readonly selectedRowService: SelectedRowService<T>) {}
 }

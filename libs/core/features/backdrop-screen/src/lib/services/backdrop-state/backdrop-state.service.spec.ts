@@ -6,11 +6,14 @@ import { BackdropStateService } from './backdrop-state.service';
 describe('Service: BackdropState', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [BackdropStateService]
+      providers: [BackdropStateService],
     });
   });
 
-  it('should ...', inject([BackdropStateService], (service: BackdropStateService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [BackdropStateService],
+    (service: BackdropStateService) => {
+      expect(service).toBeTruthy();
+    }
+  ));
 });

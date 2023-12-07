@@ -7,7 +7,7 @@
 <div class="options">
   <mat-accordion>
     <ng-container *ngFor="let item of displayedRoutes">
-      <mat-expansion-panel  appSelectedRoute [activedRoute]="item">
+      <mat-expansion-panel appSelectedRoute [activedRoute]="item">
         <mat-expansion-panel-header>
           <mat-panel-title>
             {{ item.title | titlecase }}
@@ -15,8 +15,15 @@
         </mat-expansion-panel-header>
         <div class="panelContent">
           <ng-container *ngFor="let child of item.children">
-            <p appSelectedRoute [activedRoute]="child.path" [clickFunction]="emitEvent.bind(this)"
-              [routerLink]="child.path" [isChild]="true">{{ child.title | titlecase }}</p>
+            <p
+              appSelectedRoute
+              [activedRoute]="child.path"
+              [clickFunction]="emitEvent.bind(this)"
+              [routerLink]="child.path"
+              [isChild]="true"
+            >
+              {{ child.title | titlecase }}
+            </p>
           </ng-container>
         </div>
       </mat-expansion-panel>

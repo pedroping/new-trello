@@ -6,11 +6,14 @@ import { OnlineOfflineStateService } from './online-offline-state.service';
 describe('Service: OnlineOfflineState', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [OnlineOfflineStateService]
+      providers: [OnlineOfflineStateService],
     });
   });
 
-  it('should ...', inject([OnlineOfflineStateService], (service: OnlineOfflineStateService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [OnlineOfflineStateService],
+    (service: OnlineOfflineStateService) => {
+      expect(service).toBeTruthy();
+    }
+  ));
 });

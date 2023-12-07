@@ -11,9 +11,8 @@ describe('BackdropScreenComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BackdropScreenComponent ]
-    })
-    .compileComponents();
+      declarations: [BackdropScreenComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

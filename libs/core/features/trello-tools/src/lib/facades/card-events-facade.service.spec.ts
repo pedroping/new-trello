@@ -6,11 +6,14 @@ import { CardEventsFacadeService } from './card-events-facade.service';
 describe('Service: CardEventsFacade', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CardEventsFacadeService]
+      providers: [CardEventsFacadeService],
     });
   });
 
-  it('should ...', inject([CardEventsFacadeService], (service: CardEventsFacadeService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [CardEventsFacadeService],
+    (service: CardEventsFacadeService) => {
+      expect(service).toBeTruthy();
+    }
+  ));
 });

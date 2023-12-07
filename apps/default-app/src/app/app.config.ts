@@ -12,7 +12,7 @@ import {
   provideRouter,
   withComponentInputBinding,
   withEnabledBlockingInitialNavigation,
-  withPreloading
+  withPreloading,
 } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { TuiRootModule } from '@taiga-ui/core';
