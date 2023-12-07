@@ -45,7 +45,11 @@
       <th cdk-header-cell *cdkHeaderCellDef></th>
       <td cdk-cell *cdkCellDef="let element">
         <div [appHasElement]="element" #HasElement="appHasElement">
-          <mat-icon id="expandIcon">{{ HasElement.expandedIcon }}</mat-icon>
+          <mat-icon
+            id="expandIcon"
+            [@animationTrigger]="HasElement.expandedIcon"
+            >keyboard_arrow_down</mat-icon
+          >
         </div>
       </td>
     </ng-container>

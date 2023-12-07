@@ -1,4 +1,10 @@
-import { animate, style, transition, trigger } from '@angular/animations';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -24,17 +30,28 @@ import { ITableConfig } from '../../models/table';
       transition(':enter', [
         style({ opacity: 0, transform: 'translateX(-100%)' }),
         animate(
-          '150ms ease-in-out',
+          '350ms ease-in-out',
           style({ opacity: 1, transform: 'translateX(0)' })
         ),
       ]),
       transition(':leave', [
         style({ opacity: 1, transform: 'translateX(0)' }),
         animate(
-          '100ms ease-in-out',
+          '300ms ease-in-out',
           style({ opacity: 0, transform: 'translateX(-100%)' })
         ),
       ]),
+    ]),
+    trigger('animationTrigger', [
+      state(
+        'expanded',
+        style({
+          transform: 'rotate(180deg)',
+        })
+      ),
+      state('collapsed', style({ transform: 'rotate(0deg)' })),
+      transition('collapsed => expanded', animate('300ms ease-in')),
+      transition('expanded => collapsed', animate('300ms ease-out')),
     ]),
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -54,7 +71,7 @@ export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
   constructor(
     private cdr: ChangeDetectorRef,
     readonly selectedRowService: SelectedRowService<T>
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.createDataSource();
@@ -77,7 +94,8 @@ export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
     this.length = this.data.length;
     this.dataSource = new MatTableDataSource(this.viewDataSource);
 
-    if (this.config.hasDefaultPaginator && this.config.customPagination) this.config.customPagination();
+    if (this.config.hasDefaultPaginator && this.config.customPagination)
+      this.config.customPagination();
   }
 
   setColumns() {

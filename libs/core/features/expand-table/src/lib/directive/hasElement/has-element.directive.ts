@@ -8,8 +8,8 @@ import {
 } from '@angular/core';
 import { SelectedRowService } from '../../service/selected-row.service';
 
-export const UP_ICON = 'keyboard_arrow_up';
-export const DOWN_ICON = 'keyboard_arrow_down';
+export const UP_ICON = 'expanded';
+export const DOWN_ICON = 'collapsed';
 @Directive({
   selector: '[appHasElement]',
   exportAs: 'appHasElement',
@@ -17,7 +17,7 @@ export const DOWN_ICON = 'keyboard_arrow_down';
 export class HasElementDirective<T> implements OnInit {
   @Input('appHasElement') rowElement!: T;
 
-  lasState = false;
+  private lasState = false;
   expandedIcon = DOWN_ICON;
 
   constructor(
@@ -31,7 +31,7 @@ export class HasElementDirective<T> implements OnInit {
     this.selectedRowService.selectedRows$.subscribe(this.ngIf.bind(this));
   }
 
-  ngIf() {
+  private ngIf() {
     const isSelectedRow = this.selectedRowService.selectedRows$.value.includes(
       this.rowElement
     );

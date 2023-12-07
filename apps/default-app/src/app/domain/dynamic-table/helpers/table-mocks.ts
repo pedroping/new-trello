@@ -13,10 +13,13 @@ export const DATA = Array.from({ length: 100 }, (_, index) => {
     age: index + 10,
     gmail: 'pedrofofao2014@gmail.com',
     gmail2: 'pedrofofao2014@gmail.com',
+    gmail3: 'pedrofofao2014@gmail.com',
   };
 }) as IBasicTableTest[];
 
-export function createValueChangesFn(component: IBaseTableFather<IBasicTableTest>) {
+export function createValueChangesFn(
+  component: IBaseTableFather<IBasicTableTest>
+) {
   const valueChangesFn = (
     valueChanges$: Observable<IBasicTableTest>,
     id: number,
@@ -24,8 +27,8 @@ export function createValueChangesFn(component: IBaseTableFather<IBasicTableTest
     selector: keyof IBasicTableTest
   ) => {
     component.getValueChanges(valueChanges$, id, element, selector);
-  }
-  return valueChangesFn
+  };
+  return valueChangesFn;
 }
 
 export const CREATE_TABLE_CONFIG = (
@@ -61,7 +64,7 @@ export const CREATE_TABLE_CONFIG = (
         component: BasicInputComponent,
         controlsOptions: {
           controls: [],
-          getValueChanges: createValueChangesFn(component)
+          getValueChanges: createValueChangesFn(component),
         },
       },
       {
@@ -71,6 +74,10 @@ export const CREATE_TABLE_CONFIG = (
       {
         label: 'E-mail',
         selector: 'gmail2',
+      },
+      {
+        label: 'E-mail',
+        selector: 'gmail3',
       },
     ],
   } as ITableConfig<IBasicTableTest>;
