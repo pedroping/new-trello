@@ -1,52 +1,52 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  inject,
-} from '@angular/core';
-import { BehaviorSubject, map } from 'rxjs';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
+import { BehaviorSubject, Observable, map } from 'rxjs';
+import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 import { Icard } from '../../models/card.models';
 import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'card-list',
   templateUrl: './card-list.component.html',
   styleUrls: ['./card-list.component.scss'],
 })
-export class CardListComponent implements OnInit {
+@CallSetValueChanges()
+export class CardListComponent {
   @Input({ required: true }) cards: Icard[] = [];
   @Input({ required: true }) id = -1;
   @Input() addNewEvent$: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);
   @Output() cardMove = new EventEmitter<boolean>();
 
-  readonly dragAndDropService = inject(DragAndDropService);
-  private readonly cdr = inject(ChangeDetectorRef);
-  drop = this.dragAndDropService.drop;
+  customZIndex$!: Observable<number>;
 
-  customZIndex$ = this.dragAndDropService.onCardMove$.pipe(
-    map((val) => (val ? 1000 : 0))
-  );
+  constructor(
+    private readonly cardEventsFacadeService: CardEventsFacadeService
+  ) {}
 
-  ngOnInit(): void {
-    this.dragAndDropService.onCardMove$.subscribe((val) => {
+  setValueChanges() {
+    this.cardEventsFacadeService.onCardMove$$.subscribe((val) => {
       if (!val) this.cardMove.emit(false);
     });
+
+    this.customZIndex$ = this.cardEventsFacadeService.onCardMove$$.pipe(
+      map((val) => (val ? 1000 : 0))
+    );
   }
 
   onMove() {
-    this.dragAndDropService.onCardMove$.next(true);
+    this.cardEventsFacadeService.setCardMove(true);
     this.cardMove.emit(true);
-    this.cdr.detectChanges();
   }
 
   onDrop() {
-    this.dragAndDropService.onCardMove$.next(false);
-    this.dragAndDropService.lastToBeHovered = -1;
+    this.cardEventsFacadeService.setCardMove(false);
+    this.cardEventsFacadeService.setLastToBeHovered(-1);
     this.cardMove.emit(false);
-    this.cdr.detectChanges();
+  }
+
+  drop(event: CdkDragDrop<Icard[]>) {
+    this.cardEventsFacadeService.drop(event);
   }
 }
