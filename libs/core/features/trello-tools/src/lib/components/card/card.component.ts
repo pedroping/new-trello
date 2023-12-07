@@ -12,6 +12,7 @@ import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
 import { BehaviorSubject, merge, skip } from 'rxjs';
 import { Icard } from '../../models/card.models';
 import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
+import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 
 @Component({
   selector: 'trello-card',
@@ -34,7 +35,7 @@ export class CardComponent {
   });
 
   constructor(
-    private readonly dragAndDropService: DragAndDropService,
+    private readonly cardEventsFacadeService: CardEventsFacadeService,
     private readonly backdropStateService: BackdropStateService,
     private readonly elementRef: ElementRef,
     private readonly outsideClickEventsService: OutsideClickEventsService
@@ -56,8 +57,8 @@ export class CardComponent {
     merge(
       editClick$$,
       outSideClick$$,
-      this.dragAndDropService.onMove$,
-      this.dragAndDropService.onCardMove$
+      this.cardEventsFacadeService.onMove$$,
+      this.cardEventsFacadeService.onCardMove$$
     )
       .pipe(skip(2))
       .subscribe(() => {

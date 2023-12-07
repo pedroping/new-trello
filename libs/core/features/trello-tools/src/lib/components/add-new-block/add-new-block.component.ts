@@ -4,6 +4,7 @@ import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-change
 import { ENTER_LEAVE_ANIMATION } from '@my-monorepo/core/ui/animations';
 import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
 import { CardMocksService } from '../../services/card-mocks/card-mocks.service';
+import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 @Component({
   selector: 'trello-add-new-block',
   templateUrl: './add-new-block.component.html',
@@ -31,7 +32,7 @@ export class AddNewBlockComponent {
   });
 
   constructor(
-    private readonly cardMocksService: CardMocksService,
+    private readonly cardEventsFacadeService: CardEventsFacadeService,
     private readonly outsideClickEventsService: OutsideClickEventsService
   ) {}
 
@@ -49,7 +50,7 @@ export class AddNewBlockComponent {
     const listName = this.listName.value;
     if (!listName) return;
 
-    this.cardMocksService.addNew(listName);
+    this.cardEventsFacadeService.addNew(listName);
     this.listName.reset();
     this.listNameInput && this.listNameInput.nativeElement.focus();
   }

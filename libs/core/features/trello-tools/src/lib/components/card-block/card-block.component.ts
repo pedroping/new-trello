@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Icard } from '../../models/card.models';
-import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
 
 @Component({
   selector: 'trello-card-block',
@@ -18,10 +17,7 @@ export class CardBlockComponent {
 
   isSelectedBlock = false;
 
-  constructor(
-    readonly dragAndDropService: DragAndDropService,
-    readonly cdr: ChangeDetectorRef
-  ) {}
+  constructor(readonly cdr: ChangeDetectorRef) {}
 
   cardMove(event: boolean) {
     this.isSelectedBlock = event;
