@@ -10,9 +10,8 @@ import { BackdropStateService } from '@my-monorepo/core/features/backdrop-screen
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
 import { BehaviorSubject, merge, skip } from 'rxjs';
-import { Icard } from '../../models/card.models';
-import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
+import { Icard } from '../../models/card.models';
 
 @Component({
   selector: 'trello-card',

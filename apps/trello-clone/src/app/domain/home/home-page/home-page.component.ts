@@ -9,11 +9,10 @@ import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CoreFeaturesDragScrollModule } from '@my-monorepo/core/features/drag-scroll';
 import {
-  CardMocksService,
+  CardEventsFacadeService,
   ClearMocks,
   CoreFeaturesTrelloToolsModule,
   CursorDraggingDirective,
-  DragAndDropService,
   IBlock,
 } from '@my-monorepo/core/features/trello-tools';
 import { CoreUiSidenavModule } from '@my-monorepo/core/ui/sidenav';
@@ -39,31 +38,30 @@ import { Observable } from 'rxjs';
 })
 @ClearMocks()
 export class HomePageComponent implements OnInit {
-  blocks$ = this.cardMocksService.blocks$;
+  blocks$$ = this.cardEventsFacadeService.blocks$$;
   injector: Injector;
 
   creatEvent$!: Observable<void>;
   deleteEvent$!: Observable<void>;
 
   constructor(
-    private readonly dragAndDropService: DragAndDropService,
-    private readonly cardMocksService: CardMocksService,
     private readonly cdr: ChangeDetectorRef,
-    private readonly _injector: Injector
+    private readonly _injector: Injector,
+    private readonly cardEventsFacadeService: CardEventsFacadeService
   ) {
     this.injector = this._injector;
   }
 
   ngOnInit(): void {
-    this.dragAndDropService.startDomain();
+    this.cardEventsFacadeService.startDomain();
   }
 
   listDropped(event: CdkDragDrop<IBlock[]>) {
-    this.dragAndDropService.blockDrop(event);
-    this.dragAndDropService.onDrop(this.cdr);
+    this.cardEventsFacadeService.blockDrop(event);
+    this.cardEventsFacadeService.onEvent(this.cdr, false);
   }
 
   onMove() {
-    this.dragAndDropService.onMove(this.cdr);
+    this.cardEventsFacadeService.onEvent(this.cdr, true);
   }
 }

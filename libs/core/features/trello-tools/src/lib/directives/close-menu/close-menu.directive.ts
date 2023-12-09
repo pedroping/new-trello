@@ -3,7 +3,7 @@ import { Directive, Input } from '@angular/core';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { merge } from 'rxjs';
-import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
+import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 
 @Directive({
   selector: '[autoCloseMenu]',
@@ -14,12 +14,14 @@ export class CloseMenuDirective {
   @Input({ alias: 'autoCloseMenu', required: true })
   menuTriger!: CdkMenuTrigger;
 
-  constructor(private readonly dragAndDropService: DragAndDropService) {}
+  constructor(
+    private readonly cardEventsFacadeService: CardEventsFacadeService
+  ) {}
 
   setValueChanges() {
     const moveEvent$ = merge(
-      this.dragAndDropService.onCardMove$,
-      this.dragAndDropService.onMove$
+      this.cardEventsFacadeService.onCardMove$$,
+      this.cardEventsFacadeService.onMove$$
     );
 
     moveEvent$.pipe(untilDestroyed(this)).subscribe(() => {

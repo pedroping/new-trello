@@ -1,31 +1,33 @@
-<div
-  class="allBlocks"
-  cdkDropList
-  cdkDropListGroup
-  cdkDropListOrientation="horizontal"
-  [cdkDropListData]="blocks$.value"
-  [cdkDropListAutoScrollStep]="18"
-  (cdkDropListDropped)="listDropped($event)"
->
+<ng-container *ngIf="blocks$$ | async as blocks">
   <div
-    class="block"
-    cdkDrag
-    (cdkDragMoved)="onMove()"
-    *ngFor="let blockCard of blocks$ | async; let index = index"
+    class="allBlocks"
+    cdkDropList
+    cdkDropListGroup
+    cdkDropListOrientation="horizontal"
+    [cdkDropListData]="blocks"
+    [cdkDropListAutoScrollStep]="18"
+    (cdkDropListDropped)="listDropped($event)"
   >
-    <div cdkDragHandle></div>
-    <div *cdkDragPlaceholder>
+    <div
+      class="block"
+      cdkDrag
+      (cdkDragMoved)="onMove()"
+      *ngFor="let blockCard of blocks; let index = index"
+    >
+      <div cdkDragHandle></div>
+      <div *cdkDragPlaceholder>
+        <trello-card-block
+          [isPreview]="true"
+          [cards]="blockCard.cards"
+        ></trello-card-block>
+      </div>
       <trello-card-block
-        [isPreview]="true"
+        [addNewEvent$]="blockCard.addNewEvent$"
         [cards]="blockCard.cards"
+        [title]="blockCard.name"
+        [id]="index"
       ></trello-card-block>
     </div>
-    <trello-card-block
-      [addNewEvent$]="blockCard.addNewEvent$"
-      [cards]="blockCard.cards"
-      [title]="blockCard.name"
-      [id]="index"
-    ></trello-card-block>
+    <trello-add-new-block></trello-add-new-block>
   </div>
-  <trello-add-new-block></trello-add-new-block>
-</div>
+</ng-container>

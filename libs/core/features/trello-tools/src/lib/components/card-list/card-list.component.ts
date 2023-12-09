@@ -1,10 +1,9 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 import { Icard } from '../../models/card.models';
-import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'card-list',

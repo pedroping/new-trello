@@ -1,8 +1,5 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
-import {
-  CardMocksService,
-  DragAndDropService,
-} from '@my-monorepo/core/features/trello-tools';
+import { CardEventsFacadeService } from '@my-monorepo/core/features/trello-tools';
 import { Subject, startWith, takeUntil, timer } from 'rxjs';
 import { ScrollEventsService } from '@my-monorepo/core/utlis';
 
@@ -17,9 +14,8 @@ export const BASE_SCROLL_MOVE_TICK = 2;
 export class DragScrollDirective {
   constructor(
     private readonly el: ElementRef,
-    private readonly dragAndDropService: DragAndDropService,
-    private readonly cardMocksService: CardMocksService,
-    private readonly scrollEventsService: ScrollEventsService
+    private readonly scrollEventsService: ScrollEventsService,
+    private readonly cardEventsFacadeService: CardEventsFacadeService
   ) {
     this.setSubscriptions();
   }
@@ -59,8 +55,8 @@ export class DragScrollDirective {
     const hasRightSidenav = false;
     const hasLeftSidenav = false;
 
-    const onMove = this.dragAndDropService.onMove$.value;
-    const onCardMove = this.dragAndDropService.onCardMove$.value;
+    const onMove = this.cardEventsFacadeService.onMove;
+    const onCardMove = this.cardEventsFacadeService.onCardMove;
 
     const rightCalc = hasRightSidenav ? BASE_SIDENAV_SIZE : BASE_SCROLL_AREA;
     const leftCalc = hasLeftSidenav ? BASE_SIDENAV_SIZE : BASE_SCROLL_AREA;
@@ -94,7 +90,7 @@ export class DragScrollDirective {
     timer(0, 1)
       .pipe(takeUntil(this.stopLeftEvent$))
       .subscribe(() => {
-        if (this.dragAndDropService.onCardMove$.value)
+        if (this.cardEventsFacadeService.onCardMove)
           this.el.nativeElement.parentElement.scrollLeft -=
             BASE_SCROLL_MOVE_TICK;
       });
@@ -104,15 +100,15 @@ export class DragScrollDirective {
     timer(0, 1)
       .pipe(takeUntil(this.stopRightEvent$))
       .subscribe(() => {
-        if (this.dragAndDropService.onCardMove$.value)
+        if (this.cardEventsFacadeService.onCardMove)
           this.el.nativeElement.parentElement.scrollLeft +=
             BASE_SCROLL_MOVE_TICK;
       });
   }
 
   setSubscriptions() {
-    this.cardMocksService.blocks$
-      .pipe(startWith(this.cardMocksService.blocks$.value))
+    this.cardEventsFacadeService.blocks$$
+      .pipe(startWith(this.cardEventsFacadeService.blocks))
       .subscribe((blocks) => {
         const length = blocks.length;
         this.el.nativeElement.style.width =
@@ -120,7 +116,7 @@ export class DragScrollDirective {
       });
 
     this.scrollEventsService.scrollToEnd$.subscribe(() => {
-      const length = this.cardMocksService.blocks$.value.length;
+      const length = this.cardEventsFacadeService.blocks.length;
       this.el.nativeElement.parentElement.scrollLeft +=
         (length + 1) * BASE_BLOCK_SIZE + BASE_ADD_NEW_SIZE;
     });

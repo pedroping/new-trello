@@ -3,11 +3,12 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { ChangeDetectorRef, Injectable, inject } from '@angular/core';
+import { ChangeDetectorRef, Injectable } from '@angular/core';
 import {
   OutsideClickEventsService,
   ScrollEventsService,
 } from '@my-monorepo/core/utlis';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import {
   BehaviorSubject,
   filter,
@@ -16,9 +17,8 @@ import {
   tap,
   throttleTime,
 } from 'rxjs';
-import { CardMocksService } from '../card-mocks/card-mocks.service';
 import { IBlock, Icard } from '../../models/card.models';
-import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
+import { CardMocksService } from '../card-mocks/card-mocks.service';
 
 @Injectable({ providedIn: 'root' })
 @UntilDestroy()
@@ -84,15 +84,9 @@ export class DragAndDropService {
     );
   }
 
-  onMove(cdr: ChangeDetectorRef) {
-    this.onBlockMove = true;
-    this.onMove$.next(true);
-    cdr.detectChanges();
-  }
-
-  onDrop(cdr: ChangeDetectorRef) {
-    this.onBlockMove = false;
-    this.onMove$.next(false);
+  onEvent(cdr: ChangeDetectorRef, value: boolean) {
+    this.onBlockMove = value;
+    this.onMove$.next(value);
     cdr.detectChanges();
   }
 }

@@ -7,9 +7,9 @@ import {
   Input,
 } from '@angular/core';
 import { ScrollEventsService } from '@my-monorepo/core/utlis';
-import { CardFooterComponent } from '../../components/card-footer/card-footer.component';
-import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
 import { BehaviorSubject } from 'rxjs';
+import { CardFooterComponent } from '../../components/card-footer/card-footer.component';
+import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 import { CARD_SIZE, FOOTER_TOP } from '../../models/card.models';
 
 @Directive({
@@ -18,8 +18,8 @@ import { CARD_SIZE, FOOTER_TOP } from '../../models/card.models';
 })
 export class CardBlockHeightDirective {
   constructor(
-    private readonly dragAndDropService: DragAndDropService,
-    private readonly scrollEventsService: ScrollEventsService
+    private readonly scrollEventsService: ScrollEventsService,
+    private readonly cardEventsFacadeService: CardEventsFacadeService
   ) {}
 
   @ContentChild(CardFooterComponent, { read: ElementRef }) footer?: ElementRef;
@@ -37,8 +37,9 @@ export class CardBlockHeightDirective {
       this.footer.nativeElement.style.top = this.footerTop + 'px';
 
     const expandedCalcedHeight = (this.length + 1) * CARD_SIZE + this.baseSize;
-    const isLastHovered = this.dragAndDropService.lastToBeHovered === this.id;
-    const onCardMove = this.dragAndDropService.onCardMove$.value;
+    const isLastHovered =
+      this.cardEventsFacadeService.lastToBeHovered === this.id;
+    const onCardMove = this.cardEventsFacadeService.onCardMove;
     const isOnAddnew = this.addNewEvent$.value;
 
     if ((onCardMove && isLastHovered) || isOnAddnew)
@@ -50,17 +51,17 @@ export class CardBlockHeightDirective {
 
   @HostListener('mouseenter') onMouseEnter() {
     const onMouseDown = this.scrollEventsService.onMouseDown$.value;
-    const onCardMove = this.dragAndDropService.onCardMove$.value;
+    const onCardMove = this.cardEventsFacadeService.onCardMove;
 
     if (onMouseDown && onCardMove) {
-      this.dragAndDropService.lastToBeHovered = this.id;
-      if (this.isSelected) this.dragAndDropService.lastToBeHovered = -1;
+      this.cardEventsFacadeService.setLastToBeHovered(this.id);
+      if (this.isSelected) this.cardEventsFacadeService.setLastToBeHovered(-1);
     }
   }
 
   get footerTop() {
-    const isLastHovered = this.dragAndDropService.lastToBeHovered === this.id;
-    const onCardMove = this.dragAndDropService.onCardMove$.value;
+    const isLastHovered = this.cardEventsFacadeService.lastToBeHovered === this.id;
+    const onCardMove = this.cardEventsFacadeService.onCardMove;
     const isOnAddnew = this.addNewEvent$.value;
     const hasExpand = (onCardMove && isLastHovered) || isOnAddnew;
 

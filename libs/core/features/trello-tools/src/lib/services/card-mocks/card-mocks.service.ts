@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ScrollEventsService } from '@my-monorepo/core/utlis';
 import { BehaviorSubject, of, tap } from 'rxjs';
 import { IBlock } from '../../models/card.models';

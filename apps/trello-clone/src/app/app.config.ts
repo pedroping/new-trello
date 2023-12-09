@@ -1,3 +1,4 @@
+import { provideHttpClient } from '@angular/common/http';
 import {
   APP_INITIALIZER,
   ApplicationConfig,
@@ -6,6 +7,7 @@ import {
   inject,
   isDevMode,
 } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
 import {
   BrowserAnimationsModule,
   provideAnimations,
@@ -16,18 +18,16 @@ import {
   withEnabledBlockingInitialNavigation,
 } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
+import { CardEventsFacadeService } from '@my-monorepo/core/features/trello-tools';
 import { TuiRootModule } from '@taiga-ui/core';
 import { appRoutes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
-import { CardMocksService } from '@my-monorepo/core/features/trello-tools';
-import { Meta } from '@angular/platform-browser';
 import { META_TAGS } from './shared/meta.tags';
 
 const loadMocksProviders: FactoryProvider = {
   provide: APP_INITIALIZER,
   useFactory: () => {
-    const cardMocksService = inject(CardMocksService);
-    return () => cardMocksService.getAllCards();
+    const cardEventsFacadeService = inject(CardEventsFacadeService);
+    return () => cardEventsFacadeService.getAllCards();
   },
   multi: true,
 };
