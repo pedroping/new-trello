@@ -1,5 +1,5 @@
 <!-- hasSidenav -->
-<main cdkScrollable>
+<main class="content" cdkScrollable #pageContent>
   <app-toolbar>
     <trello-toolbar-content></trello-toolbar-content>
   </app-toolbar>
@@ -9,4 +9,5 @@
   </div>
 </main>
 
-<!-- <div class="sidenav"></div> -->
+<div class="sidenav left" *ngIf="leftSideNav$$ | async"></div>
+<div class="sidenav right" *ngIf="rightSideNav$$ | async"></div>

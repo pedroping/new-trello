@@ -61,6 +61,9 @@
       "@my-monorepo/core/ui/dynamic-table": [
         "libs/core/ui/dynamic-table/src/index.ts"
       ],
+      "@my-monorepo/core/ui/generic-sidenavs": [
+        "libs/core/ui/generic-sidenavs/src/index.ts"
+      ],
       "@my-monorepo/core/ui/sidenav": ["libs/core/ui/sidenav/src/index.ts"],
       "@my-monorepo/core/ui/splash-page": [
         "libs/core/ui/splash-page/src/index.ts"
