@@ -27,7 +27,7 @@ const loadMocksProviders: FactoryProvider = {
   provide: APP_INITIALIZER,
   useFactory: () => {
     const cardEventsFacadeService = inject(CardEventsFacadeService);
-    return () => cardEventsFacadeService.getAllCards();
+    return () => cardEventsFacadeService.getAllCards(true);
   },
   multi: true,
 };

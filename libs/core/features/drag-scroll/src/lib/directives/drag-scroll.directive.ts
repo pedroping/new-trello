@@ -2,12 +2,14 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
 import { CardEventsFacadeService } from '@my-monorepo/core/features/trello-tools';
 import { Subject, startWith, takeUntil, timer } from 'rxjs';
 import { ScrollEventsService } from '@my-monorepo/core/utlis';
+import { GenericSidenavsFacadeService } from '@my-monorepo/core/ui/generic-sidenavs';
 
 export const BASE_BLOCK_SIZE = 320;
 export const BASE_SIDENAV_SIZE = 350;
 export const BASE_ADD_NEW_SIZE = 340;
 export const BASE_SCROLL_AREA = 100;
 export const BASE_SCROLL_MOVE_TICK = 2;
+export const LEFT_SIDENAV_GAP = 250;
 @Directive({
   selector: '[dragScroll]',
 })
@@ -15,7 +17,8 @@ export class DragScrollDirective {
   constructor(
     private readonly el: ElementRef,
     private readonly scrollEventsService: ScrollEventsService,
-    private readonly cardEventsFacadeService: CardEventsFacadeService
+    private readonly cardEventsFacadeService: CardEventsFacadeService,
+    private readonly genericSidenavsFacadeService: GenericSidenavsFacadeService
   ) {
     this.setSubscriptions();
   }
@@ -29,9 +32,11 @@ export class DragScrollDirective {
 
   @HostListener('mousedown', ['$event'])
   startDragging(e: MouseEvent) {
+    const hasLeftSidenav = this.genericSidenavsFacadeService.leftSideNavState;
     const el = this.el.nativeElement.parentElement;
     this.mouseDown = true;
-    this.startX = e.pageX - el.offsetLeft + 250;
+    this.startX =
+      e.pageX - el.offsetLeft + (hasLeftSidenav ? LEFT_SIDENAV_GAP : 0);
     this.scrollLeft = el.scrollLeft;
   }
 
@@ -52,8 +57,8 @@ export class DragScrollDirective {
     this.stopRightEvent$.next();
     this.stopLeftEvent$.next();
 
-    const hasRightSidenav = true;
-    const hasLeftSidenav = true;
+    const hasRightSidenav = this.genericSidenavsFacadeService.rightSideNavState;
+    const hasLeftSidenav = this.genericSidenavsFacadeService.leftSideNavState;
 
     const onMove = this.cardEventsFacadeService.onMove;
     const onCardMove = this.cardEventsFacadeService.onCardMove;

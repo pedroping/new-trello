@@ -47,8 +47,8 @@ export class CardEventsFacadeService {
     this.dragAndDropService.lastToBeHovered = value;
   }
 
-  getAllCards() {
-    this.cardMocksService.getAllCards();
+  getAllCards(value = false) {
+    this.cardMocksService.getAllCards(value);
   }
 
   get lastToBeHovered() {
