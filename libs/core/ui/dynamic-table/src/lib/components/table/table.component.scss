@@ -1,6 +1,9 @@
 $border-radius-value: 5px;
 
 :host {
+  display: block;
+  margin-bottom: 20px;
+
   .content {
     width: 100%;
     overflow-y: hidden;
@@ -32,13 +35,13 @@ $border-radius-value: 5px;
     max-width: 40px;
   }
 
-  cdk-cell.cdk-column-expandeIcon {
+  td.cdk-column-expandeIcon {
     cursor: pointer;
   }
 
   ::ng-deep nav,
   mat-paginator {
-    background-color: #f4efff !important;
+    background-color: var(--paginator-color) !important;
     border-bottom-right-radius: $border-radius-value;
     border-bottom-left-radius: $border-radius-value;
   }
@@ -49,69 +52,48 @@ $border-radius-value: 5px;
     justify-content: flex-end;
   }
 
-  cdk-cell,
-  cdk-header-cell {
+  td,
+  th {
     padding-left: 10px;
-  }
-
-  cdk-row,
-  cdk-header-row,
-  cdk-footer-row {
-    display: flex;
     text-align: left;
-    box-sizing: border-box;
   }
 
-  cdk-cell,
-  cdk-header-cell,
-  cdk-footer-cell {
-    flex: 1;
-  }
-
-  cdk-header-cell,
-  cdk-footer-cell {
+  th {
     height: 30px;
   }
 
-  cdk-header-cell:first-child,
-  cdk-cell:first-child {
+  th:first-child,
+  td:first-child {
     padding-left: 5px;
   }
 
-  cdk-header-cell {
+  th {
     background-color: gray;
     padding-top: 10px;
   }
 
-  cdk-header-cell:last-child {
+  th:last-child {
     border-top-right-radius: $border-radius-value;
   }
-  cdk-header-cell:first-child {
+  th:first-child {
     border-top-left-radius: $border-radius-value;
   }
 
-  cdk-cell {
+  td {
     background-color: rgb(214, 214, 214);
     padding-top: 5px;
     height: 30px;
-    align-items: center;
-    display: flex;
   }
 
-  cdk-row:last-child {
-    cdk-cell {
+  tr:last-child {
+    td {
       padding-bottom: 2px;
     }
   }
 
-  cdk-row:nth-child(odd) {
-    cdk-cell {
+  tr:nth-child(odd) {
+    td {
       background-color: rgb(182, 182, 182);
     }
-  }
-
-  pagination-controls {
-    position: fixed;
-    width: calc(100% - 30px);
   }
 }

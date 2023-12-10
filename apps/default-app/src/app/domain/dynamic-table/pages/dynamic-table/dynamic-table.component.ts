@@ -1,10 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -21,8 +16,9 @@ import {
   CoreUiDynamicTableModule,
   IBaseTableFather,
   IBasicTableTest,
+  TableFatherPagination,
 } from '@my-monorepo/core/ui/dynamic-table';
-import { BehaviorSubject, Observable, startWith } from 'rxjs';
+import { Observable, of, startWith } from 'rxjs';
 import { CREATE_TABLE_CONFIG, DATA } from '../../helpers/table-mocks';
 @Component({
   selector: 'app-dynamic-table',
@@ -40,11 +36,12 @@ import { CREATE_TABLE_CONFIG, DATA } from '../../helpers/table-mocks';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicTableComponent
+  extends TableFatherPagination<IBasicTableTest>
   implements OnInit, IBaseTableFather<IBasicTableTest>
 {
-  tableConfig = CREATE_TABLE_CONFIG(this);
-  data$ = new BehaviorSubject<IBasicTableTest[]>(DATA);
-  DATA = DATA;
+  override tableConfig = CREATE_TABLE_CONFIG(this);
+  override data$: Observable<IBasicTableTest[]> = of(DATA);
+
   form = new FormGroup({
     teste: new FormControl(null, Validators.required),
   });
@@ -61,10 +58,13 @@ export class DynamicTableComponent
     },
   ];
 
-  constructor(private readonly cdr: ChangeDetectorRef) {}
-
   ngOnInit() {
-    if (this.tableConfig.customPagination) this.customPagination();
+    this.startPagination();
+    if (
+      this.tableConfig.hasDefaultPaginator &&
+      this.tableConfig.customPagination
+    )
+      this.customPagination();
   }
 
   getValueChanges(
@@ -91,13 +91,6 @@ export class DynamicTableComponent
   }
 
   customPagination() {
-    const paginatorOptions = this.tableConfig.defaultPaginatorOptions;
-    if (paginatorOptions) {
-      const start =
-        paginatorOptions.pageSize * (paginatorOptions.currentPage - 1);
-      const end = paginatorOptions.pageSize * paginatorOptions.currentPage;
-      const newData = this.DATA.slice(start, end);
-      this.data$.next(newData);
-    }
+    this.setChangeEvent();
   }
 }

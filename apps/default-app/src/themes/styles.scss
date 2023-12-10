@@ -42,6 +42,10 @@ body {
   background: darken($scroll-bar-color, 20%);
 }
 
+.mdc-notched-outline__notch {
+  border-left: none !important;
+}
+
 // @media (prefers-color-scheme: light) {
 //   :root {
 //     @each $name, $color in $project-colors {

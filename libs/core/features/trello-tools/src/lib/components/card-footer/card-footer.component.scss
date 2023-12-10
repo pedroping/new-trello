@@ -2,13 +2,29 @@
   height: 15px;
   padding: 15px 15px 0px 15px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   padding-bottom: 15px;
   font-size: var(--font-size-01) !important;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   position: relative;
+
+  .add-new-card {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
+    border-radius: 10px;
+    width: 85%;
+    height: 25px;
+    padding: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--disabled-01);
+    }
+  }
 
   .more-icon {
     display: flex;

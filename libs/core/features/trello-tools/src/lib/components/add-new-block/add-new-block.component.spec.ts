@@ -11,9 +11,8 @@ describe('AddNewBlockComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddNewBlockComponent ]
-    })
-    .compileComponents();
+      declarations: [AddNewBlockComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

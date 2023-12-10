@@ -1,21 +1,21 @@
 @import 'colors';
 :host {
   ::ng-deep {
-    cdk-header-cell {
+    th {
       background-color: $table-header !important;
     }
 
-    cdk-row cdk-cell {
+    tr td {
       background-color: var(--table-row) !important;
     }
 
-    cdk-row:nth-child(4n + 1) {
-      & + cdk-row {
-        cdk-cell {
+    tr:nth-child(4n + 1) {
+      & + tr {
+        td {
           background-color: var(--table-selected-row) !important;
         }
       }
-      cdk-cell {
+      td {
         background-color: var(--table-selected-row) !important;
       }
     }

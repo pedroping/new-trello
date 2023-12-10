@@ -1,4 +1,4 @@
-.content {
+main {
   display: block;
   overflow: auto;
   height: 100% !important;
@@ -28,7 +28,7 @@
 
   ::ng-deep {
     mat-toolbar {
-      padding: 0px 10px 0px 10px !important;
+      padding: 0px 10px !important;
       background-color: var(--toolbar-background) !important;
       color: var(--text-01) !important;
     }

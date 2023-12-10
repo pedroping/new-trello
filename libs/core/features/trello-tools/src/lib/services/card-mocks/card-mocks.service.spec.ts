@@ -6,7 +6,7 @@ import { CardMocksService } from './card-mocks.service';
 describe('Service: CardMocks', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CardMocksService]
+      providers: [CardMocksService],
     });
   });
 

@@ -3,27 +3,50 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { ChangeDetectorRef, Injectable, inject } from '@angular/core';
-import { ScrollEventsService } from '@my-monorepo/core/facades';
-import { BehaviorSubject, tap, throttleTime } from 'rxjs';
+import { ChangeDetectorRef, Injectable } from '@angular/core';
+import {
+  OutsideClickEventsService,
+  ScrollEventsService,
+} from '@my-monorepo/core/utlis';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import {
+  BehaviorSubject,
+  filter,
+  merge,
+  takeUntil,
+  tap,
+  throttleTime,
+} from 'rxjs';
+import { IBlock, Icard } from '../../models/card.models';
 import { CardMocksService } from '../card-mocks/card-mocks.service';
 
 @Injectable({ providedIn: 'root' })
+@UntilDestroy()
 export class DragAndDropService {
-  cards = new Array(5);
   onMove$ = new BehaviorSubject<boolean>(false);
   onCardMove$ = new BehaviorSubject<boolean>(false);
   onBlockMove = false;
   lastToBeHovered = -1;
 
-  readonly cardMocksService = inject(CardMocksService);
-  readonly scrollEventsService = inject(ScrollEventsService);
+  constructor(
+    private readonly cardMocksService: CardMocksService,
+    private readonly scrollEventsService: ScrollEventsService,
+    private readonly outsideClickEventsService: OutsideClickEventsService
+  ) {}
 
-  constructor() {
+  startDomain() {
     this.setValueChanges();
   }
 
   setValueChanges(): void {
+    merge(this.onCardMove$, this.onMove$)
+      .pipe(
+        filter((move) => !!move),
+        untilDestroyed(this),
+        takeUntil(this.outsideClickEventsService.stopTaking$)
+      )
+      .subscribe(() => this.outsideClickEventsService.outSideClick$.next());
+
     this.onCardMove$
       .pipe(
         tap((value) => {
@@ -36,7 +59,7 @@ export class DragAndDropService {
       });
   }
 
-  drop(event: CdkDragDrop<number[]>) {
+  drop(event: CdkDragDrop<Icard[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -53,14 +76,7 @@ export class DragAndDropService {
     }
   }
 
-  blockDrop(
-    event: CdkDragDrop<
-      {
-        name: string;
-        cards: number[];
-      }[]
-    >
-  ) {
+  blockDrop(event: CdkDragDrop<IBlock[]>) {
     moveItemInArray(
       this.cardMocksService.blocks$.value,
       event.previousIndex,
@@ -68,15 +84,9 @@ export class DragAndDropService {
     );
   }
 
-  onMove(cdr: ChangeDetectorRef) {
-    this.onBlockMove = true;
-    this.onMove$.next(true);
-    cdr.detectChanges();
-  }
-
-  onDrop(cdr: ChangeDetectorRef) {
-    this.onBlockMove = false;
-    this.onMove$.next(false);
+  onEvent(cdr: ChangeDetectorRef, value: boolean) {
+    this.onBlockMove = value;
+    this.onMove$.next(value);
     cdr.detectChanges();
   }
 }

@@ -6,11 +6,14 @@ import { HandleImageService } from './handleImage.service';
 describe('Service: HandleImage', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [HandleImageService]
+      providers: [HandleImageService],
     });
   });
 
-  it('should ...', inject([HandleImageService], (service: HandleImageService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [HandleImageService],
+    (service: HandleImageService) => {
+      expect(service).toBeTruthy();
+    }
+  ));
 });

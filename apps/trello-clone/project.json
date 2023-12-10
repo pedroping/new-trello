@@ -27,7 +27,8 @@
         "tsConfig": "apps/trello-clone/tsconfig.app.json",
         "assets": [
           "apps/trello-clone/src/favicon.ico",
-          "apps/trello-clone/src/assets"
+          "apps/trello-clone/src/assets",
+          "apps/trello-clone/src/manifest.webmanifest"
         ],
         "styles": [
           "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
@@ -38,10 +39,10 @@
         ],
         "scripts": [],
         "stylePreprocessorOptions": {
-          "includePaths": [
-            "libs/core/themes/trello-clone"
-          ]
-        }
+          "includePaths": ["libs/core/themes/trello-clone"]
+        },
+        "serviceWorker": true,
+        "ngswConfigPath": "apps/trello-clone/ngsw-config.json"
       },
       "configurations": {
         "production": {
@@ -49,12 +50,12 @@
             {
               "type": "initial",
               "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumError": "5mb"
             },
             {
               "type": "anyComponentStyle",
-              "maximumWarning": "2kb",
-              "maximumError": "4kb"
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
             }
           ],
           "outputHashing": "all"

@@ -6,9 +6,11 @@ import {
   HostListener,
   Input,
 } from '@angular/core';
-import { ScrollEventsService } from '@my-monorepo/core/facades';
+import { ScrollEventsService } from '@my-monorepo/core/utlis';
+import { BehaviorSubject } from 'rxjs';
 import { CardFooterComponent } from '../../components/card-footer/card-footer.component';
-import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.service';
+import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
+import { CARD_SIZE, FOOTER_TOP } from '../../models/card.models';
 
 @Directive({
   selector: '[trelloCardBlockHeight]',
@@ -16,8 +18,8 @@ import { DragAndDropService } from '../../services/drag-and-drop/drag-and-drop.s
 })
 export class CardBlockHeightDirective {
   constructor(
-    private readonly dragAndDropService: DragAndDropService,
-    private readonly scrollEventsService: ScrollEventsService
+    private readonly scrollEventsService: ScrollEventsService,
+    private readonly cardEventsFacadeService: CardEventsFacadeService
   ) {}
 
   @ContentChild(CardFooterComponent, { read: ElementRef }) footer?: ElementRef;
@@ -27,38 +29,44 @@ export class CardBlockHeightDirective {
   @Input() baseSize!: number;
   @Input() isSelected = false;
   @Input('trelloCardBlockHeight') length!: number;
+  @Input() addNewEvent$: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(false);
 
   @HostBinding('style.height') get cardHeight() {
     if (this.footer)
       this.footer.nativeElement.style.top = this.footerTop + 'px';
 
-    const expandedCalcedHeight = (this.length + 1) * 40 + this.baseSize;
-    const isLastHovered = this.dragAndDropService.lastToBeHovered === this.id;
-    const onCardMove = this.dragAndDropService.onCardMove$.value;
+    const expandedCalcedHeight = (this.length + 1) * CARD_SIZE + this.baseSize;
+    const isLastHovered =
+      this.cardEventsFacadeService.lastToBeHovered === this.id;
+    const onCardMove = this.cardEventsFacadeService.onCardMove;
+    const isOnAddnew = this.addNewEvent$.value;
 
-    if (onCardMove && isLastHovered) return expandedCalcedHeight + 'px';
+    if ((onCardMove && isLastHovered) || isOnAddnew)
+      return expandedCalcedHeight + 'px';
 
-    const calcedHeight = this.length * 40 + this.baseSize;
+    const calcedHeight = this.length * CARD_SIZE + this.baseSize;
     return calcedHeight + 'px';
   }
 
   @HostListener('mouseenter') onMouseEnter() {
     const onMouseDown = this.scrollEventsService.onMouseDown$.value;
-    const onCardMove = this.dragAndDropService.onCardMove$.value;
+    const onCardMove = this.cardEventsFacadeService.onCardMove;
 
     if (onMouseDown && onCardMove) {
-      this.dragAndDropService.lastToBeHovered = this.id;
-      if (this.isSelected) this.dragAndDropService.lastToBeHovered = -1;
+      this.cardEventsFacadeService.setLastToBeHovered(this.id);
+      if (this.isSelected) this.cardEventsFacadeService.setLastToBeHovered(-1);
     }
   }
 
   get footerTop() {
-    const isLastHovered = this.dragAndDropService.lastToBeHovered === this.id;
-    const onCardMove = this.dragAndDropService.onCardMove$.value;
-    const hasExpand = onCardMove && isLastHovered;
+    const isLastHovered = this.cardEventsFacadeService.lastToBeHovered === this.id;
+    const onCardMove = this.cardEventsFacadeService.onCardMove;
+    const isOnAddnew = this.addNewEvent$.value;
+    const hasExpand = (onCardMove && isLastHovered) || isOnAddnew;
 
-    const baseTop = this.length * 40 + (hasExpand ? 40 : 0);
-    const maxTop = window.innerHeight * 0.7;
+    const baseTop = this.length * CARD_SIZE + (hasExpand ? CARD_SIZE : 0);
+    const maxTop = window.innerHeight - FOOTER_TOP;
 
     return Math.min(baseTop, maxTop);
   }

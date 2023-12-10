@@ -1,4 +1,10 @@
-import { animate, style, transition, trigger } from '@angular/animations';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -14,29 +20,14 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectedRowService } from '@my-monorepo/core/features/expand-table';
 import { ITableConfig } from '../../models/table';
+import { IN_OUT_PANE_ANIMATION } from '../../animations/inOutPane';
+import { ICON_STATE_ANIMATION } from '../../animations/iconState';
 
 @Component({
   selector: 'dynamic-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
-  animations: [
-    trigger('inOutPaneAnimation', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateX(-100%)' }),
-        animate(
-          '150ms ease-in-out',
-          style({ opacity: 1, transform: 'translateX(0)' })
-        ),
-      ]),
-      transition(':leave', [
-        style({ opacity: 1, transform: 'translateX(0)' }),
-        animate(
-          '100ms ease-in-out',
-          style({ opacity: 0, transform: 'translateX(-100%)' })
-        ),
-      ]),
-    ]),
-  ],
+  animations: [IN_OUT_PANE_ANIMATION, ICON_STATE_ANIMATION],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
@@ -77,8 +68,8 @@ export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
     this.length = this.data.length;
     this.dataSource = new MatTableDataSource(this.viewDataSource);
 
-    if (this.config.hasDefaultPaginator && !this.config?.customPagination)
-      this.paginate();
+    if (this.config.hasDefaultPaginator && this.config.customPagination)
+      this.config.customPagination();
   }
 
   setColumns() {
@@ -89,22 +80,15 @@ export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
   }
 
   handlePageChange(event: number | PageEvent) {
+    this.scrollToTop();
     if (typeof event == 'number' && this.config.defaultPaginatorOptions) {
       this.config.defaultPaginatorOptions.currentPage = event;
     }
     if (this.config.customPagination) return this.config.customPagination();
-    this.paginate();
   }
 
-  paginate() {
-    const paginatorOptions = this.config.defaultPaginatorOptions;
-    if (paginatorOptions) {
-      const start =
-        paginatorOptions.pageSize * (paginatorOptions.currentPage - 1);
-      const end = paginatorOptions.pageSize * paginatorOptions.currentPage;
-      this.viewDataSource = this.data.slice(start, end);
-      this.dataSource.data = this.viewDataSource;
-      this.cdr.detectChanges();
-    }
+  scrollToTop() {
+    console.log('afasfasf');
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   }
 }

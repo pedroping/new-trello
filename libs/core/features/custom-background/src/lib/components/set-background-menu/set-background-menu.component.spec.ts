@@ -11,9 +11,8 @@ describe('SetBackgroundMenuComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SetBackgroundMenuComponent ]
-    })
-    .compileComponents();
+      declarations: [SetBackgroundMenuComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

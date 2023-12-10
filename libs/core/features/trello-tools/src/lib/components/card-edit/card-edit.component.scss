@@ -1,0 +1,76 @@
+@import 'libs/core/themes/trello-clone/root.scss';
+
+:host {
+  .content {
+    display: flex;
+    gap: 10px;
+
+    .card {
+      @include second-box-shadow;
+      width: var(--card-width);
+      height: var(--card-height);
+      padding: 5px;
+      color: var(--text-01);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      box-sizing: border-box;
+      cursor: grab;
+      border: 1px solid var(--white-01);
+      background-color: var(--white-01);
+      border-radius: 10px;
+      margin: 2px;
+
+      input {
+        width: 100%;
+        height: 25px;
+        border: none !important;
+        outline: none !important;
+      }
+    }
+
+    #save-btn {
+      width: 62px;
+      height: 32px;
+      background-color: var(--blue-01);
+      color: var(--text-01);
+      border: none !important;
+      outline: none !important;
+      font-weight: 500;
+      margin-top: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      color: var(--white-01);
+
+      &:disabled {
+        color: var(--gray-01);
+        background-color: lighten($add-new-btn-background, 20%);
+      }
+    }
+
+    .actions {
+      margin-top: 2px;
+
+      .action-btn {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        margin-bottom: 4px;
+        border-radius: 3px;
+        padding: 6px 12px 6px 10px;
+        background-color: var(--white-01);
+        color: var(--text-01);
+        font-weight: 500;
+        cursor: pointer;
+        border: none !important;
+        outline: none !important;
+        height: var(--card-height);
+
+        &:hover {
+          background-color: var(--disabled-01);
+        }
+      }
+    }
+  }
+}

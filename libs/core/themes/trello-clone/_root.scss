@@ -8,7 +8,6 @@
     0px 0px 1px var(--box-shadow-color-02);
 }
 
-
 $add-new-btn-background: #388bff;
 
 $project-variables: (
@@ -20,9 +19,11 @@ $project-variables: (
   'font-weight-01': 400,
   'text-01': #172b4d,
   'white-01': white,
-  'blue-01': '#388BFF',
+  'gray-01': gray,
+  'blue-01': $add-new-btn-background,
   'block-color': #f6f7f8,
   'disabled-01': lightgray,
+  'backdrop-color': #0009,
   'toolbar-background': #ffffff3d,
   'box-shadow-color-01': #091e4240,
   'box-shadow-color-02': #091e424f,
@@ -33,6 +34,23 @@ $project-variables: (
 :root {
   @each $name, $value in $project-variables {
     --#{$name}: #{$value} !important;
+  }
+
+  input[default-input] {
+    border: none !important;
+    outline: none !important;
+    border-radius: 5px;
+    padding-left: 8px;
+    box-shadow: inset 0 0 0 0.5px black;
+    margin-top: 10px;
+
+    &:focus {
+      box-shadow: inset 0 0 0 2px var(--blue-01);
+    }
+
+    &::placeholder {
+      margin-left: 10px;
+    }
   }
 }
 

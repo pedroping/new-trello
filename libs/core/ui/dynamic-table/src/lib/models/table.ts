@@ -1,15 +1,24 @@
 import { Type } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 export interface ITableColumn<T> {
   label: string;
   selector: string;
   hasCustomField?: boolean;
   hasControls?: boolean;
+  customEvent$?: Subject<ICustomEvent<T>>;
   component?: Type<DefaultInput<T>>;
   controlsOptions?: IColumnFormOptions<T>;
 }
+
+export interface ICustomEvent<T, U = unknown> {
+  id: number;
+  element: T;
+  selector: keyof T;
+  value: U;
+}
+
 export interface ITableConfig<T> {
   columns: ITableColumn<T>[];
   hasExpansion: boolean;
@@ -19,6 +28,7 @@ export interface ITableConfig<T> {
   defaultPaginatorOptions?: IDefaultPaginatorOptions;
   customPagination?: () => void;
 }
+
 export interface IPaginatorOptions {
   pageSize: number;
   pageSizeOptions: number[];

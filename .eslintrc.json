@@ -18,6 +18,12 @@
               }
             ]
           }
+        ],
+        "@angular-eslint/no-input-rename": [
+          "off",
+          {
+            "allowedNames": ["obsavableBasedElementDelete"]
+          }
         ]
       }
     },
