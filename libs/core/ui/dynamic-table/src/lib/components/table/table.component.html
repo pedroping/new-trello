@@ -6,7 +6,12 @@
           {{ column.label }}
         </th>
 
-        <ng-container *ngIf="!column?.hasCustomField; else customField">
+        <ng-container
+          *ngIf="
+            !column?.hasCustomField && !column?.hasCustomTemplate;
+            else customArea
+          "
+        >
           <td cdk-cell *cdkCellDef="let element">
             <span class="text-overflow">
               <span>
@@ -15,6 +20,28 @@
             </span>
           </td>
         </ng-container>
+
+        <ng-template #customArea>
+          <ng-container
+            *ngIf="column?.hasCustomField"
+            [ngTemplateOutlet]="customField"
+          ></ng-container>
+          <ng-container
+            *ngIf="column?.hasCustomTemplate"
+            [ngTemplateOutlet]="templateField"
+          ></ng-container>
+        </ng-template>
+
+        <ng-template #templateField>
+          <td cdk-cell *cdkCellDef="let element">
+            <ng-container *ngIf="column?.templateRef">
+              <ng-container
+                [ngTemplateOutlet]="column.templateRef!"
+                [ngTemplateOutletContext]="{ $implicit: element }"
+              ></ng-container>
+            </ng-container>
+          </td>
+        </ng-template>
 
         <ng-template #customField>
           <td

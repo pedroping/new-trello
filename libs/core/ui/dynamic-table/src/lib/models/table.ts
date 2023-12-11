@@ -1,4 +1,4 @@
-import { Type } from '@angular/core';
+import { TemplateRef, Type } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 
@@ -6,10 +6,12 @@ export interface ITableColumn<T> {
   label: string;
   selector: string;
   hasCustomField?: boolean;
+  hasCustomTemplate?: boolean;
   hasControls?: boolean;
   customEvent$?: Subject<ICustomEvent<T>>;
   component?: Type<DefaultInput<T>>;
   controlsOptions?: IColumnFormOptions<T>;
+  templateRef?: TemplateRef<unknown>;
 }
 
 export interface ICustomEvent<T, U = unknown> {

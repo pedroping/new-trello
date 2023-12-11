@@ -88,7 +88,6 @@ export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
   }
 
   scrollToTop() {
-    console.log('afasfasf');
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   }
 }
