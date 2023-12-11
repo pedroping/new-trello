@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -16,6 +22,7 @@ import {
   CoreUiDynamicTableModule,
   IBaseTableFather,
   IBasicTableTest,
+  ITableConfig,
   TableFatherPagination,
 } from '@my-monorepo/core/ui/dynamic-table';
 import { Observable, of, startWith } from 'rxjs';
@@ -39,7 +46,9 @@ export class DynamicTableComponent
   extends TableFatherPagination<IBasicTableTest>
   implements OnInit, IBaseTableFather<IBasicTableTest>
 {
-  override tableConfig = CREATE_TABLE_CONFIG(this);
+  @ViewChild('customTemplate', { static: true })
+  customTemplate!: TemplateRef<unknown>;
+  override tableConfig!: ITableConfig<IBasicTableTest>;
   override data$: Observable<IBasicTableTest[]> = of(DATA);
 
   form = new FormGroup({
@@ -59,6 +68,7 @@ export class DynamicTableComponent
   ];
 
   ngOnInit() {
+    this.tableConfig = CREATE_TABLE_CONFIG(this, this.customTemplate);
     this.startPagination();
     if (
       this.tableConfig.hasDefaultPaginator &&

@@ -5,6 +5,7 @@ import {
 } from '@my-monorepo/core/ui/dynamic-table';
 import { Observable } from 'rxjs';
 import { BasicInputComponent } from '../../../core/components/basic-input/basic-input.component';
+import { TemplateRef } from '@angular/core';
 
 export const DATA = Array.from({ length: 100 }, (_, index) => {
   return {
@@ -32,7 +33,8 @@ export function createValueChangesFn(
 }
 
 export const CREATE_TABLE_CONFIG = (
-  component: IBaseTableFather<IBasicTableTest>
+  component: IBaseTableFather<IBasicTableTest>,
+  customTemplate?: TemplateRef<unknown>
 ) => {
   return {
     hasExpansion: true,
@@ -70,6 +72,8 @@ export const CREATE_TABLE_CONFIG = (
       {
         label: 'E-mail',
         selector: 'gmail',
+        hasCustomTemplate: true,
+        templateRef: customTemplate,
       },
       {
         label: 'E-mail',

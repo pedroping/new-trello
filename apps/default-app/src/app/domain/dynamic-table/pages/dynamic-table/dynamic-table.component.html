@@ -2,4 +2,6 @@
   <dynamic-table [config]="tableConfig" [data]="data"></dynamic-table>
 </ng-container>
 
-<ng-template #a></ng-template>
+<ng-template #customTemplate let-element>
+  {{ element.gmail }}
+</ng-template>
