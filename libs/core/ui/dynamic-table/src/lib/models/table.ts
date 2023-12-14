@@ -11,7 +11,7 @@ export interface ITableColumn<T> {
   customEvent$?: Subject<ICustomEvent<T>>;
   component?: Type<DefaultInput<T>>;
   controlsOptions?: IColumnFormOptions<T>;
-  templateRef?: TemplateRef<unknown>;
+  templateId?: number;
 }
 
 export interface ICustomEvent<T, U = unknown> {

@@ -33,8 +33,7 @@ export function createValueChangesFn(
 }
 
 export const CREATE_TABLE_CONFIG = (
-  component: IBaseTableFather<IBasicTableTest>,
-  customTemplate?: TemplateRef<unknown>
+  component: IBaseTableFather<IBasicTableTest>
 ) => {
   return {
     hasExpansion: true,
@@ -73,7 +72,7 @@ export const CREATE_TABLE_CONFIG = (
         label: 'E-mail',
         selector: 'gmail',
         hasCustomTemplate: true,
-        templateRef: customTemplate,
+        templateId: 0,
       },
       {
         label: 'E-mail',

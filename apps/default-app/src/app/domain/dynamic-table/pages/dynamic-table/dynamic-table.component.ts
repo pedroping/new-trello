@@ -46,8 +46,6 @@ export class DynamicTableComponent
   extends TableFatherPagination<IBasicTableTest>
   implements OnInit, IBaseTableFather<IBasicTableTest>
 {
-  @ViewChild('customTemplate', { static: true })
-  customTemplate!: TemplateRef<unknown>;
   override tableConfig!: ITableConfig<IBasicTableTest>;
   override data$: Observable<IBasicTableTest[]> = of(DATA);
 
@@ -68,7 +66,7 @@ export class DynamicTableComponent
   ];
 
   ngOnInit() {
-    this.tableConfig = CREATE_TABLE_CONFIG(this, this.customTemplate);
+    this.tableConfig = CREATE_TABLE_CONFIG(this);
     this.startPagination();
     if (
       this.tableConfig.hasDefaultPaginator &&

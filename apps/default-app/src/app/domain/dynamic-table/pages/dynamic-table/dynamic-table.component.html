@@ -1,7 +1,7 @@
 <ng-container *ngIf="data$ | async as data">
-  <dynamic-table [config]="tableConfig" [data]="data"></dynamic-table>
+  <dynamic-table [config]="tableConfig" [data]="data">
+    <ng-template #customTemplate let-element>
+      {{ element.gmail }}
+    </ng-template>
+  </dynamic-table>
 </ng-container>
-
-<ng-template #customTemplate let-element>
-  {{ element.gmail }}
-</ng-template>

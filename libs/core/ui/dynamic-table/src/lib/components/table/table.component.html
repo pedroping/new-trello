@@ -34,9 +34,11 @@
 
         <ng-template #templateField>
           <td cdk-cell *cdkCellDef="let element">
-            <ng-container *ngIf="column?.templateRef">
+            <ng-container
+              *ngIf="column?.templateId === 0 || column?.templateId"
+            >
               <ng-container
-                [ngTemplateOutlet]="column.templateRef!"
+                [ngTemplateOutlet]="availableTemplates[column.templateId!]"
                 [ngTemplateOutletContext]="{ $implicit: element }"
               ></ng-container>
             </ng-container>

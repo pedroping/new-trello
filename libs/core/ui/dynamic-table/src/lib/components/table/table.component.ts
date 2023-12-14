@@ -10,10 +10,13 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ContentChildren,
   Input,
   OnChanges,
   OnInit,
+  QueryList,
   SimpleChanges,
+  TemplateRef,
   ViewChild,
 } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -31,16 +34,22 @@ import { ICON_STATE_ANIMATION } from '../../animations/iconState';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
-  @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
-
   @Input({ required: true }) config!: ITableConfig<T>;
   @Input({ required: true }) data!: T[];
 
-  dataSource!: MatTableDataSource<T>;
+  length = 0;
+  columnsLength = 0;
   viewDataSource!: T[];
   displayedColumns!: string[];
-  columnsLength = 0;
-  length = 0;
+  dataSource!: MatTableDataSource<T>;
+  availableTemplates: TemplateRef<unknown>[] = [];
+
+  @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
+  @ContentChildren('customTemplate') set templates(
+    query: QueryList<TemplateRef<unknown>>
+  ) {
+    this.availableTemplates = query.toArray();
+  }
 
   constructor(
     private cdr: ChangeDetectorRef,
