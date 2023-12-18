@@ -5,7 +5,11 @@ import { OutsideAddBlockClickDirective } from './outside-add-block-click.directi
 
 describe('Directive: OutsideAddBlockClick', () => {
   it('should create an instance', () => {
-    const directive = new OutsideAddBlockClickDirective();
+    const directive = new OutsideAddBlockClickDirective(
+      null as any,
+      null as any,
+      null as any
+    );
     expect(directive).toBeTruthy();
   });
 });

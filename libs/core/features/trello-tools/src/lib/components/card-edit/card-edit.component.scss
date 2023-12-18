@@ -30,7 +30,7 @@
       }
     }
 
-    #save-btn {
+    button[preventClick] {
       width: 62px;
       height: 32px;
       background-color: var(--blue-01);

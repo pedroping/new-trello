@@ -3,7 +3,10 @@ import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-change
 import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { fromEvent, merge, skip, takeUntil } from 'rxjs';
+import { ElementsService } from '../../services/elements.service';
+
 export const DEFAULT_ELEMENT = document;
+
 @Directive({
   selector: '[outsideClick]',
 })
@@ -14,8 +17,9 @@ export class OutsideAddBlockClickDirective {
   @Input() preventClickElement: string[] = [];
 
   constructor(
-    private readonly elementRef: ElementRef,
     private readonly ngZone: NgZone,
+    private readonly elementRef: ElementRef,
+    private readonly elementsService: ElementsService,
     private readonly outsideClickEventsService: OutsideClickEventsService
   ) {}
 
@@ -32,11 +36,14 @@ export class OutsideAddBlockClickDirective {
         if (!event) return;
 
         const isChildClick = this.elementRef.nativeElement.contains(
-          event.target as Node
+          event.target as HTMLElement
         );
 
-        const hasPreventElement = this.preventClickElement.includes(
-          (event.target as HTMLElement).id
+        const id = (event.target as HTMLElement).id;
+        const parentElementId = (event.target as HTMLElement).parentElement?.id;
+
+        const hasPreventElement = this.hasPreventElement(
+          event.target as HTMLElement
         );
 
         if (!isChildClick && !hasPreventElement) {
@@ -45,5 +52,11 @@ export class OutsideAddBlockClickDirective {
           });
         }
       });
+  }
+
+  hasPreventElement(elementEvent: HTMLElement) {
+    return !!this.elementsService.elements.find((element) => {
+      return element.contains(elementEvent) || element == elementEvent;
+    });
   }
 }

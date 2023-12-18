@@ -8,11 +8,10 @@
         (keyup.enter)="addCard()"
         (keyup.escape)="closeEdit()"
         [formControl]="cardNameControl"
-        [preventClickElement]="['save-btn', 'action']"
       />
     </div>
     <button
-      id="save-btn"
+      preventClick
       [disabled]="cardNameControl.invalid"
       (click)="addCard()"
     >
@@ -20,10 +19,10 @@
     </button>
   </div>
 
-  <div class="actions">
-    <button class="action-btn" id="action" (click)="archive()">
-      <mat-icon id="action">archive</mat-icon>
-      <span id="action">Arquivar</span>
+  <div class="actions" preventClick>
+    <button class="action-btn" (click)="archive()">
+      <mat-icon>archive</mat-icon>
+      <span>Arquivar</span>
     </button>
   </div>
 </div>
