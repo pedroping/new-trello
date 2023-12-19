@@ -1,9 +1,20 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { BackdropStateService } from '@my-monorepo/core/features/backdrop-screen';
-import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
-import { Icard } from '../../models/card.models';
-import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
+import { Overlay, OverlayRef } from '@angular/cdk/overlay';
+import { TemplatePortal } from '@angular/cdk/portal';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { BackdropStateService } from '@my-monorepo/core/features/backdrop-screen';
+import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
+import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
+import { Subscription, filter, fromEvent, skip, take } from 'rxjs';
+import { Icard } from '../../models/card.models';
 
 @Component({
   selector: 'card-edit',
@@ -17,9 +28,7 @@ export class CardEditComponent implements OnInit {
     input.nativeElement.focus({ preventScroll: true });
   }
 
-  @ViewChild('menuTemplate') set template(a: any) {
-    console.log('Teste', a?.nativeElement?.parentElement?.parentElement);
-  }
+  @ViewChild('menu') menu?: TemplateRef<unknown>;
 
   @Input({ required: true }) card?: Icard;
   @Input({ required: true }) cards: Icard[] = [];
@@ -28,15 +37,59 @@ export class CardEditComponent implements OnInit {
     nonNullable: true,
     validators: [Validators.required],
   });
+  overlayRef: OverlayRef | null | undefined;
+  sub?: Subscription;
 
   constructor(
-    private readonly outsideClickEventsService: OutsideClickEventsService,
-    private readonly backdropStateService: BackdropStateService
+    private readonly overlay: Overlay,
+    private readonly viewContainerRef: ViewContainerRef,
+    private readonly backdropStateService: BackdropStateService,
+    private readonly outsideClickEventsService: OutsideClickEventsService
   ) {}
 
   ngOnInit(): void {
     if (!this.card) return;
     this.cardNameControl.setValue(this.card.name);
+  }
+
+  openMenu(element: HTMLElement) {
+    this.overlayRef?.dispose();
+    this.overlayRef = null;
+    const rect = element.getBoundingClientRect();
+
+    const positionStrategy = this.overlay
+      .position()
+      .flexibleConnectedTo({ x: rect.left + rect.width + 5, y: rect.top })
+      .withPositions([
+        {
+          originX: 'start',
+          originY: 'bottom',
+          overlayX: 'start',
+          overlayY: 'top',
+        },
+      ]);
+
+    this.overlayRef = this.overlay.create({
+      positionStrategy,
+    });
+
+    this.overlayRef.attach(
+      new TemplatePortal(this.menu!, this.viewContainerRef)
+    );
+
+    this.sub = fromEvent<MouseEvent>(document, 'click')
+      .pipe(
+        filter((event) => {
+          const clickTarget = event.target as HTMLElement;
+          return (
+            !!this.overlayRef &&
+            !this.overlayRef.overlayElement.contains(clickTarget)
+          );
+        }),
+        skip(1),
+        take(1)
+      )
+      .subscribe(this.closeElement.bind(this));
   }
 
   setValueChanges() {
@@ -45,6 +98,12 @@ export class CardEditComponent implements OnInit {
     outSideClick$$.subscribe(() => {
       this.backdropStateService.setBackDropState();
     });
+  }
+
+  closeElement() {
+    this.sub?.unsubscribe();
+    this.overlayRef?.dispose();
+    this.overlayRef = null;
   }
 
   addCard() {

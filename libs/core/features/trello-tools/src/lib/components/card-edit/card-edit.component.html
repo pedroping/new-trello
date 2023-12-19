@@ -25,7 +25,7 @@
       <span>Arquivar</span>
     </button>
 
-    <button class="action-btn" cdkMenuItem [cdkMenuTriggerFor]="menu">
+    <button class="action-btn" #baseElement (click)="openMenu(baseElement)">
       <mat-icon>forward</mat-icon>
       <span>Mover</span>
     </button>
@@ -33,5 +33,5 @@
 </div>
 
 <ng-template #menu>
-  <div class="menu" #menuTemplate>Menu</div>
+  <div class="menu" preventClick #menuTemplate>Menu</div>
 </ng-template>
