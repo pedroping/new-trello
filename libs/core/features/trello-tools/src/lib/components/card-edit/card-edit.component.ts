@@ -17,6 +17,10 @@ export class CardEditComponent implements OnInit {
     input.nativeElement.focus({ preventScroll: true });
   }
 
+  @ViewChild('menuTemplate') set template(a: any) {
+    console.log('Teste', a?.nativeElement?.parentElement?.parentElement);
+  }
+
   @Input({ required: true }) card?: Icard;
   @Input({ required: true }) cards: Icard[] = [];
 

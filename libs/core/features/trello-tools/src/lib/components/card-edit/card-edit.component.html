@@ -24,5 +24,14 @@
       <mat-icon>archive</mat-icon>
       <span>Arquivar</span>
     </button>
+
+    <button class="action-btn" cdkMenuItem [cdkMenuTriggerFor]="menu">
+      <mat-icon>forward</mat-icon>
+      <span>Mover</span>
+    </button>
   </div>
 </div>
+
+<ng-template #menu>
+  <div class="menu" #menuTemplate>Menu</div>
+</ng-template>
