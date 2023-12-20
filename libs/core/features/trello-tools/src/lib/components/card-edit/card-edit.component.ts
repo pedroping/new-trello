@@ -13,7 +13,7 @@ import { OpenCustomMenuService } from '@my-monorepo/core/features/open-custom-me
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
 import { Icard } from '../../models/card.models';
-import { fromEvent } from 'rxjs';
+import { filter, fromEvent } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 @Component({
@@ -70,7 +70,10 @@ export class CardEditComponent implements OnInit {
     });
 
     fromEvent(window, 'keyup')
-      .pipe(untilDestroyed(this))
+      .pipe(
+        untilDestroyed(this),
+        filter((event) => (event as KeyboardEvent).key === 'Escape')
+      )
       .subscribe(this.closeEdit.bind(this));
   }
 
