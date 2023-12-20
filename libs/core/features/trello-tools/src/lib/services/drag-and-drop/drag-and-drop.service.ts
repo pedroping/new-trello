@@ -89,4 +89,12 @@ export class DragAndDropService {
     this.onMove$.next(value);
     cdr.detectChanges();
   }
+
+  moveToBlock(blockToRemove: Icard[], blockToAdd: Icard[], card: Icard) {
+    const index = blockToRemove.findIndex(
+      (blockCard) => blockCard.id === card.id
+    );
+    blockToRemove.splice(index, 1);
+    blockToAdd.push(card);
+  }
 }

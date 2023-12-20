@@ -51,6 +51,10 @@ export class CardEventsFacadeService {
     this.cardMocksService.getAllCards(value);
   }
 
+  moveToBlock(blockToRemove: Icard[], blockToAdd: Icard[], card: Icard) {
+    this.dragAndDropService.moveToBlock(blockToRemove, blockToAdd, card);
+  }
+
   get lastToBeHovered() {
     return this.dragAndDropService.lastToBeHovered;
   }
