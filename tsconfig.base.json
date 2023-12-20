@@ -42,6 +42,9 @@
       "@my-monorepo/core/features/online-offline-managemante": [
         "libs/core/features/online-offline-managemante/src/index.ts"
       ],
+      "@my-monorepo/core/features/open-custom-menu": [
+        "libs/core/features/open-custom-menu/src/index.ts"
+      ],
       "@my-monorepo/core/features/outside-element-click": [
         "libs/core/features/outside-element-click/src/index.ts"
       ],
