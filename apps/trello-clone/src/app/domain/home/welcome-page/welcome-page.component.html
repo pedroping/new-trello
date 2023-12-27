@@ -9,5 +9,9 @@
   </div>
 </main>
 
-<div class="sidenav left" *ngIf="leftSideNav$$ | async"></div>
-<div class="sidenav right" *ngIf="rightSideNav$$ | async"></div>
+<generic-sidenav left *ngIf="leftSideNav$$ | async">
+  <h1>SideNav 1</h1>
+</generic-sidenav>
+<generic-sidenav right *ngIf="rightSideNav$$ | async">
+  <h1>SideNav 2</h1>
+</generic-sidenav>

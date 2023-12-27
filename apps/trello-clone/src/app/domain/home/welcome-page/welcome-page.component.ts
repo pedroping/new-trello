@@ -1,11 +1,14 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CoreFeaturesDragScrollModule } from '@my-monorepo/core/features/drag-scroll';
-import { GenericSidenavsFacadeService } from '@my-monorepo/core/ui/generic-sidenavs';
+import {
+  CoreUiGenericSidenavsModule,
+  GenericSidenavsFacadeService,
+} from '@my-monorepo/core/ui/generic-sidenavs';
 import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
 import { ToolbarContentComponent } from '../../../core/toolbar-content/toolbar-content.component';
-import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-welcome-page',
   templateUrl: './welcome-page.component.html',
@@ -17,6 +20,7 @@ import { CommonModule } from '@angular/common';
     DragDropModule,
     CoreUiToolbarModule,
     ToolbarContentComponent,
+    CoreUiGenericSidenavsModule,
     CoreFeaturesDragScrollModule,
   ],
 })
@@ -34,7 +38,7 @@ export class WelcomePageComponent implements OnInit {
     this.genericSidenavsFacadeService.startDomain(
       this.pageContent.nativeElement
     );
-    this.genericSidenavsFacadeService.setLeftSideNavState(false);
-    this.genericSidenavsFacadeService.setRightSideNavState(false);
+    this.genericSidenavsFacadeService.setLeftSideNavState(true);
+    this.genericSidenavsFacadeService.setRightSideNavState(true);
   }
 }
