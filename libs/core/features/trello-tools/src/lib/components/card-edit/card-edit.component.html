@@ -33,11 +33,5 @@
 </div>
 
 <ng-template #menu>
-  <div class="menu" preventClick #menuTemplate>
-    <ng-container *ngFor="let block of blocks$$ | async">
-      <div class="card" (click)="moveToBlock(block.cards)">
-        <span class="name">{{ block.name }}</span>
-      </div>
-    </ng-container>
-  </div>
+  <move-card [card]="card" [cards]="cards" (close)="closeEdit()"></move-card>
 </ng-template>

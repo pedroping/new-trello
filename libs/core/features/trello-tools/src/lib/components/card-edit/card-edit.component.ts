@@ -39,7 +39,6 @@ export class CardEditComponent implements OnInit {
     nonNullable: true,
     validators: [Validators.required],
   });
-  blocks$$ = this.cardEventsFacadeService.blocks$$;
 
   constructor(
     private readonly viewContainerRef: ViewContainerRef,
@@ -100,11 +99,5 @@ export class CardEditComponent implements OnInit {
     const index = this.cards.findIndex((card) => card.id === this.card?.id);
     this.cards.splice(index, 1);
     this.backdropStateService.setBackDropState();
-  }
-
-  moveToBlock(cards: Icard[]) {
-    if (!this.card) return;
-    this.cardEventsFacadeService.moveToBlock(this.cards, cards, this.card);
-    this.closeEdit();
   }
 }

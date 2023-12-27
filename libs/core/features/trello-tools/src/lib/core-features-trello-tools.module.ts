@@ -18,6 +18,7 @@ import { CardComponent } from './components/card/card.component';
 import { CardBlockHeightDirective } from './directives/card-block-height/cardBlock-height.directive';
 import { CloseMenuDirective } from './directives/close-menu/close-menu.directive';
 import { ScrollToEndDirective } from './directives/scroll-to-end/scroll-to-end.directive';
+import { MoveCardComponent } from './components/move-card/move-card.component';
 @NgModule({
   imports: [
     CdkDrag,
@@ -34,6 +35,7 @@ import { ScrollToEndDirective } from './directives/scroll-to-end/scroll-to-end.d
   ],
   declarations: [
     CardComponent,
+    MoveCardComponent,
     CardListComponent,
     CardEditComponent,
     CloseMenuDirective,

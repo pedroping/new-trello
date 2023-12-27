@@ -1,0 +1,20 @@
+:host {
+  .menu {
+    display: flex;
+    flex-direction: column;
+
+    .card {
+      width: 100px;
+      height: 35px;
+      color: var(--text-01);
+      background-color: var(--white-01);
+      border-bottom: 1px solid var(--text-01);
+      font-size: 16px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+  }
+}
