@@ -38,7 +38,7 @@ export class WelcomePageComponent implements OnInit {
     this.genericSidenavsFacadeService.startDomain(
       this.pageContent.nativeElement
     );
-    this.genericSidenavsFacadeService.setLeftSideNavState(true);
-    this.genericSidenavsFacadeService.setRightSideNavState(true);
+    this.genericSidenavsFacadeService.setLeftSideNavState(false);
+    this.genericSidenavsFacadeService.setRightSideNavState(false);
   }
 }
