@@ -18,14 +18,12 @@
       <div *cdkDragPlaceholder>
         <trello-card-block
           [isPreview]="true"
-          [cards]="blockCard.cards"
+          [blockCard]="blockCard"
         ></trello-card-block>
       </div>
       <trello-card-block
-        [addNewEvent$]="blockCard.addNewEvent$"
-        [cards]="blockCard.cards"
-        [title]="blockCard.name"
         [id]="index"
+        [blockCard]="blockCard"
       ></trello-card-block>
     </div>
     <trello-add-new-block></trello-add-new-block>

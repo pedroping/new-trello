@@ -2,21 +2,28 @@
   #cardList
   class="card-list"
   cdkDropList
-  [cdkDropListData]="cards"
+  [cdkDropListData]="blockCard.cards"
   (cdkDropListDropped)="drop($event)"
   (cdkDropListDropped)="onDrop()"
   [cdkDropListAutoScrollStep]="10"
   [style.z-index]="customZIndex$ | async"
-  [scrollToEnd]="addNewEvent$"
+  [scrollToEnd]="blockCard.addNewEvent$"
 >
-  <div *ngFor="let item of cards" cdkDrag #card (cdkDragMoved)="onMove()">
+  <div
+    *ngFor="let item of blockCard.cards"
+    cdkDrag
+    #card
+    (cdkDragMoved)="onMove()"
+  >
     <div class="example-custom-placeholder" *cdkDragPlaceholder>
-      <trello-card [isPreview]="true"></trello-card>
+      <trello-card [isPreview]="true" [blockCard]="blockCard"></trello-card>
     </div>
-    <trello-card [card]="item" [cards]="cards"> {{ item.name }} </trello-card>
+    <trello-card [card]="item" [blockCard]="blockCard">
+      {{ item.name }}
+    </trello-card>
   </div>
 
-  <ng-container *ngIf="addNewEvent$ | async">
-    <trello-card [addNewEvent$]="addNewEvent$" [cards]="cards"></trello-card>
+  <ng-container *ngIf="blockCard.addNewEvent$ | async">
+    <trello-card [blockCard]="blockCard" [onAddNew]="true"></trello-card>
   </ng-container>
 </div>

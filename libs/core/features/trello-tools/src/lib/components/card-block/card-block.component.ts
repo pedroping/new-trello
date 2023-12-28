@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, Input } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { Icard } from '../../models/card.models';
+import { IBlock } from '../../models/card.models';
 
 @Component({
   selector: 'trello-card-block',
@@ -9,11 +8,8 @@ import { Icard } from '../../models/card.models';
 })
 export class CardBlockComponent {
   @Input() isPreview = false;
-  @Input() title = '';
-  @Input() cards: Icard[] = [];
   @Input() id = -1;
-  @Input() addNewEvent$: BehaviorSubject<boolean> =
-    new BehaviorSubject<boolean>(false);
+  @Input({ required: true }) blockCard!: IBlock;
 
   isSelectedBlock = false;
 

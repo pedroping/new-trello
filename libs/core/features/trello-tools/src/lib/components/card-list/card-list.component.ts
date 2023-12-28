@@ -1,9 +1,9 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
-import { Icard } from '../../models/card.models';
+import { IBlock, Icard } from '../../models/card.models';
 
 @Component({
   selector: 'card-list',
@@ -12,10 +12,8 @@ import { Icard } from '../../models/card.models';
 })
 @CallSetValueChanges()
 export class CardListComponent {
-  @Input({ required: true }) cards: Icard[] = [];
   @Input({ required: true }) id = -1;
-  @Input() addNewEvent$: BehaviorSubject<boolean> =
-    new BehaviorSubject<boolean>(false);
+  @Input({ required: true }) blockCard!: IBlock;
   @Output() cardMove = new EventEmitter<boolean>();
 
   customZIndex$!: Observable<number>;

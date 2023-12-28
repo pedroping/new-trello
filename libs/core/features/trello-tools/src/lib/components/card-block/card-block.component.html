@@ -1,30 +1,31 @@
 <div
-  class="content"
   [id]="id"
+  class="content"
   [baseSize]="105"
-  [addNewEvent$]="addNewEvent$"
   [isSelected]="isSelectedBlock"
   #values="trelloCardBlockHeight"
-  [trelloCardBlockHeight]="cards.length"
+  [addNewEvent$]="blockCard.addNewEvent$"
+  [trelloCardBlockHeight]="blockCard.cards.length"
 >
   <ng-container *ngIf="!isPreview; else preview">
     <trello-card-header
-      [cardLength]="cards.length"
-      [title]="title"
+      [cardLength]="blockCard.cards.length"
+      [title]="blockCard.name"
     ></trello-card-header>
     <card-list
-      [addNewEvent$]="addNewEvent$"
-      [cards]="cards"
       [id]="id"
+      [blockCard]="blockCard"
       (cardMove)="cardMove($event)"
     ></card-list>
-    <trello-card-footer [addNewEvent$]="addNewEvent$"></trello-card-footer>
+    <trello-card-footer
+      [addNewEvent$]="blockCard.addNewEvent$"
+    ></trello-card-footer>
   </ng-container>
 
   <ng-template #preview>
     <div
       class="card-list"
-      [trelloCardBlockHeight]="cards.length"
+      [trelloCardBlockHeight]="blockCard.cards.length"
       [baseSize]="50"
       [id]="id"
     ></div>

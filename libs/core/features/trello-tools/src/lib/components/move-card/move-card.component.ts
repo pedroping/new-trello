@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { BackdropStateService } from '@my-monorepo/core/features/backdrop-screen';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
-import { Icard } from '../../models/card.models';
+import { IBlock, Icard } from '../../models/card.models';
 
 @Component({
   selector: 'move-card',
@@ -9,18 +10,22 @@ import { Icard } from '../../models/card.models';
 })
 export class MoveCardComponent {
   @Input({ required: true }) card?: Icard;
-  @Input({ required: true }) cards: Icard[] = [];
-  @Output() close = new EventEmitter<void>();
+  @Input({ required: true }) blockCard!: IBlock;
 
   blocks$$ = this.cardEventsFacadeService.blocks$$;
 
   constructor(
+    private readonly backdropStateService: BackdropStateService,
     private readonly cardEventsFacadeService: CardEventsFacadeService
   ) {}
 
   moveToBlock(cards: Icard[]) {
     if (!this.card) return;
-    this.cardEventsFacadeService.moveToBlock(this.cards, cards, this.card);
-    this.close.emit();
+    this.cardEventsFacadeService.moveToBlock(
+      this.blockCard.cards,
+      cards,
+      this.card
+    );
+    this.backdropStateService.setBackDropState();
   }
 }

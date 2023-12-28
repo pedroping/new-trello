@@ -9,9 +9,9 @@ import { FormControl, Validators } from '@angular/forms';
 import { BackdropStateService } from '@my-monorepo/core/features/backdrop-screen';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
-import { BehaviorSubject, merge, skip } from 'rxjs';
+import { merge, skip } from 'rxjs';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
-import { Icard } from '../../models/card.models';
+import { IBlock, Icard } from '../../models/card.models';
 
 @Component({
   selector: 'trello-card',
@@ -23,10 +23,10 @@ export class CardComponent {
   @ViewChild('editTemplate') editTemplate!: TemplateRef<unknown>;
 
   @Input() card?: Icard;
-  @Input() cards: Icard[] = [];
   @Input() isPreview?: boolean;
-  @Input() addNewEvent$: BehaviorSubject<boolean> =
-    new BehaviorSubject<boolean>(false);
+
+  @Input() onAddNew = false;
+  @Input({ required: true }) blockCard!: IBlock;
 
   cardNameControl = new FormControl('', {
     nonNullable: true,
@@ -69,17 +69,17 @@ export class CardComponent {
   addCard() {
     if (this.cardNameControl.invalid) return;
 
-    this.cards.push({
-      id: this.cards.length + 1,
+    this.blockCard.cards.push({
+      id: this.blockCard.cards.length + 1,
       name: this.cardNameControl.value,
     });
     this.cardNameControl.reset();
-    this.addNewEvent$.next(true);
+    this.blockCard.addNewEvent$.next(true);
   }
 
   cancelEvent() {
     this.cardNameControl.reset();
-    this.addNewEvent$.next(false);
+    this.blockCard.addNewEvent$.next(false);
   }
 
   editclick() {

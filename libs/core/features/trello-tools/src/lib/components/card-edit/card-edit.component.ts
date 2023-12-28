@@ -14,8 +14,7 @@ import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-change
 import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { filter, fromEvent } from 'rxjs';
-import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
-import { Icard } from '../../models/card.models';
+import { IBlock, Icard } from '../../models/card.models';
 
 @Component({
   selector: 'card-edit',
@@ -33,7 +32,7 @@ export class CardEditComponent implements OnInit {
   @ViewChild('menu') menu?: TemplateRef<unknown>;
 
   @Input({ required: true }) card?: Icard;
-  @Input({ required: true }) cards: Icard[] = [];
+  @Input({ required: true }) blockCard!: IBlock;
 
   cardNameControl = new FormControl('', {
     nonNullable: true,
@@ -44,7 +43,6 @@ export class CardEditComponent implements OnInit {
     private readonly viewContainerRef: ViewContainerRef,
     private readonly backdropStateService: BackdropStateService,
     private readonly openCustomMenuService: OpenCustomMenuService,
-    private readonly cardEventsFacadeService: CardEventsFacadeService,
     private readonly outsideClickEventsService: OutsideClickEventsService
   ) {}
 
@@ -96,8 +94,10 @@ export class CardEditComponent implements OnInit {
 
   archive() {
     if (!this.card) return;
-    const index = this.cards.findIndex((card) => card.id === this.card?.id);
-    this.cards.splice(index, 1);
+    const index = this.blockCard.cards.findIndex(
+      (card) => card.id === this.card?.id
+    );
+    this.blockCard.cards.splice(index, 1);
     this.backdropStateService.setBackDropState();
   }
 }

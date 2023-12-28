@@ -1,4 +1,4 @@
-<ng-container *ngIf="addNewEvent$ | async; else defaultTemplate">
+<ng-container *ngIf="onAddNew; else defaultTemplate">
   <input
     #nameInput
     outsideClick
@@ -19,5 +19,5 @@
 </ng-template>
 
 <ng-template #editTemplate>
-  <card-edit [card]="card" [cards]="cards"></card-edit>
+  <card-edit [card]="card" [blockCard]="blockCard"></card-edit>
 </ng-template>
