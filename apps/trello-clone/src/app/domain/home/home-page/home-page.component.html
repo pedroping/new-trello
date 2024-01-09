@@ -15,12 +15,11 @@
       *ngFor="let blockCard of blocks; let index = index"
     >
       <div cdkDragHandle></div>
-      <div *cdkDragPlaceholder>
-        <trello-card-block
-          [isPreview]="true"
-          [blockCard]="blockCard"
-        ></trello-card-block>
-      </div>
+      <trello-card-block
+        *cdkDragPlaceholder
+        [isPreview]="true"
+        [blockCard]="blockCard"
+      ></trello-card-block>
       <trello-card-block
         [id]="index"
         [blockCard]="blockCard"
