@@ -13,6 +13,7 @@ import {
   withComponentInputBinding,
   withEnabledBlockingInitialNavigation,
   withPreloading,
+  withViewTransitions,
 } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { TuiRootModule } from '@taiga-ui/core';
@@ -24,8 +25,8 @@ export const appConfig: ApplicationConfig = {
       appRoutes,
       withEnabledBlockingInitialNavigation(),
       withPreloading(PreloadAllModules),
-      withComponentInputBinding()
-      // withDebugTracing()
+      withComponentInputBinding(),
+      withViewTransitions()
     ),
     provideAnimations(),
     provideToastr(),
