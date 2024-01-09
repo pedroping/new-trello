@@ -75,10 +75,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "trello-clone:build:production"
+          "buildTarget": "trello-clone:build:production"
         },
         "development": {
-          "browserTarget": "trello-clone:build:development"
+          "buildTarget": "trello-clone:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -86,31 +86,18 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "trello-clone:build"
+        "buildTarget": "trello-clone:build"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "apps/trello-clone/**/*.ts",
-          "apps/trello-clone/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/trello-clone/jest.config.ts",
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
+        "jestConfig": "apps/trello-clone/jest.config.ts"
       }
     },
     "serve-static": {

@@ -16,6 +16,7 @@ import {
   provideRouter,
   withComponentInputBinding,
   withEnabledBlockingInitialNavigation,
+  withViewTransitions,
 } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { CardEventsFacadeService } from '@my-monorepo/core/features/trello-tools';
@@ -46,7 +47,8 @@ export const appConfig: ApplicationConfig = {
     provideRouter(
       appRoutes,
       withEnabledBlockingInitialNavigation(),
-      withComponentInputBinding()
+      withComponentInputBinding(),
+      withViewTransitions()
     ),
     provideHttpClient(),
     provideAnimations(),
