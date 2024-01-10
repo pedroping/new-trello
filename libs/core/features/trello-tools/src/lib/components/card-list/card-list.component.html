@@ -9,12 +9,8 @@
   [style.z-index]="customZIndex$ | async"
   [scrollToEnd]="blockCard.addNewEvent$"
 >
-  <div
-    *ngFor="let item of blockCard.cards"
-    cdkDrag
-    #card
-    (cdkDragMoved)="onMove()"
-  >
+  @for(item of blockCard.cards; track $index) {
+  <div #card cdkDrag (cdkDragMoved)="onMove()">
     <div class="example-custom-placeholder" *cdkDragPlaceholder>
       <trello-card [isPreview]="true" [blockCard]="blockCard"></trello-card>
     </div>
@@ -22,8 +18,7 @@
       {{ item.name }}
     </trello-card>
   </div>
-
-  <ng-container *ngIf="blockCard.addNewEvent$ | async">
-    <trello-card [blockCard]="blockCard" [onAddNew]="true"></trello-card>
-  </ng-container>
+  } @if(blockCard.addNewEvent$ | async) {
+  <trello-card [blockCard]="blockCard" [onAddNew]="true"></trello-card>
+  }
 </div>

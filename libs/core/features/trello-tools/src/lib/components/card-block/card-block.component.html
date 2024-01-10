@@ -7,27 +7,25 @@
   [addNewEvent$]="blockCard.addNewEvent$"
   [trelloCardBlockHeight]="blockCard.cards.length"
 >
-  <ng-container *ngIf="!isPreview; else preview">
-    <trello-card-header
-      [cardLength]="blockCard.cards.length"
-      [title]="blockCard.name"
-    ></trello-card-header>
-    <card-list
-      [id]="id"
-      [blockCard]="blockCard"
-      (cardMove)="cardMove($event)"
-    ></card-list>
-    <trello-card-footer
-      [addNewEvent$]="blockCard.addNewEvent$"
-    ></trello-card-footer>
-  </ng-container>
-
-  <ng-template #preview>
-    <div
-      class="card-list"
-      [trelloCardBlockHeight]="blockCard.cards.length"
-      [baseSize]="50"
-      [id]="id"
-    ></div>
-  </ng-template>
+  @if(!isPreview) {
+  <trello-card-header
+    [cardLength]="blockCard.cards.length"
+    [title]="blockCard.name"
+  ></trello-card-header>
+  <card-list
+    [id]="id"
+    [blockCard]="blockCard"
+    (cardMove)="cardMove($event)"
+  ></card-list>
+  <trello-card-footer
+    [addNewEvent$]="blockCard.addNewEvent$"
+  ></trello-card-footer>
+  } @else {
+  <div
+    class="card-list"
+    [trelloCardBlockHeight]="blockCard.cards.length"
+    [baseSize]="50"
+    [id]="id"
+  ></div>
+  }
 </div>
