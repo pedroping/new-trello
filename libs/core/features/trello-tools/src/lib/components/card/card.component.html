@@ -1,22 +1,19 @@
-<ng-container *ngIf="onAddNew; else defaultTemplate">
-  <input
-    #nameInput
-    outsideClick
-    type="text"
-    [formControl]="cardNameControl"
-    (keyup.enter)="addCard()"
-    (keyup.escape)="cancelEvent()"
-  />
-</ng-container>
+@if(onAddNew) {
+<input
+  #nameInput
+  outsideClick
+  type="text"
+  [formControl]="cardNameControl"
+  (keyup.enter)="addCard()"
+  (keyup.escape)="cancelEvent()"
+/>
 
-<ng-template #defaultTemplate>
-  <ng-container *ngIf="!isPreview">
-    <span class="card-text"><ng-content></ng-content></span>
-    <div class="edit-content" (click)="editclick()">
-      <mat-icon>edit</mat-icon>
-    </div>
-  </ng-container>
-</ng-template>
+} @else if(!isPreview) {
+<span class="card-text"><ng-content></ng-content></span>
+<div class="edit-content" (click)="editclick()">
+  <mat-icon>edit</mat-icon>
+</div>
+}
 
 <ng-template #editTemplate>
   <card-edit [card]="card" [blockCard]="blockCard"></card-edit>
