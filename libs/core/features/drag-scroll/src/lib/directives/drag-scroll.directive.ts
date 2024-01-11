@@ -66,15 +66,15 @@ export class DragScrollDirective {
     const rightCalc = hasRightSidenav ? BASE_SIDENAV_SIZE : BASE_SCROLL_AREA;
     const leftCalc = hasLeftSidenav ? BASE_SIDENAV_SIZE : BASE_SCROLL_AREA;
 
-    if (!onMove && onCardMove) {
+    if (onCardMove && !onMove) {
       if (window.innerWidth - rightCalc < e.pageX) {
-        this.startRightEvent();
+        // this.startRightEvent();
         return;
       }
       this.stopRightEvent$.next();
 
       if (leftCalc > e.pageX) {
-        this.startLeftEvent();
+        // this.startLeftEvent();
         return;
       }
       this.stopLeftEvent$.next();
