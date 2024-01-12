@@ -1,8 +1,9 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
+import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { CardEventsFacadeService } from '@my-monorepo/core/features/trello-tools';
-import { Subject, startWith, takeUntil, timer } from 'rxjs';
-import { ScrollEventsService } from '@my-monorepo/core/utlis';
 import { GenericSidenavsFacadeService } from '@my-monorepo/core/ui/generic-sidenavs';
+import { ScrollEventsService } from '@my-monorepo/core/utlis';
+import { startWith } from 'rxjs';
 
 export const BASE_BLOCK_SIZE = 320;
 export const BASE_SIDENAV_SIZE = 350;
@@ -13,22 +14,18 @@ export const LEFT_SIDENAV_GAP = 250;
 @Directive({
   selector: '[dragScroll]',
 })
+@CallSetValueChanges()
 export class DragScrollDirective {
   constructor(
     private readonly el: ElementRef,
     private readonly scrollEventsService: ScrollEventsService,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
     private readonly genericSidenavsFacadeService: GenericSidenavsFacadeService
-  ) {
-    this.setSubscriptions();
-  }
+  ) {}
 
   mouseDown = false;
   startX = 0;
   scrollLeft = 0;
-
-  stopLeftEvent$ = new Subject<void>();
-  stopRightEvent$ = new Subject<void>();
 
   @HostListener('mousedown', ['$event'])
   startDragging(e: MouseEvent) {
@@ -54,33 +51,8 @@ export class DragScrollDirective {
   moveEvent(e: MouseEvent) {
     const el = this.el.nativeElement;
     e.preventDefault();
-    this.stopRightEvent$.next();
-    this.stopLeftEvent$.next();
-
-    const hasRightSidenav = this.genericSidenavsFacadeService.rightSideNavState;
-    const hasLeftSidenav = this.genericSidenavsFacadeService.leftSideNavState;
 
     const onMove = this.cardEventsFacadeService.onMove;
-    const onCardMove = this.cardEventsFacadeService.onCardMove;
-
-    const rightCalc = hasRightSidenav ? BASE_SIDENAV_SIZE : BASE_SCROLL_AREA;
-    const leftCalc = hasLeftSidenav ? BASE_SIDENAV_SIZE : BASE_SCROLL_AREA;
-
-    if (onCardMove && !onMove) {
-      if (window.innerWidth - rightCalc < e.pageX) {
-        // this.startRightEvent();
-        return;
-      }
-      this.stopRightEvent$.next();
-
-      if (leftCalc > e.pageX) {
-        // this.startLeftEvent();
-        return;
-      }
-      this.stopLeftEvent$.next();
-
-      return;
-    }
 
     if (!this.mouseDown || onMove) {
       return;
@@ -91,27 +63,7 @@ export class DragScrollDirective {
     this.el.nativeElement.parentElement.scrollLeft = this.scrollLeft - scroll;
   }
 
-  startLeftEvent() {
-    timer(0, 1)
-      .pipe(takeUntil(this.stopLeftEvent$))
-      .subscribe(() => {
-        if (this.cardEventsFacadeService.onCardMove)
-          this.el.nativeElement.parentElement.scrollLeft -=
-            BASE_SCROLL_MOVE_TICK;
-      });
-  }
-
-  startRightEvent() {
-    timer(0, 1)
-      .pipe(takeUntil(this.stopRightEvent$))
-      .subscribe(() => {
-        if (this.cardEventsFacadeService.onCardMove)
-          this.el.nativeElement.parentElement.scrollLeft +=
-            BASE_SCROLL_MOVE_TICK;
-      });
-  }
-
-  setSubscriptions() {
+  setValueChanges() {
     this.cardEventsFacadeService.blocks$$
       .pipe(startWith(this.cardEventsFacadeService.blocks))
       .subscribe((blocks) => {
