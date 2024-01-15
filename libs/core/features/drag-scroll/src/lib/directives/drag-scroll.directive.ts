@@ -3,7 +3,7 @@ import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-change
 import { CardEventsFacadeService } from '@my-monorepo/core/features/trello-tools';
 import { GenericSidenavsFacadeService } from '@my-monorepo/core/ui/generic-sidenavs';
 import { ScrollEventsService } from '@my-monorepo/core/utlis';
-import { startWith } from 'rxjs';
+import { Subject, filter, startWith, takeUntil, timer } from 'rxjs';
 
 export const BASE_BLOCK_SIZE = 320;
 export const BASE_SIDENAV_SIZE = 350;
@@ -26,6 +26,9 @@ export class DragScrollDirective {
   mouseDown = false;
   startX = 0;
   scrollLeft = 0;
+
+  stopLeftEvent$ = new Subject<void>();
+  stopRightEvent$ = new Subject<void>();
 
   @HostListener('mousedown', ['$event'])
   startDragging(e: MouseEvent) {
@@ -51,16 +54,54 @@ export class DragScrollDirective {
   moveEvent(e: MouseEvent) {
     const el = this.el.nativeElement;
     e.preventDefault();
+    this.stopRightEvent$.next();
+    this.stopLeftEvent$.next();
 
-    const onMove = this.cardEventsFacadeService.onMove;
+    const hasRightSidenav = this.genericSidenavsFacadeService.rightSideNavState;
+    const hasLeftSidenav = this.genericSidenavsFacadeService.leftSideNavState;
 
-    if (!this.mouseDown || onMove) {
+    const onCardMove = this.cardEventsFacadeService.onCardMove;
+    const onBlockMove = this.cardEventsFacadeService.onMove;
+
+    const rightCalc = hasRightSidenav ? BASE_SIDENAV_SIZE : BASE_SCROLL_AREA;
+    const leftCalc = hasLeftSidenav ? BASE_SIDENAV_SIZE : BASE_SCROLL_AREA;
+
+    if (onCardMove) {
+      this.stopRightEvent$.next();
+      if (window.innerWidth - rightCalc < e.pageX) {
+        this.startTickEvent(this.stopRightEvent$, BASE_SCROLL_MOVE_TICK);
+        return;
+      }
+
+      if (leftCalc > e.pageX) {
+        this.startTickEvent(this.stopLeftEvent$, -BASE_SCROLL_MOVE_TICK);
+        return;
+      }
+
+      return;
+    }
+
+    if (!this.mouseDown || onBlockMove) {
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
       return;
     }
 
     const xPosition = e.pageX - el.offsetLeft;
     const scroll = xPosition - this.startX;
     this.el.nativeElement.parentElement.scrollLeft = this.scrollLeft - scroll;
+  }
+
+  startTickEvent(stopEvent$: Subject<void>, tick: number) {
+    timer(0, 1)
+      .pipe(
+        takeUntil(stopEvent$),
+        filter(() => !!this.cardEventsFacadeService.onCardMove)
+      )
+      .subscribe(() => {
+        this.el.nativeElement.parentElement.scrollLeft += tick;
+      });
   }
 
   setValueChanges() {

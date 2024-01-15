@@ -12,7 +12,7 @@
   (cdkDropListDropped)="drop($event)"
 >
   @for(item of blockCard.cards; track $index) {
-  <div #card cdkDrag (cdkDragMoved)="onMove()">
+  <div cdkDrag (cdkDragMoved)="onMove()">
     <div class="example-custom-placeholder" *cdkDragPlaceholder>
       <trello-card [isPreview]="true" [blockCard]="blockCard"></trello-card>
     </div>
