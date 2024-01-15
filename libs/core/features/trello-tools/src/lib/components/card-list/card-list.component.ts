@@ -14,6 +14,7 @@ import { IBlock, Icard } from '../../models/card.models';
 export class CardListComponent {
   @Input({ required: true }) id = -1;
   @Input({ required: true }) blockCard!: IBlock;
+  @Input() isSelected?: boolean;
   @Output() cardMove = new EventEmitter<boolean>();
 
   customZIndex$!: Observable<number>;
@@ -45,5 +46,15 @@ export class CardListComponent {
 
   drop(event: CdkDragDrop<Icard[]>) {
     this.cardEventsFacadeService.drop(event);
+  }
+
+  setEntered() {
+    if (!this.isSelected)
+      this.cardEventsFacadeService.setLastToBeHovered(this.id);
+  }
+
+  setExited() {
+    if (this.cardEventsFacadeService.lastToBeHovered === this.id)
+      this.cardEventsFacadeService.setLastToBeHovered(-1);
   }
 }

@@ -18,7 +18,6 @@ import { CARD_SIZE, FOOTER_TOP } from '../../models/card.models';
 })
 export class CardBlockHeightDirective {
   constructor(
-    private readonly scrollEventsService: ScrollEventsService,
     private readonly cardEventsFacadeService: CardEventsFacadeService
   ) {}
 
@@ -27,7 +26,6 @@ export class CardBlockHeightDirective {
 
   @Input({ required: true }) id = -1;
   @Input() baseSize!: number;
-  @Input() isSelected = false;
   @Input('trelloCardBlockHeight') length!: number;
   @Input() addNewEvent$: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);
@@ -49,18 +47,9 @@ export class CardBlockHeightDirective {
     return calcedHeight + 'px';
   }
 
-  @HostListener('mouseenter') onMouseEnter() {
-    const onMouseDown = this.scrollEventsService.onMouseDown$.value;
-    const onCardMove = this.cardEventsFacadeService.onCardMove;
-
-    if (onMouseDown && onCardMove) {
-      this.cardEventsFacadeService.setLastToBeHovered(this.id);
-      if (this.isSelected) this.cardEventsFacadeService.setLastToBeHovered(-1);
-    }
-  }
-
   get footerTop() {
-    const isLastHovered = this.cardEventsFacadeService.lastToBeHovered === this.id;
+    const isLastHovered =
+      this.cardEventsFacadeService.lastToBeHovered === this.id;
     const onCardMove = this.cardEventsFacadeService.onCardMove;
     const isOnAddnew = this.addNewEvent$.value;
     const hasExpand = (onCardMove && isLastHovered) || isOnAddnew;

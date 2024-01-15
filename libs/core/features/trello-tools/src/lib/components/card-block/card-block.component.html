@@ -2,7 +2,6 @@
   [id]="id"
   class="content"
   [baseSize]="105"
-  [isSelected]="isSelectedBlock"
   #values="trelloCardBlockHeight"
   [addNewEvent$]="blockCard.addNewEvent$"
   [trelloCardBlockHeight]="blockCard.cards.length"
@@ -15,6 +14,7 @@
   <card-list
     [id]="id"
     [blockCard]="blockCard"
+    [isSelected]="isSelectedBlock"
     (cardMove)="cardMove($event)"
   ></card-list>
   <trello-card-footer

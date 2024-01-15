@@ -2,12 +2,14 @@
   #cardList
   class="card-list"
   cdkDropList
-  [cdkDropListData]="blockCard.cards"
-  (cdkDropListDropped)="drop($event)"
-  (cdkDropListDropped)="onDrop()"
   [cdkDropListAutoScrollStep]="18"
+  [cdkDropListData]="blockCard.cards"
   [style.z-index]="customZIndex$ | async"
   [scrollToEnd]="blockCard.addNewEvent$"
+  (cdkDropListDropped)="onDrop()"
+  (cdkDropListExited)="setExited()"
+  (cdkDropListEntered)="setEntered()"
+  (cdkDropListDropped)="drop($event)"
 >
   @for(item of blockCard.cards; track $index) {
   <div #card cdkDrag (cdkDragMoved)="onMove()">
