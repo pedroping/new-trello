@@ -16,7 +16,7 @@ export const BASE_BLOCK_SIZE = 320;
 export const BASE_SIDENAV_SIZE = 350;
 export const BASE_ADD_NEW_SIZE = 340;
 export const BASE_SCROLL_AREA = 100;
-export const BASE_SCROLL_MOVE_TICK = 1;
+export const BASE_SCROLL_MOVE_TICK = 4;
 export const LEFT_SIDENAV_GAP = 250;
 @Directive({
   selector: '[dragScroll]',
@@ -29,7 +29,8 @@ export class DragScrollDirective {
     private readonly cardEventsFacadeService: CardEventsFacadeService,
     private readonly genericSidenavsFacadeService: GenericSidenavsFacadeService
   ) {
-    this.rightEvent$.subscribe(() => console.log('Stop'));
+    this.leftEvent$.subscribe(() => console.log('Left Stop'));
+    this.rightEvent$.subscribe(() => console.log('Right Stop'));
   }
 
   mouseDown = false;
@@ -76,9 +77,6 @@ export class DragScrollDirective {
     const rightCalc = hasRightSidenav ? BASE_SIDENAV_SIZE : BASE_SCROLL_AREA;
     const leftCalc = hasLeftSidenav ? BASE_SIDENAV_SIZE : BASE_SCROLL_AREA;
 
-    this.leftEvent$.next(false);
-    this.rightEvent$.next(false);
-
     if (onCardMove) {
       if (window.innerWidth - rightCalc < e.pageX) {
         this.leftEvent$.next(false);
@@ -92,8 +90,14 @@ export class DragScrollDirective {
         return;
       }
 
+      this.leftEvent$.next(false);
+      this.rightEvent$.next(false);
+
       return;
     }
+
+    this.leftEvent$.next(false);
+    this.rightEvent$.next(false);
 
     if (!this.mouseDown || onBlockMove || onCardMove) return;
 
