@@ -6,6 +6,7 @@
   [cdkDropListData]="blockCard.cards"
   [style.z-index]="customZIndex$ | async"
   [scrollToEnd]="blockCard.addNewEvent$"
+  [cdkDropListAutoScrollDisabled]="false"
   (cdkDropListDropped)="onDrop()"
   (cdkDropListExited)="setExited()"
   (cdkDropListEntered)="setEntered()"

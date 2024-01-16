@@ -6,7 +6,7 @@ import { IBlock } from '../../models/card.models';
 export const BLOCKS = Array.from({ length: 15 }, (_, i) => {
   return {
     name: `To Do ${i}`,
-    cards: Array.from({ length: 5 }, (_, i) => ({
+    cards: Array.from({ length: 25 }, (_, i) => ({
       id: i,
       name: `Card ${i}`,
     })),
