@@ -41,21 +41,23 @@ export class DragScrollDirective {
   }
 
   @HostListener('mouseup', ['$event']) onMouseUp() {
+    this.stopRightEvent$.next();
+    this.stopLeftEvent$.next();
     this.scrollEventsService.onMouseDown$.next(false);
     this.mouseDown = false;
   }
 
   @HostListener('mouseleave', ['$event'])
   stopDragging() {
-    this.mouseDown = false;
+    // this.stopRightEvent$.next();
+    // this.stopLeftEvent$.next();
+    // this.mouseDown = false;
   }
 
   @HostListener('mousemove', ['$event'])
   moveEvent(e: MouseEvent) {
     const el = this.el.nativeElement;
     e.preventDefault();
-    this.stopRightEvent$.next();
-    this.stopLeftEvent$.next();
 
     const hasRightSidenav = this.genericSidenavsFacadeService.rightSideNavState;
     const hasLeftSidenav = this.genericSidenavsFacadeService.leftSideNavState;
@@ -67,13 +69,14 @@ export class DragScrollDirective {
     const leftCalc = hasLeftSidenav ? BASE_SIDENAV_SIZE : BASE_SCROLL_AREA;
 
     if (onCardMove) {
-      this.stopRightEvent$.next();
       if (window.innerWidth - rightCalc < e.pageX) {
+        this.stopLeftEvent$.next();
         this.startTickEvent(this.stopRightEvent$, BASE_SCROLL_MOVE_TICK);
         return;
       }
 
       if (leftCalc > e.pageX) {
+        this.stopRightEvent$.next();
         this.startTickEvent(this.stopLeftEvent$, -BASE_SCROLL_MOVE_TICK);
         return;
       }
@@ -81,12 +84,17 @@ export class DragScrollDirective {
       return;
     }
 
-    if (!this.mouseDown || onBlockMove) {
-      e.preventDefault();
-      e.stopPropagation();
-      e.stopImmediatePropagation();
+    if (onBlockMove) {
+      this.stopRightEvent$.next();
+      this.stopLeftEvent$.next();
+    }
+
+    if (!this.mouseDown || onBlockMove || onCardMove) {
       return;
     }
+
+    this.stopRightEvent$.next();
+    this.stopLeftEvent$.next();
 
     const xPosition = e.pageX - el.offsetLeft;
     const scroll = xPosition - this.startX;
@@ -95,10 +103,7 @@ export class DragScrollDirective {
 
   startTickEvent(stopEvent$: Subject<void>, tick: number) {
     timer(0, 1)
-      .pipe(
-        takeUntil(stopEvent$),
-        filter(() => !!this.cardEventsFacadeService.onCardMove)
-      )
+      .pipe(takeUntil(stopEvent$))
       .subscribe(() => {
         this.el.nativeElement.parentElement.scrollLeft += tick;
       });
