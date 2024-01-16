@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 
 @Component({
   selector: 'trello-card-footer',
@@ -9,8 +10,13 @@ import { BehaviorSubject } from 'rxjs';
 export class CardFooterComponent {
   @Input() addNewEvent$: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);
+  onCardMove$$ = this.cardEventsFacadeService.onCardMove$$;
 
-  handelAddNew() {
+  constructor(
+    private readonly cardEventsFacadeService: CardEventsFacadeService
+  ) {}
+
+  handleAddNew() {
     this.addNewEvent$.next(false);
     this.addNewEvent$.next(true);
   }

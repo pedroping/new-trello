@@ -1,4 +1,8 @@
-<div class="add-new-card" (click)="handelAddNew()">
+<div
+  class="add-new-card"
+  [class.disable-hover]="onCardMove$$ | async"
+  (click)="handleAddNew()"
+>
   <mat-icon>add</mat-icon> Adicionar um cartão
 </div>
 

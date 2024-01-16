@@ -22,7 +22,9 @@
     cursor: pointer;
 
     &:hover {
-      background-color: var(--disabled-01);
+      &:not(.disable-hover) {
+        background-color: var(--disabled-01);
+      }
     }
   }
 

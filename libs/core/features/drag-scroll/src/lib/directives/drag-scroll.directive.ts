@@ -3,13 +3,20 @@ import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-change
 import { CardEventsFacadeService } from '@my-monorepo/core/features/trello-tools';
 import { GenericSidenavsFacadeService } from '@my-monorepo/core/ui/generic-sidenavs';
 import { ScrollEventsService } from '@my-monorepo/core/utlis';
-import { Subject, filter, startWith, takeUntil, timer } from 'rxjs';
+import {
+  BehaviorSubject,
+  Subject,
+  filter,
+  startWith,
+  takeUntil,
+  timer,
+} from 'rxjs';
 
 export const BASE_BLOCK_SIZE = 320;
 export const BASE_SIDENAV_SIZE = 350;
 export const BASE_ADD_NEW_SIZE = 340;
 export const BASE_SCROLL_AREA = 100;
-export const BASE_SCROLL_MOVE_TICK = 2;
+export const BASE_SCROLL_MOVE_TICK = 1;
 export const LEFT_SIDENAV_GAP = 250;
 @Directive({
   selector: '[dragScroll]',
@@ -21,14 +28,16 @@ export class DragScrollDirective {
     private readonly scrollEventsService: ScrollEventsService,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
     private readonly genericSidenavsFacadeService: GenericSidenavsFacadeService
-  ) {}
+  ) {
+    this.rightEvent$.subscribe(() => console.log('Stop'));
+  }
 
   mouseDown = false;
   startX = 0;
   scrollLeft = 0;
 
-  stopLeftEvent$ = new Subject<void>();
-  stopRightEvent$ = new Subject<void>();
+  leftEvent$ = new BehaviorSubject<boolean>(false);
+  rightEvent$ = new BehaviorSubject<boolean>(false);
 
   @HostListener('mousedown', ['$event'])
   startDragging(e: MouseEvent) {
@@ -41,17 +50,15 @@ export class DragScrollDirective {
   }
 
   @HostListener('mouseup', ['$event']) onMouseUp() {
-    this.stopRightEvent$.next();
-    this.stopLeftEvent$.next();
+    this.leftEvent$.next(false);
+    this.rightEvent$.next(false);
     this.scrollEventsService.onMouseDown$.next(false);
     this.mouseDown = false;
   }
 
   @HostListener('mouseleave', ['$event'])
   stopDragging() {
-    // this.stopRightEvent$.next();
-    // this.stopLeftEvent$.next();
-    // this.mouseDown = false;
+    this.mouseDown = false;
   }
 
   @HostListener('mousemove', ['$event'])
@@ -59,51 +66,50 @@ export class DragScrollDirective {
     const el = this.el.nativeElement;
     e.preventDefault();
 
-    const hasRightSidenav = this.genericSidenavsFacadeService.rightSideNavState;
-    const hasLeftSidenav = this.genericSidenavsFacadeService.leftSideNavState;
-
     const onCardMove = this.cardEventsFacadeService.onCardMove;
     const onBlockMove = this.cardEventsFacadeService.onMove;
 
+    if (!this.mouseDown && !onBlockMove && !onCardMove) return;
+
+    const hasRightSidenav = this.genericSidenavsFacadeService.rightSideNavState;
+    const hasLeftSidenav = this.genericSidenavsFacadeService.leftSideNavState;
     const rightCalc = hasRightSidenav ? BASE_SIDENAV_SIZE : BASE_SCROLL_AREA;
     const leftCalc = hasLeftSidenav ? BASE_SIDENAV_SIZE : BASE_SCROLL_AREA;
 
+    this.leftEvent$.next(false);
+    this.rightEvent$.next(false);
+
     if (onCardMove) {
       if (window.innerWidth - rightCalc < e.pageX) {
-        this.stopLeftEvent$.next();
-        this.startTickEvent(this.stopRightEvent$, BASE_SCROLL_MOVE_TICK);
+        this.leftEvent$.next(false);
+        this.startTickEvent(this.rightEvent$, BASE_SCROLL_MOVE_TICK);
         return;
       }
 
       if (leftCalc > e.pageX) {
-        this.stopRightEvent$.next();
-        this.startTickEvent(this.stopLeftEvent$, -BASE_SCROLL_MOVE_TICK);
+        this.rightEvent$.next(false);
+        this.startTickEvent(this.leftEvent$, -BASE_SCROLL_MOVE_TICK);
         return;
       }
 
       return;
     }
 
-    if (onBlockMove) {
-      this.stopRightEvent$.next();
-      this.stopLeftEvent$.next();
-    }
-
-    if (!this.mouseDown || onBlockMove || onCardMove) {
-      return;
-    }
-
-    this.stopRightEvent$.next();
-    this.stopLeftEvent$.next();
+    if (!this.mouseDown || onBlockMove || onCardMove) return;
 
     const xPosition = e.pageX - el.offsetLeft;
     const scroll = xPosition - this.startX;
     this.el.nativeElement.parentElement.scrollLeft = this.scrollLeft - scroll;
   }
 
-  startTickEvent(stopEvent$: Subject<void>, tick: number) {
+  startTickEvent(stopEvent$: BehaviorSubject<boolean>, tick: number) {
+    stopEvent$.next(true);
     timer(0, 1)
-      .pipe(takeUntil(stopEvent$))
+      .pipe(
+        filter(
+          () => !!this.cardEventsFacadeService.onCardMove && !!stopEvent$.value
+        )
+      )
       .subscribe(() => {
         this.el.nativeElement.parentElement.scrollLeft += tick;
       });
