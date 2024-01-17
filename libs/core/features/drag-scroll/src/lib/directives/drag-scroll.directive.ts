@@ -82,10 +82,10 @@ export class DragScrollDirective {
 
       this.leftEvent$.next(false);
       this.rightEvent$.next(false);
-      
+
       return;
     }
-    
+
     this.leftEvent$.next(false);
     this.rightEvent$.next(false);
 
