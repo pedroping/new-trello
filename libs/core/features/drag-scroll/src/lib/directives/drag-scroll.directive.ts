@@ -3,20 +3,13 @@ import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-change
 import { CardEventsFacadeService } from '@my-monorepo/core/features/trello-tools';
 import { GenericSidenavsFacadeService } from '@my-monorepo/core/ui/generic-sidenavs';
 import { ScrollEventsService } from '@my-monorepo/core/utlis';
-import {
-  BehaviorSubject,
-  Subject,
-  filter,
-  startWith,
-  takeUntil,
-  timer,
-} from 'rxjs';
+import { BehaviorSubject, filter, startWith, timer } from 'rxjs';
 
 export const BASE_BLOCK_SIZE = 320;
 export const BASE_SIDENAV_SIZE = 350;
 export const BASE_ADD_NEW_SIZE = 340;
-export const BASE_SCROLL_AREA = 100;
-export const BASE_SCROLL_MOVE_TICK = 4;
+export const BASE_SCROLL_AREA = 200;
+export const BASE_SCROLL_MOVE_TICK = 2;
 export const LEFT_SIDENAV_GAP = 250;
 @Directive({
   selector: '[dragScroll]',
@@ -28,10 +21,7 @@ export class DragScrollDirective {
     private readonly scrollEventsService: ScrollEventsService,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
     private readonly genericSidenavsFacadeService: GenericSidenavsFacadeService
-  ) {
-    this.leftEvent$.subscribe(() => console.log('Left Stop'));
-    this.rightEvent$.subscribe(() => console.log('Right Stop'));
-  }
+  ) {}
 
   mouseDown = false;
   startX = 0;
@@ -92,10 +82,10 @@ export class DragScrollDirective {
 
       this.leftEvent$.next(false);
       this.rightEvent$.next(false);
-
+      
       return;
     }
-
+    
     this.leftEvent$.next(false);
     this.rightEvent$.next(false);
 
@@ -108,7 +98,7 @@ export class DragScrollDirective {
 
   startTickEvent(stopEvent$: BehaviorSubject<boolean>, tick: number) {
     stopEvent$.next(true);
-    timer(0, 1)
+    timer(0, 200)
       .pipe(
         filter(
           () => !!this.cardEventsFacadeService.onCardMove && !!stopEvent$.value
