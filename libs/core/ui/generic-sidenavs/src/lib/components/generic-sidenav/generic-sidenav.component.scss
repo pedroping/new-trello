@@ -2,10 +2,9 @@
   nav {
     display: block;
     bottom: 0;
-    position: absolute;
+    position: fixed;
     top: 64px;
     z-index: 15000;
-    background-color: red;
     width: 250px;
     height: calc(100% - 64px);
   }
@@ -16,7 +15,7 @@
 
 
   &[side="right"] nav {
-    right: -500px;
+    right: 0;
   }
 
 }

@@ -20,6 +20,7 @@ export class HideSidenavsDirective {
     this.createObservable$
       .pipe(startWith(this.initialState))
       .subscribe((state) => {
+        this.viewContainerRef.clear();
         state
           ? this.viewContainerRef.createEmbeddedView(this.templateRef)
           : this.viewContainerRef.clear();

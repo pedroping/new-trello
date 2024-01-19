@@ -84,10 +84,9 @@ export class DragAndDropService {
     );
   }
 
-  onEvent(cdr: ChangeDetectorRef, value: boolean) {
+  onEvent(value: boolean) {
     this.onBlockMove = value;
     this.onMove$.next(value);
-    cdr.detectChanges();
   }
 
   moveToBlock(blockToRemove: Icard[], blockToAdd: Icard[], card: Icard) {

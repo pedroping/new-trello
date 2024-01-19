@@ -41,11 +41,7 @@ export class HomePageComponent implements OnInit {
   blocks$$ = this.cardEventsFacadeService.blocks$$;
   injector: Injector;
 
-  creatEvent$!: Observable<void>;
-  deleteEvent$!: Observable<void>;
-
   constructor(
-    private readonly cdr: ChangeDetectorRef,
     private readonly _injector: Injector,
     private readonly cardEventsFacadeService: CardEventsFacadeService
   ) {
@@ -58,10 +54,10 @@ export class HomePageComponent implements OnInit {
 
   listDropped(event: CdkDragDrop<IBlock[]>) {
     this.cardEventsFacadeService.blockDrop(event);
-    this.cardEventsFacadeService.onEvent(this.cdr, false);
+    this.cardEventsFacadeService.onEvent(false);
   }
 
   onMove() {
-    this.cardEventsFacadeService.onEvent(this.cdr, true);
+    this.cardEventsFacadeService.onEvent(true);
   }
 }

@@ -2,18 +2,9 @@
 <div class="block">
   <button
     mat-icon-button
-    [cdkMenuTriggerFor]="imgMenu"
-    #menuTrigger="cdkMenuTriggerFor"
-    [autoCloseMenu]="menuTrigger"
+    (click)="toggleRightSideNav()"
     aria-label="Open WallPaper Menu"
   >
     <mat-icon>menu</mat-icon>
   </button>
 </div>
-
-<ng-template #imgMenu>
-  <set-background-menu
-    [cdkMenuTrigger]="menuTrigger"
-    outsideClick
-  ></set-background-menu>
-</ng-template>

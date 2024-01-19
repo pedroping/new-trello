@@ -38,8 +38,8 @@ export class CardEventsFacadeService {
     this.dragAndDropService.drop(event);
   }
 
-  onEvent(cdr: ChangeDetectorRef, value: boolean) {
-    this.dragAndDropService.onEvent(cdr, value);
+  onEvent(value: boolean) {
+    this.dragAndDropService.onEvent(value);
   }
 
   blockDrop(event: CdkDragDrop<IBlock[]>) {

@@ -1,21 +1,24 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { IBlock } from '../../models/card.models';
+import { CardListComponent } from '../card-list/card-list.component';
 
 @Component({
   selector: 'trello-card-block',
   templateUrl: './card-block.component.html',
   styleUrls: ['./card-block.component.scss'],
 })
-export class CardBlockComponent {
+export class CardBlockComponent implements AfterViewInit {
   @Input() isPreview = false;
   @Input() id = -1;
   @Input({ required: true }) blockCard!: IBlock;
 
+  @ViewChild(CardListComponent, { static: false }) cardList?: CardListComponent;
+
   isSelectedBlock = false;
 
-  constructor(readonly cdr: ChangeDetectorRef) {}
+  ngAfterViewInit(): void {
+    if (!this.cardList) return;
 
-  cardMove(event: boolean) {
-    this.isSelectedBlock = event;
+    this.cardList.cardMove.subscribe((event) => (this.isSelectedBlock = event));
   }
 }

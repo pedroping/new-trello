@@ -55,6 +55,8 @@ export class DragScrollDirective {
   @HostListener('mousemove', ['$event'])
   moveEvent(e: MouseEvent) {
     const el = this.el.nativeElement;
+    this.leftEvent$.next(false);
+    this.rightEvent$.next(false);
     e.preventDefault();
 
     const onCardMove = this.cardEventsFacadeService.onCardMove;
@@ -64,10 +66,13 @@ export class DragScrollDirective {
 
     const hasRightSidenav = this.genericSidenavsFacadeService.rightSideNavState;
     const hasLeftSidenav = this.genericSidenavsFacadeService.leftSideNavState;
+    const hasOneSidenav = hasRightSidenav || hasLeftSidenav;
     const rightCalc = hasRightSidenav ? BASE_SIDENAV_SIZE : BASE_SCROLL_AREA;
     const leftCalc = hasLeftSidenav ? BASE_SIDENAV_SIZE : BASE_SCROLL_AREA;
 
-    if (onCardMove) {
+    const blockMoveWithNavs = onBlockMove && hasOneSidenav;
+
+    if (onCardMove || blockMoveWithNavs) {
       if (window.innerWidth - rightCalc < e.pageX) {
         this.leftEvent$.next(false);
         this.startTickEvent(this.rightEvent$, BASE_SCROLL_MOVE_TICK);
@@ -86,9 +91,6 @@ export class DragScrollDirective {
       return;
     }
 
-    this.leftEvent$.next(false);
-    this.rightEvent$.next(false);
-
     if (!this.mouseDown || onBlockMove || onCardMove) return;
 
     const xPosition = e.pageX - el.offsetLeft;
@@ -97,15 +99,26 @@ export class DragScrollDirective {
   }
 
   startTickEvent(stopEvent$: BehaviorSubject<boolean>, tick: number) {
+    const maxScrollLeft =
+      this.el.nativeElement.parentElement.scrollWidth -
+      this.el.nativeElement.parentElement.clientWidth;
+
+    stopEvent$.next(false);
     stopEvent$.next(true);
-    timer(0, 200)
+    timer(0, 2)
       .pipe(
-        filter(
-          () => !!this.cardEventsFacadeService.onCardMove && !!stopEvent$.value
-        )
+        filter(() => {
+          const onCardMove = this.cardEventsFacadeService.onCardMove;
+          const onBlockMove = this.cardEventsFacadeService.onMove;
+          return (onCardMove || onBlockMove) && !!stopEvent$.value;
+        })
       )
       .subscribe(() => {
-        this.el.nativeElement.parentElement.scrollLeft += tick;
+        const newScroll = this.el.nativeElement.parentElement.scrollLeft + tick;
+        this.el.nativeElement.parentElement.scrollLeft = Math.max(
+          Math.min(newScroll, maxScrollLeft),
+          0
+        );
       });
   }
 

@@ -23,17 +23,19 @@ export class GenericSidenavsStateService {
         const leftSidenav = this.leftSidenav$.value;
         const bothSidenavs = rightSidenav && leftSidenav;
 
+        element.classList.remove(TWO_SIDENAV_CLASS);
+        element.classList.remove(TWO_SIDENAV_CLASS);
         element.classList[rightSidenav ? 'add' : 'remove'](RIGHT_SIDENAV_CLASS);
         element.classList[leftSidenav ? 'add' : 'remove'](LEFT_SIDENAV_CLASS);
+        element.classList[rightSidenav || leftSidenav ? 'add' : 'remove'](
+          ONE_SIDENAV_CLASS
+        );
 
         if (bothSidenavs) {
           element.classList.add(TWO_SIDENAV_CLASS);
           element.classList.remove(ONE_SIDENAV_CLASS);
           return;
         }
-
-        if (rightSidenav || leftSidenav)
-          element.classList.add(ONE_SIDENAV_CLASS);
       });
   }
 }
