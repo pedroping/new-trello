@@ -27,9 +27,6 @@ import { ToolbarContentComponent } from '../../../core/toolbar-content/toolbar-c
 export class WelcomePageComponent implements OnInit {
   @ViewChild('pageContent', { static: true }) pageContent!: ElementRef;
 
-  leftSideNav$$ = this.genericSidenavsFacadeService.leftSideNav$$;
-  rightSideNav$$ = this.genericSidenavsFacadeService.rightSideNav$$;
-
   constructor(
     private readonly genericSidenavsFacadeService: GenericSidenavsFacadeService
   ) {}
@@ -38,7 +35,7 @@ export class WelcomePageComponent implements OnInit {
     this.genericSidenavsFacadeService.startDomain(
       this.pageContent.nativeElement
     );
-    this.genericSidenavsFacadeService.setLeftSideNavState(false);
-    this.genericSidenavsFacadeService.setRightSideNavState(false);
+    this.genericSidenavsFacadeService.setLeftSideNavState(true);
+    this.genericSidenavsFacadeService.setRightSideNavState(true);
   }
 }

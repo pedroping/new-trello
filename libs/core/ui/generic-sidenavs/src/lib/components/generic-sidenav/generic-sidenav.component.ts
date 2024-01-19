@@ -1,12 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { GenericSidenavsFacadeService } from '../../facades/generic-sidenavs-facade.service';
 
 @Component({
   selector: 'generic-sidenav',
   templateUrl: './generic-sidenav.component.html',
   styleUrls: ['./generic-sidenav.component.scss'],
 })
-export class GenericSidenavComponent implements OnInit {
-  constructor() {}
+export class GenericSidenavComponent {
+  @Input({ required: true }) side!: 'right' | 'left';
 
-  ngOnInit() {}
+  constructor(
+    private readonly genericSidenavsFacadeService: GenericSidenavsFacadeService
+  ) {}
+
+  get sideNavObservable$$() {
+    return this.side == 'right'
+      ? this.genericSidenavsFacadeService.rightSideNav$$
+      : this.genericSidenavsFacadeService.leftSideNav$$;
+  }
+
+  get initialState() {
+    return this.side == 'right'
+      ? this.genericSidenavsFacadeService.rightSideNavState
+      : this.genericSidenavsFacadeService.leftSideNavState;
+  }
 }

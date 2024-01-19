@@ -1,18 +1,22 @@
 :host {
-  display: block;
-  bottom: 0;
-  position: absolute;
-  top: 64px;
-  z-index: 15000;
-  background-color: red;
-  width: 250px;
-  height: calc(100% - 64px);
+  nav {
+    display: block;
+    bottom: 0;
+    position: absolute;
+    top: 64px;
+    z-index: 15000;
+    background-color: red;
+    width: 250px;
+    height: calc(100% - 64px);
+  }
 
-  &[left] {
+  &[side="left"] nav {
     left: 0;
   }
 
-  &[right] {
+
+  &[side="right"] nav {
     right: -500px;
   }
+
 }
