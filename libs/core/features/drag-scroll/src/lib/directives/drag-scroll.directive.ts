@@ -99,10 +99,6 @@ export class DragScrollDirective {
   }
 
   startTickEvent(stopEvent$: BehaviorSubject<boolean>, tick: number) {
-    const maxScrollLeft =
-      this.el.nativeElement.parentElement.scrollWidth -
-      this.el.nativeElement.parentElement.clientWidth;
-
     stopEvent$.next(false);
     stopEvent$.next(true);
     timer(0, 2)
@@ -114,11 +110,7 @@ export class DragScrollDirective {
         })
       )
       .subscribe(() => {
-        const newScroll = this.el.nativeElement.parentElement.scrollLeft + tick;
-        this.el.nativeElement.parentElement.scrollLeft = Math.max(
-          Math.min(newScroll, maxScrollLeft),
-          0
-        );
+        this.el.nativeElement.parentElement.scrollLeft += tick;
       });
   }
 
