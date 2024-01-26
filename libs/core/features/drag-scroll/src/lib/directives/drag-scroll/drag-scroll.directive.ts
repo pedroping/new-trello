@@ -1,21 +1,26 @@
-import { Directive, ElementRef, HostListener } from '@angular/core';
-import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
+import {
+  ContentChild,
+  Directive,
+  ElementRef,
+  HostListener,
+} from '@angular/core';
 import { CardEventsFacadeService } from '@my-monorepo/core/features/trello-tools';
 import { GenericSidenavsFacadeService } from '@my-monorepo/core/ui/generic-sidenavs';
 import { ScrollEventsService } from '@my-monorepo/core/utlis';
-import { BehaviorSubject, filter, startWith, timer } from 'rxjs';
+import { BehaviorSubject, filter, timer } from 'rxjs';
+import {
+  BASE_SCROLL_AREA,
+  BASE_SCROLL_MOVE_TICK,
+  BASE_SIDENAV_SIZE,
+  LEFT_SIDENAV_GAP,
+} from '../../models/values';
 
-export const BASE_BLOCK_SIZE = 320;
-export const BASE_SIDENAV_SIZE = 350;
-export const BASE_ADD_NEW_SIZE = 340;
-export const BASE_SCROLL_AREA = 200;
-export const BASE_SCROLL_MOVE_TICK = 2;
-export const LEFT_SIDENAV_GAP = 250;
 @Directive({
   selector: '[dragScroll]',
 })
-@CallSetValueChanges()
 export class DragScrollDirective {
+  @ContentChild('pageContent', { static: true }) pageContent!: ElementRef;
+
   constructor(
     private readonly el: ElementRef,
     private readonly scrollEventsService: ScrollEventsService,
@@ -33,7 +38,7 @@ export class DragScrollDirective {
   @HostListener('mousedown', ['$event'])
   startDragging(e: MouseEvent) {
     const hasLeftSidenav = this.genericSidenavsFacadeService.leftSideNavState;
-    const el = this.el.nativeElement.parentElement;
+    const el = this.pageContent.nativeElement;
     this.mouseDown = true;
     this.startX =
       e.pageX - el.offsetLeft + (hasLeftSidenav ? LEFT_SIDENAV_GAP : 0);
@@ -95,7 +100,7 @@ export class DragScrollDirective {
 
     const xPosition = e.pageX - el.offsetLeft;
     const scroll = xPosition - this.startX;
-    this.el.nativeElement.parentElement.scrollLeft = this.scrollLeft - scroll;
+    this.pageContent.nativeElement.scrollLeft = this.scrollLeft - scroll;
   }
 
   startTickEvent(stopEvent$: BehaviorSubject<boolean>, tick: number) {
@@ -109,23 +114,7 @@ export class DragScrollDirective {
         })
       )
       .subscribe(() => {
-        this.el.nativeElement.parentElement.scrollLeft += tick;
+        this.pageContent.nativeElement.scrollLeft += tick;
       });
-  }
-
-  setValueChanges() {
-    this.cardEventsFacadeService.blocks$$
-      .pipe(startWith(this.cardEventsFacadeService.blocks))
-      .subscribe((blocks) => {
-        const length = blocks.length;
-        this.el.nativeElement.style.width =
-          length * BASE_BLOCK_SIZE + BASE_ADD_NEW_SIZE + 'px';
-      });
-
-    this.scrollEventsService.scrollToEnd$.subscribe(() => {
-      const length = this.cardEventsFacadeService.blocks.length;
-      this.el.nativeElement.parentElement.scrollLeft +=
-        (length + 1) * BASE_BLOCK_SIZE + BASE_ADD_NEW_SIZE;
-    });
   }
 }

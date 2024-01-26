@@ -1,10 +1,13 @@
-<main #pageContent cdkScrollable>
-  <app-toolbar>
-    <trello-toolbar-content></trello-toolbar-content>
-  </app-toolbar>
+<main cdkScrollable dragScroll>
+  <div class="resizable-content" #pageContent cdkScrollable>
+    <app-toolbar>
+      <trello-toolbar-content></trello-toolbar-content>
+    </app-toolbar>
 
-  <div class="route-content" dragScroll cdkScrollable>
-    <router-outlet></router-outlet>
+    <div class="route-content" pageWidth>
+      <router-outlet></router-outlet>
+    </div>
+
     <generic-sidenav side="left">
       <h1>SideNav 1</h1>
     </generic-sidenav>

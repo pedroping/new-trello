@@ -1,24 +1,30 @@
 :host {
   main {
     display: block;
-    overflow: auto;
     height: 100% !important;
-    overflow-x: auto;
-    overflow-y: hidden;
-    position: relative;
     width: 100vw;
+    overflow: hidden;
 
-    &.hasOneSidenav {
-      width: calc(100vw - 250px);
+    .resizable-content {
+      width: 100vw;
+      height: 100% !important;
+      position: relative;
+      overflow-x: auto;
+      overflow-y: hidden;
+
+      &.hasOneSidenav {
+        width: calc(100vw - 250px);
+      }
+
+      &.hasTwoSidenav {
+        width: calc(100vw - 500px);
+      }
+
+      &.hasLeftSidenav {
+        left: 250px;
+      }
     }
 
-    &.hasTwoSidenav {
-      width: calc(100vw - 500px);
-    }
-
-    &.hasLeftSidenav {
-      left: 250px;
-    }
 
     app-toolbar {
       width: 100%;
@@ -42,7 +48,7 @@
     }
   }
 
-  .hasTwoSidenav ~ .right {
+  .hasTwoSidenav~.right {
     right: -500px !important;
   }
 
