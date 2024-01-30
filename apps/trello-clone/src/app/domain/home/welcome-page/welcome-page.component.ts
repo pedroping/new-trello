@@ -9,6 +9,8 @@ import {
 } from '@my-monorepo/core/ui/generic-sidenavs';
 import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
 import { ToolbarContentComponent } from '../../../core/toolbar-content/toolbar-content.component';
+import { LeftSidebarContentComponent } from '../../../core/left-sidebar-content/left-sidebar-content.component';
+import { RightSidebarContentComponent } from '../../../core/right-sidebar-content/right-sidebar-content.component';
 @Component({
   selector: 'app-welcome-page',
   templateUrl: './welcome-page.component.html',
@@ -21,7 +23,9 @@ import { ToolbarContentComponent } from '../../../core/toolbar-content/toolbar-c
     CoreUiToolbarModule,
     ToolbarContentComponent,
     CoreUiGenericSidenavsModule,
+    LeftSidebarContentComponent,
     CoreFeaturesDragScrollModule,
+    RightSidebarContentComponent,
   ],
 })
 export class WelcomePageComponent implements OnInit {
