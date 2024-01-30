@@ -3,6 +3,7 @@
   class="card-list"
   cdkDropList
   [cdkDropListAutoScrollStep]="8"
+  [cdkDropListAutoScrollDisabled]="onBorder$$ | async"
   [cdkDropListData]="blockCard.cards"
   [style.z-index]="customZIndex$ | async"
   [scrollToEnd]="blockCard.addNewEvent$"

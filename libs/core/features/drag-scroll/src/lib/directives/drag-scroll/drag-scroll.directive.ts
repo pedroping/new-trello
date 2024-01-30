@@ -7,17 +7,19 @@ import {
 import { CardEventsFacadeService } from '@my-monorepo/core/features/trello-tools';
 import { GenericSidenavsFacadeService } from '@my-monorepo/core/ui/generic-sidenavs';
 import { ScrollEventsService } from '@my-monorepo/core/utlis';
-import { BehaviorSubject, filter, timer } from 'rxjs';
+import { BehaviorSubject, filter, merge, timer } from 'rxjs';
 import {
   BASE_SCROLL_AREA,
   BASE_SCROLL_MOVE_TICK,
   BASE_SIDENAV_SIZE,
   LEFT_SIDENAV_GAP,
 } from '../../models/values';
+import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 
 @Directive({
   selector: '[dragScroll]',
 })
+@CallSetValueChanges()
 export class DragScrollDirective {
   @ContentChild('pageContent', { static: true }) pageContent!: ElementRef;
 
@@ -34,6 +36,16 @@ export class DragScrollDirective {
 
   leftEvent$ = new BehaviorSubject<boolean>(false);
   rightEvent$ = new BehaviorSubject<boolean>(false);
+
+  setValueChanges() {
+    merge(
+      this.leftEvent$.asObservable(),
+      this.rightEvent$.asObservable()
+    ).subscribe(() => {
+      const isOnBorder = this.leftEvent$.value || this.rightEvent$.value;
+      this.cardEventsFacadeService.setOnBorder(isOnBorder);
+    });
+  }
 
   @HostListener('mousedown', ['$event'])
   startDragging(e: MouseEvent) {

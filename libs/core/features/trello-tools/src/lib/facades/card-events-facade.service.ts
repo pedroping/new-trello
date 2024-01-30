@@ -7,11 +7,12 @@ import { throttleTime } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class CardEventsFacadeService {
+  readonly blocks$$ = this.cardMocksService.blocks$.asObservable();
   readonly onMove$$ = this.dragAndDropService.onMove$.asObservable();
+  readonly onBorder$$ = this.dragAndDropService.onBorder$.asObservable();
   readonly onCardMove$$ = this.dragAndDropService.onCardMove$
     .asObservable()
     .pipe(throttleTime(200));
-  readonly blocks$$ = this.cardMocksService.blocks$.asObservable();
 
   constructor(
     private readonly cardMocksService: CardMocksService,
@@ -24,6 +25,10 @@ export class CardEventsFacadeService {
 
   addNew(name: string) {
     this.cardMocksService.addNew(name);
+  }
+
+  setOnBorder(value: boolean) {
+    this.dragAndDropService.onBorder$.next(value);
   }
 
   setCardMove(value: boolean) {

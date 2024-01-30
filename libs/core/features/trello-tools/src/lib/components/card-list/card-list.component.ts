@@ -18,6 +18,7 @@ export class CardListComponent {
   @Output() cardMove = new EventEmitter<boolean>();
 
   customZIndex$!: Observable<number>;
+  onBorder$$ = this.cardEventsFacadeService.onBorder$$;
 
   constructor(
     private readonly cardEventsFacadeService: CardEventsFacadeService

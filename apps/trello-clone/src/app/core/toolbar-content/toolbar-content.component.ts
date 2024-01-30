@@ -42,8 +42,5 @@ export class ToolbarContentComponent {
     this.genericSidenavsFacadeService.setRightSideNavState(
       !this.genericSidenavsFacadeService.rightSideNavState
     );
-    this.genericSidenavsFacadeService.setLeftSideNavState(
-      !this.genericSidenavsFacadeService.leftSideNavState
-    );
   }
 }

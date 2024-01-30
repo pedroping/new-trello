@@ -3,7 +3,7 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { ChangeDetectorRef, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   OutsideClickEventsService,
   ScrollEventsService,
@@ -24,6 +24,7 @@ import { CardMocksService } from '../card-mocks/card-mocks.service';
 @UntilDestroy()
 export class DragAndDropService {
   onMove$ = new BehaviorSubject<boolean>(false);
+  onBorder$ = new BehaviorSubject<boolean>(false);
   onCardMove$ = new BehaviorSubject<boolean>(false);
   onBlockMove = false;
   lastToBeHovered = -1;
