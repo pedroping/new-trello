@@ -112,5 +112,10 @@
         "buildTarget": "trello-clone:build"
       }
     }
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    }
   }
 }

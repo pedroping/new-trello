@@ -128,6 +128,9 @@
       "component": {
         "changeDetection": "OnPush"
       }
+    },
+    "@schematics/angular:component": {
+      "style": "scss"
     }
   },
   "generators": {
