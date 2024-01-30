@@ -1,5 +1,12 @@
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { Observable, map } from 'rxjs';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
@@ -16,11 +23,13 @@ export class CardListComponent {
   @Input({ required: true }) blockCard!: IBlock;
   @Input() isSelected?: boolean;
   @Output() cardMove = new EventEmitter<boolean>();
+  @ViewChild(CdkDropList, { static: true }) list!: CdkDropList;
 
   customZIndex$!: Observable<number>;
   onBorder$$ = this.cardEventsFacadeService.onBorder$$;
 
   constructor(
+    private readonly cdr: ChangeDetectorRef,
     private readonly cardEventsFacadeService: CardEventsFacadeService
   ) {}
 
@@ -32,6 +41,12 @@ export class CardListComponent {
     this.customZIndex$ = this.cardEventsFacadeService.onCardMove$$.pipe(
       map((val) => (val ? 1000 : 0))
     );
+
+    this.onBorder$$.subscribe((value) => {
+      this.list.autoScrollDisabled = value;
+      this.list._dropListRef.autoScrollDisabled = value;
+      this.cdr.detectChanges();
+    });
   }
 
   onMove() {
