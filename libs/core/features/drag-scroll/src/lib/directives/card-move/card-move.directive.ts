@@ -89,8 +89,9 @@ export class CardMoveDirective {
   }
 
   startTickEvent(stopEvent$: BehaviorSubject<boolean>, tick: number) {
+    stopEvent$.next(false);
     stopEvent$.next(true);
-    timer(0, 300)
+    timer(0, 1000)
       .pipe(
         filter(() => {
           const onCardMove = this.cardEventsFacadeService.onCardMove;
