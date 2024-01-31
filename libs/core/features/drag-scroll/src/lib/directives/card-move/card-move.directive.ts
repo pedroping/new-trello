@@ -6,18 +6,16 @@ import {
 } from '@angular/core';
 import { CardEventsFacadeService } from '@my-monorepo/core/features/trello-tools';
 import { GenericSidenavsFacadeService } from '@my-monorepo/core/ui/generic-sidenavs';
-import { BehaviorSubject, filter, merge, takeUntil, timer } from 'rxjs';
+import { BehaviorSubject, filter, takeUntil, timer } from 'rxjs';
 import {
   BASE_SCROLL_AREA,
   BASE_SCROLL_MOVE_TICK,
   BASE_SIDENAV_SIZE,
 } from '../../models/values';
-import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 
 @Directive({
   standalone: true,
 })
-@CallSetValueChanges()
 export class CardMoveDirective {
   @ContentChild('pageContent', { static: true }) pageContent!: ElementRef;
 
@@ -39,8 +37,6 @@ export class CardMoveDirective {
 
   @HostListener('mousemove', ['$event'])
   moveEvent(e: MouseEvent) {
-    this.leftEvent$.next(false);
-    this.rightEvent$.next(false);
     e.preventDefault();
 
     const onCardMove = this.cardEventsFacadeService.onCardMove;
@@ -58,19 +54,13 @@ export class CardMoveDirective {
 
     if (onCardMove || blockMoveWithNavs) {
       if (window.innerWidth - rightCalc < e.pageX) {
-        if (this.movingOnBorder) return;
-        this.leftEvent$.next(false);
         this.startTickEvent(this.rightEvent$, BASE_SCROLL_MOVE_TICK);
-
         this.movingOnBorder = true;
         return;
       }
 
       if (leftCalc > e.pageX) {
-        if (this.movingOnBorder) return;
-        this.rightEvent$.next(false);
         this.startTickEvent(this.leftEvent$, -BASE_SCROLL_MOVE_TICK);
-
         this.movingOnBorder = true;
         return;
       }
@@ -78,35 +68,22 @@ export class CardMoveDirective {
       this.leftEvent$.next(false);
       this.rightEvent$.next(false);
       this.movingOnBorder = false;
-
-      return;
     }
   }
 
-  setValueChanges() {
-    merge(this.leftEvent$.asObservable(), this.rightEvent$.asObservable())
-      .pipe(
-        filter(() => {
-          const onCardMove = this.cardEventsFacadeService.onCardMove;
-          const onBlockMove = this.cardEventsFacadeService.onMove;
-          return onCardMove || onBlockMove;
-        })
-      )
-      .subscribe(() => {
-        const isOnBorder = this.leftEvent$.value || this.rightEvent$.value;
-        this.cardEventsFacadeService.setOnBorder(isOnBorder);
-      });
-  }
-
   startTickEvent(stopEvent$: BehaviorSubject<boolean>, tick: number) {
+    if (this.movingOnBorder) return;
+
     const actualEvent$ = stopEvent$.pipe(filter((val) => !val));
+    stopEvent$.next(false);
     stopEvent$.next(true);
-    timer(0, 10)
+
+    timer(0, 2)
       .pipe(
         filter(() => {
           const onCardMove = this.cardEventsFacadeService.onCardMove;
           const onBlockMove = this.cardEventsFacadeService.onMove;
-          return onCardMove || onBlockMove;
+          return (onCardMove || onBlockMove) && !!stopEvent$.value;
         }),
         takeUntil(actualEvent$)
       )

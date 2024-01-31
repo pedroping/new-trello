@@ -1,6 +1,5 @@
 import { CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
 import {
-  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -26,10 +25,8 @@ export class CardListComponent {
   @ViewChild(CdkDropList, { static: true }) list!: CdkDropList;
 
   customZIndex$!: Observable<number>;
-  onBorder$$ = this.cardEventsFacadeService.onBorder$$;
 
   constructor(
-    private readonly cdr: ChangeDetectorRef,
     private readonly cardEventsFacadeService: CardEventsFacadeService
   ) {}
 
@@ -41,12 +38,6 @@ export class CardListComponent {
     this.customZIndex$ = this.cardEventsFacadeService.onCardMove$$.pipe(
       map((val) => (val ? 1000 : 0))
     );
-
-    this.onBorder$$.subscribe((value) => {
-      this.list.autoScrollDisabled = value;
-      this.list._dropListRef.autoScrollDisabled = value;
-      this.cdr.detectChanges();
-    });
   }
 
   onMove() {
