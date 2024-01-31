@@ -12,10 +12,12 @@ import {
   BASE_SCROLL_MOVE_TICK,
   BASE_SIDENAV_SIZE,
 } from '../../models/values';
+import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 
 @Directive({
   standalone: true,
 })
+@CallSetValueChanges()
 export class CardMoveDirective {
   @ContentChild('pageContent', { static: true }) pageContent!: ElementRef;
 
@@ -88,7 +90,7 @@ export class CardMoveDirective {
 
   startTickEvent(stopEvent$: BehaviorSubject<boolean>, tick: number) {
     stopEvent$.next(true);
-    timer(0, 200)
+    timer(0, 300)
       .pipe(
         filter(() => {
           const onCardMove = this.cardEventsFacadeService.onCardMove;
