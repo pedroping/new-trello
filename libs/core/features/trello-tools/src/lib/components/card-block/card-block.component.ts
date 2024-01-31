@@ -10,14 +10,14 @@ import { CardListComponent } from '../card-list/card-list.component';
 export class CardBlockComponent implements AfterViewInit {
   @Input() isPreview = false;
   @Input() id = -1;
-  @Input({ required: true }) blockCard!: IBlock;
+  @Input() blockCard!: IBlock;
 
   @ViewChild(CardListComponent, { static: false }) cardList?: CardListComponent;
 
   isSelectedBlock = false;
 
   ngAfterViewInit(): void {
-    if (!this.cardList) return;
+    if (!this.cardList || this.isPreview) return;
 
     this.cardList.cardMove.subscribe((event) => (this.isSelectedBlock = event));
   }

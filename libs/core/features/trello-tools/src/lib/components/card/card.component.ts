@@ -26,7 +26,7 @@ export class CardComponent {
   @Input() isPreview?: boolean;
 
   @Input() onAddNew = false;
-  @Input({ required: true }) blockCard!: IBlock;
+  @Input() blockCard!: IBlock;
 
   cardNameControl = new FormControl('', {
     nonNullable: true,
@@ -46,6 +46,7 @@ export class CardComponent {
   }
 
   setValueChanges() {
+    if (this.isPreview) return;
     this.outsideClickEvents();
   }
 

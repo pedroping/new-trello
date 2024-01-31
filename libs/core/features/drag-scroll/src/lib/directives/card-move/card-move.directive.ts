@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { CardEventsFacadeService } from '@my-monorepo/core/features/trello-tools';
 import { GenericSidenavsFacadeService } from '@my-monorepo/core/ui/generic-sidenavs';
-import { BehaviorSubject, filter, merge, timer } from 'rxjs';
+import { BehaviorSubject, filter, merge, takeUntil, timer } from 'rxjs';
 import {
   BASE_SCROLL_AREA,
   BASE_SCROLL_MOVE_TICK,
@@ -29,9 +29,12 @@ export class CardMoveDirective {
   leftEvent$ = new BehaviorSubject<boolean>(false);
   rightEvent$ = new BehaviorSubject<boolean>(false);
 
+  movingOnBorder = false;
+
   @HostListener('mouseup', ['$event']) onMouseUp() {
     this.leftEvent$.next(false);
     this.rightEvent$.next(false);
+    this.movingOnBorder = false;
   }
 
   @HostListener('mousemove', ['$event'])
@@ -55,19 +58,26 @@ export class CardMoveDirective {
 
     if (onCardMove || blockMoveWithNavs) {
       if (window.innerWidth - rightCalc < e.pageX) {
+        if (this.movingOnBorder) return;
         this.leftEvent$.next(false);
         this.startTickEvent(this.rightEvent$, BASE_SCROLL_MOVE_TICK);
+
+        this.movingOnBorder = true;
         return;
       }
 
       if (leftCalc > e.pageX) {
+        if (this.movingOnBorder) return;
         this.rightEvent$.next(false);
         this.startTickEvent(this.leftEvent$, -BASE_SCROLL_MOVE_TICK);
+
+        this.movingOnBorder = true;
         return;
       }
 
       this.leftEvent$.next(false);
       this.rightEvent$.next(false);
+      this.movingOnBorder = false;
 
       return;
     }
@@ -89,15 +99,16 @@ export class CardMoveDirective {
   }
 
   startTickEvent(stopEvent$: BehaviorSubject<boolean>, tick: number) {
-    stopEvent$.next(false);
+    const actualEvent$ = stopEvent$.pipe(filter((val) => !val));
     stopEvent$.next(true);
-    timer(0, 1000)
+    timer(0, 10)
       .pipe(
         filter(() => {
           const onCardMove = this.cardEventsFacadeService.onCardMove;
           const onBlockMove = this.cardEventsFacadeService.onMove;
-          return (onCardMove || onBlockMove) && !!stopEvent$.value;
-        })
+          return onCardMove || onBlockMove;
+        }),
+        takeUntil(actualEvent$)
       )
       .subscribe(() => {
         this.pageContent.nativeElement.scrollLeft += tick;
