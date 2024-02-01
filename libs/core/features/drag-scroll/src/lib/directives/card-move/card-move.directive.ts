@@ -74,19 +74,12 @@ export class CardMoveDirective {
   startTickEvent(stopEvent$: BehaviorSubject<boolean>, tick: number) {
     if (this.movingOnBorder) return;
 
-    const actualEvent$ = stopEvent$.pipe(filter((val) => !val));
+    const actualEvent$ = stopEvent$.asObservable().pipe(filter((val) => !val));
     stopEvent$.next(false);
     stopEvent$.next(true);
 
     timer(0, 2)
-      .pipe(
-        filter(() => {
-          const onCardMove = this.cardEventsFacadeService.onCardMove;
-          const onBlockMove = this.cardEventsFacadeService.onMove;
-          return (onCardMove || onBlockMove) && !!stopEvent$.value;
-        }),
-        takeUntil(actualEvent$)
-      )
+      .pipe(takeUntil(actualEvent$))
       .subscribe(() => {
         this.pageContent.nativeElement.scrollLeft += tick;
       });

@@ -1,6 +1,5 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Injectable } from '@angular/core';
-import { throttleTime } from 'rxjs';
 import { IBlock, Icard } from '../models/card.models';
 import { CardMocksService } from '../services/card-mocks/card-mocks.service';
 import { DragAndDropService } from '../services/drag-and-drop/drag-and-drop.service';
@@ -9,9 +8,7 @@ import { DragAndDropService } from '../services/drag-and-drop/drag-and-drop.serv
 export class CardEventsFacadeService {
   readonly blocks$$ = this.cardMocksService.blocks$.asObservable();
   readonly onMove$$ = this.dragAndDropService.onMove$.asObservable();
-  readonly onCardMove$$ = this.dragAndDropService.onCardMove$
-    .asObservable()
-    .pipe(throttleTime(200));
+  readonly onCardMove$$ = this.dragAndDropService.onCardMove$.asObservable();
 
   constructor(
     private readonly cardMocksService: CardMocksService,
