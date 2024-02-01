@@ -6,12 +6,16 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { BackdropStateService } from '@my-monorepo/core/features/backdrop-screen';
+import {
+  BackdropContentDirective,
+  BackdropStateService,
+} from '@my-monorepo/core/features/backdrop-screen';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
 import { merge, skip } from 'rxjs';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 import { IBlock, Icard } from '../../models/card.models';
+import { BackDropEvent } from 'libs/core/features/backdrop-screen/src/lib/models/backdrop-screen-models';
 
 @Component({
   selector: 'trello-card',
@@ -20,7 +24,7 @@ import { IBlock, Icard } from '../../models/card.models';
 })
 @CallSetValueChanges()
 export class CardComponent {
-  @ViewChild('editTemplate') editTemplate!: TemplateRef<unknown>;
+  @ViewChild(BackdropContentDirective) editTemplate!: BackDropEvent;
 
   @Input() card?: Icard;
   @Input() isPreview?: boolean;
@@ -36,7 +40,6 @@ export class CardComponent {
   constructor(
     private readonly cardEventsFacadeService: CardEventsFacadeService,
     private readonly backdropStateService: BackdropStateService,
-    private readonly elementRef: ElementRef,
     private readonly outsideClickEventsService: OutsideClickEventsService
   ) {}
 
@@ -85,9 +88,6 @@ export class CardComponent {
 
   editclick() {
     this.outsideClickEventsService.editClick$.next();
-    const domRect = this.elementRef.nativeElement.getBoundingClientRect();
-    const template = this.editTemplate;
-
-    this.backdropStateService.setBackDropState({ domRect, template });
+    this.backdropStateService.setBackDropState(this.editTemplate);
   }
 }

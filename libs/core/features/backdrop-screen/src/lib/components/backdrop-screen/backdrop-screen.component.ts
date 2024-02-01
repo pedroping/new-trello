@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BackdropStateService } from '../../services/backdrop-state/backdrop-state.service';
+import { BackdropStateService } from '../../services/backdrop-state.service';
 
 @Component({
   selector: 'backdrop-screen',
@@ -7,6 +7,7 @@ import { BackdropStateService } from '../../services/backdrop-state/backdrop-sta
   styleUrls: ['./backdrop-screen.component.scss'],
 })
 export class BackdropScreenComponent {
-  backDropSubscription$ = this.backdropStateService.backDropSubscription$;
+  backdropEventSubscription$ =
+    this.backdropStateService.backDropEventSubscription$;
   constructor(readonly backdropStateService: BackdropStateService) {}
 }

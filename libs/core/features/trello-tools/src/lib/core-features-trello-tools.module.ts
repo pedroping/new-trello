@@ -19,6 +19,7 @@ import { CardBlockHeightDirective } from './directives/card-block-height/cardBlo
 import { CloseMenuDirective } from './directives/close-menu/close-menu.directive';
 import { ScrollToEndDirective } from './directives/scroll-to-end/scroll-to-end.directive';
 import { MoveCardComponent } from './components/move-card/move-card.component';
+import { CoreFeaturesBackdropScreenModule } from '@my-monorepo/core/features/backdrop-screen';
 @NgModule({
   imports: [
     CdkDrag,
@@ -31,6 +32,7 @@ import { MoveCardComponent } from './components/move-card/move-card.component';
     DragDropModule,
     EventPluginsModule,
     ReactiveFormsModule,
+    CoreFeaturesBackdropScreenModule,
     CoreFeaturesOutsideElementClickModule,
   ],
   declarations: [
