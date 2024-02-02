@@ -57,10 +57,12 @@ export const CREATE_TABLE_CONFIG = (
       {
         label: 'Nome',
         selector: 'name',
+        secondLabel: 'Teste',
       },
       {
         label: 'Idade',
         selector: 'age',
+        secondLabel: 'Teste',
         hasCustomField: true,
         component: BasicInputComponent,
         controlsOptions: {
@@ -71,6 +73,8 @@ export const CREATE_TABLE_CONFIG = (
       {
         label: 'E-mail',
         selector: 'gmail',
+        secondLabel: 'Teste',
+        secondLabelSpan: 3,
         hasCustomTemplate: true,
         templateId: 0,
       },

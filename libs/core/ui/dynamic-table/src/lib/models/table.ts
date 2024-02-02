@@ -4,6 +4,8 @@ import { Observable, Subject } from 'rxjs';
 
 export interface ITableColumn<T> {
   label: string;
+  secondLabel?: string;
+  secondLabelSpan?: number;
   selector: string;
   hasCustomField?: boolean;
   hasCustomTemplate?: boolean;

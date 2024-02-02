@@ -62,6 +62,18 @@
       </ng-container>
     </ng-container>
 
+    <ng-container *ngFor="let column of secondHeaders">
+      <ng-container [cdkColumnDef]="column.selector">
+        <th
+          cdk-header-cell
+          *cdkHeaderCellDef
+          [attr.colspan]="column.secondLabelSpan"
+        >
+          {{ column.secondLabel }}
+        </th>
+      </ng-container>
+    </ng-container>
+
     <ng-container cdkColumnDef="expandedDetail">
       <td cdk-cell *cdkCellDef="let element" [attr.colspan]="columnsLength + 1">
         <div *appHasElement="element" [@inOutPaneAnimation]>aaa</div>
@@ -86,6 +98,9 @@
       expandTable
       [rowElement]="row"
     ></tr>
+    <ng-container *ngIf="secondDisplayedHeaders.length > 0">
+      <tr cdk-header-row *cdkHeaderRowDef="secondDisplayedHeaders"></tr>
+    </ng-container>
     <ng-container *ngIf="config.hasExpansion">
       <tr
         cdk-row

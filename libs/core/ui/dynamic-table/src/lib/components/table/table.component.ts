@@ -22,7 +22,7 @@ import {
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectedRowService } from '@my-monorepo/core/features/expand-table';
-import { ITableConfig } from '../../models/table';
+import { ITableColumn, ITableConfig } from '../../models/table';
 import { IN_OUT_PANE_ANIMATION } from '../../animations/inOutPane';
 import { ICON_STATE_ANIMATION } from '../../animations/iconState';
 
@@ -39,8 +39,10 @@ export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
 
   length = 0;
   columnsLength = 0;
-  viewDataSource!: T[];
-  displayedColumns!: string[];
+  viewDataSource: T[] = [];
+  displayedColumns: string[] = [];
+  secondDisplayedHeaders: string[] = [];
+  secondHeaders: ITableColumn<T>[] = [];
   dataSource!: MatTableDataSource<T>;
   availableTemplates: TemplateRef<unknown>[] = [];
 
@@ -82,10 +84,22 @@ export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
   }
 
   setColumns() {
-    this.displayedColumns = this.config.columns.map((item) => item.selector);
     this.columnsLength = this.displayedColumns.length;
-    if (this.config.hasExpansion)
-      this.displayedColumns = [...this.displayedColumns, 'expandeIcon'];
+    this.secondHeaders = this.config.columns
+      .filter((item) => !!item.secondLabel)
+      .map((item) => ({
+        ...item,
+        selector: `${item.selector}-second`,
+      }));
+    this.displayedColumns = this.config.columns.map((item) => item.selector);
+    this.secondDisplayedHeaders = this.secondHeaders.map(
+      (item) => item.selector
+    );
+
+    if (!this.config.hasExpansion) return;
+
+    this.displayedColumns.push('expandeIcon');
+    this.secondDisplayedHeaders.push('expandeIcon');
   }
 
   handlePageChange(event: number | PageEvent) {
