@@ -11,9 +11,8 @@ describe('RightSidebarContentComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RightSidebarContentComponent ]
-    })
-    .compileComponents();
+      declarations: [RightSidebarContentComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

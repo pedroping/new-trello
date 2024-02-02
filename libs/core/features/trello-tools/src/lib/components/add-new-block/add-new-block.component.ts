@@ -3,7 +3,6 @@ import { FormControl, Validators } from '@angular/forms';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { ENTER_LEAVE_ANIMATION } from '@my-monorepo/core/ui/animations';
 import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
-import { CardMocksService } from '../../services/card-mocks/card-mocks.service';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 @Component({
   selector: 'trello-add-new-block',

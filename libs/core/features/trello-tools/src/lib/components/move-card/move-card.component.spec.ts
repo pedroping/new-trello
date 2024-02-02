@@ -11,9 +11,8 @@ describe('MoveCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MoveCardComponent ]
-    })
-    .compileComponents();
+      declarations: [MoveCardComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -11,9 +11,8 @@ describe('GenericSidenavComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GenericSidenavComponent ]
-    })
-    .compileComponents();
+      declarations: [GenericSidenavComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

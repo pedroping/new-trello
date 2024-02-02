@@ -6,11 +6,14 @@ import { GenericSidenavsStateService } from './generic-sidenavs-state.service';
 describe('Service: GenericSidenavsState', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [GenericSidenavsStateService]
+      providers: [GenericSidenavsStateService],
     });
   });
 
-  it('should ...', inject([GenericSidenavsStateService], (service: GenericSidenavsStateService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [GenericSidenavsStateService],
+    (service: GenericSidenavsStateService) => {
+      expect(service).toBeTruthy();
+    }
+  ));
 });

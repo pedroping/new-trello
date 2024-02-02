@@ -25,7 +25,6 @@
       }
     }
 
-
     app-toolbar {
       width: 100%;
       position: fixed;
@@ -48,7 +47,7 @@
     }
   }
 
-  .hasTwoSidenav~.right {
+  .hasTwoSidenav ~ .right {
     right: -500px !important;
   }
 

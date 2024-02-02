@@ -6,11 +6,14 @@ import { OpenCustomMenuService } from './open-custom-menu.service';
 describe('Service: OpenCustomMenu', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [OpenCustomMenuService]
+      providers: [OpenCustomMenuService],
     });
   });
 
-  it('should ...', inject([OpenCustomMenuService], (service: OpenCustomMenuService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [OpenCustomMenuService],
+    (service: OpenCustomMenuService) => {
+      expect(service).toBeTruthy();
+    }
+  ));
 });

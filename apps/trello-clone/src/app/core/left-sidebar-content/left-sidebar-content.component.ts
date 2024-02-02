@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'left-sidebar-content',
@@ -6,8 +6,4 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./left-sidebar-content.component.scss'],
   standalone: true,
 })
-export class LeftSidebarContentComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit() {}
-}
+export class LeftSidebarContentComponent {}

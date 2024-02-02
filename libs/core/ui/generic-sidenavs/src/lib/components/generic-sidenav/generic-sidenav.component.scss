@@ -9,13 +9,11 @@
     height: calc(100% - 64px);
   }
 
-  &[side="left"] nav {
+  &[side='left'] nav {
     left: 0;
   }
 
-
-  &[side="right"] nav {
+  &[side='right'] nav {
     right: 0;
   }
-
 }

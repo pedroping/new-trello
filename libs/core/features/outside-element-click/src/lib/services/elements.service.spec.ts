@@ -6,7 +6,7 @@ import { ElementsService } from './elements.service';
 describe('Service: Elements', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ElementsService]
+      providers: [ElementsService],
     });
   });
 

@@ -6,11 +6,14 @@ import { GenericSidenavsFacadeService } from './generic-sidenavs-facade.service'
 describe('Service: GenericSidenavsFacade', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [GenericSidenavsFacadeService]
+      providers: [GenericSidenavsFacadeService],
     });
   });
 
-  it('should ...', inject([GenericSidenavsFacadeService], (service: GenericSidenavsFacadeService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [GenericSidenavsFacadeService],
+    (service: GenericSidenavsFacadeService) => {
+      expect(service).toBeTruthy();
+    }
+  ));
 });
