@@ -33,7 +33,6 @@ export class ToolbarContentComponent {
   ) {}
 
   setValueChanges() {
-    this.genericSidenavsFacadeService.setRightSideNavState(true);
     this.outsideClickEventsService.outSideClick$.subscribe(() =>
       this.menuTrigger?.close()
     );
