@@ -15,4 +15,6 @@
 </div>
 }
 
-<card-edit *backDropContent [card]="card" [blockCard]="blockCard"></card-edit>
+<card-edit *backDropContent="let element" [card]="card" [blockCard]="blockCard">
+  {{ element }}
+</card-edit>

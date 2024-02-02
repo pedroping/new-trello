@@ -22,7 +22,7 @@
   <div class="actions" preventClick>
     <button class="action-btn" (click)="archive()">
       <mat-icon>archive</mat-icon>
-      <span>Arquivar</span>
+      <span><ng-content></ng-content></span>
     </button>
 
     <button class="action-btn" #baseElement (click)="openMenu(baseElement)">

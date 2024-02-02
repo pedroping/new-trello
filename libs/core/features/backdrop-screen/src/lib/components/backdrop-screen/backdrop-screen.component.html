@@ -5,7 +5,10 @@
     [style.top]="backdropEvent.domRect.top + 'px'"
     [style.left]="backdropEvent.domRect.left + 'px'"
   >
-    <ng-container [ngTemplateOutlet]="backdropEvent.template"></ng-container>
+    <ng-container
+      [ngTemplateOutlet]="backdropEvent.template"
+      [ngTemplateOutletContext]="{ $implicit: 'Arquivar' }"
+    ></ng-container>
   </div>
 </div>
 }
