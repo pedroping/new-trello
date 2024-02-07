@@ -1,40 +1,44 @@
 import { Injectable } from '@angular/core';
-import { DARK_COLORS, LIGHT_COLORS } from '../../helpers/colors';
-import { Subject } from 'rxjs';
+import {
+  DARK_COLORS,
+  DARK_MODE,
+  LIGHT_COLORS,
+  ON_DARK_MODE,
+} from '../../helpers/colors';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DarkModeService {
   darkMode = false;
-  darkModeChange$ = new Subject<void>();
 
   constructor() {
-    const isDarkMode = sessionStorage.getItem('darkMode');
+    const isDarkMode = sessionStorage.getItem(DARK_MODE);
     this.darkMode = !!isDarkMode;
     if (isDarkMode) {
-      document
-        .querySelector('meta[name="theme-color"]')
-        ?.setAttribute('content', DARK_COLORS);
-      document.querySelector('html')?.classList.add('darkMode');
+      this.metaElement.setAttribute('content', DARK_COLORS);
+      this.htmlElement.classList.add(DARK_MODE);
     }
   }
 
   toggleDarkMode(): void {
     this.darkMode = !this.darkMode;
-    this.darkModeChange$.next();
     if (this.darkMode) {
-      sessionStorage.setItem('darkMode', 'isDarkMode');
-      document
-        .querySelector('meta[name="theme-color"]')
-        ?.setAttribute('content', DARK_COLORS);
-      document.querySelector('html')?.classList.add('darkMode');
+      this.htmlElement.classList.add(DARK_MODE);
+      sessionStorage.setItem(DARK_MODE, ON_DARK_MODE);
+      this.metaElement.setAttribute('content', DARK_COLORS);
       return;
     }
-    sessionStorage.removeItem('darkMode');
-    document
-      .querySelector('meta[name="theme-color"]')
-      ?.setAttribute('content', LIGHT_COLORS);
-    document.querySelector('html')?.classList.remove('darkMode');
+    sessionStorage.removeItem(DARK_MODE);
+    this.htmlElement.classList.remove(DARK_MODE);
+    this.metaElement.setAttribute('content', LIGHT_COLORS);
+  }
+
+  get metaElement() {
+    return document.querySelector('meta[name="theme-color"]')!;
+  }
+
+  get htmlElement() {
+    return document.querySelector('html')!;
   }
 }
