@@ -81,6 +81,8 @@ export class CardMoveDirective {
     timer(0, 1)
       .pipe(takeUntil(actualEvent$))
       .subscribe(() => {
+        const onCardMove = this.cardEventsFacadeService.onCardMove;
+        if (!onCardMove) return;
         this.pageContent.nativeElement.scrollLeft += tick;
       });
   }
