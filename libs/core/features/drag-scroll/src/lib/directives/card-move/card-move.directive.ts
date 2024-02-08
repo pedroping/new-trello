@@ -78,7 +78,7 @@ export class CardMoveDirective {
     stopEvent$.next(false);
     stopEvent$.next(true);
 
-    timer(0, 2)
+    timer(0, 1)
       .pipe(takeUntil(actualEvent$))
       .subscribe(() => {
         this.pageContent.nativeElement.scrollLeft += tick;
