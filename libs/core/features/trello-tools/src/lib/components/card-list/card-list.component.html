@@ -2,7 +2,7 @@
   #cardList
   class="card-list"
   cdkDropList
-  [cdkDropListAutoScrollStep]="4"
+  [cdkDropListAutoScrollStep]="scrollMoveTick"
   [cdkDropListData]="blockCard.cards"
   [style.z-index]="customZIndex$ | async"
   [scrollToEnd]="blockCard.addNewEvent$"

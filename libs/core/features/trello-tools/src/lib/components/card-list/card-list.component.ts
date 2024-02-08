@@ -10,6 +10,7 @@ import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-change
 import { Observable, map } from 'rxjs';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 import { IBlock, Icard } from '../../models/card.models';
+import { BASE_SCROLL_MOVE_TICK } from '@my-monorepo/core/features/drag-scroll';
 
 @Component({
   selector: 'card-list',
@@ -25,6 +26,7 @@ export class CardListComponent {
   @ViewChild(CdkDropList, { static: true }) list!: CdkDropList;
 
   customZIndex$!: Observable<number>;
+  scrollMoveTick = BASE_SCROLL_MOVE_TICK;
 
   constructor(
     private readonly cardEventsFacadeService: CardEventsFacadeService
