@@ -72,7 +72,8 @@
         "libs/core/ui/splash-page/src/index.ts"
       ],
       "@my-monorepo/core/ui/toolbar": ["libs/core/ui/toolbar/src/index.ts"],
-      "@my-monorepo/core/utlis": ["libs/core/utlis/index.ts"]
+      "@my-monorepo/core/utlis": ["libs/core/utlis/index.ts"],
+      "@my-monorepo/trello-sidebar-tools": ["core/features/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
