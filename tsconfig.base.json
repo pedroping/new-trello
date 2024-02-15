@@ -57,6 +57,9 @@
       "@my-monorepo/core/features/trello-tools": [
         "libs/core/features/trello-tools/src/index.ts"
       ],
+      "@my-monorepo/core/features/trello-tools-sidebar": [
+        "libs/core/features/trello-tools-sidebar/src/index.ts"
+      ],
       "@my-monorepo/core/ui": ["libs/core/ui/src/index.ts"],
       "@my-monorepo/core/ui/animations": [
         "libs/core/ui/animations/src/index.ts"

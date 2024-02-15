@@ -1,9 +1,10 @@
 /* eslint-disable */
 export default {
-  displayName: 'trello-sidebar-tools',
-  preset: '../../jest.preset.js',
+  displayName: 'core-features-trello-tools-sidebar',
+  preset: '../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../coverage/core/features',
+  coverageDirectory:
+    '../../../../coverage/libs/core/features/trello-tools-sidebar',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

@@ -1,7 +1,7 @@
 {
-  "name": "trello-sidebar-tools",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "core/features/src",
+  "name": "core-features-trello-tools-sidebar",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/core/features/trello-tools-sidebar/src",
   "prefix": "my-monorepo",
   "tags": [],
   "projectType": "library",
@@ -10,7 +10,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "core/features/jest.config.ts"
+        "jestConfig": "libs/core/features/trello-tools-sidebar/jest.config.ts"
       }
     },
     "lint": {
