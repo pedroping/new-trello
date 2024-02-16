@@ -1,22 +1,22 @@
 {
-  "name": "trello-clone-e2e",
+  "name": "new-trello-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/trello-clone-e2e/src",
+  "sourceRoot": "apps/new-trello-e2e/src",
   "projectType": "application",
   "targets": {
     "e2e": {
       "executor": "@nx/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/trello-clone-e2e/cypress.config.ts",
-        "devServerTarget": "trello-clone:serve:development",
+        "cypressConfig": "apps/new-trello-e2e/cypress.config.ts",
+        "devServerTarget": "new-trello:serve:development",
         "testingType": "e2e"
       },
       "configurations": {
         "production": {
-          "devServerTarget": "trello-clone:serve:production"
+          "devServerTarget": "new-trello:serve:production"
         },
         "ci": {
-          "devServerTarget": "trello-clone:serve-static"
+          "devServerTarget": "new-trello:serve-static"
         }
       }
     },
@@ -25,12 +25,12 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "e2e/trello-clone-e2e",
-          "apps/trello-clone-e2e/**/*.{js,ts}"
+          "e2e/new-trello-e2e",
+          "apps/new-trello-e2e/**/*.{js,ts}"
         ]
       }
     }
   },
   "tags": [],
-  "implicitDependencies": ["trello-clone"]
+  "implicitDependencies": ["new-trello"]
 }

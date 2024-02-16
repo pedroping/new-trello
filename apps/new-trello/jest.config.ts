@@ -1,9 +1,9 @@
 /* eslint-disable */
 export default {
-  displayName: 'trello-clone',
+  displayName: 'new-trello',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../coverage/apps/trello-clone',
+  coverageDirectory: '../../coverage/apps/new-trello',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

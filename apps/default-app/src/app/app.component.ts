@@ -23,4 +23,4 @@ export class AppComponent {
 // npx nx generate @nrwl/angular:library --name=expand-table  --directory=core/features
 // npm install @angular/pwa --save-dev
 // nx g @angular/pwa:ng-add --project *project-name*
-// npx nx g @angular/material:ng-add --project=trello-clone
+// npx nx g @angular/material:ng-add --project=new-trello

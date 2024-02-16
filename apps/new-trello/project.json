@@ -1,9 +1,9 @@
 {
-  "name": "trello-clone",
+  "name": "new-trello",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "my-monorepo",
-  "sourceRoot": "apps/trello-clone/src",
+  "sourceRoot": "apps/new-trello/src",
   "tags": [],
   "targets": {
     "build": {
@@ -20,36 +20,36 @@
           "twilio-video",
           "text-mask-core"
         ],
-        "outputPath": "dist/apps/trello-clone",
-        "index": "apps/trello-clone/src/index.html",
-        "main": "apps/trello-clone/src/main.ts",
+        "outputPath": "dist/apps/new-trello",
+        "index": "apps/new-trello/src/index.html",
+        "main": "apps/new-trello/src/main.ts",
         "polyfills": ["zone.js"],
-        "tsConfig": "apps/trello-clone/tsconfig.app.json",
+        "tsConfig": "apps/new-trello/tsconfig.app.json",
         "assets": [
-          "apps/trello-clone/src/favicon.ico",
-          "apps/trello-clone/src/assets",
-          "apps/trello-clone/src/manifest.webmanifest"
+          "apps/new-trello/src/favicon.ico",
+          "apps/new-trello/src/assets",
+          "apps/new-trello/src/manifest.webmanifest"
         ],
         "styles": [
           "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
           "node_modules/@taiga-ui/core/styles/taiga-ui-fonts.less",
           "node_modules/@taiga-ui/styles/taiga-ui-global.less",
           "@angular/material/prebuilt-themes/deeppurple-amber.css",
-          "apps/trello-clone/src/styles.scss"
+          "apps/new-trello/src/styles.scss"
         ],
         "scripts": [],
         "stylePreprocessorOptions": {
-          "includePaths": ["libs/core/themes/trello-clone"]
+          "includePaths": ["libs/core/themes/new-trello"]
         },
         "serviceWorker": true,
-        "ngswConfigPath": "apps/trello-clone/ngsw-config.json"
+        "ngswConfigPath": "apps/new-trello/ngsw-config.json"
       },
       "configurations": {
         "production": {
           "fileReplacements": [
             {
-              "replace": "apps/trello-clone/src/environments/environment.ts",
-              "with": "apps/trello-clone/src/environments/environment.prod.ts"
+              "replace": "apps/new-trello/src/environments/environment.ts",
+              "with": "apps/new-trello/src/environments/environment.prod.ts"
             }
           ],
           "budgets": [
@@ -81,10 +81,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "trello-clone:build:production"
+          "buildTarget": "new-trello:build:production"
         },
         "development": {
-          "buildTarget": "trello-clone:build:development"
+          "buildTarget": "new-trello:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -92,7 +92,7 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "buildTarget": "trello-clone:build"
+        "buildTarget": "new-trello:build"
       }
     },
     "lint": {
@@ -103,13 +103,13 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/trello-clone/jest.config.ts"
+        "jestConfig": "apps/new-trello/jest.config.ts"
       }
     },
     "serve-static": {
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "trello-clone:build"
+        "buildTarget": "new-trello:build"
       }
     }
   },

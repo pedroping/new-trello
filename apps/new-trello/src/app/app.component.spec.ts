@@ -15,13 +15,13 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('h1')?.textContent).toContain(
-      'Welcome trello-clone'
+      'Welcome new-trello'
     );
   });
 
-  it(`should have as title 'trello-clone'`, () => {
+  it(`should have as title 'new-trello'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('trello-clone');
+    expect(app.title).toEqual('new-trello');
   });
 });
