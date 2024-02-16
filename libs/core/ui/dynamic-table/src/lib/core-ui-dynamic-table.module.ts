@@ -2,7 +2,6 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { CoreFeaturesDynamicFormsModule } from '@my-monorepo/core/features/dynamic-forms';
 import { TuiTagModule } from '@taiga-ui/kit';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { TableComponent } from './components/table/table.component';
@@ -14,7 +13,6 @@ import { MatIconModule } from '@angular/material/icon';
     CommonModule,
     TuiTagModule,
     CdkTableModule,
-    CoreFeaturesDynamicFormsModule,
     MatPaginatorModule,
     NgxPaginationModule,
     CoreFeaturesExpandTableModule,

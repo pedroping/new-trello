@@ -15,6 +15,7 @@ import {
 
 @Directive({
   selector: '[generateDirective]',
+  standalone: true,
 })
 export class GenerateDirective<T> implements OnInit {
   @Input({ required: true }) config!: IInputBuilder<T>;

@@ -14,7 +14,7 @@ import {
   Validators,
 } from '@angular/forms';
 import {
-  CoreFeaturesDynamicFormsModule,
+  DynamicFormsComponent,
   IInputBuilder,
 } from '@my-monorepo/core/features/dynamic-forms';
 import { CoreFeaturesFormErrorModule } from '@my-monorepo/core/features/form-error';
@@ -35,9 +35,9 @@ import { CREATE_TABLE_CONFIG, DATA } from '../../helpers/table-mocks';
   imports: [
     CoreUiDynamicTableModule,
     CommonModule,
-    CoreFeaturesDynamicFormsModule,
     FormsModule,
     ReactiveFormsModule,
+    DynamicFormsComponent,
     CoreFeaturesFormErrorModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
