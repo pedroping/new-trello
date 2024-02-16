@@ -3,6 +3,7 @@ import { ITableColumn } from '../models/table';
 
 @Directive({
   selector: '[appGenerateCustomField]',
+  standalone: true,
 })
 export class GenerateCustomFieldDirective<T> implements OnInit {
   @Input({ required: true }) element!: T;

@@ -19,19 +19,43 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import {
+  MatPaginator,
+  MatPaginatorModule,
+  PageEvent,
+} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { SelectedRowService } from '@my-monorepo/core/features/expand-table';
+import {
+  CoreFeaturesExpandTableModule,
+  SelectedRowService,
+} from '@my-monorepo/core/features/expand-table';
 import { ITableColumn, ITableConfig } from '../../models/table';
 import { IN_OUT_PANE_ANIMATION } from '../../animations/inOutPane';
 import { ICON_STATE_ANIMATION } from '../../animations/iconState';
+import { CdkTableModule } from '@angular/cdk/table';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { TuiTagModule } from '@taiga-ui/kit';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { GenerateCustomFieldDirective } from '../../directives/generate-custom-field.directive';
 
 @Component({
   selector: 'dynamic-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
+  standalone: true,
   animations: [IN_OUT_PANE_ANIMATION, ICON_STATE_ANIMATION],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    CommonModule,
+    TuiTagModule,
+    MatIconModule,
+    CdkTableModule,
+    MatPaginatorModule,
+    NgxPaginationModule,
+    CoreFeaturesExpandTableModule,
+    GenerateCustomFieldDirective,
+  ],
 })
 export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
   @Input({ required: true }) config!: ITableConfig<T>;

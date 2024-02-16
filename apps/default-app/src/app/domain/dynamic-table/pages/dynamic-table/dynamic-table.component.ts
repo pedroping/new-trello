@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  TemplateRef,
-  ViewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -19,10 +13,10 @@ import {
 } from '@my-monorepo/core/features/dynamic-forms';
 import { CoreFeaturesFormErrorModule } from '@my-monorepo/core/features/form-error';
 import {
-  CoreUiDynamicTableModule,
   IBaseTableFather,
   IBasicTableTest,
   ITableConfig,
+  TableComponent,
   TableFatherPagination,
 } from '@my-monorepo/core/ui/dynamic-table';
 import { Observable, of, startWith } from 'rxjs';
@@ -33,9 +27,9 @@ import { CREATE_TABLE_CONFIG, DATA } from '../../helpers/table-mocks';
   styleUrls: ['./dynamic-table.component.scss'],
   standalone: true,
   imports: [
-    CoreUiDynamicTableModule,
-    CommonModule,
     FormsModule,
+    CommonModule,
+    TableComponent,
     ReactiveFormsModule,
     DynamicFormsComponent,
     CoreFeaturesFormErrorModule,
