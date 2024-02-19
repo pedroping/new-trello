@@ -82,7 +82,9 @@ export class CardMoveDirective {
       .pipe(takeUntil(actualEvent$))
       .subscribe(() => {
         const onCardMove = this.cardEventsFacadeService.onCardMove;
-        if (!onCardMove) return;
+        const onBlockMove = this.cardEventsFacadeService.onMove;
+
+        if (!onBlockMove && !onCardMove) return;
         this.pageContent.nativeElement.scrollLeft += tick;
       });
   }
