@@ -46,13 +46,10 @@ export class CardMoveDirective {
 
     const hasRightSidenav = this.genericSidenavsFacadeService.rightSideNavState;
     const hasLeftSidenav = this.genericSidenavsFacadeService.leftSideNavState;
-    const hasOneSidenav = hasRightSidenav || hasLeftSidenav;
     const rightCalc = hasRightSidenav ? BASE_SIDENAV_SIZE : BASE_SCROLL_AREA;
     const leftCalc = hasLeftSidenav ? BASE_SIDENAV_SIZE : BASE_SCROLL_AREA;
 
-    const blockMoveWithNavs = onBlockMove && hasOneSidenav;
-
-    if (onCardMove || blockMoveWithNavs) {
+    if (onCardMove || onBlockMove) {
       if (window.innerWidth - rightCalc < e.pageX) {
         this.startTickEvent(this.rightEvent$, BASE_SCROLL_MOVE_TICK);
         this.movingOnBorder = true;
