@@ -1,3 +1,5 @@
+@import 'libs/core/themes/new-trello/root.scss';
+
 :host {
   main {
     display: block;
@@ -36,7 +38,7 @@
       mat-toolbar {
         padding: 0px 10px !important;
         background-color: var(--toolbar-background) !important;
-        color: var(--text-01) !important;
+        color: var(--text-02) !important;
       }
     }
 
@@ -47,8 +49,12 @@
     }
   }
 
-  .hasTwoSidenav ~ .right {
+  .hasTwoSidenav~.right {
     right: -500px !important;
+  }
+
+  ::ng-deep generic-sidenav[side="right"] nav {
+    @include sidebar-box-shadow
   }
 
   .sidenav {

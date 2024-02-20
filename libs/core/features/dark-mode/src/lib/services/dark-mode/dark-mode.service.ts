@@ -13,9 +13,8 @@ export class DarkModeService {
   darkMode = false;
 
   constructor() {
-    const isDarkMode = sessionStorage.getItem(DARK_MODE);
-    this.darkMode = !!isDarkMode;
-    if (isDarkMode) {
+    this.darkMode = !!sessionStorage.getItem(DARK_MODE);
+    if (this.darkMode) {
       this.metaElement.setAttribute('content', DARK_COLORS);
       this.htmlElement.classList.add(DARK_MODE);
     }

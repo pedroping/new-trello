@@ -1,11 +1,11 @@
 :host {
   height: 25px;
-  padding: 15px 15px 0px 15px;
+  padding: 20px 15px 10px 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 15px;
   font-size: var(--font-size-03) !important;
+  color: var(--text-01);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 
@@ -19,6 +19,7 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
+
       &:nth-child(2) {
         font-size: var(--font-size-01) !important;
       }
@@ -34,6 +35,7 @@
     border-radius: 5px;
     cursor: pointer;
     z-index: 1005;
+
     &:hover {
       background-color: var(--disabled-01);
     }

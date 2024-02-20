@@ -17,8 +17,8 @@
       justify-content: space-between;
       box-sizing: border-box;
       cursor: grab;
-      border: 1px solid var(--white-01);
-      background-color: var(--white-01);
+      border: 1px solid var(--background-01);
+      background-color: var(--background-01);
       border-radius: 10px;
       margin: 2px;
 
@@ -41,7 +41,7 @@
       margin-top: 5px;
       border-radius: 5px;
       cursor: pointer;
-      color: var(--white-01);
+      color: var(--background-01);
 
       &:disabled {
         color: var(--gray-01);
@@ -59,7 +59,7 @@
         margin-bottom: 4px;
         border-radius: 3px;
         padding: 6px 12px 6px 10px;
-        background-color: var(--white-01);
+        background-color: var(--background-01);
         color: var(--text-01);
         font-weight: 500;
         cursor: pointer;
@@ -83,7 +83,7 @@
     width: 100px;
     height: 35px;
     color: var(--text-01);
-    background-color: var(--white-01);
+    background-color: var(--background-01);
     border-bottom: 1px solid var(--text-01);
     font-size: 16px;
 

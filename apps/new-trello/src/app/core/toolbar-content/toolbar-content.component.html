@@ -2,6 +2,14 @@
 <div class="block">
   <button
     mat-icon-button
+    class="setDarkModeIcon"
+    darkModeToggle
+    #getIcon="darkModeToggle"
+  >
+    <mat-icon>{{ getIcon.icon }}</mat-icon>
+  </button>
+  <button
+    mat-icon-button
     (click)="toggleRightSideNav()"
     aria-label="Open WallPaper Menu"
   >

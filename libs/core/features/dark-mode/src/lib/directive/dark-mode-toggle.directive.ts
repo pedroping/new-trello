@@ -1,11 +1,12 @@
-import { Directive, HostBinding, HostListener, OnInit } from '@angular/core';
-import { DarkModeService } from '../../services/dark-mode/dark-mode.service';
+import { Directive, HostListener, OnInit } from '@angular/core';
+import { DarkModeService } from '../services/dark-mode/dark-mode.service';
 
 @Directive({
-  selector: '[appGenerateIcon]',
-  exportAs: 'getIcon',
+  selector: '[darkModeToggle]',
+  exportAs: 'darkModeToggle',
+  standalone: true,
 })
-export class GenerateIconDirective implements OnInit {
+export class DarkModeToggleDirective implements OnInit {
   icon?: string;
   @HostListener('click') changeMode() {
     this.darkModeService.toggleDarkMode();

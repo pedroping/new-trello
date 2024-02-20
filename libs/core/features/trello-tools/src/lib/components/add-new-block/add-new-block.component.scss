@@ -13,7 +13,9 @@
     height: 48px;
     border-radius: 10px;
     background-color: var(--add-new-background);
+    color: var(--text-02);
     cursor: pointer;
+
     &:hover {
       background-color: var(--add-new-background-hovered);
     }
@@ -35,6 +37,12 @@
     input {
       width: 278px;
       height: 32px;
+      background-color: var(--add-new-background);
+      color: var(--text-02);
+
+      &::placeholder {
+        color: var(--text-02);
+      }
     }
 
     .add-new-footer {
@@ -48,8 +56,8 @@
       button {
         border-radius: 5px;
         background-color: var(--blue-01);
-        border: 1px solid var(--white-01);
-        color: var(--white-01);
+        border: 1px solid var(--background-01);
+        color: var(--background-01);
         height: 32px;
         margin-top: 0;
         min-height: 32px;

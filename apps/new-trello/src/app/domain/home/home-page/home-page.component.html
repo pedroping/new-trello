@@ -7,7 +7,7 @@
   cdkDropListGroup
   cdkDropListOrientation="horizontal"
   [cdkDropListData]="blocks"
-  [cdkDropListAutoScrollStep]="5"
+  [cdkDropListAutoScrollStep]="8"
   (cdkDropListDropped)="listDropped($event)"
 >
   @for(blockCard of blocks; track blockCard.name; let index = $index) {
