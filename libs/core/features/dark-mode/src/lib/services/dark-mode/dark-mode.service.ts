@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import {
-  DARK_COLORS,
   DARK_MODE,
-  LIGHT_COLORS,
+  META_DARK_COLOR,
+  META_LIGHT_COLOR,
   ON_DARK_MODE,
 } from '../../helpers/colors';
 
@@ -12,12 +12,15 @@ import {
 export class DarkModeService {
   darkMode = false;
 
-  constructor() {
+  constructor(
+    @Inject(META_LIGHT_COLOR) private readonly metaLightColors: string,
+    @Inject(META_DARK_COLOR) private readonly metaDarkColors: string
+  ) {
     this.darkMode = !!sessionStorage.getItem(DARK_MODE);
-    if (this.darkMode) {
-      this.metaElement.setAttribute('content', DARK_COLORS);
-      this.htmlElement.classList.add(DARK_MODE);
-    }
+    this.metaElement.setAttribute('content', this.metaLightColors);
+    if (!this.darkMode) return;
+    this.metaElement.setAttribute('content', this.metaDarkColors);
+    this.htmlElement.classList.add(DARK_MODE);
   }
 
   toggleDarkMode(): void {
@@ -25,12 +28,12 @@ export class DarkModeService {
     if (this.darkMode) {
       this.htmlElement.classList.add(DARK_MODE);
       sessionStorage.setItem(DARK_MODE, ON_DARK_MODE);
-      this.metaElement.setAttribute('content', DARK_COLORS);
+      this.metaElement.setAttribute('content', this.metaDarkColors);
       return;
     }
     sessionStorage.removeItem(DARK_MODE);
     this.htmlElement.classList.remove(DARK_MODE);
-    this.metaElement.setAttribute('content', LIGHT_COLORS);
+    this.metaElement.setAttribute('content', this.metaLightColors);
   }
 
   get metaElement() {

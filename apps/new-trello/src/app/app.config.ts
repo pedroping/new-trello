@@ -24,6 +24,10 @@ import { TuiRootModule } from '@taiga-ui/core';
 import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
 import { META_TAGS } from './shared/meta.tags';
+import {
+  META_DARK_COLOR,
+  META_LIGHT_COLOR,
+} from '@my-monorepo/core/features/dark-mode';
 
 const loadMocksProviders: FactoryProvider = {
   provide: APP_INITIALIZER,
@@ -43,6 +47,17 @@ const setMetaProviders: FactoryProvider = {
   multi: true,
 };
 
+const colorsProviders: FactoryProvider[] = [
+  {
+    provide: META_DARK_COLOR,
+    useFactory: () => '#82888A',
+  },
+  {
+    provide: META_LIGHT_COLOR,
+    useFactory: () => '#FFFFFF',
+  },
+];
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(
@@ -60,5 +75,6 @@ export const appConfig: ApplicationConfig = {
     }),
     loadMocksProviders,
     setMetaProviders,
+    ...colorsProviders,
   ],
 };
