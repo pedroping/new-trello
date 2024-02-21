@@ -51,7 +51,6 @@ $dark-mode-variables: (
   'add-new-background-hovered': #a6c5e229,
 );
 
-$a: rgb(139, 139, 139);
 
 :root {
   @each $name, $value in $project-variables {
