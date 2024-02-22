@@ -1,6 +1,10 @@
 :host {
   ::-webkit-scrollbar {
-    display: none;
+    width: 10px;
+  }
+
+  div[cdkDrag] {
+    width: 100%;
   }
 
   .card-list {
@@ -16,6 +20,11 @@
     overflow-x: hidden;
     position: absolute;
     height: calc(100vh - 225px) !important;
-    z-index: 0;
+    padding-right: 5px;
+    padding-left: 1px;
+  }
+
+  .example-custom-placeholder {
+    width: 100%;
   }
 }

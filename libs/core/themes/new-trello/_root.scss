@@ -32,6 +32,7 @@ $project-variables: (
   'blue-01': $add-new-btn-background,
   'block-color': #f6f7f8,
   'disabled-01': lightgray,
+  'disabled-02': lightgray,
   'backdrop-color': #0009,
   'toolbar-background': #ffffff3d,
   'box-shadow-color-01': #091e4240,
@@ -47,6 +48,7 @@ $dark-mode-variables: (
   'background-01': #22272b,
   'background-02': #5b6265,
   'disabled-01': #a6c5e229,
+  'disabled-02': rgb(15 14 14),
   'add-new-background': #ffffff3d,
   'add-new-background-hovered': #a6c5e229,
 );
