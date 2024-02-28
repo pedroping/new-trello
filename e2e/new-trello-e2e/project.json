@@ -22,12 +22,8 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "e2e/new-trello-e2e",
-          "apps/new-trello-e2e/**/*.{js,ts}"
-        ]
+        "lintFilePatterns": ["apps/new-trello-e2e/**/*.{js,ts}"]
       }
     }
   },

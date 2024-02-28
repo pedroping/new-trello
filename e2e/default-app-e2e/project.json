@@ -22,12 +22,8 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "e2e/default-app-e2e",
-          "apps/default-app-e2e/**/*.{js,ts}"
-        ]
+        "lintFilePatterns": ["apps/default-app-e2e/**/*.{js,ts}"]
       }
     }
   },
