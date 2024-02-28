@@ -55,7 +55,7 @@ export class DynamicTableComponent
       type: 'text',
       appearance: 'outline',
       isBasicInput: true,
-      inputName: 'basicInput',
+      inputName: 'BasicInputComponent',
     },
   ];
 

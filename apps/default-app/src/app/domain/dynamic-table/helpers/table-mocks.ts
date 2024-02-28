@@ -5,7 +5,6 @@ import {
 } from '@my-monorepo/core/ui/dynamic-table';
 import { Observable } from 'rxjs';
 import { BasicInputComponent } from '../../../core/components/basic-input/basic-input.component';
-import { TemplateRef } from '@angular/core';
 
 export const DATA = Array.from({ length: 100 }, (_, index) => {
   return {

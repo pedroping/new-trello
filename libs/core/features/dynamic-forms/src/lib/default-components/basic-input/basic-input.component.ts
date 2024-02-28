@@ -1,26 +1,20 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
   ControlContainer,
   FormGroupDirective,
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { DefaultFormInput } from '../../models/defaultInput';
-import { IBaseInput, IComponentBase } from '../../models/models';
 import { MatInputModule } from '@angular/material/input';
 import { CoreFeaturesFormErrorModule } from '@my-monorepo/core/features/form-error';
+import { DefaultFormInput } from '../../models/defaultInput';
+import { IBaseInput, IComponentBase } from '../../models/models';
 
 @Component({
   selector: 'app-basic-input',
   templateUrl: './basic-input.component.html',
   styleUrls: ['./basic-input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  viewProviders: [
-    {
-      provide: ControlContainer,
-      useExisting: FormGroupDirective,
-    },
-  ],
   standalone: true,
   imports: [
     FormsModule,
@@ -28,14 +22,18 @@ import { CoreFeaturesFormErrorModule } from '@my-monorepo/core/features/form-err
     MatInputModule,
     CoreFeaturesFormErrorModule,
   ],
+  viewProviders: [
+    {
+      provide: ControlContainer,
+      useExisting: FormGroupDirective,
+    },
+  ],
 })
 export class BasicInputComponent
   extends DefaultFormInput<IBaseInput>
-  implements OnInit, IComponentBase<IBaseInput>
+  implements IComponentBase<IBaseInput>
 {
   constructor() {
     super();
   }
-
-  ngOnInit() {}
 }
