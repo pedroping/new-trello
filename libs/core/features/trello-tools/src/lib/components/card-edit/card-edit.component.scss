@@ -52,7 +52,7 @@
 
       &:disabled {
         color: var(--gray-01);
-        background-color: lighten($add-new-btn-background, 20%);
+        background-color: var(--lighten-blue-01);
       }
     }
 
