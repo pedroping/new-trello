@@ -6,7 +6,7 @@
 <hr />
 <div class="options">
   <mat-accordion>
-    <ng-container *ngFor="let item of displayedRoutes">
+    @for (item of displayedRoutes; track item) {
       <mat-expansion-panel appSelectedRoute [activedRoute]="item">
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -14,19 +14,19 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="panelContent">
-          <ng-container *ngFor="let child of item.children">
+          @for (child of item.children; track child) {
             <p
               appSelectedRoute
               [activedRoute]="child.path"
               [clickFunction]="emitEvent.bind(this)"
               [routerLink]="child.path"
               [isChild]="true"
-            >
+              >
               {{ child.title | titlecase }}
             </p>
-          </ng-container>
+          }
         </div>
       </mat-expansion-panel>
-    </ng-container>
+    }
   </mat-accordion>
 </div>

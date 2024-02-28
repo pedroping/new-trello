@@ -1,7 +1,7 @@
 <div class="menu" preventClick>
-  <ng-container *ngFor="let block of blocks$$ | async">
+  @for (block of blocks$$ | async; track block) {
     <div class="card" (click)="moveToBlock(block.cards)">
       <span class="name">{{ block.name }}</span>
     </div>
-  </ng-container>
+  }
 </div>

@@ -1,5 +1,5 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { CommonModule } from '@angular/common';
+
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CoreFeaturesDragScrollModule } from '@my-monorepo/core/features/drag-scroll';
@@ -17,7 +17,6 @@ import { RightSidebarContentComponent } from '../../../core/right-sidebar-conten
   styleUrls: ['./welcome-page.component.scss'],
   standalone: true,
   imports: [
-    CommonModule,
     RouterModule,
     DragDropModule,
     CoreUiToolbarModule,
@@ -25,8 +24,8 @@ import { RightSidebarContentComponent } from '../../../core/right-sidebar-conten
     CoreUiGenericSidenavsModule,
     LeftSidebarContentComponent,
     CoreFeaturesDragScrollModule,
-    RightSidebarContentComponent,
-  ],
+    RightSidebarContentComponent
+],
 })
 export class WelcomePageComponent implements OnInit {
   @ViewChild('pageContent', { static: true }) pageContent!: ElementRef;

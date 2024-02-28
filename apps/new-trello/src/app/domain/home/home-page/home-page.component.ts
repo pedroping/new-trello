@@ -4,7 +4,8 @@ import {
   CdkDropList,
   DragDropModule,
 } from '@angular/cdk/drag-drop';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
+
 import { Component, Injector, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CoreFeaturesDragScrollModule } from '@my-monorepo/core/features/drag-scroll';
@@ -23,7 +24,6 @@ import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
   styleUrls: ['./home-page.component.scss'],
   standalone: true,
   imports: [
-    CommonModule,
     CoreFeaturesTrelloToolsModule,
     DragDropModule,
     CoreUiSidenavModule,
@@ -32,6 +32,7 @@ import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
     CdkDropList,
     CdkDrag,
     RouterLink,
+    AsyncPipe,
   ],
   hostDirectives: [CursorDraggingDirective],
 })

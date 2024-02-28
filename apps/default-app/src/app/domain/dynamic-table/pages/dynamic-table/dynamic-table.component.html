@@ -1,9 +1,9 @@
-<ng-container *ngIf="data$ | async as data">
+@if (data$ | async; as data) {
   <dynamic-table [config]="tableConfig" [data]="data">
     <ng-template #customTemplate let-element>
       {{ element.gmail }}
     </ng-template>
   </dynamic-table>
-</ng-container>
+}
 
 <dynamic-forms [formGroup]="form" [config]="formsConfig"></dynamic-forms>

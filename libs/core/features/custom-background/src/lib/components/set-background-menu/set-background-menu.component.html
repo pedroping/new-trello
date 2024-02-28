@@ -4,13 +4,15 @@
 </div>
 
 <div class="images">
-  <ng-container *ngIf="images$ | async as images">
-    <ng-container *ngIf="images.length > 0; else noImage">
-      <ng-container *ngFor="let item of images">
+  @if (images$ | async; as images) {
+    @if (images.length > 0) {
+      @for (item of images; track item) {
         <img [src]="item" (click)="selectImg(item)" />
-      </ng-container>
-    </ng-container>
-  </ng-container>
+      }
+    } @else {
+      <span class="noImage">Nenhuma imagem encontrada ):</span>
+    }
+  }
 
   <ng-template #noImage>
     <span class="noImage">Nenhuma imagem encontrada ):</span>
@@ -26,4 +28,4 @@
   (change)="uploadImage($event)"
   style="display: none"
   #fileInput
-/>
+  />
