@@ -7,10 +7,10 @@ import {
   PageWidthDirective,
 } from '@my-monorepo/core/features/drag-scroll';
 import {
-  CoreUiGenericSidenavsModule,
+  GenericSidenavComponent,
   GenericSidenavsFacadeService,
 } from '@my-monorepo/core/ui/generic-sidenavs';
-import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
+import { ToolbarComponent } from '@my-monorepo/core/ui/toolbar';
 import { LeftSidebarContentComponent } from '../../../core/left-sidebar-content/left-sidebar-content.component';
 import { RightSidebarContentComponent } from '../../../core/right-sidebar-content/right-sidebar-content.component';
 import { ToolbarContentComponent } from '../../../core/toolbar-content/toolbar-content.component';
@@ -22,12 +22,12 @@ import { ToolbarContentComponent } from '../../../core/toolbar-content/toolbar-c
   imports: [
     RouterModule,
     DragDropModule,
-    CoreUiToolbarModule,
-    ToolbarContentComponent,
-    CoreUiGenericSidenavsModule,
-    LeftSidebarContentComponent,
-    DragScrollDirective,
     PageWidthDirective,
+    DragScrollDirective,
+    ToolbarComponent,
+    ToolbarContentComponent,
+    GenericSidenavComponent,
+    LeftSidebarContentComponent,
     RightSidebarContentComponent,
   ],
 })

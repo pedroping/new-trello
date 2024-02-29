@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { CoreFeaturesFormErrorModule } from '@my-monorepo/core/features/form-error';
+import { FormErrorDirective } from '@my-monorepo/core/features/form-error';
 import { DefaultFormInput } from '../../models/defaultInput';
 import { IBaseInput, IComponentBase } from '../../models/models';
 
@@ -20,7 +20,7 @@ import { IBaseInput, IComponentBase } from '../../models/models';
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
-    CoreFeaturesFormErrorModule,
+    FormErrorDirective,
   ],
   viewProviders: [
     {

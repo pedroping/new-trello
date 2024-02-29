@@ -1,10 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { GenericSidenavsFacadeService } from '../../facades/generic-sidenavs-facade.service';
+import { HideSidenavsDirective } from '../../directives/hide-sidenavs.directive';
 
 @Component({
   selector: 'generic-sidenav',
   templateUrl: './generic-sidenav.component.html',
   styleUrls: ['./generic-sidenav.component.scss'],
+  standalone: true,
+  imports: [HideSidenavsDirective],
 })
 export class GenericSidenavComponent {
   @Input({ required: true }) side!: 'right' | 'left';

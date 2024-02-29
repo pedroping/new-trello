@@ -4,6 +4,7 @@ import { Observable, startWith } from 'rxjs';
 
 @Directive({
   selector: '[hideSidenavs]',
+  standalone: true,
 })
 @CallSetValueChanges()
 export class HideSidenavsDirective {

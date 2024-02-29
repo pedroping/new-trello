@@ -1,11 +1,14 @@
+import { NgClass } from '@angular/common';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MatDrawer } from '@angular/material/sidenav';
+import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { ToolbarService } from '@my-monorepo/core/ui/toolbar';
 
 @Component({
-  selector: 'app-sidenav',
+  selector: 'sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss'],
+  standalone: true,
+  imports: [MatSidenavModule, NgClass],
 })
 export class SidenavComponent implements OnInit {
   @Input() hasClosedSidenav = true;

@@ -20,8 +20,7 @@ import {
   CursorDraggingDirective,
   IBlock,
 } from '@my-monorepo/core/features/trello-tools';
-import { CoreUiSidenavModule } from '@my-monorepo/core/ui/sidenav';
-import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
+
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -34,8 +33,6 @@ import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
     CdkDropList,
     DragDropModule,
     CardBlockComponent,
-    CoreUiToolbarModule,
-    CoreUiSidenavModule,
     AddNewBlockComponent,
     PageWidthDirective,
     DragScrollDirective,

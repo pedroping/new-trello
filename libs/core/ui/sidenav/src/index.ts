@@ -1,1 +1,1 @@
-export * from './lib/core-ui-sidenav.module';
+export * from './lib/sidenav/sidenav.component';

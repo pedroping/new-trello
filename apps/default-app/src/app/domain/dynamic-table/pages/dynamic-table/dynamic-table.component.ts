@@ -11,7 +11,7 @@ import {
   DynamicFormsComponent,
   IInputBuilder,
 } from '@my-monorepo/core/features/dynamic-forms';
-import { CoreFeaturesFormErrorModule } from '@my-monorepo/core/features/form-error';
+import { FormErrorDirective } from '@my-monorepo/core/features/form-error';
 import {
   IBaseTableFather,
   IBasicTableTest,
@@ -30,9 +30,9 @@ import { CREATE_TABLE_CONFIG, DATA } from '../../helpers/table-mocks';
     FormsModule,
     CommonModule,
     TableComponent,
+    FormErrorDirective,
     ReactiveFormsModule,
     DynamicFormsComponent,
-    CoreFeaturesFormErrorModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

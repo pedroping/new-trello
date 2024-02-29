@@ -1,13 +1,13 @@
-<app-sidenav [hasClosedSidenav]="false">
+<sidenav [hasClosedSidenav]="false">
   <div openedSideNavContent>
     <app-sideNav></app-sideNav>
   </div>
   <div mainContent>
-    <app-toolbar>
+    <toolbar>
       <app-toolBar></app-toolBar>
-    </app-toolbar>
+    </toolbar>
     <div class="pages">
       <router-outlet></router-outlet>
     </div>
   </div>
-</app-sidenav>
+</sidenav>
