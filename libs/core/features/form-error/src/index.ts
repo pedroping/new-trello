@@ -1,1 +1,1 @@
-export * from './lib/core-features-form-error.module';
+export * from './lib/directives/form-error.directive';

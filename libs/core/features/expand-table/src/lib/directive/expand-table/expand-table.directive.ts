@@ -3,6 +3,7 @@ import { SelectedRowService } from '../../service/selected-row.service';
 
 @Directive({
   selector: '[expandTable]',
+  standalone: true,
 })
 export class ExpandTableDirective<T> {
   @Input({ required: true }) rowElement!: T;

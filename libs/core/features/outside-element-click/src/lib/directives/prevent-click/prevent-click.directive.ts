@@ -3,6 +3,7 @@ import { ElementsService } from '../../services/elements.service';
 
 @Directive({
   selector: '[preventClick]',
+  standalone: true,
 })
 export class PreventClickDirective implements AfterViewInit {
   constructor(

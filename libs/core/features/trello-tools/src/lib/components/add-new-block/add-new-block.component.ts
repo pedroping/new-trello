@@ -1,5 +1,11 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { ENTER_LEAVE_ANIMATION } from '@my-monorepo/core/ui/animations';
 import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
@@ -9,6 +15,8 @@ import { CardEventsFacadeService } from '../../facades/card-events-facade.servic
   templateUrl: './add-new-block.component.html',
   styleUrls: ['./add-new-block.component.scss'],
   animations: [ENTER_LEAVE_ANIMATION],
+  standalone: true,
+  imports: [MatIconModule, ReactiveFormsModule, FormsModule],
 })
 @CallSetValueChanges()
 export class AddNewBlockComponent {
@@ -17,10 +25,10 @@ export class AddNewBlockComponent {
   ) {
     if (!listNameInput) return;
     this.listNameInput = listNameInput;
-    if (this.onAddNew) {
-      listNameInput.nativeElement.focus();
-      this.outsideClickEventsService.startTaking$.next();
-    }
+
+    if (!this.onAddNew) return;
+    listNameInput.nativeElement.focus();
+    this.outsideClickEventsService.startTaking$.next();
   }
 
   onAddNew = false;

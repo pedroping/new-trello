@@ -2,11 +2,10 @@ import { CdkMenuModule, CdkMenuTrigger } from '@angular/cdk/menu';
 import { Component, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { CoreFeaturesCustomBackgroundModule } from '@my-monorepo/core/features/custom-background';
+import { CustomBackgroundDirective } from '@my-monorepo/core/features/custom-background';
 import { DarkModeToggleDirective } from '@my-monorepo/core/features/dark-mode';
-import { CoreFeaturesOutsideElementClickModule } from '@my-monorepo/core/features/outside-element-click';
+import { OutsideAddBlockClickDirective } from '@my-monorepo/core/features/outside-element-click';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
-import { CoreFeaturesTrelloToolsModule } from '@my-monorepo/core/features/trello-tools';
 import { GenericSidenavsFacadeService } from '@my-monorepo/core/ui/generic-sidenavs';
 import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
 
@@ -20,9 +19,8 @@ import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
     CdkMenuModule,
     MatButtonModule,
     DarkModeToggleDirective,
-    CoreFeaturesTrelloToolsModule,
-    CoreFeaturesCustomBackgroundModule,
-    CoreFeaturesOutsideElementClickModule,
+    CustomBackgroundDirective,
+    OutsideAddBlockClickDirective,
   ],
 })
 @CallSetValueChanges()

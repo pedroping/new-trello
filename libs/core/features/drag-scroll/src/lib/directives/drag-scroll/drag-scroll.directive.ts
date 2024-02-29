@@ -14,6 +14,7 @@ import { CardMoveDirective } from '../card-move/card-move.directive';
 @Directive({
   selector: '[dragScroll]',
   hostDirectives: [CardMoveDirective],
+  standalone: true,
 })
 @CallSetValueChanges()
 export class DragScrollDirective {

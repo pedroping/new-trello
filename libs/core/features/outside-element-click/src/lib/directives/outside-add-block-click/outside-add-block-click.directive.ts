@@ -9,6 +9,7 @@ export const DEFAULT_ELEMENT = document;
 
 @Directive({
   selector: '[outsideClick]',
+  standalone: true,
 })
 @UntilDestroy()
 @CallSetValueChanges()

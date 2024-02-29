@@ -1,2 +1,3 @@
-export * from './lib/core-features-custom-background.module';
 export * from './lib/services/handleImage.service';
+export * from './lib/components/set-background-menu/set-background-menu.component';
+export * from './lib/directives/custom-background.directive';

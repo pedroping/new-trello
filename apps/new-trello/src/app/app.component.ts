@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CoreFeaturesBackdropScreenModule } from '@my-monorepo/core/features/backdrop-screen';
-import { CoreFeaturesCustomBackgroundModule } from '@my-monorepo/core/features/custom-background';
-import { CoreFeaturesDragScrollModule } from '@my-monorepo/core/features/drag-scroll';
+import { CustomBackgroundDirective } from '@my-monorepo/core/features/custom-background';
 import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
 
 @Component({
@@ -13,9 +12,8 @@ import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
   imports: [
     RouterModule,
     CoreUiToolbarModule,
-    CoreFeaturesDragScrollModule,
     CoreFeaturesBackdropScreenModule,
-    CoreFeaturesCustomBackgroundModule,
+    CustomBackgroundDirective,
   ],
 })
 export class AppComponent {}

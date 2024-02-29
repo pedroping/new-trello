@@ -5,6 +5,7 @@ import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-change
 
 @Directive({
   selector: '[customBackground]',
+  standalone: true,
 })
 @CallSetValueChanges()
 export class CustomBackgroundDirective {

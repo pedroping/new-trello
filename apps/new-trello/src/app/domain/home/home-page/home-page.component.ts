@@ -8,11 +8,15 @@ import { AsyncPipe } from '@angular/common';
 
 import { Component, Injector, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CoreFeaturesDragScrollModule } from '@my-monorepo/core/features/drag-scroll';
 import {
+  DragScrollDirective,
+  PageWidthDirective,
+} from '@my-monorepo/core/features/drag-scroll';
+import {
+  AddNewBlockComponent,
+  CardBlockComponent,
   CardEventsFacadeService,
   ClearMocks,
-  CoreFeaturesTrelloToolsModule,
   CursorDraggingDirective,
   IBlock,
 } from '@my-monorepo/core/features/trello-tools';
@@ -24,15 +28,17 @@ import { CoreUiToolbarModule } from '@my-monorepo/core/ui/toolbar';
   styleUrls: ['./home-page.component.scss'],
   standalone: true,
   imports: [
-    CoreFeaturesTrelloToolsModule,
-    DragDropModule,
-    CoreUiSidenavModule,
-    CoreUiToolbarModule,
-    CoreFeaturesDragScrollModule,
-    CdkDropList,
     CdkDrag,
-    RouterLink,
     AsyncPipe,
+    RouterLink,
+    CdkDropList,
+    DragDropModule,
+    CardBlockComponent,
+    CoreUiToolbarModule,
+    CoreUiSidenavModule,
+    AddNewBlockComponent,
+    PageWidthDirective,
+    DragScrollDirective,
   ],
   hostDirectives: [CursorDraggingDirective],
 })

@@ -7,7 +7,13 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 import { BackdropStateService } from '@my-monorepo/core/features/backdrop-screen';
 import { OpenCustomMenuService } from '@my-monorepo/core/features/open-custom-menu';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
@@ -15,11 +21,14 @@ import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { filter, fromEvent } from 'rxjs';
 import { IBlock, Icard } from '../../models/card.models';
+import { MoveCardComponent } from '../move-card/move-card.component';
 
 @Component({
   selector: 'card-edit',
   templateUrl: './card-edit.component.html',
   styleUrls: ['./card-edit.component.scss'],
+  standalone: true,
+  imports: [MatIconModule, MoveCardComponent, FormsModule, ReactiveFormsModule],
 })
 @CallSetValueChanges()
 @UntilDestroy()

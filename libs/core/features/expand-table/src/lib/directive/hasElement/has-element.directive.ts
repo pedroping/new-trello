@@ -13,6 +13,7 @@ export const DOWN_ICON = 'collapsed';
 @Directive({
   selector: '[appHasElement]',
   exportAs: 'appHasElement',
+  standalone: true,
 })
 export class HasElementDirective<T> implements OnInit {
   @Input('appHasElement') rowElement!: T;

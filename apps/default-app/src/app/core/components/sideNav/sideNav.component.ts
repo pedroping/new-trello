@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
-import { CoreFeaturesSelectedRouteModule } from '@my-monorepo/core/features/selected-route';
+import { SelectedRouteDirective } from '@my-monorepo/core/features/selected-route';
 import { ToolbarService } from '@my-monorepo/core/ui/toolbar';
 import { displayedRoutes } from '../../../app.routes';
 @Component({
@@ -17,7 +17,7 @@ import { displayedRoutes } from '../../../app.routes';
     MatButtonModule,
     CommonModule,
     RouterModule,
-    CoreFeaturesSelectedRouteModule,
+    SelectedRouteDirective,
     MatExpansionModule,
   ],
 })

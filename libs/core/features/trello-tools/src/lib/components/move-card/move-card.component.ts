@@ -2,11 +2,14 @@ import { Component, Input } from '@angular/core';
 import { BackdropStateService } from '@my-monorepo/core/features/backdrop-screen';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 import { IBlock, Icard } from '../../models/card.models';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'move-card',
   templateUrl: './move-card.component.html',
   styleUrls: ['./move-card.component.scss'],
+  standalone: true,
+  imports: [AsyncPipe],
 })
 export class MoveCardComponent {
   @Input({ required: true }) card?: Icard;

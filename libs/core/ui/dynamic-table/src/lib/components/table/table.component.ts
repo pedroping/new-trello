@@ -26,7 +26,8 @@ import {
 } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import {
-  CoreFeaturesExpandTableModule,
+  HasElementDirective,
+  ExpandTableDirective,
   SelectedRowService,
 } from '@my-monorepo/core/features/expand-table';
 import { ITableColumn, ITableConfig } from '../../models/table';
@@ -53,7 +54,8 @@ import { GenerateCustomFieldDirective } from '../../directives/generate-custom-f
     CdkTableModule,
     MatPaginatorModule,
     NgxPaginationModule,
-    CoreFeaturesExpandTableModule,
+    HasElementDirective,
+    ExpandTableDirective,
     GenerateCustomFieldDirective,
   ],
 })

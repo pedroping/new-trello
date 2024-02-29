@@ -2,7 +2,8 @@ import { Directive, HostBinding, HostListener, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { IrouteContext } from '../models/models';
 @Directive({
-  selector: '[appSelectedRoute]',
+  selector: '[selectedRoute]',
+  standalone: true,
 })
 export class SelectedRouteDirective {
   @Input({ required: true }) activedRoute?: string | IrouteContext;

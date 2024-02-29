@@ -4,6 +4,7 @@ import { BehaviorSubject, take, timer } from 'rxjs';
 
 @Directive({
   selector: '[scrollToEnd]',
+  standalone: true,
 })
 @CallSetValueChanges()
 export class ScrollToEndDirective {

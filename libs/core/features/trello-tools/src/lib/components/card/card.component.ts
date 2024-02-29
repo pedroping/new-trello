@@ -1,10 +1,10 @@
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import {
-  Component,
-  ElementRef,
-  Input,
-  ViewChild
-} from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import {
   BackDropEvent,
   BackdropContentDirective,
@@ -15,11 +15,15 @@ import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
 import { merge, skip } from 'rxjs';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 import { IBlock, Icard } from '../../models/card.models';
+import { MatIconModule } from '@angular/material/icon';
+import { CardEditComponent } from '../card-edit/card-edit.component';
 
 @Component({
   selector: 'trello-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
+  standalone: true,
+  imports: [MatIconModule, CardEditComponent, FormsModule, ReactiveFormsModule],
 })
 @CallSetValueChanges()
 export class CardComponent {

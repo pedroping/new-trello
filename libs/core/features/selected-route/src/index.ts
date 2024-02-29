@@ -1,2 +1,2 @@
-export * from './lib/core-features-selected-route.module';
+export * from './lib/directives/selected-route.directive';
 export * from './lib/models/models';

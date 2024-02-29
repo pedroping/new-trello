@@ -1,4 +1,8 @@
-import { CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
+import {
+  CdkDragDrop,
+  CdkDropList,
+  DragDropModule,
+} from '@angular/cdk/drag-drop';
 import {
   Component,
   EventEmitter,
@@ -8,13 +12,18 @@ import {
 } from '@angular/core';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { Observable, map } from 'rxjs';
+import { ScrollToEndDirective } from '../../directives/scroll-to-end/scroll-to-end.directive';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 import { IBlock, Icard } from '../../models/card.models';
+import { CardComponent } from '../card/card.component';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'card-list',
   templateUrl: './card-list.component.html',
   styleUrls: ['./card-list.component.scss'],
+  standalone: true,
+  imports: [DragDropModule, ScrollToEndDirective, CardComponent, AsyncPipe],
 })
 @CallSetValueChanges()
 export class CardListComponent {

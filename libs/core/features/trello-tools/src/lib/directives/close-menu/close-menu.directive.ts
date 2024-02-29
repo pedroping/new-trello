@@ -7,6 +7,7 @@ import { CardEventsFacadeService } from '../../facades/card-events-facade.servic
 
 @Directive({
   selector: '[autoCloseMenu]',
+  standalone: true,
 })
 @UntilDestroy()
 @CallSetValueChanges()

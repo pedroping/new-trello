@@ -8,6 +8,7 @@ import { ScrollToEndDirective } from '../scroll-to-end/scroll-to-end.directive';
 @Directive({
   selector: '[pageWidth]',
   hostDirectives: [ScrollToEndDirective],
+  standalone: true,
 })
 @CallSetValueChanges()
 export class PageWidthDirective {

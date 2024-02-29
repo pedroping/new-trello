@@ -10,6 +10,7 @@ import { ERROR_MESSAGES } from '../models/erro-messages';
 
 @Directive({
   selector: '[formError]',
+  standalone: true,
 })
 export class FormErrorDirective implements OnInit {
   @HostBinding('innerHTML') innerHtml = '';

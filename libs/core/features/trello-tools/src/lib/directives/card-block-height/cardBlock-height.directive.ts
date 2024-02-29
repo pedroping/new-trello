@@ -15,6 +15,7 @@ import { CARD_SIZE, FOOTER_TOP } from '../../models/card.models';
 @Directive({
   selector: '[trelloCardBlockHeight]',
   exportAs: 'trelloCardBlockHeight',
+  standalone: true,
 })
 export class CardBlockHeightDirective {
   constructor(
