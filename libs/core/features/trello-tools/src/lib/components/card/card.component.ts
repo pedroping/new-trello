@@ -1,21 +1,30 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EnvironmentInjector,
+  effect,
+  input,
+  runInInjectionContext,
+  viewChild,
+} from '@angular/core';
 import {
   FormControl,
   FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 import {
   BackDropEvent,
   BackdropContentDirective,
   BackdropStateService,
 } from '@my-monorepo/core/features/backdrop-screen';
+import { OutsideAddBlockClickDirective } from '@my-monorepo/core/features/outside-element-click';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
 import { merge, skip } from 'rxjs';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 import { IBlock, Icard } from '../../models/card.models';
-import { MatIconModule } from '@angular/material/icon';
 import { CardEditComponent } from '../card-edit/card-edit.component';
 
 @Component({
@@ -23,17 +32,23 @@ import { CardEditComponent } from '../card-edit/card-edit.component';
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
   standalone: true,
-  imports: [MatIconModule, CardEditComponent, FormsModule, ReactiveFormsModule],
+  imports: [
+    FormsModule,
+    MatIconModule,
+    CardEditComponent,
+    ReactiveFormsModule,
+    BackdropContentDirective,
+    OutsideAddBlockClickDirective,
+  ],
 })
 @CallSetValueChanges()
 export class CardComponent {
-  @ViewChild(BackdropContentDirective) editTemplate!: BackDropEvent;
-
-  @Input() card?: Icard;
-  @Input() isPreview?: boolean;
-
-  @Input() onAddNew = false;
-  @Input() blockCard!: IBlock;
+  card = input<Icard>();
+  isPreview = input<boolean>();
+  onAddNew = input<boolean>(false);
+  blockCard = input.required<IBlock>();
+  nameInput = viewChild<ElementRef<HTMLInputElement>>('nameInput');
+  editTemplate = viewChild<BackDropEvent>(BackdropContentDirective);
 
   cardNameControl = new FormControl('', {
     nonNullable: true,
@@ -41,18 +56,20 @@ export class CardComponent {
   });
 
   constructor(
-    private readonly cardEventsFacadeService: CardEventsFacadeService,
+    private injector: EnvironmentInjector,
     private readonly backdropStateService: BackdropStateService,
-    private readonly outsideClickEventsService: OutsideClickEventsService
+    private readonly cardEventsFacadeService: CardEventsFacadeService,
+    private readonly outsideClickEventsService: OutsideClickEventsService,
   ) {}
 
-  @ViewChild('nameInput') set inputFocus(input: ElementRef<HTMLInputElement>) {
-    if (!input) return;
-    input.nativeElement.focus({ preventScroll: true });
-  }
-
   setValueChanges() {
-    if (this.isPreview) return;
+    runInInjectionContext(this.injector, () =>
+      effect(() => {
+        this.nameInput()?.nativeElement.focus({ preventScroll: true });
+      }),
+    );
+
+    if (this.isPreview()) return;
     this.outsideClickEvents();
   }
 
@@ -64,7 +81,7 @@ export class CardComponent {
       editClick$$,
       outSideClick$$,
       this.cardEventsFacadeService.onMove$$,
-      this.cardEventsFacadeService.onCardMove$$
+      this.cardEventsFacadeService.onCardMove$$,
     )
       .pipe(skip(2))
       .subscribe(() => {
@@ -76,21 +93,21 @@ export class CardComponent {
   addCard() {
     if (this.cardNameControl.invalid) return;
 
-    this.blockCard.cards.push({
-      id: this.blockCard.cards.length + 1,
+    this.blockCard().cards.push({
+      id: this.blockCard().cards.length + 1,
       name: this.cardNameControl.value,
     });
     this.cardNameControl.reset();
-    this.blockCard.addNewEvent$.next(true);
+    this.blockCard().addNewEvent$.next(true);
   }
 
   cancelEvent() {
     this.cardNameControl.reset();
-    this.blockCard.addNewEvent$.next(false);
+    this.blockCard().addNewEvent$.next(false);
   }
 
   editclick() {
     this.outsideClickEventsService.editClick$.next();
-    this.backdropStateService.setBackDropState(this.editTemplate);
+    this.backdropStateService.setBackDropState(this.editTemplate());
   }
 }

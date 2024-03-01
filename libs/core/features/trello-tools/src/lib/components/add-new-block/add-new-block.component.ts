@@ -1,4 +1,11 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EnvironmentInjector,
+  effect,
+  runInInjectionContext,
+  viewChild,
+} from '@angular/core';
 import {
   FormControl,
   FormsModule,
@@ -6,6 +13,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { OutsideAddBlockClickDirective } from '@my-monorepo/core/features/outside-element-click';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { ENTER_LEAVE_ANIMATION } from '@my-monorepo/core/ui/animations';
 import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
@@ -16,34 +24,38 @@ import { CardEventsFacadeService } from '../../facades/card-events-facade.servic
   styleUrls: ['./add-new-block.component.scss'],
   animations: [ENTER_LEAVE_ANIMATION],
   standalone: true,
-  imports: [MatIconModule, ReactiveFormsModule, FormsModule],
+  imports: [
+    MatIconModule,
+    ReactiveFormsModule,
+    FormsModule,
+    OutsideAddBlockClickDirective,
+  ],
 })
 @CallSetValueChanges()
 export class AddNewBlockComponent {
-  @ViewChild('listNameInput', { static: false }) set listInput(
-    listNameInput: ElementRef
-  ) {
-    if (!listNameInput) return;
-    this.listNameInput = listNameInput;
-
-    if (!this.onAddNew) return;
-    listNameInput.nativeElement.focus();
-    this.outsideClickEventsService.startTaking$.next();
-  }
-
+  listInput = viewChild<ElementRef>('listNameInput');
   onAddNew = false;
-  listNameInput?: ElementRef;
   listName = new FormControl<string>('', {
     nonNullable: true,
     validators: [Validators.required],
   });
 
   constructor(
+    private injector: EnvironmentInjector,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
-    private readonly outsideClickEventsService: OutsideClickEventsService
+    private readonly outsideClickEventsService: OutsideClickEventsService,
   ) {}
 
   setValueChanges() {
+    runInInjectionContext(this.injector, () =>
+      effect(() => {
+        if (!this.listInput()) return;
+        if (!this.onAddNew) return;
+        this.listInput()?.nativeElement.focus();
+        this.outsideClickEventsService.startTaking$.next();
+      }),
+    );
+
     this.outsideClickEventsService.outSideClick$$.subscribe(() => {
       if (this.onAddNew) this.setState(false);
     });
@@ -59,6 +71,6 @@ export class AddNewBlockComponent {
 
     this.cardEventsFacadeService.addNew(listName);
     this.listName.reset();
-    this.listNameInput && this.listNameInput.nativeElement.focus();
+    this.listInput()?.nativeElement.focus();
   }
 }

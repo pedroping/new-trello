@@ -33,5 +33,5 @@
 </div>
 
 <ng-template #menu>
-  <move-card [card]="card" [blockCard]="blockCard"></move-card>
+  <move-card [card]="card()" [blockCard]="blockCard()" preventClick></move-card>
 </ng-template>

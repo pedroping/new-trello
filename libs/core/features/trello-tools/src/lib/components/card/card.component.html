@@ -1,18 +1,21 @@
-@if(onAddNew) {
-<input
-  #nameInput
-  outsideClick
-  type="text"
-  [formControl]="cardNameControl"
-  (keyup.enter)="addCard()"
-  (keyup.escape)="cancelEvent()"
-/>
-
-} @else if(!isPreview) {
-<span class="card-text"><ng-content></ng-content></span>
-<div class="edit-content" (click)="editclick()">
-  <mat-icon>edit</mat-icon>
-</div>
+@if (onAddNew()) {
+  <input
+    #nameInput
+    outsideClick
+    type="text"
+    [formControl]="cardNameControl"
+    (keyup.enter)="addCard()"
+    (keyup.escape)="cancelEvent()"
+  />
+} @else if (!isPreview()) {
+  <span class="card-text"><ng-content></ng-content></span>
+  <div class="edit-content" (click)="editclick()">
+    <mat-icon>edit</mat-icon>
+  </div>
 }
 
-<card-edit *backDropContent [card]="card" [blockCard]="blockCard"></card-edit>
+<card-edit
+  *backDropContent
+  [card]="card()"
+  [blockCard]="blockCard()"
+></card-edit>

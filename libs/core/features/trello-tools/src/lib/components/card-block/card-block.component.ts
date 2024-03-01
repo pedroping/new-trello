@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, input, viewChild } from '@angular/core';
 import { CardBlockHeightDirective } from '../../directives/card-block-height/cardBlock-height.directive';
 import { IBlock } from '../../models/card.models';
 import { CardFooterComponent } from '../card-footer/card-footer.component';
@@ -18,17 +18,17 @@ import { CardListComponent } from '../card-list/card-list.component';
   ],
 })
 export class CardBlockComponent implements AfterViewInit {
-  @Input() isPreview = false;
-  @Input() id = -1;
-  @Input() blockCard!: IBlock;
-
-  @ViewChild(CardListComponent, { static: false }) cardList?: CardListComponent;
-
+  isPreview = input<boolean>(false);
+  id = input<number>(-1);
+  blockCard = input.required<IBlock>();
+  cardList = viewChild(CardListComponent);
   isSelectedBlock = false;
 
   ngAfterViewInit(): void {
-    if (!this.cardList || this.isPreview) return;
+    if (!this.cardList() || this.isPreview()) return;
 
-    this.cardList.cardMove.subscribe((event) => (this.isSelectedBlock = event));
+    this.cardList()!.cardMove.subscribe(
+      (event) => (this.isSelectedBlock = event),
+    );
   }
 }

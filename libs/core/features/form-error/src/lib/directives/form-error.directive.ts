@@ -1,4 +1,4 @@
-import { Directive, HostBinding, Input, OnInit, Optional } from '@angular/core';
+import { Directive, HostBinding, OnInit, Optional, input } from '@angular/core';
 import {
   AbstractControl,
   ControlContainer,
@@ -15,17 +15,17 @@ import { ERROR_MESSAGES } from '../models/erro-messages';
 export class FormErrorDirective implements OnInit {
   @HostBinding('innerHTML') innerHtml = '';
 
-  @Input() formErrorControlName?: string;
-  @Input() formErrorControl?: FormControl | AbstractControl;
+  formErrorControlName = input<string>();
+  formErrorControl = input<FormControl | AbstractControl>();
 
   constructor(
-    @Optional() private readonly controlContainer: ControlContainer
+    @Optional() private readonly controlContainer: ControlContainer,
   ) {}
 
   ngOnInit(): void {
-    if (this.formErrorControlName) {
+    if (this.formErrorControlName()) {
       const control = this.controlContainer.control?.get(
-        this.formErrorControlName
+        this.formErrorControlName()!,
       );
       if (control) this.setFormErros(control);
     }

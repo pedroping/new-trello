@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, computed, input, viewChild } from '@angular/core';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { ToolbarService } from '@my-monorepo/core/ui/toolbar';
 
@@ -11,15 +11,19 @@ import { ToolbarService } from '@my-monorepo/core/ui/toolbar';
   imports: [MatSidenavModule, NgClass],
 })
 export class SidenavComponent implements OnInit {
-  @Input() hasClosedSidenav = true;
-  @ViewChild('drawer') drawer?: MatDrawer;
-
+  hasClosedSidenav = input<boolean>(true);
+  drawer = viewChild<MatDrawer>('drawer');
+  drawerClass = computed(() =>
+    this.hasClosedSidenav() ? 'drawer-content' : '',
+  );
   constructor(private readonly toolbarService: ToolbarService) {}
 
   ngOnInit() {
     this.toolbarService.menuEvent$.subscribe((value) => {
-      if (value) this.drawer?.open();
-      else this.drawer?.close();
+      console.log(value, this.drawer());
+
+      if (value) this.drawer()?.open();
+      else this.drawer()?.close();
     });
   }
 }

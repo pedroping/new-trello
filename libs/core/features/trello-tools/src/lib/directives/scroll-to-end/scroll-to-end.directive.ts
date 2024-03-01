@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, inject } from '@angular/core';
+import { Directive, ElementRef, inject, input } from '@angular/core';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { BehaviorSubject, take, timer } from 'rxjs';
 
@@ -8,13 +8,13 @@ import { BehaviorSubject, take, timer } from 'rxjs';
 })
 @CallSetValueChanges()
 export class ScrollToEndDirective {
-  @Input({ required: true, alias: 'scrollToEnd' })
-  addNewEvent$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
+  addNewEvent$ = input.required<BehaviorSubject<boolean>>({
+    alias: 'scrollToEnd',
+  });
   private readonly elementRef = inject(ElementRef);
 
   setValueChanges() {
-    this.addNewEvent$.subscribe((value) => {
+    this.addNewEvent$().subscribe((value) => {
       if (value) {
         this.timerSubscription().subscribe(() => {
           this.elementRef.nativeElement.scroll({

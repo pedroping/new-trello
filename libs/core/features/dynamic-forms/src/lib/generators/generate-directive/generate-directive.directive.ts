@@ -1,11 +1,11 @@
 import {
   Directive,
   Inject,
-  Input,
   OnInit,
   Optional,
   Type,
   ViewContainerRef,
+  input,
 } from '@angular/core';
 import {
   BASIC_INPUTS,
@@ -21,7 +21,7 @@ import {
   standalone: true,
 })
 export class GenerateDirective<T> implements OnInit {
-  @Input({ required: true }) config!: IInputBuilder<T>;
+  config = input.required<IInputBuilder<T>>();
   basicInputs = BASIC_INPUTS;
 
   allInputs: Map<string | number, Type<IComponentBase<IBaseInput>>> = new Map();
@@ -30,14 +30,15 @@ export class GenerateDirective<T> implements OnInit {
     @Inject(DEFAULT_COMPS)
     @Optional()
     private inputs: ComponentHolder,
-    private vcr: ViewContainerRef
+    private vcr: ViewContainerRef,
   ) {}
 
   async ngOnInit() {
     this.vcr.clear();
 
-    if (this.config.isBasicInput) {
-      const inputName = this.config.inputName as keyof typeof this.basicInputs;
+    if (this.config().isBasicInput) {
+      const inputName = this.config()
+        .inputName as keyof typeof this.basicInputs;
 
       const findInput = this.allInputs.get(inputName) as Type<
         IComponentBase<IBaseInput>

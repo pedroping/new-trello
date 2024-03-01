@@ -1,1 +1,1 @@
-export * from './lib/core-features-conditional-element.module';
+export * from './lib/directives/obsavable-based-element.directive';

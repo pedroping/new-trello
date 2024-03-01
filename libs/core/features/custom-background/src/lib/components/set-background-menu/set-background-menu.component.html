@@ -20,7 +20,7 @@
 </div>
 
 <footer>
-  <mat-icon (click)="cdkMenuTrigger.close()">close</mat-icon>
+  <mat-icon (click)="cdkMenuTrigger().close()">close</mat-icon>
 </footer>
 
 <input
@@ -28,4 +28,4 @@
   (change)="uploadImage($event)"
   style="display: none"
   #fileInput
-  />
+/>

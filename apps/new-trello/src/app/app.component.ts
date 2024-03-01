@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CoreFeaturesBackdropScreenModule } from '@my-monorepo/core/features/backdrop-screen';
+import { BackdropScreenComponent } from '@my-monorepo/core/features/backdrop-screen';
 import { CustomBackgroundDirective } from '@my-monorepo/core/features/custom-background';
 
 @Component({
@@ -8,10 +8,6 @@ import { CustomBackgroundDirective } from '@my-monorepo/core/features/custom-bac
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: true,
-  imports: [
-    RouterModule,
-    CoreFeaturesBackdropScreenModule,
-    CustomBackgroundDirective,
-  ],
+  imports: [RouterModule, BackdropScreenComponent, CustomBackgroundDirective],
 })
 export class AppComponent {}

@@ -1,22 +1,12 @@
-import {
-  CdkDragDrop,
-  CdkDropList,
-  DragDropModule,
-} from '@angular/cdk/drag-drop';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
+import { AsyncPipe } from '@angular/common';
+import { Component, EventEmitter, Output, input } from '@angular/core';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { Observable, map } from 'rxjs';
 import { ScrollToEndDirective } from '../../directives/scroll-to-end/scroll-to-end.directive';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 import { IBlock, Icard } from '../../models/card.models';
 import { CardComponent } from '../card/card.component';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'card-list',
@@ -27,17 +17,17 @@ import { AsyncPipe } from '@angular/common';
 })
 @CallSetValueChanges()
 export class CardListComponent {
-  @Input({ required: true }) id = -1;
-  @Input({ required: true }) blockCard!: IBlock;
-  @Input() isSelected?: boolean;
-  @Output() cardMove = new EventEmitter<boolean>();
-  @ViewChild(CdkDropList, { static: true }) list!: CdkDropList;
+  id = input<number>(-1);
+  blockCard = input.required<IBlock>();
+  isSelected = input<boolean>();
 
   customZIndex$!: Observable<number>;
   scrollMoveTick = 5;
 
+  @Output() cardMove = new EventEmitter<boolean>();
+
   constructor(
-    private readonly cardEventsFacadeService: CardEventsFacadeService
+    private readonly cardEventsFacadeService: CardEventsFacadeService,
   ) {}
 
   setValueChanges() {
@@ -46,7 +36,7 @@ export class CardListComponent {
     });
 
     this.customZIndex$ = this.cardEventsFacadeService.onCardMove$$.pipe(
-      map((val) => (val ? 1000 : 0))
+      map((val) => (val ? 1000 : 0)),
     );
   }
 
@@ -66,12 +56,12 @@ export class CardListComponent {
   }
 
   setEntered() {
-    if (!this.isSelected)
-      this.cardEventsFacadeService.setLastToBeHovered(this.id);
+    if (!this.isSelected())
+      this.cardEventsFacadeService.setLastToBeHovered(this.id());
   }
 
   setExited() {
-    if (this.cardEventsFacadeService.lastToBeHovered === this.id)
+    if (this.cardEventsFacadeService.lastToBeHovered === this.id())
       this.cardEventsFacadeService.setLastToBeHovered(-1);
   }
 }

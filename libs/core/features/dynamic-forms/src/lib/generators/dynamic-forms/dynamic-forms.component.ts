@@ -1,7 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { IInputBuilder } from '../../models/models';
 import { GenerateDirective } from '../generate-directive/generate-directive.directive';
-
 
 @Component({
   selector: 'dynamic-forms',
@@ -11,7 +10,7 @@ import { GenerateDirective } from '../generate-directive/generate-directive.dire
   imports: [GenerateDirective],
 })
 export class DynamicFormsComponent<T> {
-  @Input({ required: true }) config!: IInputBuilder<T>[];
+  config = input.required<IInputBuilder<T>[]>();
 
   constructor() {}
 }

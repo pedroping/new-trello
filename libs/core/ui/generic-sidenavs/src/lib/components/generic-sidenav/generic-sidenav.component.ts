@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { GenericSidenavsFacadeService } from '../../facades/generic-sidenavs-facade.service';
+import { Component, input } from '@angular/core';
 import { HideSidenavsDirective } from '../../directives/hide-sidenavs.directive';
+import { GenericSidenavsFacadeService } from '../../facades/generic-sidenavs-facade.service';
 
 @Component({
   selector: 'generic-sidenav',
@@ -10,20 +10,20 @@ import { HideSidenavsDirective } from '../../directives/hide-sidenavs.directive'
   imports: [HideSidenavsDirective],
 })
 export class GenericSidenavComponent {
-  @Input({ required: true }) side!: 'right' | 'left';
+  side = input.required<'right' | 'left'>();
 
   constructor(
-    private readonly genericSidenavsFacadeService: GenericSidenavsFacadeService
+    private readonly genericSidenavsFacadeService: GenericSidenavsFacadeService,
   ) {}
 
   get sideNavObservable$$() {
-    return this.side == 'right'
+    return this.side() == 'right'
       ? this.genericSidenavsFacadeService.rightSideNav$$
       : this.genericSidenavsFacadeService.leftSideNav$$;
   }
 
   get initialState() {
-    return this.side == 'right'
+    return this.side() == 'right'
       ? this.genericSidenavsFacadeService.rightSideNavState
       : this.genericSidenavsFacadeService.leftSideNavState;
   }

@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
-import { HandleImageService } from '../../services/handleImage.service';
-import { MatIconModule } from '@angular/material/icon';
 import { AsyncPipe } from '@angular/common';
+import { Component, input } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
+import { HandleImageService } from '../../services/handleImage.service';
 
 @Component({
   selector: 'set-background-menu',
@@ -10,14 +11,19 @@ import { AsyncPipe } from '@angular/common';
   standalone: true,
   imports: [MatIconModule, AsyncPipe],
 })
+@CallSetValueChanges()
 export class SetBackgroundMenuComponent {
-  @Input({ required: true }) cdkMenuTrigger!: unknown & {
-    close: () => void;
-  };
+  cdkMenuTrigger = input.required<
+    unknown & {
+      close: () => void;
+    }
+  >();
 
   images$ = this.handleImageService.imgSrc$;
 
   constructor(readonly handleImageService: HandleImageService) {}
+
+  setValueChanges() {}
 
   uploadImage(event: Event) {
     this.handleImageService.uploadImage(event);
@@ -25,6 +31,6 @@ export class SetBackgroundMenuComponent {
 
   selectImg(image: string | ArrayBuffer) {
     this.handleImageService.selectImage(image);
-    this.cdkMenuTrigger.close();
+    this.cdkMenuTrigger().close();
   }
 }

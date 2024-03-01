@@ -3,6 +3,7 @@ import { BackDropEvent } from '../models/backdrop-screen-models';
 
 @Directive({
   selector: '[backDropContent]',
+  standalone: true,
 })
 export class BackdropContentDirective implements BackDropEvent {
   constructor(readonly template: TemplateRef<unknown>) {}

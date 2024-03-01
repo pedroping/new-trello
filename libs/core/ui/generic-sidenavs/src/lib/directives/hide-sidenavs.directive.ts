@@ -1,4 +1,4 @@
-import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, TemplateRef, ViewContainerRef, input } from '@angular/core';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { Observable, startWith } from 'rxjs';
 
@@ -8,17 +8,19 @@ import { Observable, startWith } from 'rxjs';
 })
 @CallSetValueChanges()
 export class HideSidenavsDirective {
-  @Input('hideSidenavs') createObservable$!: Observable<boolean>;
-  @Input('hideSidenavsInitialState') initialState!: boolean;
+  createObservable$ = input<Observable<boolean>>(new Observable<boolean>(), {
+    alias: 'hideSidenavs',
+  });
+  initialState = input<boolean>(false, { alias: 'hideSidenavsInitialState' });
 
   constructor(
     private templateRef: TemplateRef<unknown>,
-    private readonly viewContainerRef: ViewContainerRef
+    private readonly viewContainerRef: ViewContainerRef,
   ) {}
 
   setValueChanges() {
     this.viewContainerRef.clear();
-    this.createObservable$
+    this.createObservable$()
       .pipe(startWith(this.initialState))
       .subscribe((state) => {
         this.viewContainerRef.clear();

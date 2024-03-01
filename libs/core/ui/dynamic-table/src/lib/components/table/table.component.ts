@@ -1,24 +1,19 @@
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
+import { CdkTableModule } from '@angular/cdk/table';
+import { CommonModule } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ContentChildren,
-  Input,
   OnChanges,
   OnInit,
   QueryList,
   SimpleChanges,
   TemplateRef,
   ViewChild,
+  input,
 } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import {
   MatPaginator,
   MatPaginatorModule,
@@ -26,19 +21,16 @@ import {
 } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import {
-  HasElementDirective,
   ExpandTableDirective,
+  HasElementDirective,
   SelectedRowService,
 } from '@my-monorepo/core/features/expand-table';
-import { ITableColumn, ITableConfig } from '../../models/table';
-import { IN_OUT_PANE_ANIMATION } from '../../animations/inOutPane';
-import { ICON_STATE_ANIMATION } from '../../animations/iconState';
-import { CdkTableModule } from '@angular/cdk/table';
-import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
 import { TuiTagModule } from '@taiga-ui/kit';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ICON_STATE_ANIMATION } from '../../animations/iconState';
+import { IN_OUT_PANE_ANIMATION } from '../../animations/inOutPane';
 import { GenerateCustomFieldDirective } from '../../directives/generate-custom-field.directive';
+import { ITableColumn, ITableConfig } from '../../models/table';
 
 @Component({
   selector: 'dynamic-table',
@@ -60,8 +52,8 @@ import { GenerateCustomFieldDirective } from '../../directives/generate-custom-f
   ],
 })
 export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
-  @Input({ required: true }) config!: ITableConfig<T>;
-  @Input({ required: true }) data!: T[];
+  data = input.required<T[]>();
+  config = input.required<ITableConfig<T>>();
 
   length = 0;
   columnsLength = 0;
@@ -74,22 +66,19 @@ export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
 
   @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
   @ContentChildren('customTemplate') set templates(
-    query: QueryList<TemplateRef<unknown>>
+    query: QueryList<TemplateRef<unknown>>,
   ) {
     this.availableTemplates = query.toArray();
   }
 
-  constructor(
-    private cdr: ChangeDetectorRef,
-    readonly selectedRowService: SelectedRowService<T>
-  ) {}
+  constructor(readonly selectedRowService: SelectedRowService<T>) {}
 
   ngOnInit() {
     this.createDataSource();
   }
 
   ngAfterViewInit(): void {
-    if (this.config.hasPaginator && this.paginator)
+    if (this.config().hasPaginator && this.paginator)
       this.dataSource.paginator = this.paginator;
   }
 
@@ -101,28 +90,28 @@ export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
 
   createDataSource() {
     this.setColumns();
-    this.viewDataSource = this.data;
+    this.viewDataSource = this.data();
     this.length = this.data.length;
     this.dataSource = new MatTableDataSource(this.viewDataSource);
 
-    if (this.config.hasDefaultPaginator && this.config.customPagination)
-      this.config.customPagination();
+    if (this.config().hasDefaultPaginator && this.config().customPagination)
+      this.config().customPagination?.();
   }
 
   setColumns() {
     this.columnsLength = this.displayedColumns.length;
-    this.secondHeaders = this.config.columns
-      .filter((item) => !!item.secondLabel)
+    this.secondHeaders = this.config()
+      .columns.filter((item) => !!item.secondLabel)
       .map((item) => ({
         ...item,
         selector: `${item.selector}-second`,
       }));
-    this.displayedColumns = this.config.columns.map((item) => item.selector);
+    this.displayedColumns = this.config().columns.map((item) => item.selector);
     this.secondDisplayedHeaders = this.secondHeaders.map(
-      (item) => item.selector
+      (item) => item.selector,
     );
 
-    if (!this.config.hasExpansion) return;
+    if (!this.config().hasExpansion) return;
 
     this.displayedColumns.push('expandeIcon');
     this.secondDisplayedHeaders.push('expandeIcon');
@@ -130,10 +119,11 @@ export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
 
   handlePageChange(event: number | PageEvent) {
     this.scrollToTop();
-    if (typeof event == 'number' && this.config.defaultPaginatorOptions) {
-      this.config.defaultPaginatorOptions.currentPage = event;
+    if (typeof event == 'number' && this.config().defaultPaginatorOptions) {
+      this.config()!.defaultPaginatorOptions!.currentPage = event;
     }
-    if (this.config.customPagination) return this.config.customPagination();
+    if (this.config().customPagination)
+      return this.config().customPagination?.();
   }
 
   scrollToTop() {

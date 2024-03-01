@@ -1,5 +1,5 @@
 import { CdkMenuModule } from '@angular/cdk/menu';
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { CloseMenuDirective } from '../../directives/close-menu/close-menu.directive';
 import { CardOptionsComponent } from '../card-options/card-options.component';
@@ -17,6 +17,6 @@ import { CardOptionsComponent } from '../card-options/card-options.component';
   ],
 })
 export class CardHeaderComponent {
-  @Input() cardLength = 0;
-  @Input({ required: true }) title = '';
+  cardLength = input<number>(0);
+  title = input.required();
 }

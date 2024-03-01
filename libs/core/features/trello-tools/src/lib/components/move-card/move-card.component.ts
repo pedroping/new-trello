@@ -1,8 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { Component, input } from '@angular/core';
 import { BackdropStateService } from '@my-monorepo/core/features/backdrop-screen';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 import { IBlock, Icard } from '../../models/card.models';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'move-card',
@@ -12,22 +12,22 @@ import { AsyncPipe } from '@angular/common';
   imports: [AsyncPipe],
 })
 export class MoveCardComponent {
-  @Input({ required: true }) card?: Icard;
-  @Input({ required: true }) blockCard!: IBlock;
+  card = input<Icard>();
+  blockCard = input.required<IBlock>();
 
   blocks$$ = this.cardEventsFacadeService.blocks$$;
 
   constructor(
     private readonly backdropStateService: BackdropStateService,
-    private readonly cardEventsFacadeService: CardEventsFacadeService
+    private readonly cardEventsFacadeService: CardEventsFacadeService,
   ) {}
 
   moveToBlock(cards: Icard[]) {
-    if (!this.card) return;
+    if (!this.card()) return;
     this.cardEventsFacadeService.moveToBlock(
-      this.blockCard.cards,
+      this.blockCard().cards,
       cards,
-      this.card
+      this.card()!,
     );
     this.backdropStateService.setBackDropState();
   }

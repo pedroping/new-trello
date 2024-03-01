@@ -1,10 +1,10 @@
 import {
   Directive,
-  Input,
   OnInit,
   Optional,
   TemplateRef,
   ViewContainerRef,
+  input,
 } from '@angular/core';
 import { SelectedRowService } from '../../service/selected-row.service';
 
@@ -16,7 +16,7 @@ export const DOWN_ICON = 'collapsed';
   standalone: true,
 })
 export class HasElementDirective<T> implements OnInit {
-  @Input('appHasElement') rowElement!: T;
+  rowElement = input<T>(undefined as T, { alias: 'appHasElement' });
 
   private lasState = false;
   iconState = DOWN_ICON;
@@ -24,7 +24,7 @@ export class HasElementDirective<T> implements OnInit {
   constructor(
     @Optional() private templateRef: TemplateRef<unknown>,
     private viewContainer: ViewContainerRef,
-    private selectedRowService: SelectedRowService<T>
+    private selectedRowService: SelectedRowService<T>,
   ) {}
 
   ngOnInit(): void {
@@ -34,7 +34,7 @@ export class HasElementDirective<T> implements OnInit {
 
   private ngIf() {
     const isSelectedRow = this.selectedRowService.selectedRows$.value.includes(
-      this.rowElement
+      this.rowElement(),
     );
     this.iconState = isSelectedRow ? UP_ICON : DOWN_ICON;
 

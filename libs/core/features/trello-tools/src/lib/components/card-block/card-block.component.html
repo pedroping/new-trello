@@ -1,30 +1,30 @@
 <div
-  [id]="id"
+  [id]="id()"
   class="content"
   [baseSize]="105"
   #values="trelloCardBlockHeight"
-  [addNewEvent$]="blockCard.addNewEvent$"
-  [trelloCardBlockHeight]="blockCard.cards.length"
+  [addNewEvent$]="blockCard().addNewEvent$"
+  [trelloCardBlockHeight]="blockCard().cards.length"
 >
-  @if(!isPreview) {
-  <trello-card-header
-    [cardLength]="blockCard.cards.length"
-    [title]="blockCard.name"
-  ></trello-card-header>
-  <card-list
-    [id]="id"
-    [blockCard]="blockCard"
-    [isSelected]="isSelectedBlock"
-  ></card-list>
-  <trello-card-footer
-    [addNewEvent$]="blockCard.addNewEvent$"
-  ></trello-card-footer>
+  @if (!isPreview()) {
+    <trello-card-header
+      [cardLength]="blockCard().cards.length"
+      [title]="blockCard().name"
+    ></trello-card-header>
+    <card-list
+      [id]="id()"
+      [blockCard]="blockCard()"
+      [isSelected]="isSelectedBlock"
+    ></card-list>
+    <trello-card-footer
+      [addNewEvent$]="blockCard().addNewEvent$"
+    ></trello-card-footer>
   } @else {
-  <div
-    class="card-list"
-    [trelloCardBlockHeight]="blockCard.cards.length"
-    [baseSize]="50"
-    [id]="id"
-  ></div>
+    <div
+      class="card-list"
+      [trelloCardBlockHeight]="blockCard().cards.length"
+      [baseSize]="50"
+      [id]="id()"
+    ></div>
   }
 </div>

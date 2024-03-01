@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'trello-card-options',
@@ -6,8 +6,4 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./card-options.component.scss'],
   standalone: true,
 })
-export class CardOptionsComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit() {}
-}
+export class CardOptionsComponent {}

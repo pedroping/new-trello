@@ -1,4 +1,4 @@
-import { Directive, HostBinding, HostListener, Input } from '@angular/core';
+import { Directive, HostBinding, HostListener, input } from '@angular/core';
 import { Router } from '@angular/router';
 import { IrouteContext } from '../models/models';
 @Directive({
@@ -6,21 +6,22 @@ import { IrouteContext } from '../models/models';
   standalone: true,
 })
 export class SelectedRouteDirective {
-  @Input({ required: true }) activedRoute?: string | IrouteContext;
-  @Input() clickFunction?: () => void;
-
-  @Input() isChild?: boolean;
+  activedRoute = input.required<string | IrouteContext>();
+  clickFunction = input<() => void>();
+  isChild = input<boolean>();
 
   @HostBinding('class.selected') get validate() {
-    if (this.isChild && this.isAnString(this.activedRoute))
+    if (this.isChild() && this.isAnString(this.activedRoute()))
       return (
-        this.activedRoute &&
-        this.route.url.includes(this.activedRoute.replace('./', ''))
+        this.activedRoute() &&
+        this.route.url.includes(
+          (this.activedRoute() as string).replace('./', ''),
+        )
       );
 
-    if (this.isAnRouteContext(this.activedRoute)) {
-      const hasAnRoute = this.activedRoute.children.find((item) =>
-        this.route.url.includes(item.path.replace('./', ''))
+    if (this.isAnRouteContext(this.activedRoute())) {
+      const hasAnRoute = (this.activedRoute() as IrouteContext).children.find(
+        (item) => this.route.url.includes(item.path.replace('./', '')),
       );
       return hasAnRoute;
     }
@@ -29,7 +30,7 @@ export class SelectedRouteDirective {
   }
 
   @HostListener('click') onClick() {
-    if (this.clickFunction) this.clickFunction();
+    if (this.clickFunction()) this.clickFunction()?.();
   }
 
   constructor(private readonly route: Router) {}

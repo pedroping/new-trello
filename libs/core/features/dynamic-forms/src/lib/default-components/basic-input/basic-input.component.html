@@ -1,9 +1,9 @@
-<mat-form-field [appearance]="config.appearance ?? 'outline'">
-  <mat-label>{{ config.label }}</mat-label>
+<mat-form-field [appearance]="config().appearance ?? 'outline'">
+  <mat-label>{{ config().label }}</mat-label>
   <input
     matInput
-    [placeholder]="config.placeholder"
-    [formControlName]="config.formName!"
+    [placeholder]="config().placeholder"
+    [formControlName]="config().formName!"
   />
-  <mat-error formError [formErrorControlName]="config.formName"></mat-error>
+  <mat-error formError [formErrorControlName]="config().formName"></mat-error>
 </mat-form-field>

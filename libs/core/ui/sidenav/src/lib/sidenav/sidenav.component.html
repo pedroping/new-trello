@@ -4,20 +4,17 @@
   ></mat-drawer>
   <mat-drawer-content>
     <mat-drawer-container class="example-container" [hasBackdrop]="false">
-      @if (hasClosedSidenav) {
-      <mat-drawer
-        [autoFocus]="false"
-        mode="push"
-        [opened]="true"
-        style="width: 80px"
-        class="mat-elevation-z2"
-        ><ng-content select="[closedSideNavContent]"></ng-content
-      ></mat-drawer>
+      @if (hasClosedSidenav()) {
+        <mat-drawer
+          [autoFocus]="false"
+          mode="push"
+          [opened]="true"
+          style="width: 80px"
+          class="mat-elevation-z2"
+          ><ng-content select="[closedSideNavContent]"></ng-content
+        ></mat-drawer>
       }
-      <mat-drawer-content
-        [class]="hasClosedSidenav ? 'drawer-content' : ''"
-        class="mainContent"
-      >
+      <mat-drawer-content [class]="drawerClass()" class="mainContent">
         <ng-content select="[mainContent]"></ng-content>
       </mat-drawer-content>
     </mat-drawer-container>

@@ -3,24 +3,25 @@
   class="card-list"
   cdkDropList
   [cdkDropListAutoScrollStep]="scrollMoveTick"
-  [cdkDropListData]="blockCard.cards"
+  [cdkDropListData]="blockCard().cards"
   [style.z-index]="customZIndex$ | async"
-  [scrollToEnd]="blockCard.addNewEvent$"
+  [scrollToEnd]="blockCard().addNewEvent$"
   (cdkDropListDropped)="onDrop()"
   (cdkDropListExited)="setExited()"
   (cdkDropListEntered)="setEntered()"
   (cdkDropListDropped)="drop($event)"
 >
-  @for(item of blockCard.cards; track $index) {
-  <div cdkDrag (cdkDragMoved)="onMove()">
-    <div class="example-custom-placeholder" *cdkDragPlaceholder>
-      <trello-card [isPreview]="true" [blockCard]="blockCard"></trello-card>
+  @for (item of blockCard().cards; track $index) {
+    <div cdkDrag (cdkDragMoved)="onMove()">
+      <div class="example-custom-placeholder" *cdkDragPlaceholder>
+        <trello-card [isPreview]="true" [blockCard]="blockCard()"></trello-card>
+      </div>
+      <trello-card [card]="item" [blockCard]="blockCard()">
+        {{ item.name }}
+      </trello-card>
     </div>
-    <trello-card [card]="item" [blockCard]="blockCard">
-      {{ item.name }}
-    </trello-card>
-  </div>
-  } @if(blockCard.addNewEvent$ | async) {
-  <trello-card [blockCard]="blockCard" [onAddNew]="true"></trello-card>
+  }
+  @if (blockCard().addNewEvent$ | async) {
+    <trello-card [blockCard]="blockCard()" [onAddNew]="true"></trello-card>
   }
 </div>

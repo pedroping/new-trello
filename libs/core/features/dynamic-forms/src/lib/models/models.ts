@@ -1,4 +1,4 @@
-import { InjectionToken } from '@angular/core';
+import { InjectionToken, InputSignal } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 export type IInputTypes = 'text' | 'number' | 'email';
@@ -21,7 +21,7 @@ export interface ISelectInput<T> extends IBaseInput {
 export type IInputBuilder<T> = IBaseInput | ISelectInput<T>;
 
 export interface IComponentBase<T> {
-  config: IInputBuilder<T>;
+  config: InputSignal<IInputBuilder<T>>;
 }
 
 export interface KeyObject<T> {
@@ -42,5 +42,5 @@ export const DEFAULT_COMPS = new InjectionToken<ComponentHolder>(
     factory: () => {
       return BASIC_INPUTS;
     },
-  }
+  },
 );

@@ -1,4 +1,4 @@
-import { Directive, HostBinding, HostListener, Input } from '@angular/core';
+import { Directive, HostBinding, HostListener, input } from '@angular/core';
 import { SelectedRowService } from '../../service/selected-row.service';
 
 @Directive({
@@ -6,11 +6,11 @@ import { SelectedRowService } from '../../service/selected-row.service';
   standalone: true,
 })
 export class ExpandTableDirective<T> {
-  @Input({ required: true }) rowElement!: T;
+  rowElement = input.required<T>();
 
   @HostBinding('class.expand-detail-row') get ExpandTable() {
     const actualRow = this.selectedRowService.selectedRows$.value;
-    return actualRow.includes(this.rowElement);
+    return actualRow.includes(this.rowElement());
   }
 
   @HostListener('click', ['$event']) onClick(event: Event) {
@@ -19,13 +19,16 @@ export class ExpandTableDirective<T> {
     if (target.id !== 'expandIcon') return;
 
     const actualRow = this.selectedRowService.selectedRows$.value;
-    if (actualRow.includes(this.rowElement)) {
+    if (actualRow.includes(this.rowElement())) {
       this.selectedRowService.selectedRows$.next(
-        actualRow.filter((item) => item != this.rowElement)
+        actualRow.filter((item) => item != this.rowElement()),
       );
       return;
     }
-    this.selectedRowService.selectedRows$.next([...actualRow, this.rowElement]);
+    this.selectedRowService.selectedRows$.next([
+      ...actualRow,
+      this.rowElement(),
+    ]);
   }
 
   constructor(private readonly selectedRowService: SelectedRowService<T>) {}
