@@ -64,7 +64,14 @@
               "maximumError": "5mb"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "optimization": {
+            "scripts": true,
+            "styles": {
+              "minify": true,
+              "inlineCritical": false
+            }
+          }
         },
         "development": {
           "buildOptimizer": false,
