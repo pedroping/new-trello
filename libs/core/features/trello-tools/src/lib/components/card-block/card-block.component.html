@@ -17,6 +17,8 @@
       [isSelected]="isSelectedBlock"
     ></card-list>
     <trello-card-footer
+      [id]="id()"
+      [length]="blockCard().cards.length"
       [addNewEvent$]="blockCard().addNewEvent$"
     ></trello-card-footer>
   } @else {

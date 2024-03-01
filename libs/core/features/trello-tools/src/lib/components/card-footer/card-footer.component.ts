@@ -4,6 +4,7 @@ import { Component, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { BehaviorSubject } from 'rxjs';
 import { CloseMenuDirective } from '../../directives/close-menu/close-menu.directive';
+import { FooterTopDirective } from '../../directives/footer-top/footer-top.directive';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 import { CardOptionsComponent } from '../card-options/card-options.component';
 
@@ -18,6 +19,12 @@ import { CardOptionsComponent } from '../card-options/card-options.component';
     CloseMenuDirective,
     AsyncPipe,
     CardOptionsComponent,
+  ],
+  hostDirectives: [
+    {
+      directive: FooterTopDirective,
+      inputs: ['id', 'length', 'addNewEvent$'],
+    },
   ],
 })
 export class CardFooterComponent {
