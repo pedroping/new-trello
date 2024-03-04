@@ -1,16 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import {
-  DynamicFormsComponent,
-  IInputBuilder,
-} from '@my-monorepo/core/features/dynamic-forms';
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  inject,
+  viewChild,
+} from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DynamicFormsComponent } from '@my-monorepo/core/features/dynamic-forms';
 import { FormErrorDirective } from '@my-monorepo/core/features/form-error';
 import {
   IBaseTableFather,
@@ -19,8 +17,9 @@ import {
   TableComponent,
   TableFatherPagination,
 } from '@my-monorepo/core/ui/dynamic-table';
-import { Observable, of, startWith } from 'rxjs';
-import { CREATE_TABLE_CONFIG, DATA } from '../../helpers/table-mocks';
+import { DefaultTableService } from 'apps/default-app/src/app/core/services/default-table.service';
+import { BehaviorSubject, Observable, startWith } from 'rxjs';
+import { DATA } from '../../helpers/table-mocks';
 @Component({
   selector: 'app-dynamic-table',
   templateUrl: './dynamic-table.component.html',
@@ -41,26 +40,13 @@ export class DynamicTableComponent
   implements OnInit, IBaseTableFather<IBasicTableTest>
 {
   override tableConfig!: ITableConfig<IBasicTableTest>;
-  override data$: Observable<IBasicTableTest[]> = of(DATA);
+  override data$!: BehaviorSubject<IBasicTableTest[]>;
 
-  form = new FormGroup({
-    teste: new FormControl(null, Validators.required),
-  });
-
-  formsConfig: IInputBuilder<unknown>[] = [
-    {
-      label: 'Teste',
-      placeholder: 'Teste',
-      formName: 'teste',
-      type: 'text',
-      appearance: 'outline',
-      isBasicInput: true,
-      inputName: 'BasicInputComponent',
-    },
-  ];
+  tableComponent = viewChild(TableComponent);
+  defaultTableService = inject(DefaultTableService<IBasicTableTest>);
 
   ngOnInit() {
-    this.tableConfig = CREATE_TABLE_CONFIG(this);
+    this.createTableValues();
     this.startPagination();
     if (
       this.tableConfig.hasDefaultPaginator &&
@@ -69,24 +55,29 @@ export class DynamicTableComponent
       this.customPagination();
   }
 
+  createTableValues() {
+    this.tableConfig = this.defaultTableService.createTableConfig(this);
+    this.data$ = this.defaultTableService.createData(DATA);
+  }
+
   getValueChanges(
     valueChanges$: Observable<IBasicTableTest>,
     id: number,
     element: IBasicTableTest,
-    selector: keyof IBasicTableTest
+    selector: keyof IBasicTableTest,
   ) {
     valueChanges$.pipe(startWith(element[selector])).subscribe((value) => {
-      console.log(
-        `${id}- ${selector.toUpperCase()} Mudou para ${value} elemento`,
-        element,
-        this.findControl(selector, id)
-      );
+      // console.log(
+      //   `${id}- ${selector.toUpperCase()} Mudou para ${value} elemento`,
+      //   element,
+      //   this.findControl(selector, id),
+      // );
     });
   }
 
   findControl(selector: keyof IBasicTableTest, id: number) {
     const column = this.tableConfig.columns.find(
-      (column) => column.selector == selector
+      (column) => column.selector == selector,
     );
     if (!column) return null;
     return column.controlsOptions?.controls[id];
@@ -94,5 +85,12 @@ export class DynamicTableComponent
 
   customPagination() {
     this.setChangeEvent();
+  }
+
+  a() {
+    this.data$.subscribe((value) => {
+      value[3] = { ...value[3], age: 1000, gmail: 'Teste' };
+      this.tableComponent()?.resetTable();
+    });
   }
 }

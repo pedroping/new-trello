@@ -20,8 +20,6 @@ export class SidenavComponent implements OnInit {
 
   ngOnInit() {
     this.toolbarService.menuEvent$.subscribe((value) => {
-      console.log(value, this.drawer());
-
       if (value) this.drawer()?.open();
       else this.drawer()?.close();
     });

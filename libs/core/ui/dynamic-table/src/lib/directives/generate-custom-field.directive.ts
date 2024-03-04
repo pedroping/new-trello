@@ -1,4 +1,5 @@
 import { Directive, OnInit, ViewContainerRef, input } from '@angular/core';
+import { Subject } from 'rxjs';
 import { ITableColumn } from '../models/table';
 
 @Directive({
@@ -10,15 +11,16 @@ export class GenerateCustomFieldDirective<T> implements OnInit {
   selector = input.required<keyof T>();
   column = input.required<ITableColumn<T>>();
 
+  elementChange$ = new Subject<void>();
+
   constructor(private readonly vcr: ViewContainerRef) {}
 
   ngOnInit(): void {
+    if (!this.column().component) return;
     this.vcr.clear();
-    if (this.column().component) {
-      const component = this.vcr.createComponent(this.column().component!);
-      component.instance.selector = this.selector();
-      component.instance.tableElement = this.element();
-      component.instance.columnOption = this.column();
-    }
+    const component = this.vcr.createComponent(this.column().component!);
+    component.instance.selector = this.selector();
+    component.instance.tableElement = this.element();
+    component.instance.columnOption = this.column();
   }
 }

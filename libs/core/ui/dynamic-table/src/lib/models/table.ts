@@ -1,6 +1,6 @@
-import { TemplateRef, Type } from '@angular/core';
+import { Type } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 export interface ITableColumn<T> {
   label: string;
@@ -44,7 +44,7 @@ export interface IColumnFormOptions<T> {
     valueChanges$: Observable<T>,
     id: number,
     element: T,
-    selector: keyof T
+    selector: keyof T,
   ) => void;
 }
 export interface IDefaultPaginatorOptions {
@@ -59,6 +59,7 @@ export interface DefaultInput<T> {
   selector: keyof T;
   formControl: FormControl;
   columnOption: ITableColumn<T>;
+  ngOnInit: () => void;
 }
 
 export interface IBaseTableFather<T> {
@@ -66,9 +67,15 @@ export interface IBaseTableFather<T> {
     valueChanges$: Observable<T>,
     id: number,
     element: T,
-    selector: keyof T
+    selector: keyof T,
   ) => void;
+  createTableValues: () => void;
   customPagination?: () => void;
+}
+
+export interface IBaseTableService<T> {
+  createTableConfig: (father: IBaseTableFather<T>) => ITableConfig<T>;
+  createData: (data: T[]) => BehaviorSubject<T[]>;
 }
 
 export type IControls = AbstractControl | FormControl;

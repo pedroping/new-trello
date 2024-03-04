@@ -5,7 +5,9 @@ import { DefaultInput, ITableColumn } from './table';
 
 @Injectable()
 @UntilDestroy()
-export abstract class BasicTableInput<T> implements DefaultInput<T> {
+export abstract class BasicTableInput<T>
+  implements Omit<DefaultInput<T>, 'ngOnInit'>
+{
   tableElement!: T;
   selector!: keyof T;
   formControl!: FormControl;
@@ -30,7 +32,7 @@ export abstract class BasicTableInput<T> implements DefaultInput<T> {
     };
 
     const valueChanges$ = this.formControl.valueChanges.pipe(
-      untilDestroyed(this)
+      untilDestroyed(this),
     );
 
     const controlsOptions = this.columnOption?.controlsOptions;
@@ -44,7 +46,7 @@ export abstract class BasicTableInput<T> implements DefaultInput<T> {
         valueChanges$,
         element.id,
         element,
-        this.selector
+        this.selector,
       );
     }
   }

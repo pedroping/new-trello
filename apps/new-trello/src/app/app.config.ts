@@ -19,7 +19,10 @@ import {
   withViewTransitions,
 } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
-import { CardEventsFacadeService } from '@my-monorepo/core/features/trello-tools';
+import {
+  CardEventsFacadeService,
+  IndexedDbService,
+} from '@my-monorepo/core/features/trello-tools';
 import { TuiRootModule } from '@taiga-ui/core';
 import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
@@ -47,6 +50,15 @@ const setMetaProviders: FactoryProvider = {
   multi: true,
 };
 
+const indexedDBProviders: FactoryProvider = {
+  provide: APP_INITIALIZER,
+  useFactory: () => {
+    const indexedService = inject(IndexedDbService);
+    return () => indexedService.createDataBase();
+  },
+  multi: true,
+};
+
 const colorsProviders: FactoryProvider[] = [
   {
     provide: META_DARK_COLOR,
@@ -64,7 +76,7 @@ export const appConfig: ApplicationConfig = {
       appRoutes,
       withEnabledBlockingInitialNavigation(),
       withComponentInputBinding(),
-      withViewTransitions()
+      withViewTransitions(),
     ),
     provideHttpClient(),
     provideAnimations(),
@@ -73,6 +85,7 @@ export const appConfig: ApplicationConfig = {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000',
     }),
+    indexedDBProviders,
     loadMocksProviders,
     setMetaProviders,
     ...colorsProviders,

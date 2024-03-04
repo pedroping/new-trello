@@ -17,23 +17,19 @@ export const DATA = Array.from({ length: 100 }, (_, index) => {
   };
 }) as IBasicTableTest[];
 
-export function createValueChangesFn(
-  component: IBaseTableFather<IBasicTableTest>
-) {
+export function createValueChangesFn<T>(component: IBaseTableFather<T>) {
   const valueChangesFn = (
-    valueChanges$: Observable<IBasicTableTest>,
+    valueChanges$: Observable<T>,
     id: number,
-    element: IBasicTableTest,
-    selector: keyof IBasicTableTest
+    element: T,
+    selector: keyof T,
   ) => {
     component.getValueChanges(valueChanges$, id, element, selector);
   };
   return valueChangesFn;
 }
 
-export const CREATE_TABLE_CONFIG = (
-  component: IBaseTableFather<IBasicTableTest>
-) => {
+export function CREATE_TABLE_CONFIG<T>(component: IBaseTableFather<T>) {
   return {
     hasExpansion: true,
     hasPaginator: true,
@@ -86,5 +82,5 @@ export const CREATE_TABLE_CONFIG = (
         selector: 'gmail3',
       },
     ],
-  } as ITableConfig<IBasicTableTest>;
-};
+  } as ITableConfig<T>;
+}

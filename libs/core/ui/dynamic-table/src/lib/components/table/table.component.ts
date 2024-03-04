@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ContentChildren,
   OnChanges,
@@ -11,6 +12,7 @@ import {
   SimpleChanges,
   TemplateRef,
   ViewChild,
+  inject,
   input,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -31,6 +33,8 @@ import { ICON_STATE_ANIMATION } from '../../animations/iconState';
 import { IN_OUT_PANE_ANIMATION } from '../../animations/inOutPane';
 import { GenerateCustomFieldDirective } from '../../directives/generate-custom-field.directive';
 import { ITableColumn, ITableConfig } from '../../models/table';
+import { TableActions } from '../../service/table-actions.service';
+import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 
 @Component({
   selector: 'dynamic-table',
@@ -51,6 +55,7 @@ import { ITableColumn, ITableConfig } from '../../models/table';
     GenerateCustomFieldDirective,
   ],
 })
+@CallSetValueChanges()
 export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
   data = input.required<T[]>();
   config = input.required<ITableConfig<T>>();
@@ -71,15 +76,17 @@ export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
     this.availableTemplates = query.toArray();
   }
 
-  constructor(readonly selectedRowService: SelectedRowService<T>) {}
+  constructor(
+    readonly selectedRowService: SelectedRowService<T>,
+    private readonly tableActions: TableActions,
+  ) {}
 
   ngOnInit() {
     this.createDataSource();
   }
 
   ngAfterViewInit(): void {
-    if (this.config().hasPaginator && this.paginator)
-      this.dataSource.paginator = this.paginator;
+    this.setPaginator();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -88,14 +95,25 @@ export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
     }
   }
 
+  resetTable() {
+    this.dataSource = new MatTableDataSource([] as T[]);
+    this.createDataSource();
+  }
+
   createDataSource() {
     this.setColumns();
     this.viewDataSource = this.data();
     this.length = this.data.length;
     this.dataSource = new MatTableDataSource(this.viewDataSource);
+    this.setPaginator();
 
     if (this.config().hasDefaultPaginator && this.config().customPagination)
       this.config().customPagination?.();
+  }
+
+  setPaginator() {
+    if (this.config().hasPaginator && this.paginator)
+      this.dataSource.paginator = this.paginator;
   }
 
   setColumns() {

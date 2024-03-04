@@ -1,9 +1,9 @@
 @if (data$ | async; as data) {
-<dynamic-table [config]="tableConfig" [data]="data">
-  <ng-template #customTemplate let-element>
-    {{ element.gmail }}
-  </ng-template>
-</dynamic-table>
+  <dynamic-table [config]="tableConfig" [data]="data">
+    <ng-template #customTemplate let-element>
+      {{ element.gmail }}
+    </ng-template>
+  </dynamic-table>
 }
 
-<dynamic-forms [formGroup]="form" [config]="formsConfig"></dynamic-forms>
+<button (click)="a()">Teste</button>
