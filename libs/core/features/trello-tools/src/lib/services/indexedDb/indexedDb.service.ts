@@ -38,6 +38,17 @@ export class IndexedDbService {
       store.put({ id: 4, name: 'Card de Teste 41', blockId: 0 });
 
       const idQuery = store.getAll();
+      const editQuery = store.get(3);
+      const deleteQuery = store.delete(4);
+
+      editQuery.onsuccess = () => {
+        editQuery.result.name = 'Novo Teste';
+        store.put(editQuery.result);
+      };
+
+      deleteQuery.onsuccess = () => {
+        console.log('Delete works');
+      };
 
       idQuery.onsuccess = () => {
         console.log(idQuery.result);

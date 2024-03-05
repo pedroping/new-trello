@@ -54,6 +54,9 @@
       "@my-monorepo/core/features/set-value-changes-decorator": [
         "libs/core/features/set-value-changes-decorator/src/index.ts"
       ],
+      "@my-monorepo/core/features/trello-db": [
+        "libs/core/features/trello-db/src/index.ts"
+      ],
       "@my-monorepo/core/features/trello-tools": [
         "libs/core/features/trello-tools/src/index.ts"
       ],
