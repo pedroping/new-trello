@@ -3,8 +3,8 @@ import {
   ElementRef,
   EnvironmentInjector,
   effect,
+  inject,
   input,
-  runInInjectionContext,
   viewChild,
 } from '@angular/core';
 import {
@@ -55,19 +55,18 @@ export class CardComponent {
     validators: [Validators.required],
   });
 
+  injector = inject(EnvironmentInjector);
+
   constructor(
-    private injector: EnvironmentInjector,
     private readonly backdropStateService: BackdropStateService,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
     private readonly outsideClickEventsService: OutsideClickEventsService,
   ) {}
 
   setValueChanges() {
-    runInInjectionContext(this.injector, () =>
-      effect(() => {
-        this.nameInput()?.nativeElement.focus({ preventScroll: true });
-      }),
-    );
+    effect(() => {
+      this.nameInput()?.nativeElement.focus({ preventScroll: true });
+    });
 
     if (this.isPreview()) return;
     this.outsideClickEvents();
