@@ -1,11 +1,9 @@
 import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   OnInit,
-  inject,
-  viewChild,
+  inject
 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DynamicFormsComponent } from '@my-monorepo/core/features/dynamic-forms';
@@ -14,11 +12,12 @@ import {
   IBaseTableFather,
   IBasicTableTest,
   ITableConfig,
+  TableActions,
   TableComponent,
   TableFatherPagination,
 } from '@my-monorepo/core/ui/dynamic-table';
-import { DefaultTableService } from 'apps/default-app/src/app/core/services/default-table.service';
 import { BehaviorSubject, Observable, startWith } from 'rxjs';
+import { DefaultTableService } from '../../../../core/services/default-table.service';
 import { DATA } from '../../helpers/table-mocks';
 @Component({
   selector: 'app-dynamic-table',
@@ -41,9 +40,8 @@ export class DynamicTableComponent
 {
   override tableConfig!: ITableConfig<IBasicTableTest>;
   override data$!: BehaviorSubject<IBasicTableTest[]>;
-
-  tableComponent = viewChild(TableComponent);
   defaultTableService = inject(DefaultTableService<IBasicTableTest>);
+  tableActions = inject(TableActions);
 
   ngOnInit() {
     this.createTableValues();
@@ -67,11 +65,11 @@ export class DynamicTableComponent
     selector: keyof IBasicTableTest,
   ) {
     valueChanges$.pipe(startWith(element[selector])).subscribe((value) => {
-      // console.log(
-      //   `${id}- ${selector.toUpperCase()} Mudou para ${value} elemento`,
-      //   element,
-      //   this.findControl(selector, id),
-      // );
+      console.log(
+        `${id}- ${selector.toUpperCase()} Mudou para ${value} elemento`,
+        element,
+        this.findControl(selector, id),
+      );
     });
   }
 
@@ -90,7 +88,7 @@ export class DynamicTableComponent
   a() {
     this.data$.subscribe((value) => {
       value[3] = { ...value[3], age: 1000, gmail: 'Teste' };
-      this.tableComponent()?.resetTable();
+      this.tableActions.resetTable();
     });
   }
 }

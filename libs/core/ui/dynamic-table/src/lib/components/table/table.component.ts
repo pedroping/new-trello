@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ContentChildren,
   OnChanges,
@@ -12,7 +11,6 @@ import {
   SimpleChanges,
   TemplateRef,
   ViewChild,
-  inject,
   input,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -27,6 +25,7 @@ import {
   HasElementDirective,
   SelectedRowService,
 } from '@my-monorepo/core/features/expand-table';
+import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { TuiTagModule } from '@taiga-ui/kit';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ICON_STATE_ANIMATION } from '../../animations/iconState';
@@ -34,7 +33,6 @@ import { IN_OUT_PANE_ANIMATION } from '../../animations/inOutPane';
 import { GenerateCustomFieldDirective } from '../../directives/generate-custom-field.directive';
 import { ITableColumn, ITableConfig } from '../../models/table';
 import { TableActions } from '../../service/table-actions.service';
-import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 
 @Component({
   selector: 'dynamic-table',
@@ -95,6 +93,10 @@ export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
     }
   }
 
+  setValueChanges() {
+    this.tableActions.resetTable$$.subscribe(this.resetTable.bind(this));
+  }
+
   resetTable() {
     this.dataSource = new MatTableDataSource([] as T[]);
     this.createDataSource();
@@ -137,11 +139,11 @@ export class TableComponent<T> implements OnInit, AfterViewInit, OnChanges {
 
   handlePageChange(event: number | PageEvent) {
     this.scrollToTop();
-    if (typeof event == 'number' && this.config().defaultPaginatorOptions) {
-      this.config()!.defaultPaginatorOptions!.currentPage = event;
+    const config = this.config();
+    if (typeof event == 'number' && config.defaultPaginatorOptions) {
+      config.defaultPaginatorOptions.currentPage = event;
     }
-    if (this.config().customPagination)
-      return this.config().customPagination?.();
+    if (config.customPagination) return config.customPagination?.();
   }
 
   scrollToTop() {
