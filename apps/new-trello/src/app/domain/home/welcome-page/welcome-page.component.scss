@@ -50,11 +50,11 @@
     }
   }
 
-  .hasTwoSidenav~.right {
+  .hasTwoSidenav ~ .right {
     right: -500px !important;
   }
 
-  ::ng-deep generic-sidenav[side="right"] nav {
-    @include sidebar-box-shadow
+  ::ng-deep generic-sidenav[side='right'] nav {
+    @include sidebar-box-shadow;
   }
 }

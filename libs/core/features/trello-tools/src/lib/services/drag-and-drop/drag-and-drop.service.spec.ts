@@ -14,6 +14,6 @@ describe('Service: DragAndDrop', () => {
     [DragAndDropService],
     (service: DragAndDropService) => {
       expect(service).toBeTruthy();
-    }
+    },
   ));
 });

@@ -12,7 +12,7 @@ export class CardEventsFacadeService {
 
   constructor(
     private readonly cardMocksService: CardMocksService,
-    private readonly dragAndDropService: DragAndDropService
+    private readonly dragAndDropService: DragAndDropService,
   ) {}
 
   startDomain() {

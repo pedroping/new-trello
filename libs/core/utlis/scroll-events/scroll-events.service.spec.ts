@@ -14,6 +14,6 @@ describe('Service: ScrollEvents', () => {
     [ScrollEventsService],
     (service: ScrollEventsService) => {
       expect(service).toBeTruthy();
-    }
+    },
   ));
 });

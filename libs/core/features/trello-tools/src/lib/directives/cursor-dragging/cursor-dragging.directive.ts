@@ -14,13 +14,13 @@ export class CursorDraggingDirective {
   private _body = document.querySelector('body');
 
   constructor(
-    private readonly cardEventsFacadeService: CardEventsFacadeService
+    private readonly cardEventsFacadeService: CardEventsFacadeService,
   ) {}
 
   setValueChanges() {
     const moveEvent$ = merge(
       this.cardEventsFacadeService.onCardMove$$,
-      this.cardEventsFacadeService.onMove$$
+      this.cardEventsFacadeService.onMove$$,
     );
 
     moveEvent$.pipe(untilDestroyed(this)).subscribe(() => {

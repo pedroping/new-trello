@@ -11,7 +11,7 @@ export const ICON_STATE_ANIMATION = trigger('iconState', [
     'expanded',
     style({
       transform: 'rotate(180deg)',
-    })
+    }),
   ),
   state('collapsed', style({ transform: 'rotate(0deg)' })),
   transition('collapsed => expanded', animate('300ms ease-in')),

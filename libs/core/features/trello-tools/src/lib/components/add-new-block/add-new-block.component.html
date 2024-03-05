@@ -1,23 +1,23 @@
 @if (!onAddNew) {
-<div class="base-content" (click)="setState(true)">
-  <mat-icon>add</mat-icon><span>Adicionar outra lista</span>
-</div>
-} @else {
-<div class="add-new-content" @inOutPaneAnimation outsideClick>
-  <input
-    default-input
-    #listNameInput
-    type="text"
-    placeholder="Insira o titulo da lista..."
-    [formControl]="listName"
-    (keyup.enter)="addList()"
-    (keyup.escape)="setState(false)"
-  />
-  <div class="add-new-footer">
-    <button (click)="addList()" [disabled]="listName.invalid">
-      Adicionar Lista
-    </button>
-    <mat-icon (click)="setState(false)">close</mat-icon>
+  <div class="base-content" (click)="setState(true)">
+    <mat-icon>add</mat-icon><span>Adicionar outra lista</span>
   </div>
-</div>
+} @else {
+  <div class="add-new-content" @inOutPaneAnimation outsideClick>
+    <input
+      default-input
+      #listNameInput
+      type="text"
+      placeholder="Insira o titulo da lista..."
+      [formControl]="listName"
+      (keyup.enter)="addList()"
+      (keyup.escape)="setState(false)"
+    />
+    <div class="add-new-footer">
+      <button (click)="addList()" [disabled]="listName.invalid">
+        Adicionar Lista
+      </button>
+      <mat-icon (click)="setState(false)">close</mat-icon>
+    </div>
+  </div>
 }

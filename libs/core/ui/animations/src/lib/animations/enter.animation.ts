@@ -5,7 +5,7 @@ export const ENTER_ANIMATION = trigger('inPaneAnimation', [
     style({ opacity: 0, transform: 'translateY(-100%)' }),
     animate(
       '250ms ease-in-out',
-      style({ opacity: 1, transform: 'translateY(0)' })
+      style({ opacity: 1, transform: 'translateY(0)' }),
     ),
   ]),
 ]);

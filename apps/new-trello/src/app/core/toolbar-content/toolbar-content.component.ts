@@ -29,18 +29,18 @@ export class ToolbarContentComponent {
 
   constructor(
     private readonly outsideClickEventsService: OutsideClickEventsService,
-    private readonly genericSidenavsFacadeService: GenericSidenavsFacadeService
+    private readonly genericSidenavsFacadeService: GenericSidenavsFacadeService,
   ) {}
 
   setValueChanges() {
     this.outsideClickEventsService.outSideClick$.subscribe(() =>
-      this.menuTrigger?.close()
+      this.menuTrigger?.close(),
     );
   }
 
   toggleRightSideNav() {
     this.genericSidenavsFacadeService.setRightSideNavState(
-      !this.genericSidenavsFacadeService.rightSideNavState
+      !this.genericSidenavsFacadeService.rightSideNavState,
     );
   }
 }

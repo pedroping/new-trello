@@ -6,11 +6,14 @@ import { DefaultTableService } from './default-table.service';
 describe('Service: DefaultTable', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [DefaultTableService]
+      providers: [DefaultTableService],
     });
   });
 
-  it('should ...', inject([DefaultTableService], (service: DefaultTableService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [DefaultTableService],
+    (service: DefaultTableService) => {
+      expect(service).toBeTruthy();
+    },
+  ));
 });

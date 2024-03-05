@@ -12,11 +12,11 @@ import { map } from 'rxjs';
 })
 export class OnlineOfflineStateComponent implements OnInit {
   private readonly onlineOfflineStateService = inject(
-    OnlineOfflineStateService
+    OnlineOfflineStateService,
   );
 
   stateChanges$ = this.onlineOfflineStateService.stateChanges$.pipe(
-    map((state) => (state ? 'Online' : 'Offline'))
+    map((state) => (state ? 'Online' : 'Offline')),
   );
 
   ngOnInit() {}

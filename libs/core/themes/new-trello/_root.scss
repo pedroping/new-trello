@@ -1,15 +1,18 @@
 @mixin default-box-shadow {
-  box-shadow: -1px 2px 5px var(--box-shadow-color-01),
+  box-shadow:
+    -1px 2px 5px var(--box-shadow-color-01),
     0px 0px 0px var(--box-shadow-color-02);
 }
 
 @mixin second-box-shadow {
-  box-shadow: 0px 1px 1px var(--box-shadow-color-01),
+  box-shadow:
+    0px 1px 1px var(--box-shadow-color-01),
     0px 0px 1px var(--box-shadow-color-02);
 }
 
 @mixin sidebar-box-shadow {
-  box-shadow: -2px 15px 4px var(--box-shadow-color-01),
+  box-shadow:
+    -2px 15px 4px var(--box-shadow-color-01),
     -1px 4px 1px var(--box-shadow-color-02);
 }
 
@@ -51,7 +54,6 @@ $dark-mode-variables: (
   'add-new-background': #ffffff3d,
   'add-new-background-hovered': #a6c5e229,
 );
-
 
 :root {
   @each $name, $value in $project-variables {

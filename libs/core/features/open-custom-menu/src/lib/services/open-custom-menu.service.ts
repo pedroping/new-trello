@@ -16,7 +16,7 @@ export class OpenCustomMenuService {
     menu: TemplateRef<unknown>,
     viewContainerRef: ViewContainerRef,
     x: number,
-    y: number
+    y: number,
   ) {
     this.closeElement();
 
@@ -48,7 +48,7 @@ export class OpenCustomMenuService {
           );
         }),
         skip(1),
-        take(1)
+        take(1),
       )
       .subscribe(this.closeElement.bind(this));
   }

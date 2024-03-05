@@ -26,7 +26,7 @@ export const appConfig: ApplicationConfig = {
       withEnabledBlockingInitialNavigation(),
       withPreloading(PreloadAllModules),
       withComponentInputBinding(),
-      withViewTransitions()
+      withViewTransitions(),
     ),
     provideAnimations(),
     provideToastr(),

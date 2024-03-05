@@ -14,6 +14,6 @@ describe('Service: GenericSidenavsState', () => {
     [GenericSidenavsStateService],
     (service: GenericSidenavsStateService) => {
       expect(service).toBeTruthy();
-    }
+    },
   ));
 });

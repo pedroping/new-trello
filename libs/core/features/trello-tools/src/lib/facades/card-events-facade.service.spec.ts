@@ -14,6 +14,6 @@ describe('Service: CardEventsFacade', () => {
     [CardEventsFacadeService],
     (service: CardEventsFacadeService) => {
       expect(service).toBeTruthy();
-    }
+    },
   ));
 });

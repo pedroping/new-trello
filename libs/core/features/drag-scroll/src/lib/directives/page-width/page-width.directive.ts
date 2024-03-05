@@ -14,7 +14,7 @@ import { ScrollToEndDirective } from '../scroll-to-end/scroll-to-end.directive';
 export class PageWidthDirective {
   constructor(
     private readonly el: ElementRef,
-    private readonly cardEventsFacadeService: CardEventsFacadeService
+    private readonly cardEventsFacadeService: CardEventsFacadeService,
   ) {}
 
   setValueChanges() {

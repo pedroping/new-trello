@@ -14,6 +14,6 @@ describe('Service: BackdropState', () => {
     [BackdropStateService],
     (service: BackdropStateService) => {
       expect(service).toBeTruthy();
-    }
+    },
   ));
 });

@@ -14,6 +14,6 @@ describe('Service: HandleImage', () => {
     [HandleImageService],
     (service: HandleImageService) => {
       expect(service).toBeTruthy();
-    }
+    },
   ));
 });

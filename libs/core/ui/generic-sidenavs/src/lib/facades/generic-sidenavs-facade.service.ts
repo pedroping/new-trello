@@ -4,7 +4,7 @@ import { GenericSidenavsStateService } from '../services/generic-sidenavs-state/
 @Injectable({ providedIn: 'root' })
 export class GenericSidenavsFacadeService {
   constructor(
-    private readonly genericSidenavsStateService: GenericSidenavsStateService
+    private readonly genericSidenavsStateService: GenericSidenavsStateService,
   ) {}
 
   startDomain(element: HTMLElement) {

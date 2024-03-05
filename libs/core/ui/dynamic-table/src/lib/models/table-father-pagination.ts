@@ -32,9 +32,9 @@ export abstract class TableFatherPagination<T> {
       switchMap((data) => {
         return this.changeDataEvent$.pipe(
           startWith(true),
-          map(() => this.newDataCallback(data))
+          map(() => this.newDataCallback(data)),
         );
-      })
+      }),
     );
   }
 

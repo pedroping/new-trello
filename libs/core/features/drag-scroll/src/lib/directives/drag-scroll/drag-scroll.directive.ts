@@ -24,7 +24,7 @@ export class DragScrollDirective {
     private readonly el: ElementRef,
     private readonly scrollEventsService: ScrollEventsService,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
-    private readonly genericSidenavsFacadeService: GenericSidenavsFacadeService
+    private readonly genericSidenavsFacadeService: GenericSidenavsFacadeService,
   ) {}
 
   mouseDown = false;

@@ -14,6 +14,6 @@ describe('Service: OpenCustomMenu', () => {
     [OpenCustomMenuService],
     (service: OpenCustomMenuService) => {
       expect(service).toBeTruthy();
-    }
+    },
   ));
 });

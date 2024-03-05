@@ -6,7 +6,7 @@ import { IndexedDbService } from './indexedDb.service';
 describe('Service: IndexedDb', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [IndexedDbService]
+      providers: [IndexedDbService],
     });
   });
 

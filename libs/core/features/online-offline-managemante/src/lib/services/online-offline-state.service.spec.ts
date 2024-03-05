@@ -14,6 +14,6 @@ describe('Service: OnlineOfflineState', () => {
     [OnlineOfflineStateService],
     (service: OnlineOfflineStateService) => {
       expect(service).toBeTruthy();
-    }
+    },
   ));
 });

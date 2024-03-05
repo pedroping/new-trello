@@ -8,7 +8,7 @@ import { ElementsService } from '../../services/elements.service';
 export class PreventClickDirective implements AfterViewInit {
   constructor(
     private readonly elementRef: ElementRef,
-    private readonly elementsService: ElementsService
+    private readonly elementsService: ElementsService,
   ) {}
 
   ngAfterViewInit(): void {

@@ -12,7 +12,7 @@ export class ScrollToEndDirective {
   constructor(
     private readonly el: ElementRef,
     private readonly scrollEventsService: ScrollEventsService,
-    private readonly cardEventsFacadeService: CardEventsFacadeService
+    private readonly cardEventsFacadeService: CardEventsFacadeService,
   ) {}
 
   setValueChanges() {

@@ -9,7 +9,7 @@ export const IN_OUT_PANE_ANIMATION = trigger('inOutPaneAnimation', [
     style({ opacity: 1, transform: 'translateX(0)' }),
     animate(
       '300ms ease',
-      style({ opacity: 0, transform: 'translateX(-100%)' })
+      style({ opacity: 0, transform: 'translateX(-100%)' }),
     ),
   ]),
 ]);

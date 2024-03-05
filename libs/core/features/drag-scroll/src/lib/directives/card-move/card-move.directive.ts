@@ -21,7 +21,7 @@ export class CardMoveDirective {
 
   constructor(
     private readonly cardEventsFacadeService: CardEventsFacadeService,
-    private readonly genericSidenavsFacadeService: GenericSidenavsFacadeService
+    private readonly genericSidenavsFacadeService: GenericSidenavsFacadeService,
   ) {}
 
   leftEvent$ = new BehaviorSubject<boolean>(false);

@@ -8,7 +8,7 @@ describe('Directive: OutsideAddBlockClick', () => {
     const directive = new OutsideAddBlockClickDirective(
       null as any,
       null as any,
-      null as any
+      null as any,
     );
     expect(directive).toBeTruthy();
   });

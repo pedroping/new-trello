@@ -3,7 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
-  inject
+  inject,
 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DynamicFormsComponent } from '@my-monorepo/core/features/dynamic-forms';

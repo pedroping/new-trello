@@ -6,6 +6,6 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './card-options.component.html',
   styleUrls: ['./card-options.component.scss'],
   standalone: true,
-  imports: [MatIconModule]
+  imports: [MatIconModule],
 })
 export class CardOptionsComponent {}

@@ -14,6 +14,6 @@ describe('Service: SelectedRow', () => {
     [SelectedRowService],
     (service: SelectedRowService) => {
       expect(service).toBeTruthy();
-    }
+    },
   ));
 });

@@ -14,7 +14,7 @@ export class DarkModeService {
 
   constructor(
     @Inject(META_LIGHT_COLOR) private readonly metaLightColors: string,
-    @Inject(META_DARK_COLOR) private readonly metaDarkColors: string
+    @Inject(META_DARK_COLOR) private readonly metaDarkColors: string,
   ) {
     this.darkMode = !!sessionStorage.getItem(DARK_MODE);
     this.metaElement.setAttribute('content', this.metaLightColors);

@@ -8,7 +8,7 @@ export function ClearMocks() {
       const cardMocks = this['injector']?.get(CardMocksService);
       if (!cardMocks)
         throw new Error(
-          'card Mocks service not Found, Try to inject the service or set the injector property'
+          'card Mocks service not Found, Try to inject the service or set the injector property',
         );
       cardMocks.clearMocks();
       original?.apply(this);

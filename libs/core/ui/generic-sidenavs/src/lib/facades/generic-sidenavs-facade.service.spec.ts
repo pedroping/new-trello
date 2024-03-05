@@ -14,6 +14,6 @@ describe('Service: GenericSidenavsFacade', () => {
     [GenericSidenavsFacadeService],
     (service: GenericSidenavsFacadeService) => {
       expect(service).toBeTruthy();
-    }
+    },
   ));
 });

@@ -14,6 +14,6 @@ describe('Service: OutsideClickEvents', () => {
     [OutsideClickEventsService],
     (service: OutsideClickEventsService) => {
       expect(service).toBeTruthy();
-    }
+    },
   ));
 });

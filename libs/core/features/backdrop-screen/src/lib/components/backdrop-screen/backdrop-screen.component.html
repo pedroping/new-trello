@@ -1,15 +1,15 @@
-@if (backdropEventSubscription$ | async; as backdropEvent ) {
-<div class="backdrop">
-  <div
-    class="content"
-    [style.top]="backdropEvent.domRect.top + 'px'"
-    [style.left]="backdropEvent.domRect.left + 'px'"
-    [style.width]="backdropEvent.domRect.width + 'px'"
-  >
-    <ng-container
-      [ngTemplateOutlet]="backdropEvent.template"
-      [ngTemplateOutletContext]="{ $implicit: 'Arquivar' }"
-    ></ng-container>
+@if (backdropEventSubscription$ | async; as backdropEvent) {
+  <div class="backdrop">
+    <div
+      class="content"
+      [style.top]="backdropEvent.domRect.top + 'px'"
+      [style.left]="backdropEvent.domRect.left + 'px'"
+      [style.width]="backdropEvent.domRect.width + 'px'"
+    >
+      <ng-container
+        [ngTemplateOutlet]="backdropEvent.template"
+        [ngTemplateOutletContext]="{ $implicit: 'Arquivar' }"
+      ></ng-container>
+    </div>
   </div>
-</div>
 }

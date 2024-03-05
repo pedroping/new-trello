@@ -35,12 +35,12 @@ export class WelcomePageComponent implements OnInit {
   @ViewChild('pageContent', { static: true }) pageContent!: ElementRef;
 
   constructor(
-    private readonly genericSidenavsFacadeService: GenericSidenavsFacadeService
+    private readonly genericSidenavsFacadeService: GenericSidenavsFacadeService,
   ) {}
 
   ngOnInit(): void {
     this.genericSidenavsFacadeService.startDomain(
-      this.pageContent.nativeElement
+      this.pageContent.nativeElement,
     );
   }
 }

@@ -31,7 +31,7 @@ export class DragAndDropService {
   constructor(
     private readonly cardMocksService: CardMocksService,
     private readonly scrollEventsService: ScrollEventsService,
-    private readonly outsideClickEventsService: OutsideClickEventsService
+    private readonly outsideClickEventsService: OutsideClickEventsService,
   ) {}
 
   startDomain() {
@@ -43,7 +43,7 @@ export class DragAndDropService {
       .pipe(
         filter((move) => !!move),
         untilDestroyed(this),
-        takeUntil(this.outsideClickEventsService.stopTaking$)
+        takeUntil(this.outsideClickEventsService.stopTaking$),
       )
       .subscribe(() => this.outsideClickEventsService.outSideClick$.next());
 
@@ -52,7 +52,7 @@ export class DragAndDropService {
         tap((value) => {
           if (value) this.scrollEventsService.onMouseDown$.next(true);
         }),
-        throttleTime(1000)
+        throttleTime(1000),
       )
       .subscribe((value) => {
         if (!value) this.scrollEventsService.onMouseDown$.next(false);
@@ -64,14 +64,14 @@ export class DragAndDropService {
       moveItemInArray(
         event.container.data,
         event.previousIndex,
-        event.currentIndex
+        event.currentIndex,
       );
     } else {
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
-        event.currentIndex
+        event.currentIndex,
       );
     }
   }
@@ -80,7 +80,7 @@ export class DragAndDropService {
     moveItemInArray(
       this.cardMocksService.blocks$.value,
       event.previousIndex,
-      event.currentIndex
+      event.currentIndex,
     );
   }
 
@@ -91,7 +91,7 @@ export class DragAndDropService {
 
   moveToBlock(blockToRemove: Icard[], blockToAdd: Icard[], card: Icard) {
     const index = blockToRemove.findIndex(
-      (blockCard) => blockCard.id === card.id
+      (blockCard) => blockCard.id === card.id,
     );
     blockToRemove.splice(index, 1);
     blockToAdd.push(card);
