@@ -42,6 +42,10 @@ export class IndexedDbService {
       idQuery.onsuccess = () => {
         console.log(idQuery.result);
       };
+
+      transaction.oncomplete = () => {
+        db.close();
+      };
     };
   }
 
@@ -53,6 +57,10 @@ export class IndexedDbService {
       const store = transaction.objectStore(CARDS_STORE_NAME);
       store.put({ id: 5, name: 'Card de Teste 51', blockId: 0 });
       store.put({ id: 3, name: 'Card de Teste Loucoooo', blockId: 0 });
+
+      transaction.oncomplete = () => {
+        db.close();
+      };
     };
   }
 }
