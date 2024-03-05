@@ -19,6 +19,7 @@ import {
   ClearMocks,
   CursorDraggingDirective,
   IBlock,
+  IndexedDbService,
 } from '@my-monorepo/core/features/trello-tools';
 
 @Component({
@@ -46,7 +47,8 @@ export class HomePageComponent implements OnInit {
 
   constructor(
     private readonly _injector: Injector,
-    private readonly cardEventsFacadeService: CardEventsFacadeService
+    private readonly cardEventsFacadeService: CardEventsFacadeService,
+    private readonly indexedDbService: IndexedDbService,
   ) {
     this.injector = this._injector;
   }
@@ -62,5 +64,9 @@ export class HomePageComponent implements OnInit {
 
   onMove() {
     this.cardEventsFacadeService.onEvent(true);
+  }
+
+  addNew() {
+    this.indexedDbService.addNewElement();
   }
 }
