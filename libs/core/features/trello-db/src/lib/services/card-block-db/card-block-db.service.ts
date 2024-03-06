@@ -113,7 +113,7 @@ export class CardBlockDbService implements IDBService<IBlock> {
 
   getElementById(id: number) {
     const request = this.openRequest();
-    const element$ = new Subject<IBlock>();
+    const element$ = new Subject<IBlock | null | undefined>();
 
     request.onsuccess = () => {
       const db = request.result;
@@ -127,7 +127,7 @@ export class CardBlockDbService implements IDBService<IBlock> {
 
       allQuery.onerror = () => {
         console.error('Ocorreu um erro ao buscar o elemento');
-        element$.next(null as any);
+        element$.next(null);
       };
 
       transaction.oncomplete = () => {

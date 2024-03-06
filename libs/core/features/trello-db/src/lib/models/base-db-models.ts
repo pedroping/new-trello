@@ -15,6 +15,6 @@ export interface IDBService<T> {
   onUpgradeNeeded: (db: IDBOpenDBRequest) => () => void;
   conectionValues: (db: IDBDatabase) => IConectionValues;
   AllElements$: Observable<T[]>;
-  getElementById: (id: number) => Observable<T>;
+  getElementById: (id: number) => Observable<T | null | undefined>;
   hasIndexedDB: boolean;
 }

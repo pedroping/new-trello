@@ -12,7 +12,10 @@ import {
   DragScrollDirective,
   PageWidthDirective,
 } from '@my-monorepo/core/features/drag-scroll';
-import { CardBlockDbService } from '@my-monorepo/core/features/trello-db';
+import {
+  CardBlockDbService,
+  CardDbService,
+} from '@my-monorepo/core/features/trello-db';
 import {
   AddNewBlockComponent,
   CardBlockComponent,
@@ -20,7 +23,6 @@ import {
   ClearMocks,
   CursorDraggingDirective,
   IBlock,
-  IndexedDbService,
 } from '@my-monorepo/core/features/trello-tools';
 
 @Component({
@@ -50,6 +52,7 @@ export class HomePageComponent implements OnInit {
     private readonly _injector: Injector,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
     private readonly cardBlockDbService: CardBlockDbService,
+    private readonly cardDbService: CardDbService,
   ) {
     this.injector = this._injector;
   }
@@ -58,7 +61,9 @@ export class HomePageComponent implements OnInit {
     this.cardEventsFacadeService.startDomain();
     this.cardBlockDbService.deleteElement(5).subscribe(console.log);
     this.cardBlockDbService.AllElements$.subscribe(console.log);
-    this.cardBlockDbService.getElementById(1).subscribe(console.log);
+    this.cardBlockDbService.getElementById(0).subscribe(console.log);
+    this.cardDbService.addNewElement({ name: 'Teste', blockId: 0})
+    this.cardDbService.getByBlockId(0);
   }
 
   listDropped(event: CdkDragDrop<IBlock[]>) {
