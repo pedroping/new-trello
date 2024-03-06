@@ -114,10 +114,10 @@ export class CardEditComponent implements OnInit {
 
   archive() {
     if (!this.card) return;
-    const index = this.blockCard().cards.findIndex(
-      (card) => card.id === this.card()?.id,
-    );
-    this.blockCard().cards.splice(index, 1);
-    this.backdropStateService.setBackDropState();
+    this.blockCard().cards$.subscribe((cards) => {
+      const index = cards.findIndex((card) => card.id === this.card()?.id);
+      cards.splice(index, 1);
+      this.backdropStateService.setBackDropState();
+    });
   }
 }

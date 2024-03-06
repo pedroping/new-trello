@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export interface IConectionValues {
   transaction: IDBTransaction;
@@ -14,7 +14,7 @@ export interface IDBService<T> {
   deleteElement: (id: number) => Observable<string>;
   onUpgradeNeeded: (db: IDBOpenDBRequest) => () => void;
   conectionValues: (db: IDBDatabase) => IConectionValues;
-  AllElements$: Observable<T[]>;
+  getAllElements$: () => BehaviorSubject<T[]>;
   getElementById: (id: number) => Observable<T | null | undefined>;
   hasIndexedDB: boolean;
 }

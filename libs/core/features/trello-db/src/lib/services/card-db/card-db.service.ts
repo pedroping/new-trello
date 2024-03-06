@@ -8,10 +8,12 @@ import {
   CARD_BLOCK_ID_INDEX,
   CARD_BLOCK_ID_KEY,
 } from '../../models/card-db-models';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class CardDbService implements Omit<IDBService<Icard>, 'AllElements$'> {
+export class CardDbService
+  implements Omit<IDBService<Icard>, 'getAllElements$'>
+{
   hasIndexedDB = !!window.indexedDB;
 
   createDataBase() {
@@ -111,7 +113,7 @@ export class CardDbService implements Omit<IDBService<Icard>, 'AllElements$'> {
       };
     };
 
-    return element$.asObservable();
+    return element$;
   }
 
   onUpgradeNeeded(db: IDBOpenDBRequest) {
@@ -122,13 +124,13 @@ export class CardDbService implements Omit<IDBService<Icard>, 'AllElements$'> {
       });
       store.createIndex(CARD_BLOCK_ID_INDEX, CARD_BLOCK_ID_KEY);
 
-      store.add({ id: 0, name: 'Primeiro Card', blockId: 0 });
+      store.add({ name: 'Primeiro Card', blockId: 0 });
     };
   }
 
   getByBlockId(id: number) {
     const request = this.openRequest();
-    const cards$ = new Subject<Icard[]>();
+    const cards$ = new BehaviorSubject<Icard[]>([]);
     request.onsuccess = () => {
       const db = request.result;
       const { transaction, store } = this.conectionValues(db);

@@ -4,6 +4,7 @@ import { IBlock } from '../../models/card.models';
 import { CardFooterComponent } from '../card-footer/card-footer.component';
 import { CardHeaderComponent } from '../card-header/card-header.component';
 import { CardListComponent } from '../card-list/card-list.component';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'trello-card-block',
@@ -15,6 +16,7 @@ import { CardListComponent } from '../card-list/card-list.component';
     CardFooterComponent,
     CardHeaderComponent,
     CardListComponent,
+    AsyncPipe,
   ],
 })
 export class CardBlockComponent implements AfterViewInit {

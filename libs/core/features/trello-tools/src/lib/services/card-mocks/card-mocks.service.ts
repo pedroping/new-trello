@@ -31,7 +31,7 @@ export class CardMocksService {
         addNewEvent$: new BehaviorSubject<boolean>(false),
       },
     ];
-    this.blocks$.next(blocks);
+    // this.blocks$.next(blocks);
     this.scrollEventsService.scrollToEnd$.next();
   }
 
@@ -39,7 +39,7 @@ export class CardMocksService {
     return of(BLOCKS)
       .pipe(filter(() => !!hasMocks))
       .subscribe((blocks) => {
-        this.blocks$.next(blocks);
+        // this.blocks$.next(blocks);
       });
   }
 

@@ -92,12 +92,14 @@ export class CardComponent {
   addCard() {
     if (this.cardNameControl.invalid) return;
 
-    this.blockCard().cards.push({
-      id: this.blockCard().cards.length + 1,
-      name: this.cardNameControl.value,
+    this.blockCard().cards$.subscribe((cards) => {
+      cards.push({
+        id: cards.length + 1,
+        name: this.cardNameControl.value,
+      });
+      this.cardNameControl.reset();
+      this.blockCard().addNewEvent$.next(true);
     });
-    this.cardNameControl.reset();
-    this.blockCard().addNewEvent$.next(true);
   }
 
   cancelEvent() {

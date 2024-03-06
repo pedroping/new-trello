@@ -3,6 +3,7 @@ import { Component, input } from '@angular/core';
 import { BackdropStateService } from '@my-monorepo/core/features/backdrop-screen';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 import { IBlock, Icard } from '../../models/card.models';
+import { Observable, merge } from 'rxjs';
 
 @Component({
   selector: 'move-card',
@@ -22,13 +23,18 @@ export class MoveCardComponent {
     private readonly cardEventsFacadeService: CardEventsFacadeService,
   ) {}
 
-  moveToBlock(cards: Icard[]) {
+  moveToBlock(cards$: Observable<Icard[]>) {
     if (!this.card()) return;
-    this.cardEventsFacadeService.moveToBlock(
-      this.blockCard().cards,
-      cards,
-      this.card()!,
+
+    merge(cards$, this.blockCard().cards$).subscribe(
+      ([cardsToRemove, cardsToAdd]) => {
+        this.cardEventsFacadeService.moveToBlock(
+          [cardsToRemove],
+          [cardsToAdd],
+          this.card()!,
+        );
+        this.backdropStateService.setBackDropState();
+      },
     );
-    this.backdropStateService.setBackDropState();
   }
 }

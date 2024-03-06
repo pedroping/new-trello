@@ -31,6 +31,7 @@ export class CardListComponent {
   ) {}
 
   setValueChanges() {
+    this.blockCard().cards$.subscribe(console.log);
     this.cardEventsFacadeService.onCardMove$$.subscribe((val) => {
       if (!val) this.cardMove.emit(false);
     });
