@@ -12,7 +12,7 @@ import {
   DragScrollDirective,
   PageWidthDirective,
 } from '@my-monorepo/core/features/drag-scroll';
-import { CardBlockDbService } from '@my-monorepo/core/features/trello-db';
+import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
 import {
   AddNewBlockComponent,
   CardBlockComponent,
@@ -42,13 +42,13 @@ import {
 })
 @ClearMocks()
 export class HomePageComponent implements OnInit {
-  blocks$$ = this.cardBlockDbService.getAllElements$();
+  blocks$$ = this.bbFacadeService.allBlocks$;
   injector: Injector;
 
   constructor(
     private readonly _injector: Injector,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
-    private readonly cardBlockDbService: CardBlockDbService,
+    private readonly bbFacadeService: DbFacadeService,
   ) {
     this.injector = this._injector;
   }

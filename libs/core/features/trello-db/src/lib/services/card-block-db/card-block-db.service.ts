@@ -6,6 +6,7 @@ import {
   CARD_BLOCKS_DB_NAME,
   CARD_BLOCKS_STORE_NAME,
   CARD_BLOCKS_VERSION,
+  INewBlock,
 } from '../../models/card-block-db-models';
 import { CardDbService } from '../card-db/card-db.service';
 
@@ -25,7 +26,7 @@ export class CardBlockDbService implements IDBService<IBlock> {
     request.onupgradeneeded = this.onUpgradeNeeded(request);
   }
 
-  addNewElement(element: Omit<IBlock, 'addNewEvent$' | 'cards$' | 'id'>) {
+  addNewElement(element: INewBlock) {
     const request = this.openRequest();
     const eventResponse$ = new Subject<string>();
 
