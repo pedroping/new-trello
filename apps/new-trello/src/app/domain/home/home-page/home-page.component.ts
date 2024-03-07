@@ -17,7 +17,6 @@ import {
   AddNewBlockComponent,
   CardBlockComponent,
   CardEventsFacadeService,
-  ClearMocks,
   CursorDraggingDirective,
   IBlock,
 } from '@my-monorepo/core/features/trello-tools';
@@ -40,15 +39,14 @@ import {
   ],
   hostDirectives: [CursorDraggingDirective],
 })
-@ClearMocks()
 export class HomePageComponent implements OnInit {
-  blocks$$ = this.bbFacadeService.allBlocks$;
+  blocks$$ = this.dbFacadeService.allBlocks$;
   injector: Injector;
 
   constructor(
     private readonly _injector: Injector,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
-    private readonly bbFacadeService: DbFacadeService,
+    private readonly dbFacadeService: DbFacadeService,
   ) {
     this.injector = this._injector;
   }

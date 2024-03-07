@@ -17,8 +17,8 @@ import {
   tap,
   throttleTime,
 } from 'rxjs';
-import { IBlock, Icard } from '../../models/card.models';
-import { CardMocksService } from '../card-mocks/card-mocks.service';
+import { IBlock, Icard, LIST_ID_ATTR } from '../../models/card.models';
+import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
 
 @Injectable({ providedIn: 'root' })
 @UntilDestroy()
@@ -26,10 +26,11 @@ export class DragAndDropService {
   onMove$ = new BehaviorSubject<boolean>(false);
   onCardMove$ = new BehaviorSubject<boolean>(false);
   onBlockMove = false;
+  cardMoving?: Icard;
   lastToBeHovered = -1;
 
   constructor(
-    private readonly cardMocksService: CardMocksService,
+    private readonly dbFacadeService: DbFacadeService,
     private readonly scrollEventsService: ScrollEventsService,
     private readonly outsideClickEventsService: OutsideClickEventsService,
   ) {}
@@ -66,6 +67,7 @@ export class DragAndDropService {
         event.previousIndex,
         event.currentIndex,
       );
+      this.cardMoving = null as any;
     } else {
       transferArrayItem(
         event.previousContainer.data,
@@ -73,12 +75,20 @@ export class DragAndDropService {
         event.previousIndex,
         event.currentIndex,
       );
+
+      const listId =
+        event.container.element.nativeElement.getAttribute(LIST_ID_ATTR);
+      if (!listId || !this.cardMoving) return;
+
+      const editCard: Icard = { ...this.cardMoving, blockId: +listId };
+      this.dbFacadeService.editCard(editCard);
+      this.cardMoving = null as any;
     }
   }
 
   blockDrop(event: CdkDragDrop<IBlock[]>) {
     moveItemInArray(
-      this.cardMocksService.blocks$.value,
+      this.dbFacadeService.allBlocks$.value,
       event.previousIndex,
       event.currentIndex,
     );

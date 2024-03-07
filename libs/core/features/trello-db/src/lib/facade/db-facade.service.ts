@@ -23,7 +23,7 @@ export class DbFacadeService {
   }
 
   createCard(element: Icard) {
-    this.cardDbService.addNewElement(element);
+    return this.cardDbService.addNewElement(element);
   }
 
   deleteBlock(id: number) {
@@ -32,6 +32,10 @@ export class DbFacadeService {
 
   deleteCard(id: number) {
     return this.cardDbService.deleteElement(id);
+  }
+
+  editCard(element: Icard) {
+    return this.cardDbService.editElement(element);
   }
 
   getBlockById(id: number) {

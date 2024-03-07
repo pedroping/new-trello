@@ -3,6 +3,7 @@
     #cardList
     class="card-list"
     cdkDropList
+    [attr.list-id]="blockCard().id"
     [cdkDropListAutoScrollStep]="scrollMoveTick"
     [cdkDropListData]="cards"
     [style.z-index]="customZIndex$ | async"
@@ -13,7 +14,7 @@
     (cdkDropListDropped)="drop($event)"
   >
     @for (item of cards; track $index) {
-      <div cdkDrag (cdkDragMoved)="onMove()">
+      <div cdkDrag (cdkDragMoved)="onMove(item)">
         <div class="example-custom-placeholder" *cdkDragPlaceholder>
           <trello-card
             [isPreview]="true"

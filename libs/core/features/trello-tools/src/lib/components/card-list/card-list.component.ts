@@ -31,7 +31,6 @@ export class CardListComponent {
   ) {}
 
   setValueChanges() {
-    this.blockCard().cards$.subscribe(console.log);
     this.cardEventsFacadeService.onCardMove$$.subscribe((val) => {
       if (!val) this.cardMove.emit(false);
     });
@@ -41,13 +40,13 @@ export class CardListComponent {
     );
   }
 
-  onMove() {
-    this.cardEventsFacadeService.setCardMove(true);
+  onMove(item: Icard) {
+    this.cardEventsFacadeService.setCardMove(true, item);
     this.cardMove.emit(true);
   }
 
   onDrop() {
-    this.cardEventsFacadeService.setCardMove(false);
+    this.cardEventsFacadeService.setCardMove(false, null as any);
     this.cardEventsFacadeService.setLastToBeHovered(-1);
     this.cardMove.emit(false);
   }

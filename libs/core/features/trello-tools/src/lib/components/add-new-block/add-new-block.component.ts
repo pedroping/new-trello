@@ -15,9 +15,15 @@ import {
 import { MatIconModule } from '@angular/material/icon';
 import { OutsideAddBlockClickDirective } from '@my-monorepo/core/features/outside-element-click';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
+import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
 import { ENTER_LEAVE_ANIMATION } from '@my-monorepo/core/ui/animations';
-import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
+import {
+  OutsideClickEventsService,
+  ScrollEventsService,
+} from '@my-monorepo/core/utlis';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
+import { BehaviorSubject, of, take, timer } from 'rxjs';
+import { Icard } from '../../models/card.models';
 @Component({
   selector: 'trello-add-new-block',
   templateUrl: './add-new-block.component.html',
@@ -33,7 +39,8 @@ import { CardEventsFacadeService } from '../../facades/card-events-facade.servic
 })
 @CallSetValueChanges()
 export class AddNewBlockComponent {
-  listInput = viewChild<ElementRef>('listNameInput');
+  blocks$$ = this.dbFacadeService.allBlocks$;
+  listInput = viewChild<ElementRef<HTMLInputElement>>('listNameInput');
   onAddNew = false;
   listName = new FormControl<string>('', {
     nonNullable: true,
@@ -42,7 +49,8 @@ export class AddNewBlockComponent {
 
   constructor(
     private injector: EnvironmentInjector,
-    private readonly cardEventsFacadeService: CardEventsFacadeService,
+    private readonly dbFacadeService: DbFacadeService,
+    private readonly scrollEventsService: ScrollEventsService,
     private readonly outsideClickEventsService: OutsideClickEventsService,
   ) {}
 
@@ -68,9 +76,20 @@ export class AddNewBlockComponent {
   addList() {
     const listName = this.listName.value;
     if (!listName) return;
+    const cards = this.blocks$$.value;
 
-    this.cardEventsFacadeService.addNew(listName);
-    this.listName.reset();
-    this.listInput()?.nativeElement.focus();
+    this.dbFacadeService
+      .createBlock({ name: this.listName.value })
+      .subscribe((resp) => {
+        cards.push({
+          id: resp.id,
+          name: this.listName.value,
+          addNewEvent$: new BehaviorSubject<boolean>(false),
+          cards$: new BehaviorSubject<Icard[]>([]),
+        });
+        this.blocks$$.next(cards);
+        this.listName.reset();
+        this.scrollEventsService.scrollToEnd$.next();
+      });
   }
 }

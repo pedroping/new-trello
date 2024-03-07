@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IBlock } from '@my-monorepo/core/features/trello-tools';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { IDBService } from '../../models/base-db-models';
+import { IAddNewResponse, IDBService } from '../../models/base-db-models';
 import {
   CARD_BLOCKS_DB_NAME,
   CARD_BLOCKS_STORE_NAME,
@@ -13,6 +13,7 @@ import { CardDbService } from '../card-db/card-db.service';
 @Injectable({ providedIn: 'root' })
 export class CardBlockDbService implements IDBService<IBlock> {
   hasIndexedDB = !!window.indexedDB;
+  allElements$ = new BehaviorSubject<IBlock[]>([]);
 
   constructor(private readonly cardDbService: CardDbService) {}
 
@@ -28,7 +29,7 @@ export class CardBlockDbService implements IDBService<IBlock> {
 
   addNewElement(element: INewBlock) {
     const request = this.openRequest();
-    const eventResponse$ = new Subject<string>();
+    const eventResponse$ = new Subject<IAddNewResponse>();
 
     request.onsuccess = () => {
       const db = request.result;
@@ -37,11 +38,17 @@ export class CardBlockDbService implements IDBService<IBlock> {
       const addQuery = store.add(element);
 
       addQuery.onsuccess = () => {
-        eventResponse$.next('Elemento adicionado com sucesso!');
+        eventResponse$.next({
+          resp: 'Elemento adicionado com sucesso!',
+          id: addQuery.result as number,
+        });
       };
 
       addQuery.onerror = () => {
-        eventResponse$.next('Ocorreu um erro ao adicionar o elemento');
+        eventResponse$.next({
+          resp: 'Ocorreu um erro ao adicionar o elemento',
+          id: -1,
+        });
       };
 
       transaction.oncomplete = () => {
@@ -49,6 +56,12 @@ export class CardBlockDbService implements IDBService<IBlock> {
       };
     };
 
+    return eventResponse$.asObservable();
+  }
+
+  editElement(element: IBlock) {
+    const request = this.openRequest();
+    const eventResponse$ = new Subject<IAddNewResponse>();
     return eventResponse$.asObservable();
   }
 
@@ -91,7 +104,6 @@ export class CardBlockDbService implements IDBService<IBlock> {
 
   getAllElements$() {
     const request = this.openRequest();
-    const allElements$ = new BehaviorSubject<IBlock[]>([]);
 
     request.onsuccess = () => {
       const db = request.result;
@@ -108,7 +120,7 @@ export class CardBlockDbService implements IDBService<IBlock> {
           };
         });
 
-        allElements$.next(allBlocks);
+        this.allElements$.next(allBlocks);
       };
 
       allQuery.onerror = () => {
@@ -120,7 +132,7 @@ export class CardBlockDbService implements IDBService<IBlock> {
       };
     };
 
-    return allElements$;
+    return this.allElements$;
   }
 
   getElementById(id: number) {

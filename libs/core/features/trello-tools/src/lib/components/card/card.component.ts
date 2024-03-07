@@ -21,6 +21,7 @@ import {
 } from '@my-monorepo/core/features/backdrop-screen';
 import { OutsideAddBlockClickDirective } from '@my-monorepo/core/features/outside-element-click';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
+import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
 import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
 import { merge, skip } from 'rxjs';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
@@ -61,6 +62,7 @@ export class CardComponent {
     private readonly backdropStateService: BackdropStateService,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
     private readonly outsideClickEventsService: OutsideClickEventsService,
+    private readonly dbFacadeService: DbFacadeService,
   ) {}
 
   setValueChanges() {
@@ -92,14 +94,21 @@ export class CardComponent {
   addCard() {
     if (this.cardNameControl.invalid) return;
 
-    this.blockCard().cards$.subscribe((cards) => {
-      cards.push({
-        id: cards.length + 1,
+    const cards = this.blockCard().cards$.value;
+
+    this.dbFacadeService
+      .createCard({
         name: this.cardNameControl.value,
+        blockId: this.blockCard().id,
+      })
+      .subscribe((resp) => {
+        cards.push({
+          id: resp.id,
+          name: this.cardNameControl.value,
+        });
+        this.cardNameControl.reset();
+        this.blockCard().addNewEvent$.next(true);
       });
-      this.cardNameControl.reset();
-      this.blockCard().addNewEvent$.next(true);
-    });
   }
 
   cancelEvent() {

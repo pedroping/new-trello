@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Icard } from '@my-monorepo/core/features/trello-tools';
-import { IDBService } from '../../models/base-db-models';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { IAddNewResponse, IDBService } from '../../models/base-db-models';
 import {
   CARDS_DB_NAME,
   CARDS_STORE_NAME,
@@ -8,7 +9,6 @@ import {
   CARD_BLOCK_ID_INDEX,
   CARD_BLOCK_ID_KEY,
 } from '../../models/card-db-models';
-import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class CardDbService
@@ -28,7 +28,7 @@ export class CardDbService
 
   addNewElement(element: Icard) {
     const request = this.openRequest();
-    const eventResponse$ = new Subject<string>();
+    const eventResponse$ = new Subject<IAddNewResponse>();
 
     request.onsuccess = () => {
       const db = request.result;
@@ -37,13 +37,49 @@ export class CardDbService
       const addQuery = store.add(element);
 
       addQuery.onsuccess = () => {
-        eventResponse$.next('Elemento adicionado com sucesso!');
+        eventResponse$.next({
+          resp: 'Elemento adicionado com sucesso!',
+          id: addQuery.result as number,
+        });
       };
 
       addQuery.onerror = () => {
-        eventResponse$.next('Ocorreu um erro ao adicionar o elemento');
+        eventResponse$.next({
+          resp: 'Ocorreu um erro ao adicionar o elemento',
+          id: -1,
+        });
+      };
+      transaction.oncomplete = () => {
+        db.close();
+      };
+    };
+
+    return eventResponse$.asObservable();
+  }
+
+  editElement(element: Icard) {
+    const request = this.openRequest();
+    const eventResponse$ = new Subject<IAddNewResponse>();
+
+    request.onsuccess = () => {
+      const db = request.result;
+      const { transaction, store } = this.conectionValues(db);
+
+      const editQuery = store.put(element);
+
+      editQuery.onsuccess = () => {
+        eventResponse$.next({
+          resp: 'Elemento alterado com sucesso!',
+          id: editQuery.result as number,
+        });
       };
 
+      editQuery.onerror = () => {
+        eventResponse$.next({
+          resp: 'Ocorreu um erro ao editar o elemento',
+          id: -1,
+        });
+      };
       transaction.oncomplete = () => {
         db.close();
       };
@@ -146,7 +182,7 @@ export class CardDbService
         db.close();
       };
     };
-    return cards$.asObservable();
+    return cards$;
   }
 
   conectionValues(db: IDBDatabase) {

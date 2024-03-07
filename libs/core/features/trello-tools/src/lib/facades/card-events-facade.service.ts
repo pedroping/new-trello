@@ -1,29 +1,25 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Injectable } from '@angular/core';
 import { IBlock, Icard } from '../models/card.models';
-import { CardMocksService } from '../services/card-mocks/card-mocks.service';
 import { DragAndDropService } from '../services/drag-and-drop/drag-and-drop.service';
 
 @Injectable({ providedIn: 'root' })
 export class CardEventsFacadeService {
-  readonly blocks$$ = this.cardMocksService.blocks$.asObservable();
   readonly onMove$$ = this.dragAndDropService.onMove$.asObservable();
   readonly onCardMove$$ = this.dragAndDropService.onCardMove$.asObservable();
 
-  constructor(
-    private readonly cardMocksService: CardMocksService,
-    private readonly dragAndDropService: DragAndDropService,
-  ) {}
+  constructor(private readonly dragAndDropService: DragAndDropService) {}
 
   startDomain() {
     this.dragAndDropService.startDomain();
   }
 
   addNew(name: string) {
-    this.cardMocksService.addNew(name);
+    // this.cardMocksService.addNew(name);
   }
 
-  setCardMove(value: boolean) {
+  setCardMove(value: boolean, card: Icard) {
+    if (card) this.dragAndDropService.cardMoving = card;
     this.dragAndDropService.onCardMove$.next(value);
   }
 
@@ -47,10 +43,6 @@ export class CardEventsFacadeService {
     this.dragAndDropService.lastToBeHovered = value;
   }
 
-  getAllCards(value = false) {
-    this.cardMocksService.getAllCards(value);
-  }
-
   moveToBlock(blockToRemove: Icard[], blockToAdd: Icard[], card: Icard) {
     this.dragAndDropService.moveToBlock(blockToRemove, blockToAdd, card);
   }
@@ -65,9 +57,5 @@ export class CardEventsFacadeService {
 
   get onMove() {
     return this.dragAndDropService.onMove$.value;
-  }
-
-  get blocks() {
-    return this.cardMocksService.blocks$.value;
   }
 }

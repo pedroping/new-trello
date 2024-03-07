@@ -24,20 +24,9 @@ import {
   META_LIGHT_COLOR,
 } from '@my-monorepo/core/features/dark-mode';
 import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
-import { CardEventsFacadeService } from '@my-monorepo/core/features/trello-tools';
 import { TuiRootModule } from '@taiga-ui/core';
-import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
 import { META_TAGS } from './shared/meta.tags';
-
-const loadMocksProviders: FactoryProvider = {
-  provide: APP_INITIALIZER,
-  useFactory: () => {
-    const cardEventsFacadeService = inject(CardEventsFacadeService);
-    return () => cardEventsFacadeService.getAllCards(!environment.production);
-  },
-  multi: true,
-};
 
 const setMetaProviders: FactoryProvider = {
   provide: APP_INITIALIZER,
@@ -85,7 +74,6 @@ export const appConfig: ApplicationConfig = {
     }),
     setMetaProviders,
     indexedDBProviders,
-    loadMocksProviders,
     ...colorsProviders,
   ],
 };

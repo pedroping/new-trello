@@ -22,6 +22,7 @@ import {
   PreventClickDirective,
 } from '@my-monorepo/core/features/outside-element-click';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
+import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
 import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { filter, fromEvent } from 'rxjs';
@@ -60,6 +61,7 @@ export class CardEditComponent implements OnInit {
   });
 
   constructor(
+    private readonly dbFacadeService: DbFacadeService,
     private readonly viewContainerRef: ViewContainerRef,
     private readonly backdropStateService: BackdropStateService,
     private readonly openCustomMenuService: OpenCustomMenuService,
@@ -113,11 +115,12 @@ export class CardEditComponent implements OnInit {
   }
 
   archive() {
-    if (!this.card) return;
-    this.blockCard().cards$.subscribe((cards) => {
-      const index = cards.findIndex((card) => card.id === this.card()?.id);
-      cards.splice(index, 1);
-      this.backdropStateService.setBackDropState();
-    });
+    const card = this.card();
+    if (!card || !card.id) return;
+    const cards = this.blockCard().cards$.value;
+    const index = cards.findIndex((cardToFind) => cardToFind.id === card.id);
+    cards.splice(index, 1);
+    this.dbFacadeService.deleteCard(card.id);
+    this.backdropStateService.setBackDropState();
   }
 }

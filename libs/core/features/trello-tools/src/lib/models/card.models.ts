@@ -1,7 +1,8 @@
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 export const CARD_SIZE = 40;
 export const FOOTER_TOP = 220;
+export const LIST_ID_ATTR = 'list-id';
 export interface Icard {
   id?: number;
   name: string;
@@ -10,6 +11,6 @@ export interface Icard {
 export interface IBlock {
   id: number;
   name: string;
-  cards$: Observable<Icard[]>;
+  cards$: BehaviorSubject<Icard[]>;
   addNewEvent$: BehaviorSubject<boolean>;
 }
