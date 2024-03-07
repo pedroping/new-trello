@@ -103,10 +103,12 @@ export class CardEditComponent implements OnInit {
     this.openCustomMenuService.closeElement();
   }
 
-  addCard() {
+  editCard() {
     if (this.cardNameControl.invalid) return;
-    if (!this.card) return this.closeEdit();
-    this.card()!.name = this.cardNameControl.value;
+    const card = this.card();
+    if (!card) return this.closeEdit();
+    card.name = this.cardNameControl.value;
+    this.dbFacadeService.editCard(card);
     this.closeEdit();
   }
 

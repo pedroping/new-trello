@@ -62,6 +62,31 @@ export class CardBlockDbService implements IDBService<IBlock> {
   editElement(element: IBlock) {
     const request = this.openRequest();
     const eventResponse$ = new Subject<IAddNewResponse>();
+
+    request.onsuccess = () => {
+      const db = request.result;
+      const { transaction, store } = this.conectionValues(db);
+
+      const editQuery = store.put(element);
+
+      editQuery.onsuccess = () => {
+        eventResponse$.next({
+          resp: 'Elemento alterado com sucesso!',
+          id: editQuery.result as number,
+        });
+      };
+
+      editQuery.onerror = () => {
+        eventResponse$.next({
+          resp: 'Ocorreu um erro ao editar o elemento',
+          id: -1,
+        });
+      };
+      transaction.oncomplete = () => {
+        db.close();
+      };
+    };
+
     return eventResponse$.asObservable();
   }
 

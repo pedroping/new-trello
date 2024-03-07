@@ -5,7 +5,7 @@
         #nameInput
         type="text"
         outsideClick
-        (keyup.enter)="addCard()"
+        (keyup.enter)="editCard()"
         (keyup.escape)="closeEdit()"
         [formControl]="cardNameControl"
       />
@@ -13,7 +13,7 @@
     <button
       preventClick
       [disabled]="cardNameControl.invalid"
-      (click)="addCard()"
+      (click)="editCard()"
     >
       Salvar
     </button>
