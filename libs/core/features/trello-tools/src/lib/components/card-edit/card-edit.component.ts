@@ -69,15 +69,18 @@ export class CardEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (!this.card()) return;
-    this.cardNameControl.setValue(this.card()!.name);
+    const card = this.card();
+    if (!card) return;
+    this.cardNameControl.setValue(card.name);
   }
 
   openMenu(element: HTMLElement) {
+    const menu = this.menu();
+    if (!menu) return;
     const rect = element.getBoundingClientRect();
 
     this.openCustomMenuService.openMenu(
-      this.menu()!,
+      menu,
       this.viewContainerRef,
       rect.left + rect.width + 5,
       rect.top,
