@@ -45,13 +45,10 @@ export class CardListComponent {
     this.cardMove.emit(true);
   }
 
-  onDrop() {
+  drop(event: CdkDragDrop<Icard[]>) {
     this.cardEventsFacadeService.setCardMove(false, undefined);
     this.cardEventsFacadeService.setLastToBeHovered(-1);
     this.cardMove.emit(false);
-  }
-
-  drop(event: CdkDragDrop<Icard[]>) {
     this.cardEventsFacadeService.drop(event);
   }
 

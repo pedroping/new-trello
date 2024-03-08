@@ -4,6 +4,7 @@ export interface Icard {
   id?: number;
   name: string;
   blockId?: number;
+  cardIndex?: number;
 }
 
 export interface IBlock {

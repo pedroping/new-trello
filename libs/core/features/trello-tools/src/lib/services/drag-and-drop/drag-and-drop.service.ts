@@ -63,6 +63,11 @@ export class DragAndDropService {
   }
 
   drop(event: CdkDragDrop<Icard[]>) {
+    const oldListId =
+      event.previousContainer.element.nativeElement.getAttribute(LIST_ID_ATTR);
+    const newListId =
+      event.container.element.nativeElement.getAttribute(LIST_ID_ATTR);
+
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -70,6 +75,8 @@ export class DragAndDropService {
         event.currentIndex,
       );
       this.cardMoving = undefined;
+      if (!oldListId || !newListId) return;
+      this.validCardsOrder(+oldListId, +newListId);
     } else {
       transferArrayItem(
         event.previousContainer.data,
@@ -78,13 +85,15 @@ export class DragAndDropService {
         event.currentIndex,
       );
 
-      const listId =
-        event.container.element.nativeElement.getAttribute(LIST_ID_ATTR);
-      if (!listId || !this.cardMoving) return;
-
-      const editCard: Icard = { ...this.cardMoving, blockId: +listId };
-      this.dbFacadeService.editCard(editCard);
-      this.cardMoving = undefined;
+      if (newListId && this.cardMoving) {
+        const editCard: Icard = { ...this.cardMoving, blockId: +newListId };
+        this.cardMoving.blockId = +newListId;
+        this.dbFacadeService.editCard(editCard).subscribe(() => {
+          if (!oldListId || !newListId) return;
+          this.validCardsOrder(+oldListId, +newListId);
+        });
+        this.cardMoving = undefined;
+      }
     }
   }
 
@@ -107,5 +116,29 @@ export class DragAndDropService {
     );
     blockToRemove.splice(index, 1);
     blockToAdd.push(card);
+  }
+
+  validCardsOrder(oldListId: number, newListId: number) {
+    const allBlocks = this.dbFacadeService.allBlocks$.value;
+    if (oldListId === newListId) {
+      const cards =
+        allBlocks.find((block) => block.id === newListId)?.cards$.value ?? [];
+
+      cards.forEach((card, index) => {
+        const newCard: Icard = { ...card, cardIndex: index };
+        this.dbFacadeService.editCard(newCard);
+      });
+      return;
+    }
+
+    const oldListCards =
+      allBlocks.find((block) => block.id === oldListId)?.cards$.value ?? [];
+    const newListCards =
+      allBlocks.find((block) => block.id === newListId)?.cards$.value ?? [];
+
+    [...oldListCards, ...newListCards].forEach((card, index) => {
+      const newCard: Icard = { ...card, cardIndex: index };
+      this.dbFacadeService.editCard(newCard);
+    });
   }
 }

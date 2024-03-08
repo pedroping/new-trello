@@ -67,13 +67,13 @@ export class CardBlockDbService implements IDBService<IBlock> {
       const db = request.result;
       const { transaction, store } = this.conectionValues(db);
 
-      const elementToAdd = {
+      const elementToEdit = {
         name: element.name,
         id: element.id,
         blockIndex: element.blockIndex,
       };
 
-      const editQuery = store.put(elementToAdd);
+      const editQuery = store.put(elementToEdit);
 
       editQuery.onsuccess = () => {
         eventResponse$.next({

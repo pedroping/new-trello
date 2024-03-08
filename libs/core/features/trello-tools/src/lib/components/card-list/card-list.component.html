@@ -8,7 +8,6 @@
     [cdkDropListData]="cards"
     [style.z-index]="customZIndex$ | async"
     [scrollToEnd]="blockCard().addNewEvent$"
-    (cdkDropListDropped)="onDrop()"
     (cdkDropListExited)="setExited()"
     (cdkDropListEntered)="setEntered()"
     (cdkDropListDropped)="drop($event)"

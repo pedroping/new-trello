@@ -175,7 +175,10 @@ export class CardDbService
       const blockQuery = blockIdIndex.getAll(id);
 
       blockQuery.onsuccess = () => {
-        cards$.next(blockQuery.result);
+        const result = blockQuery.result.sort(
+          (a, b) => a?.cardIndex - b?.cardIndex,
+        );
+        cards$.next(result);
       };
 
       transaction.oncomplete = () => {
