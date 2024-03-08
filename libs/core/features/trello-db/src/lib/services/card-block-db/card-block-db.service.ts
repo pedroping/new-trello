@@ -67,7 +67,13 @@ export class CardBlockDbService implements IDBService<IBlock> {
       const db = request.result;
       const { transaction, store } = this.conectionValues(db);
 
-      const editQuery = store.put(element);
+      const elementToAdd = {
+        name: element.name,
+        id: element.id,
+        blockIndex: element.blockIndex,
+      };
+
+      const editQuery = store.put(elementToAdd);
 
       editQuery.onsuccess = () => {
         eventResponse$.next({
@@ -137,13 +143,15 @@ export class CardBlockDbService implements IDBService<IBlock> {
       const allQuery = store.getAll();
 
       allQuery.onsuccess = () => {
-        const allBlocks = allQuery.result.map((block) => {
-          return {
-            ...block,
-            cards$: this.cardDbService.getByBlockId(block.id),
-            addNewEvent$: new BehaviorSubject<boolean>(false),
-          };
-        });
+        const allBlocks = allQuery.result
+          .sort((a, b) => a.blockIndex - b.blockIndex)
+          .map((block) => {
+            return {
+              ...block,
+              cards$: this.cardDbService.getByBlockId(block.id),
+              addNewEvent$: new BehaviorSubject<boolean>(false),
+            };
+          });
 
         this.allElements$.next(allBlocks);
       };

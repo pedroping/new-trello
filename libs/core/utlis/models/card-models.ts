@@ -9,6 +9,7 @@ export interface Icard {
 export interface IBlock {
   id: number;
   name: string;
+  blockIndex?: number;
   cards$: BehaviorSubject<Icard[]>;
   addNewEvent$: BehaviorSubject<boolean>;
 }

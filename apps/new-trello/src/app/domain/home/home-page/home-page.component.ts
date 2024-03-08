@@ -62,6 +62,10 @@ export class HomePageComponent implements OnInit {
       event.currentIndex,
     );
     this.cardEventsFacadeService.onEvent(false);
+
+    this.blocks$$.value.forEach((block, index) => {
+      this.dbFacadeService.editBlock({ ...block, blockIndex: index });
+    });
   }
 
   onMove() {
