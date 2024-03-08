@@ -75,18 +75,19 @@ export class AddNewBlockComponent {
   addList() {
     const listName = this.listName.value;
     if (!listName) return;
-    const cards = this.blocks$$.value;
+    const blocks = this.blocks$$.value;
 
     this.dbFacadeService
       .createBlock({ name: this.listName.value })
       .subscribe((resp) => {
-        cards.push({
+        blocks.push({
           id: resp.id,
           name: this.listName.value,
           addNewEvent$: new BehaviorSubject<boolean>(false),
           cards$: new BehaviorSubject<Icard[]>([]),
+          blockIndex: blocks.length,
         });
-        this.blocks$$.next(cards);
+        this.blocks$$.next(blocks);
         this.listName.reset();
         this.scrollEventsService.scrollToEnd$.next();
       });
