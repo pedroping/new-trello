@@ -1,7 +1,7 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Injectable } from '@angular/core';
-import { IBlock, Icard } from '../models/card.models';
 import { DragAndDropService } from '../services/drag-and-drop/drag-and-drop.service';
+import { IBlock, Icard } from '@my-monorepo/core/utlis';
 
 @Injectable({ providedIn: 'root' })
 export class CardEventsFacadeService {
@@ -13,12 +13,8 @@ export class CardEventsFacadeService {
   startDomain() {
     this.dragAndDropService.startDomain();
   }
-
-  addNew(name: string) {
-    // this.cardMocksService.addNew(name);
-  }
-
-  setCardMove(value: boolean, card: Icard) {
+  
+  setCardMove(value: boolean, card?: Icard) {
     if (card) this.dragAndDropService.cardMoving = card;
     this.dragAndDropService.onCardMove$.next(value);
   }

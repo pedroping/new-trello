@@ -21,9 +21,8 @@ import {
   OutsideClickEventsService,
   ScrollEventsService,
 } from '@my-monorepo/core/utlis';
-import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
-import { BehaviorSubject, of, take, timer } from 'rxjs';
-import { Icard } from '../../models/card.models';
+import { BehaviorSubject } from 'rxjs';
+import { Icard } from '@my-monorepo/core/utlis';
 @Component({
   selector: 'trello-add-new-block',
   templateUrl: './add-new-block.component.html',

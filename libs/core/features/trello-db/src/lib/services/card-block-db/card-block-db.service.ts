@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IBlock } from '@my-monorepo/core/features/trello-tools';
+import { IBlock } from '@my-monorepo/core/utlis';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { IAddNewResponse, IDBService } from '../../models/base-db-models';
 import {

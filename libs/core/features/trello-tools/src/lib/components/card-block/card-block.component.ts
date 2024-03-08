@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, input, viewChild } from '@angular/core';
 import { CardBlockHeightDirective } from '../../directives/card-block-height/cardBlock-height.directive';
-import { IBlock } from '../../models/card.models';
+import { IBlock } from '@my-monorepo/core/utlis';
 import { CardFooterComponent } from '../card-footer/card-footer.component';
 import { CardHeaderComponent } from '../card-header/card-header.component';
 import { CardListComponent } from '../card-list/card-list.component';

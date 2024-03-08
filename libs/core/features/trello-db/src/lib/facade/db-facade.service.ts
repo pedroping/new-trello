@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
+import { INewBlock } from '../models/card-block-db-models';
 import { CardBlockDbService } from '../services/card-block-db/card-block-db.service';
 import { CardDbService } from '../services/card-db/card-db.service';
-import { INewBlock } from '../models/card-block-db-models';
-import { Icard } from '@my-monorepo/core/features/trello-tools';
+import { Icard } from '@my-monorepo/core/utlis';
 
 @Injectable({ providedIn: 'root' })
 export class DbFacadeService {

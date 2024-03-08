@@ -22,10 +22,9 @@ import {
 import { OutsideAddBlockClickDirective } from '@my-monorepo/core/features/outside-element-click';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
-import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
+import { IBlock, Icard, OutsideClickEventsService } from '@my-monorepo/core/utlis';
 import { merge, skip } from 'rxjs';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
-import { IBlock, Icard } from '../../models/card.models';
 import { CardEditComponent } from '../card-edit/card-edit.component';
 
 @Component({

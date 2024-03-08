@@ -26,7 +26,7 @@ import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
 import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { filter, fromEvent } from 'rxjs';
-import { IBlock, Icard } from '../../models/card.models';
+import { IBlock, Icard } from '@my-monorepo/core/utlis';
 import { MoveCardComponent } from '../move-card/move-card.component';
 
 @Component({

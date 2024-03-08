@@ -5,6 +5,8 @@ import {
 } from '@angular/cdk/drag-drop';
 import { Injectable } from '@angular/core';
 import {
+  IBlock,
+  Icard,
   OutsideClickEventsService,
   ScrollEventsService,
 } from '@my-monorepo/core/utlis';
@@ -17,7 +19,7 @@ import {
   tap,
   throttleTime,
 } from 'rxjs';
-import { IBlock, Icard, LIST_ID_ATTR } from '../../models/card.models';
+import { LIST_ID_ATTR } from '../../models/card.models';
 import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
 
 @Injectable({ providedIn: 'root' })
@@ -67,7 +69,7 @@ export class DragAndDropService {
         event.previousIndex,
         event.currentIndex,
       );
-      this.cardMoving = null as any;
+      this.cardMoving = undefined;
     } else {
       transferArrayItem(
         event.previousContainer.data,
@@ -82,7 +84,7 @@ export class DragAndDropService {
 
       const editCard: Icard = { ...this.cardMoving, blockId: +listId };
       this.dbFacadeService.editCard(editCard);
-      this.cardMoving = null as any;
+      this.cardMoving = undefined;
     }
   }
 

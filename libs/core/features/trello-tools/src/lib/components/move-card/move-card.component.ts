@@ -4,7 +4,7 @@ import { BackdropStateService } from '@my-monorepo/core/features/backdrop-screen
 import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
 import { Observable, merge } from 'rxjs';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
-import { IBlock, Icard } from '../../models/card.models';
+import { IBlock, Icard } from '@my-monorepo/core/utlis';
 
 @Component({
   selector: 'move-card',
@@ -26,14 +26,15 @@ export class MoveCardComponent {
   ) {}
 
   moveToBlock(cards$: Observable<Icard[]>) {
-    if (!this.card()) return;
+    const card = this.card();
+    if (!card) return;
 
     merge(cards$, this.blockCard().cards$).subscribe(
       ([cardsToRemove, cardsToAdd]) => {
         this.cardEventsFacadeService.moveToBlock(
           [cardsToRemove],
           [cardsToAdd],
-          this.card()!,
+          card,
         );
         this.backdropStateService.setBackDropState();
       },

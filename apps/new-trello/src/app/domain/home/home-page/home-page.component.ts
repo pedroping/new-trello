@@ -18,8 +18,8 @@ import {
   CardBlockComponent,
   CardEventsFacadeService,
   CursorDraggingDirective,
-  IBlock,
 } from '@my-monorepo/core/features/trello-tools';
+import { IBlock } from '@my-monorepo/core/utlis';
 
 @Component({
   selector: 'app-home-page',
