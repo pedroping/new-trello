@@ -5,6 +5,8 @@ import {
 } from '@angular/cdk/drag-drop';
 import { Injectable } from '@angular/core';
 import {
+  IBlock,
+  Icard,
   OutsideClickEventsService,
   ScrollEventsService,
 } from '@my-monorepo/core/utlis';
@@ -17,8 +19,8 @@ import {
   tap,
   throttleTime,
 } from 'rxjs';
-import { IBlock, Icard } from '../../models/card.models';
-import { CardMocksService } from '../card-mocks/card-mocks.service';
+import { LIST_ID_ATTR } from '../../models/card.models';
+import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
 
 @Injectable({ providedIn: 'root' })
 @UntilDestroy()
@@ -26,10 +28,11 @@ export class DragAndDropService {
   onMove$ = new BehaviorSubject<boolean>(false);
   onCardMove$ = new BehaviorSubject<boolean>(false);
   onBlockMove = false;
+  cardMoving?: Icard;
   lastToBeHovered = -1;
 
   constructor(
-    private readonly cardMocksService: CardMocksService,
+    private readonly dbFacadeService: DbFacadeService,
     private readonly scrollEventsService: ScrollEventsService,
     private readonly outsideClickEventsService: OutsideClickEventsService,
   ) {}
@@ -60,12 +63,20 @@ export class DragAndDropService {
   }
 
   drop(event: CdkDragDrop<Icard[]>) {
+    const oldListId =
+      event.previousContainer.element.nativeElement.getAttribute(LIST_ID_ATTR);
+    const newListId =
+      event.container.element.nativeElement.getAttribute(LIST_ID_ATTR);
+
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
         event.previousIndex,
         event.currentIndex,
       );
+      this.cardMoving = undefined;
+      if (!oldListId || !newListId) return;
+      this.validCardsOrder(+oldListId, +newListId);
     } else {
       transferArrayItem(
         event.previousContainer.data,
@@ -73,15 +84,28 @@ export class DragAndDropService {
         event.previousIndex,
         event.currentIndex,
       );
+
+      if (newListId && this.cardMoving) {
+        const editCard: Icard = { ...this.cardMoving, blockId: +newListId };
+        this.cardMoving.blockId = +newListId;
+        this.dbFacadeService.editCard(editCard).subscribe(() => {
+          if (!oldListId || !newListId) return;
+          this.validCardsOrder(+oldListId, +newListId);
+        });
+        this.cardMoving = undefined;
+      }
     }
   }
 
   blockDrop(event: CdkDragDrop<IBlock[]>) {
     moveItemInArray(
-      this.cardMocksService.blocks$.value,
+      this.dbFacadeService.allBlocks$.value,
       event.previousIndex,
       event.currentIndex,
     );
+    this.dbFacadeService.allBlocks$.value.forEach((block, index) => {
+      this.dbFacadeService.editBlock({ ...block, blockIndex: index });
+    });
   }
 
   onEvent(value: boolean) {
@@ -95,5 +119,29 @@ export class DragAndDropService {
     );
     blockToRemove.splice(index, 1);
     blockToAdd.push(card);
+  }
+
+  validCardsOrder(oldListId: number, newListId: number) {
+    const allBlocks = this.dbFacadeService.allBlocks$.value;
+    if (oldListId === newListId) {
+      const cards =
+        allBlocks.find((block) => block.id === newListId)?.cards$.value ?? [];
+
+      cards.forEach((card, index) => {
+        const newCard: Icard = { ...card, cardIndex: index };
+        this.dbFacadeService.editCard(newCard);
+      });
+      return;
+    }
+
+    const oldListCards =
+      allBlocks.find((block) => block.id === oldListId)?.cards$.value ?? [];
+    const newListCards =
+      allBlocks.find((block) => block.id === newListId)?.cards$.value ?? [];
+
+    [...oldListCards, ...newListCards].forEach((card, index) => {
+      const newCard: Icard = { ...card, cardIndex: index };
+      this.dbFacadeService.editCard(newCard);
+    });
   }
 }

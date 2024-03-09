@@ -22,10 +22,14 @@ import {
   PreventClickDirective,
 } from '@my-monorepo/core/features/outside-element-click';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
-import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
+import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
+import {
+  IBlock,
+  Icard,
+  OutsideClickEventsService,
+} from '@my-monorepo/core/utlis';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { filter, fromEvent } from 'rxjs';
-import { IBlock, Icard } from '../../models/card.models';
 import { MoveCardComponent } from '../move-card/move-card.component';
 
 @Component({
@@ -60,6 +64,7 @@ export class CardEditComponent implements OnInit {
   });
 
   constructor(
+    private readonly dbFacadeService: DbFacadeService,
     private readonly viewContainerRef: ViewContainerRef,
     private readonly backdropStateService: BackdropStateService,
     private readonly openCustomMenuService: OpenCustomMenuService,
@@ -67,15 +72,18 @@ export class CardEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (!this.card()) return;
-    this.cardNameControl.setValue(this.card()!.name);
+    const card = this.card();
+    if (!card) return;
+    this.cardNameControl.setValue(card.name);
   }
 
   openMenu(element: HTMLElement) {
+    const menu = this.menu();
+    if (!menu) return;
     const rect = element.getBoundingClientRect();
 
     this.openCustomMenuService.openMenu(
-      this.menu()!,
+      menu,
       this.viewContainerRef,
       rect.left + rect.width + 5,
       rect.top,
@@ -101,10 +109,12 @@ export class CardEditComponent implements OnInit {
     this.openCustomMenuService.closeElement();
   }
 
-  addCard() {
+  editCard() {
     if (this.cardNameControl.invalid) return;
-    if (!this.card) return this.closeEdit();
-    this.card()!.name = this.cardNameControl.value;
+    const card = this.card();
+    if (!card) return this.closeEdit();
+    card.name = this.cardNameControl.value;
+    this.dbFacadeService.editCard(card);
     this.closeEdit();
   }
 
@@ -113,11 +123,12 @@ export class CardEditComponent implements OnInit {
   }
 
   archive() {
-    if (!this.card) return;
-    const index = this.blockCard().cards.findIndex(
-      (card) => card.id === this.card()?.id,
-    );
-    this.blockCard().cards.splice(index, 1);
+    const card = this.card();
+    if (!card || !card.id) return;
+    const cards = this.blockCard().cards$.value;
+    const index = cards.findIndex((cardToFind) => cardToFind.id === card.id);
+    cards.splice(index, 1);
+    this.dbFacadeService.deleteCard(card.id);
     this.backdropStateService.setBackDropState();
   }
 }

@@ -1,16 +1,21 @@
 import { Injectable } from '@angular/core';
-import { IBlock } from '@my-monorepo/core/features/trello-tools';
-import { Subject } from 'rxjs';
-import { IDBService } from '../../models/base-db-models';
+import { IBlock } from '@my-monorepo/core/utlis';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { IAddNewResponse, IDBService } from '../../models/base-db-models';
 import {
   CARD_BLOCKS_DB_NAME,
   CARD_BLOCKS_STORE_NAME,
   CARD_BLOCKS_VERSION,
+  INewBlock,
 } from '../../models/card-block-db-models';
+import { CardDbService } from '../card-db/card-db.service';
 
 @Injectable({ providedIn: 'root' })
 export class CardBlockDbService implements IDBService<IBlock> {
   hasIndexedDB = !!window.indexedDB;
+  allElements$ = new BehaviorSubject<IBlock[]>([]);
+
+  constructor(private readonly cardDbService: CardDbService) {}
 
   createDataBase() {
     if (!this.hasIndexedDB) return;
@@ -22,9 +27,9 @@ export class CardBlockDbService implements IDBService<IBlock> {
     request.onupgradeneeded = this.onUpgradeNeeded(request);
   }
 
-  addNewElement(element: Omit<IBlock, 'addNewEvent$'>) {
+  addNewElement(element: INewBlock) {
     const request = this.openRequest();
-    const eventResponse$ = new Subject<string>();
+    const eventResponse$ = new Subject<IAddNewResponse>();
 
     request.onsuccess = () => {
       const db = request.result;
@@ -33,13 +38,56 @@ export class CardBlockDbService implements IDBService<IBlock> {
       const addQuery = store.add(element);
 
       addQuery.onsuccess = () => {
-        eventResponse$.next('Elemento adicionado com sucesso!');
+        eventResponse$.next({
+          resp: 'Elemento adicionado com sucesso!',
+          id: addQuery.result as number,
+        });
       };
 
       addQuery.onerror = () => {
-        eventResponse$.next('Ocorreu um erro ao adicionar o elemento');
+        eventResponse$.next({
+          resp: 'Ocorreu um erro ao adicionar o elemento',
+          id: -1,
+        });
       };
 
+      transaction.oncomplete = () => {
+        db.close();
+      };
+    };
+
+    return eventResponse$.asObservable();
+  }
+
+  editElement(element: IBlock) {
+    const request = this.openRequest();
+    const eventResponse$ = new Subject<IAddNewResponse>();
+
+    request.onsuccess = () => {
+      const db = request.result;
+      const { transaction, store } = this.conectionValues(db);
+
+      const elementToEdit = {
+        name: element.name,
+        id: element.id,
+        blockIndex: element.blockIndex,
+      };
+
+      const editQuery = store.put(elementToEdit);
+
+      editQuery.onsuccess = () => {
+        eventResponse$.next({
+          resp: 'Elemento alterado com sucesso!',
+          id: editQuery.result as number,
+        });
+      };
+
+      editQuery.onerror = () => {
+        eventResponse$.next({
+          resp: 'Ocorreu um erro ao editar o elemento',
+          id: -1,
+        });
+      };
       transaction.oncomplete = () => {
         db.close();
       };
@@ -85,9 +133,8 @@ export class CardBlockDbService implements IDBService<IBlock> {
     return eventResponse$.asObservable();
   }
 
-  get AllElements$() {
+  getAllElements$() {
     const request = this.openRequest();
-    const allElements$ = new Subject<IBlock[]>();
 
     request.onsuccess = () => {
       const db = request.result;
@@ -96,7 +143,17 @@ export class CardBlockDbService implements IDBService<IBlock> {
       const allQuery = store.getAll();
 
       allQuery.onsuccess = () => {
-        allElements$.next(allQuery.result);
+        const allBlocks = allQuery.result
+          .sort((a, b) => a.blockIndex - b.blockIndex)
+          .map((block) => {
+            return {
+              ...block,
+              cards$: this.cardDbService.getByBlockId(block.id),
+              addNewEvent$: new BehaviorSubject<boolean>(false),
+            };
+          });
+
+        this.allElements$.next(allBlocks);
       };
 
       allQuery.onerror = () => {
@@ -108,12 +165,12 @@ export class CardBlockDbService implements IDBService<IBlock> {
       };
     };
 
-    return allElements$.asObservable();
+    return this.allElements$;
   }
 
   getElementById(id: number) {
     const request = this.openRequest();
-    const element$ = new Subject<IBlock | null | undefined>();
+    const element$ = new BehaviorSubject<IBlock | null | undefined>(null);
 
     request.onsuccess = () => {
       const db = request.result;
@@ -122,7 +179,12 @@ export class CardBlockDbService implements IDBService<IBlock> {
       const allQuery = store.get(id);
 
       allQuery.onsuccess = () => {
-        element$.next(allQuery.result);
+        const element = {
+          ...allQuery.result,
+          cards$: this.cardDbService.getByBlockId(allQuery.result.id),
+          addNewEvent$: new BehaviorSubject<boolean>(false),
+        };
+        element$.next(element);
       };
 
       allQuery.onerror = () => {
@@ -135,7 +197,7 @@ export class CardBlockDbService implements IDBService<IBlock> {
       };
     };
 
-    return element$.asObservable();
+    return element$;
   }
 
   openRequest = () => indexedDB.open(CARD_BLOCKS_DB_NAME, CARD_BLOCKS_VERSION);
@@ -153,7 +215,7 @@ export class CardBlockDbService implements IDBService<IBlock> {
         autoIncrement: true,
       });
 
-      store.add({ id: 0, name: 'Primeiro Block', cards: [] });
+      store.add({ id: 0, name: 'Primeiro Block' });
     };
   }
 

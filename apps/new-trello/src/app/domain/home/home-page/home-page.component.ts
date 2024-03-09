@@ -5,25 +5,20 @@ import {
   DragDropModule,
 } from '@angular/cdk/drag-drop';
 import { AsyncPipe } from '@angular/common';
-
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
   DragScrollDirective,
   PageWidthDirective,
 } from '@my-monorepo/core/features/drag-scroll';
-import {
-  CardBlockDbService,
-  CardDbService,
-} from '@my-monorepo/core/features/trello-db';
+import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
 import {
   AddNewBlockComponent,
   CardBlockComponent,
   CardEventsFacadeService,
-  ClearMocks,
   CursorDraggingDirective,
-  IBlock,
 } from '@my-monorepo/core/features/trello-tools';
+import { IBlock } from '@my-monorepo/core/utlis';
 
 @Component({
   selector: 'app-home-page',
@@ -43,32 +38,20 @@ import {
   ],
   hostDirectives: [CursorDraggingDirective],
 })
-@ClearMocks()
 export class HomePageComponent implements OnInit {
-  blocks$$ = this.cardEventsFacadeService.blocks$$;
-  injector: Injector;
+  blocks$$ = this.dbFacadeService.allBlocks$;
 
   constructor(
-    private readonly _injector: Injector,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
-    private readonly cardBlockDbService: CardBlockDbService,
-    private readonly cardDbService: CardDbService,
-  ) {
-    this.injector = this._injector;
-  }
+    private readonly dbFacadeService: DbFacadeService,
+  ) {}
 
   ngOnInit(): void {
     this.cardEventsFacadeService.startDomain();
-    this.cardBlockDbService.deleteElement(5).subscribe(console.log);
-    this.cardBlockDbService.AllElements$.subscribe(console.log);
-    this.cardBlockDbService.getElementById(0).subscribe(console.log);
-    this.cardDbService.addNewElement({ name: 'Teste', blockId: 0})
-    this.cardDbService.getByBlockId(0);
   }
 
   listDropped(event: CdkDragDrop<IBlock[]>) {
     this.cardEventsFacadeService.blockDrop(event);
-    this.cardEventsFacadeService.onEvent(false);
   }
 
   onMove() {

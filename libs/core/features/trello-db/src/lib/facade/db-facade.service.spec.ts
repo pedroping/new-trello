@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { CardMocksService } from './card-mocks.service';
+import { DbFacadeService } from './db-facade.service';
 
-describe('Service: CardMocks', () => {
+describe('Service: DbFacade', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CardMocksService],
+      providers: [DbFacadeService]
     });
   });
 
-  it('should ...', inject([CardMocksService], (service: CardMocksService) => {
+  it('should ...', inject([DbFacadeService], (service: DbFacadeService) => {
     expect(service).toBeTruthy();
   }));
 });

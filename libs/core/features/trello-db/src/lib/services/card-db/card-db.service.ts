@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Icard } from '@my-monorepo/core/features/trello-tools';
-import { IDBService } from '../../models/base-db-models';
+import { Icard } from '@my-monorepo/core/utlis';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { IAddNewResponse, IDBService } from '../../models/base-db-models';
 import {
   CARDS_DB_NAME,
   CARDS_STORE_NAME,
@@ -8,10 +9,11 @@ import {
   CARD_BLOCK_ID_INDEX,
   CARD_BLOCK_ID_KEY,
 } from '../../models/card-db-models';
-import { Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class CardDbService implements Omit<IDBService<Icard>, 'AllElements$'> {
+export class CardDbService
+  implements Omit<IDBService<Icard>, 'getAllElements$'>
+{
   hasIndexedDB = !!window.indexedDB;
 
   createDataBase() {
@@ -26,7 +28,7 @@ export class CardDbService implements Omit<IDBService<Icard>, 'AllElements$'> {
 
   addNewElement(element: Icard) {
     const request = this.openRequest();
-    const eventResponse$ = new Subject<string>();
+    const eventResponse$ = new Subject<IAddNewResponse>();
 
     request.onsuccess = () => {
       const db = request.result;
@@ -35,13 +37,49 @@ export class CardDbService implements Omit<IDBService<Icard>, 'AllElements$'> {
       const addQuery = store.add(element);
 
       addQuery.onsuccess = () => {
-        eventResponse$.next('Elemento adicionado com sucesso!');
+        eventResponse$.next({
+          resp: 'Elemento adicionado com sucesso!',
+          id: addQuery.result as number,
+        });
       };
 
       addQuery.onerror = () => {
-        eventResponse$.next('Ocorreu um erro ao adicionar o elemento');
+        eventResponse$.next({
+          resp: 'Ocorreu um erro ao adicionar o elemento',
+          id: -1,
+        });
+      };
+      transaction.oncomplete = () => {
+        db.close();
+      };
+    };
+
+    return eventResponse$.asObservable();
+  }
+
+  editElement(element: Icard) {
+    const request = this.openRequest();
+    const eventResponse$ = new Subject<IAddNewResponse>();
+
+    request.onsuccess = () => {
+      const db = request.result;
+      const { transaction, store } = this.conectionValues(db);
+
+      const editQuery = store.put(element);
+
+      editQuery.onsuccess = () => {
+        eventResponse$.next({
+          resp: 'Elemento alterado com sucesso!',
+          id: editQuery.result as number,
+        });
       };
 
+      editQuery.onerror = () => {
+        eventResponse$.next({
+          resp: 'Ocorreu um erro ao editar o elemento',
+          id: -1,
+        });
+      };
       transaction.oncomplete = () => {
         db.close();
       };
@@ -111,7 +149,7 @@ export class CardDbService implements Omit<IDBService<Icard>, 'AllElements$'> {
       };
     };
 
-    return element$.asObservable();
+    return element$;
   }
 
   onUpgradeNeeded(db: IDBOpenDBRequest) {
@@ -122,13 +160,13 @@ export class CardDbService implements Omit<IDBService<Icard>, 'AllElements$'> {
       });
       store.createIndex(CARD_BLOCK_ID_INDEX, CARD_BLOCK_ID_KEY);
 
-      store.add({ id: 0, name: 'Primeiro Card', blockId: 0 });
+      store.add({ name: 'Primeiro Card', blockId: 0 });
     };
   }
 
   getByBlockId(id: number) {
     const request = this.openRequest();
-    const cards$ = new Subject<Icard[]>();
+    const cards$ = new BehaviorSubject<Icard[]>([]);
     request.onsuccess = () => {
       const db = request.result;
       const { transaction, store } = this.conectionValues(db);
@@ -137,14 +175,17 @@ export class CardDbService implements Omit<IDBService<Icard>, 'AllElements$'> {
       const blockQuery = blockIdIndex.getAll(id);
 
       blockQuery.onsuccess = () => {
-        cards$.next(blockQuery.result);
+        const result = blockQuery.result.sort(
+          (a, b) => a?.cardIndex - b?.cardIndex,
+        );
+        cards$.next(result);
       };
 
       transaction.oncomplete = () => {
         db.close();
       };
     };
-    return cards$.asObservable();
+    return cards$;
   }
 
   conectionValues(db: IDBDatabase) {

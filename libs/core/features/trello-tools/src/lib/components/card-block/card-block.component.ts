@@ -1,9 +1,10 @@
 import { AfterViewInit, Component, input, viewChild } from '@angular/core';
 import { CardBlockHeightDirective } from '../../directives/card-block-height/cardBlock-height.directive';
-import { IBlock } from '../../models/card.models';
+import { IBlock } from '@my-monorepo/core/utlis';
 import { CardFooterComponent } from '../card-footer/card-footer.component';
 import { CardHeaderComponent } from '../card-header/card-header.component';
 import { CardListComponent } from '../card-list/card-list.component';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'trello-card-block',
@@ -15,6 +16,7 @@ import { CardListComponent } from '../card-list/card-list.component';
     CardFooterComponent,
     CardHeaderComponent,
     CardListComponent,
+    AsyncPipe,
   ],
 })
 export class CardBlockComponent implements AfterViewInit {
@@ -25,10 +27,9 @@ export class CardBlockComponent implements AfterViewInit {
   isSelectedBlock = false;
 
   ngAfterViewInit(): void {
-    if (!this.cardList() || this.isPreview()) return;
+    const cardList = this.cardList();
+    if (!cardList || this.isPreview()) return;
 
-    this.cardList()!.cardMove.subscribe(
-      (event) => (this.isSelectedBlock = event),
-    );
+    cardList.cardMove.subscribe((event) => (this.isSelectedBlock = event));
   }
 }

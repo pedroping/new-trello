@@ -1,8 +1,13 @@
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export interface IConectionValues {
   transaction: IDBTransaction;
   store: IDBObjectStore;
+}
+
+export interface IAddNewResponse {
+  resp: string;
+  id: number;
 }
 
 export interface IDBService<T> {
@@ -10,11 +15,12 @@ export interface IDBService<T> {
   onCreateSuccess: () => () => void;
   onCreateError: () => () => void;
   openRequest: () => IDBOpenDBRequest;
-  addNewElement: (element: T) => Observable<string>;
+  addNewElement: (element: T) => Observable<IAddNewResponse>;
+  editElement: (element: T) => Observable<IAddNewResponse>;
   deleteElement: (id: number) => Observable<string>;
   onUpgradeNeeded: (db: IDBOpenDBRequest) => () => void;
   conectionValues: (db: IDBDatabase) => IConectionValues;
-  AllElements$: Observable<T[]>;
+  getAllElements$: () => BehaviorSubject<T[]>;
   getElementById: (id: number) => Observable<T | null | undefined>;
   hasIndexedDB: boolean;
 }

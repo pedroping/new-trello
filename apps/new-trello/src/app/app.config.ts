@@ -23,24 +23,10 @@ import {
   META_DARK_COLOR,
   META_LIGHT_COLOR,
 } from '@my-monorepo/core/features/dark-mode';
-import {
-  CardBlockDbService,
-  CardDbService,
-} from '@my-monorepo/core/features/trello-db';
-import { CardEventsFacadeService } from '@my-monorepo/core/features/trello-tools';
+import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
 import { TuiRootModule } from '@taiga-ui/core';
-import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
 import { META_TAGS } from './shared/meta.tags';
-
-const loadMocksProviders: FactoryProvider = {
-  provide: APP_INITIALIZER,
-  useFactory: () => {
-    const cardEventsFacadeService = inject(CardEventsFacadeService);
-    return () => cardEventsFacadeService.getAllCards(!environment.production);
-  },
-  multi: true,
-};
 
 const setMetaProviders: FactoryProvider = {
   provide: APP_INITIALIZER,
@@ -51,24 +37,14 @@ const setMetaProviders: FactoryProvider = {
   multi: true,
 };
 
-const indexedDBProviders: FactoryProvider[] = [
-  {
-    provide: APP_INITIALIZER,
-    useFactory: () => {
-      const indexedService = inject(CardBlockDbService);
-      return () => indexedService.createDataBase();
-    },
-    multi: true,
+const indexedDBProviders: FactoryProvider = {
+  provide: APP_INITIALIZER,
+  useFactory: () => {
+    const indexedService = inject(DbFacadeService);
+    return () => indexedService.startDomain();
   },
-  {
-    provide: APP_INITIALIZER,
-    useFactory: () => {
-      const indexedService = inject(CardDbService);
-      return () => indexedService.createDataBase();
-    },
-    multi: true,
-  },
-];
+  multi: true,
+};
 
 const colorsProviders: FactoryProvider[] = [
   {
@@ -96,9 +72,8 @@ export const appConfig: ApplicationConfig = {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000',
     }),
-    loadMocksProviders,
     setMetaProviders,
+    indexedDBProviders,
     ...colorsProviders,
-    ...indexedDBProviders,
   ],
 };
