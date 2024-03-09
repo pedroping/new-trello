@@ -23,10 +23,13 @@ import {
 } from '@my-monorepo/core/features/outside-element-click';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
-import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
+import {
+  IBlock,
+  Icard,
+  OutsideClickEventsService,
+} from '@my-monorepo/core/utlis';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { filter, fromEvent } from 'rxjs';
-import { IBlock, Icard } from '@my-monorepo/core/utlis';
 import { MoveCardComponent } from '../move-card/move-card.component';
 
 @Component({

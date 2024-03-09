@@ -13,7 +13,7 @@ export class CardEventsFacadeService {
   startDomain() {
     this.dragAndDropService.startDomain();
   }
-  
+
   setCardMove(value: boolean, card?: Icard) {
     if (card) this.dragAndDropService.cardMoving = card;
     this.dragAndDropService.onCardMove$.next(value);
@@ -33,6 +33,7 @@ export class CardEventsFacadeService {
 
   blockDrop(event: CdkDragDrop<IBlock[]>) {
     this.dragAndDropService.blockDrop(event);
+    this.onEvent(false);
   }
 
   setLastToBeHovered(value: number) {

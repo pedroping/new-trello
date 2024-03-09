@@ -9,7 +9,9 @@ export class BackdropContentDirective implements BackDropEvent {
   constructor(readonly template: TemplateRef<unknown>) {}
 
   get domRect() {
-    const nativeElement = this.template.elementRef.nativeElement as HTMLElement;
-    return nativeElement.parentElement!.getBoundingClientRect();
+    const parentElement = (
+      this.template.elementRef.nativeElement as HTMLElement
+    ).parentElement as HTMLElement;
+    return parentElement.getBoundingClientRect();
   }
 }

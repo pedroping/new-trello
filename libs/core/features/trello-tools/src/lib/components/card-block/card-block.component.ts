@@ -27,10 +27,9 @@ export class CardBlockComponent implements AfterViewInit {
   isSelectedBlock = false;
 
   ngAfterViewInit(): void {
-    if (!this.cardList() || this.isPreview()) return;
+    const cardList = this.cardList();
+    if (!cardList || this.isPreview()) return;
 
-    this.cardList()!.cardMove.subscribe(
-      (event) => (this.isSelectedBlock = event),
-    );
+    cardList.cardMove.subscribe((event) => (this.isSelectedBlock = event));
   }
 }

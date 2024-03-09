@@ -103,6 +103,9 @@ export class DragAndDropService {
       event.previousIndex,
       event.currentIndex,
     );
+    this.dbFacadeService.allBlocks$.value.forEach((block, index) => {
+      this.dbFacadeService.editBlock({ ...block, blockIndex: index });
+    });
   }
 
   onEvent(value: boolean) {

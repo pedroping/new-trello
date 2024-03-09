@@ -59,6 +59,7 @@ export class AddNewBlockComponent {
         if (!this.listInput()) return;
         if (!this.onAddNew) return;
         this.listInput()?.nativeElement.focus();
+        this.scrollEventsService.scrollToEnd$.next();
         this.outsideClickEventsService.startTaking$.next();
       }),
     );

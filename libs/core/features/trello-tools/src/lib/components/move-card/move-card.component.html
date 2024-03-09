@@ -1,6 +1,6 @@
 <div class="menu" preventClick>
   @for (block of blocks$$ | async; track block) {
-    <div class="card" (click)="moveToBlock(block.cards$)">
+    <div class="card" (click)="moveToBlock(block)">
       <span class="name">{{ block.name }}</span>
     </div>
   }
