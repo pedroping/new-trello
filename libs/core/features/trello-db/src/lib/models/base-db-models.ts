@@ -22,5 +22,6 @@ export interface IDBService<T> {
   conectionValues: (db: IDBDatabase) => IConectionValues;
   getAllElements$: () => BehaviorSubject<T[]>;
   getElementById: (id: number) => Observable<T | null | undefined>;
+  setAllElement: () => void;
   hasIndexedDB: boolean;
 }

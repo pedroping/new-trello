@@ -12,7 +12,7 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class CardDbService
-  implements Omit<IDBService<Icard>, 'getAllElements$'>
+  implements Omit<IDBService<Icard>, 'getAllElements$' | 'setAllElement'>
 {
   hasIndexedDB = !!window.indexedDB;
 
@@ -159,8 +159,6 @@ export class CardDbService
         autoIncrement: true,
       });
       store.createIndex(CARD_BLOCK_ID_INDEX, CARD_BLOCK_ID_KEY);
-
-      store.add({ name: 'Primeiro Card', blockId: 0 });
     };
   }
 

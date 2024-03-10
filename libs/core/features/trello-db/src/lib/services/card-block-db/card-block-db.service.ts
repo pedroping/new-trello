@@ -134,37 +134,6 @@ export class CardBlockDbService implements IDBService<IBlock> {
   }
 
   getAllElements$() {
-    const request = this.openRequest();
-
-    request.onsuccess = () => {
-      const db = request.result;
-      const { transaction, store } = this.conectionValues(db);
-
-      const allQuery = store.getAll();
-
-      allQuery.onsuccess = () => {
-        const allBlocks = allQuery.result
-          .sort((a, b) => a.blockIndex - b.blockIndex)
-          .map((block) => {
-            return {
-              ...block,
-              cards$: this.cardDbService.getByBlockId(block.id),
-              addNewEvent$: new BehaviorSubject<boolean>(false),
-            };
-          });
-
-        this.allElements$.next(allBlocks);
-      };
-
-      allQuery.onerror = () => {
-        console.error('Ocorreu um erro ao buscar os elementos');
-      };
-
-      transaction.oncomplete = () => {
-        db.close();
-      };
-    };
-
     return this.allElements$;
   }
 
@@ -210,20 +179,21 @@ export class CardBlockDbService implements IDBService<IBlock> {
 
   onUpgradeNeeded(db: IDBOpenDBRequest) {
     return () => {
-      const store = db.result.createObjectStore(CARD_BLOCKS_STORE_NAME, {
+      db.result.createObjectStore(CARD_BLOCKS_STORE_NAME, {
         keyPath: 'id',
         autoIncrement: true,
       });
-
-      store.add({ id: 0, name: 'Primeiro Block' });
+      this.setAllElement();
     };
   }
 
   onCreateSuccess() {
-    return () =>
+    return () => {
       console.log(
         `Conexão com a base de dados '${CARD_BLOCKS_DB_NAME}' aberta com sucesso!`,
       );
+      this.setAllElement();
+    };
   }
 
   onCreateError() {
@@ -231,5 +201,38 @@ export class CardBlockDbService implements IDBService<IBlock> {
       console.error(
         `Conexão com a base de dados '${CARD_BLOCKS_DB_NAME}' falhou!`,
       );
+  }
+
+  setAllElement() {
+    const request = this.openRequest();
+
+    request.onsuccess = () => {
+      const db = request.result;
+      const { transaction, store } = this.conectionValues(db);
+
+      const allQuery = store.getAll();
+
+      allQuery.onsuccess = () => {
+        const allBlocks = allQuery.result
+          .sort((a, b) => a.blockIndex - b.blockIndex)
+          .map((block) => {
+            return {
+              ...block,
+              cards$: this.cardDbService.getByBlockId(block.id),
+              addNewEvent$: new BehaviorSubject<boolean>(false),
+            };
+          });
+
+        this.allElements$.next(allBlocks);
+      };
+
+      allQuery.onerror = () => {
+        console.error('Ocorreu um erro ao buscar os elementos');
+      };
+
+      transaction.oncomplete = () => {
+        db.close();
+      };
+    };
   }
 }
