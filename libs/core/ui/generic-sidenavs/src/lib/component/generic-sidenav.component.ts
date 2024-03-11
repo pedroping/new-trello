@@ -1,6 +1,7 @@
 import { Component, input } from '@angular/core';
-import { HideSidenavsDirective } from '../../directives/hide-sidenavs.directive';
-import { GenericSidenavsFacadeService } from '../../facades/generic-sidenavs-facade.service';
+import { HideSidenavsDirective } from '../directive/hide-sidenavs.directive';
+import { GenericSidenavsFacadeService } from '../facades/generic-sidenavs-facade.service';
+import { ISideType } from '../models/generic-sidenavs-models';
 
 @Component({
   selector: 'generic-sidenav',
@@ -10,7 +11,7 @@ import { GenericSidenavsFacadeService } from '../../facades/generic-sidenavs-fac
   imports: [HideSidenavsDirective],
 })
 export class GenericSidenavComponent {
-  side = input.required<'right' | 'left'>();
+  side = input.required<ISideType>();
 
   constructor(
     private readonly genericSidenavsFacadeService: GenericSidenavsFacadeService,
