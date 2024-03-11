@@ -31,6 +31,7 @@ import {
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { filter, fromEvent } from 'rxjs';
 import { MoveCardComponent } from '../move-card/move-card.component';
+import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 
 @Component({
   selector: 'card-edit',
@@ -68,6 +69,7 @@ export class CardEditComponent implements OnInit {
     private readonly viewContainerRef: ViewContainerRef,
     private readonly backdropStateService: BackdropStateService,
     private readonly openCustomMenuService: OpenCustomMenuService,
+    private readonly cardEventsFacadeService: CardEventsFacadeService,
     private readonly outsideClickEventsService: OutsideClickEventsService,
   ) {}
 
@@ -130,5 +132,31 @@ export class CardEditComponent implements OnInit {
     cards.splice(index, 1);
     this.dbFacadeService.deleteCard(card.id);
     this.backdropStateService.setBackDropState();
+  }
+
+  duplicate() {
+    const card = this.card();
+    if (!card || !card.id) return;
+    const newCard: Icard = {
+      blockId: card.blockId,
+      cardIndex: -1,
+      name: `${card.name} copia`,
+    };
+
+    this.dbFacadeService.createCard(newCard).subscribe((resp) => {
+      newCard.id = resp.id;
+      const cardList = this.blockCard().cards$.value;
+      const cardIndex = cardList.findIndex(
+        (listCard) => listCard.id === card.id,
+      );
+      const indexToAdd = cardIndex === -1 ? cardList.length : cardIndex + 1;
+      cardList.splice(indexToAdd, 0, newCard);
+      this.blockCard().cards$.next(cardList);
+      this.cardEventsFacadeService.validCardsOrder(
+        this.blockCard().id,
+        this.blockCard().id,
+      );
+      this.backdropStateService.setBackDropState();
+    });
   }
 }

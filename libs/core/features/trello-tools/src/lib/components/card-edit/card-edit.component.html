@@ -20,12 +20,30 @@
   </div>
 
   <div class="actions" preventClick>
-    <button class="action-btn" (click)="archive()">
+    <button
+      class="action-btn"
+      aria-label="Archive card button"
+      (click)="archive()"
+    >
       <mat-icon>archive</mat-icon>
       <span>Arquivar</span>
     </button>
 
-    <button class="action-btn" #baseElement (click)="openMenu(baseElement)">
+    <button
+      class="action-btn"
+      aria-label="Duplicate card button"
+      (click)="duplicate()"
+    >
+      <mat-icon>control_point_duplicate</mat-icon>
+      <span>Duplicar</span>
+    </button>
+
+    <button
+      class="action-btn"
+      aria-label="Move card button"
+      #baseElement
+      (click)="openMenu(baseElement)"
+    >
       <mat-icon>forward</mat-icon>
       <span>Mover</span>
     </button>

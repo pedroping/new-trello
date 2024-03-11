@@ -44,6 +44,10 @@ export class CardEventsFacadeService {
     this.dragAndDropService.moveToBlock(blockToRemove, blockToAdd, card);
   }
 
+  validCardsOrder(oldListId: number, newListId: number) {
+    this.dragAndDropService.validCardsOrder(oldListId, newListId);
+  }
+
   get lastToBeHovered() {
     return this.dragAndDropService.lastToBeHovered;
   }
