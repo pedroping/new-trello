@@ -9,6 +9,7 @@
   >
     @if (!isPreview()) {
       <trello-card-header
+        [id]="id()"
         [cardLength]="cards.length"
         [title]="blockCard().name"
       ></trello-card-header>

@@ -18,5 +18,6 @@ import { CardOptionsComponent } from '../card-options/card-options.component';
 })
 export class CardHeaderComponent {
   cardLength = input<number>(0);
+  id = input<number>(-1);
   title = input.required();
 }

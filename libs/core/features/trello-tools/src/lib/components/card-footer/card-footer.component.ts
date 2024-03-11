@@ -30,6 +30,7 @@ import { CardOptionsComponent } from '../card-options/card-options.component';
 export class CardFooterComponent {
   addNewEvent$ = input.required<BehaviorSubject<boolean>>();
   onCardMove$$ = this.cardEventsFacadeService.onCardMove$$;
+  id = input<number>(-1);
 
   constructor(
     private readonly cardEventsFacadeService: CardEventsFacadeService,
