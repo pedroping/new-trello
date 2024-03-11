@@ -23,6 +23,7 @@ import {
 } from '@my-monorepo/core/utlis';
 import { BehaviorSubject } from 'rxjs';
 import { Icard } from '@my-monorepo/core/utlis';
+import { DisableButtonOnDragDirective } from '../../directives/disable-button-on-drag/disable-button-on-drag.directive';
 @Component({
   selector: 'trello-add-new-block',
   templateUrl: './add-new-block.component.html',
@@ -31,8 +32,9 @@ import { Icard } from '@my-monorepo/core/utlis';
   standalone: true,
   imports: [
     MatIconModule,
-    ReactiveFormsModule,
     FormsModule,
+    ReactiveFormsModule,
+    DisableButtonOnDragDirective,
     OutsideAddBlockClickDirective,
   ],
 })

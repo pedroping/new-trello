@@ -15,10 +15,13 @@
     background-color: var(--add-new-background);
     color: var(--text-02);
     cursor: pointer;
+    border: none !important;
+    outline: none !important;
 
     &:hover {
       background-color: var(--add-new-background-hovered);
     }
+
   }
 
   .add-new-content {

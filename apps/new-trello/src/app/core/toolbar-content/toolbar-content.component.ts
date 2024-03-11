@@ -6,6 +6,7 @@ import { CustomBackgroundDirective } from '@my-monorepo/core/features/custom-bac
 import { DarkModeToggleDirective } from '@my-monorepo/core/features/dark-mode';
 import { OutsideAddBlockClickDirective } from '@my-monorepo/core/features/outside-element-click';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
+import { DisableButtonOnDragDirective } from '@my-monorepo/core/features/trello-tools';
 import { GenericSidenavsFacadeService } from '@my-monorepo/core/ui/generic-sidenavs';
 import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
 
@@ -20,6 +21,7 @@ import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
     MatButtonModule,
     DarkModeToggleDirective,
     CustomBackgroundDirective,
+    DisableButtonOnDragDirective,
     OutsideAddBlockClickDirective,
   ],
 })

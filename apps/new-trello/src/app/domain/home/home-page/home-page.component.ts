@@ -32,9 +32,9 @@ import { IBlock } from '@my-monorepo/core/utlis';
     CdkDropList,
     DragDropModule,
     CardBlockComponent,
-    AddNewBlockComponent,
     PageWidthDirective,
     DragScrollDirective,
+    AddNewBlockComponent,
   ],
   hostDirectives: [CursorDraggingDirective],
 })

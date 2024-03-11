@@ -1,9 +1,10 @@
 <div class="block">Initial Board</div>
 <div class="block">
   <button
-    mat-icon-button
-    class="setDarkModeIcon"
     darkModeToggle
+    mat-icon-button
+    [always-static]="true"
+    class="setDarkModeIcon"
     #getIcon="darkModeToggle"
     aria-label="Toggle Project Theme"
   >
@@ -11,6 +12,7 @@
   </button>
   <button
     mat-icon-button
+    [always-static]="true"
     (click)="toggleRightSideNav()"
     aria-label="Open WallPaper Menu"
   >

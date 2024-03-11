@@ -1,7 +1,7 @@
 @if (!onAddNew) {
-  <div class="base-content" (click)="setState(true)">
+  <button class="base-content" (click)="setState(true)">
     <mat-icon>add</mat-icon><span>Adicionar outra lista</span>
-  </div>
+  </button>
 } @else {
   <div class="add-new-content" @inOutPaneAnimation outsideClick>
     <input
