@@ -3,7 +3,7 @@ import {
   ElementRef,
   EnvironmentInjector,
   effect,
-  runInInjectionContext,
+  inject,
   viewChild,
 } from '@angular/core';
 import {
@@ -13,16 +13,16 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { OutsideAddBlockClickDirective } from '@my-monorepo/core/features/outside-element-click';
+import { OutsideClickDirective } from '@my-monorepo/core/features/outside-element-click';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
 import { ENTER_LEAVE_ANIMATION } from '@my-monorepo/core/ui/animations';
 import {
+  Icard,
   OutsideClickEventsService,
   ScrollEventsService,
 } from '@my-monorepo/core/utlis';
 import { BehaviorSubject } from 'rxjs';
-import { Icard } from '@my-monorepo/core/utlis';
 import { DisableButtonOnDragDirective } from '../../directives/disable-button-on-drag/disable-button-on-drag.directive';
 @Component({
   selector: 'trello-add-new-block',
@@ -35,7 +35,7 @@ import { DisableButtonOnDragDirective } from '../../directives/disable-button-on
     FormsModule,
     ReactiveFormsModule,
     DisableButtonOnDragDirective,
-    OutsideAddBlockClickDirective,
+    OutsideClickDirective,
   ],
 })
 @CallSetValueChanges()
@@ -48,27 +48,25 @@ export class AddNewBlockComponent {
     validators: [Validators.required],
   });
 
+  injector = inject(EnvironmentInjector);
+
   constructor(
-    private injector: EnvironmentInjector,
     private readonly dbFacadeService: DbFacadeService,
     private readonly scrollEventsService: ScrollEventsService,
     private readonly outsideClickEventsService: OutsideClickEventsService,
   ) {}
 
   setValueChanges() {
-    runInInjectionContext(this.injector, () =>
-      effect(() => {
-        if (!this.listInput()) return;
-        if (!this.onAddNew) return;
-        this.listInput()?.nativeElement.focus();
-        this.scrollEventsService.scrollToEnd$.next();
-        this.outsideClickEventsService.startTaking$.next();
-      }),
-    );
-
-    this.outsideClickEventsService.outSideClick$$.subscribe(() => {
-      if (this.onAddNew) this.setState(false);
-    });
+    effect(() => {
+      if (!this.listInput()) return;
+      if (!this.onAddNew) return;
+      this.listInput()?.nativeElement.focus();
+      this.scrollEventsService.scrollToEnd$.next();
+      this.outsideClickEventsService.startTaking$.next();
+    }),
+      this.outsideClickEventsService.outSideClick$$.subscribe(() => {
+        if (this.onAddNew) this.setState(false);
+      });
   }
 
   setState(value: boolean) {

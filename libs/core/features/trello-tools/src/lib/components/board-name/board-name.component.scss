@@ -1,0 +1,14 @@
+:host {
+  display: flex;
+  align-items: center;
+
+  h1 {
+    cursor: pointer;
+  }
+
+  input {
+    height: 36px;
+    background-color: transparent;
+    margin: 0;
+  }
+}

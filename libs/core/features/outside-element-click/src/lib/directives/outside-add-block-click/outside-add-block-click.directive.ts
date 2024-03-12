@@ -13,7 +13,7 @@ export const DEFAULT_ELEMENT = document;
 })
 @UntilDestroy()
 @CallSetValueChanges()
-export class OutsideAddBlockClickDirective {
+export class OutsideClickDirective {
   outSideElement = input<HTMLElement>();
 
   constructor(

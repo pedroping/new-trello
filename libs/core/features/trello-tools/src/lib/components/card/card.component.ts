@@ -19,7 +19,7 @@ import {
   BackdropContentDirective,
   BackdropStateService,
 } from '@my-monorepo/core/features/backdrop-screen';
-import { OutsideAddBlockClickDirective } from '@my-monorepo/core/features/outside-element-click';
+import { OutsideClickDirective } from '@my-monorepo/core/features/outside-element-click';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
 import {
@@ -41,8 +41,8 @@ import { CardEditComponent } from '../card-edit/card-edit.component';
     MatIconModule,
     CardEditComponent,
     ReactiveFormsModule,
+    OutsideClickDirective,
     BackdropContentDirective,
-    OutsideAddBlockClickDirective,
   ],
 })
 @CallSetValueChanges()

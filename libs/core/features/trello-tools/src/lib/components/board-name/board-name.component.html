@@ -1,0 +1,12 @@
+@if (!onEdit) {
+  <h1 (click)="setState(true)">{{ boardNameControl.value }}</h1>
+} @else {
+  <input
+    default-input
+    #editInput
+    outsideClick
+    [formControl]="boardNameControl"
+    (keyup.enter)="saveName()"
+    (keyup.escape)="setState(false)"
+  />
+}

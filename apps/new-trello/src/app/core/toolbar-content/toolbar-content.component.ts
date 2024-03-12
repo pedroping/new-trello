@@ -4,9 +4,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CustomBackgroundDirective } from '@my-monorepo/core/features/custom-background';
 import { DarkModeToggleDirective } from '@my-monorepo/core/features/dark-mode';
-import { OutsideAddBlockClickDirective } from '@my-monorepo/core/features/outside-element-click';
+import { OutsideClickDirective } from '@my-monorepo/core/features/outside-element-click';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
-import { DisableButtonOnDragDirective } from '@my-monorepo/core/features/trello-tools';
+import {
+  BoardNameComponent,
+  DisableButtonOnDragDirective,
+} from '@my-monorepo/core/features/trello-tools';
 import { GenericSidenavsFacadeService } from '@my-monorepo/core/ui/generic-sidenavs';
 import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
 
@@ -19,10 +22,11 @@ import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
     MatIconModule,
     CdkMenuModule,
     MatButtonModule,
+    BoardNameComponent,
+    OutsideClickDirective,
     DarkModeToggleDirective,
     CustomBackgroundDirective,
     DisableButtonOnDragDirective,
-    OutsideAddBlockClickDirective,
   ],
 })
 @CallSetValueChanges()
