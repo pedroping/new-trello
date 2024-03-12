@@ -1,4 +1,4 @@
-import { Directive, ElementRef } from '@angular/core';
+import { Directive, ElementRef, Renderer2 } from '@angular/core';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
 import { startWith } from 'rxjs';
@@ -13,6 +13,7 @@ import { ScrollToEndDirective } from '../scroll-to-end/scroll-to-end.directive';
 export class PageWidthDirective {
   constructor(
     private readonly el: ElementRef,
+    private readonly renderer: Renderer2,
     private readonly dbFacadeService: DbFacadeService,
   ) {}
 
@@ -21,8 +22,8 @@ export class PageWidthDirective {
       .pipe(startWith(this.dbFacadeService.allBlocks$.value))
       .subscribe((blocks) => {
         const length = blocks.length;
-        this.el.nativeElement.style.width =
-          length * BASE_BLOCK_SIZE + BASE_ADD_NEW_SIZE + 'px';
+        const newWidth = length * BASE_BLOCK_SIZE + BASE_ADD_NEW_SIZE + 'px';
+        this.renderer.setStyle(this.el.nativeElement, 'width', newWidth);
       });
   }
 }

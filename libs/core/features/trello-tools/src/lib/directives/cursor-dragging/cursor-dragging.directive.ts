@@ -1,4 +1,4 @@
-import { Directive } from '@angular/core';
+import { Directive, Renderer2 } from '@angular/core';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { merge } from 'rxjs';
@@ -14,6 +14,7 @@ export class CursorDraggingDirective {
   private _body = document.querySelector('body');
 
   constructor(
+    private readonly renderer: Renderer2,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
   ) {}
 
@@ -32,7 +33,7 @@ export class CursorDraggingDirective {
 
       if (!this._body) return;
 
-      this._body.style.cursor = cursorType;
+      this.renderer.setStyle(this._body, 'cursor', cursorType);
     });
   }
 }

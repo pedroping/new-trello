@@ -1,5 +1,5 @@
 @if (!onAddNew) {
-  <button class="base-content" (click)="setState(true)">
+  <button class="base-content" (click)="setState(true)" @inOutPaneAnimation>
     <mat-icon>add</mat-icon><span>Adicionar outra lista</span>
   </button>
 } @else {

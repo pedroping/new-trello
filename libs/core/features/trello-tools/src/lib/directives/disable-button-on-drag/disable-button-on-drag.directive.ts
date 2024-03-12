@@ -43,7 +43,7 @@ export class DisableButtonOnDragDirective implements OnInit {
     const btnParent = this.elementRef.nativeElement
       .parentElement as HTMLElement;
 
-    this.renderer.setStyle(btnParent, 'position', 'relative');
+    if (btnParent) this.renderer.setStyle(btnParent, 'position', 'relative');
 
     if (!this.disabledAbsolut())
       this.renderer.setStyle(
