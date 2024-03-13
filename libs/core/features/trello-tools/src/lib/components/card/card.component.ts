@@ -118,7 +118,6 @@ export class CardComponent {
   }
 
   cancelEvent() {
-    this.cardNameControl.reset();
     this.blockCard().addNewEvent$.next(false);
   }
 
