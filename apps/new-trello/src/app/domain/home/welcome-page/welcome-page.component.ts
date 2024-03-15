@@ -1,5 +1,4 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
-
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {
@@ -15,7 +14,7 @@ import { LeftSidebarContentComponent } from '../../../core/left-sidebar-content/
 import { RightSidebarContentComponent } from '../../../core/right-sidebar-content/right-sidebar-content.component';
 import { ToolbarContentComponent } from '../../../core/toolbar-content/toolbar-content.component';
 @Component({
-  selector: 'app-welcome-page',
+  selector: 'trello-welcome-page',
   templateUrl: './welcome-page.component.html',
   styleUrls: ['./welcome-page.component.scss'],
   standalone: true,
@@ -44,3 +43,12 @@ export class WelcomePageComponent implements OnInit {
     );
   }
 }
+
+/* 
+  To update code dependecies 
+
+  - npx nx migrate latest
+  - npx npm-check-updates -u
+  - npm update
+  - npm i
+*/

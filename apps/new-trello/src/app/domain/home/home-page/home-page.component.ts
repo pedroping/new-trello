@@ -21,7 +21,7 @@ import {
 import { IBlock } from '@my-monorepo/core/utlis';
 
 @Component({
-  selector: 'app-home-page',
+  selector: 'trello-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
   standalone: true,

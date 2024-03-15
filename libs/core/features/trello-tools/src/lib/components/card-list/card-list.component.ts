@@ -1,6 +1,6 @@
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { AsyncPipe } from '@angular/common';
-import { Component, EventEmitter, Output, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { IBlock, Icard } from '@my-monorepo/core/utlis';
 import { Observable, map } from 'rxjs';
@@ -24,7 +24,7 @@ export class CardListComponent {
   customZIndex$!: Observable<number>;
   scrollMoveTick = 5;
 
-  @Output() cardMove = new EventEmitter<boolean>();
+  cardMove = output<boolean>();
 
   constructor(
     private readonly cardEventsFacadeService: CardEventsFacadeService,
