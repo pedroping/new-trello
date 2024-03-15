@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-export default [
+export const HOME_ROUTES = [
   {
     path: '',
     loadComponent: async () =>

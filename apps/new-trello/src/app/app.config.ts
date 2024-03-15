@@ -13,9 +13,10 @@ import {
   provideAnimations,
 } from '@angular/platform-browser/animations';
 import {
+  PreloadAllModules,
   provideRouter,
   withComponentInputBinding,
-  withEnabledBlockingInitialNavigation,
+  withPreloading,
   withViewTransitions,
 } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
@@ -61,7 +62,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(
       appRoutes,
-      withEnabledBlockingInitialNavigation(),
+      withPreloading(PreloadAllModules),
       withComponentInputBinding(),
       withViewTransitions(),
     ),

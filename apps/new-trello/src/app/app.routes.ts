@@ -3,6 +3,7 @@ import { Route } from '@angular/router';
 export const appRoutes: Route[] = [
   {
     path: '',
-    loadChildren: () => import('./domain/home/routes'),
+    loadChildren: async () =>
+      (await import('./domain/home/routes')).HOME_ROUTES,
   },
 ];
