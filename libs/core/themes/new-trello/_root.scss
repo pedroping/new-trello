@@ -23,6 +23,7 @@ $project-variables: (
   'font-size-02': 20px,
   'font-size-03': 16px,
   'font-weight-01': 400,
+  'sidebar-width': 340px,
   'text-01': #172b4d,
   'text-02': #172b4d,
   'background-01': white,
@@ -46,7 +47,7 @@ $project-variables: (
 
 $dark-mode-variables: (
   'text-01': #b6c2cf,
-  'text-02': #FFFFFF,
+  'text-02': #ffffff,
   'block-color': #101204,
   'background-01': #22272b,
   'background-02': #5b6265,

@@ -1,4 +1,4 @@
-import { Directive, ElementRef, OnInit, Renderer2, input } from '@angular/core';
+import { Directive, ElementRef, Renderer2, input } from '@angular/core';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { map, merge, startWith } from 'rxjs';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
@@ -8,7 +8,7 @@ import { CardEventsFacadeService } from '../../facades/card-events-facade.servic
   standalone: true,
 })
 @CallSetValueChanges()
-export class DisableButtonOnDragDirective implements OnInit {
+export class DisableButtonOnDragDirective {
   disabled$ = merge(
     this.cardEventsFacadeService.onMove$$,
     this.cardEventsFacadeService.onCardMove$$,
@@ -32,8 +32,6 @@ export class DisableButtonOnDragDirective implements OnInit {
     private readonly elementRef: ElementRef<HTMLButtonElement>,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
   ) {}
-
-  ngOnInit(): void {}
 
   setValueChanges() {
     this.disabled$.subscribe((val) => this.createDivOver(val));

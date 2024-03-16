@@ -10,9 +10,8 @@ import {
   GenericSidenavsFacadeService,
 } from '@my-monorepo/core/ui/generic-sidenavs';
 import { ToolbarComponent } from '@my-monorepo/core/ui/toolbar';
-import { LeftSidebarContentComponent } from '../../../core/left-sidebar-content/left-sidebar-content.component';
-import { RightSidebarContentComponent } from '../../../core/right-sidebar-content/right-sidebar-content.component';
 import { ToolbarContentComponent } from '../../../core/toolbar-content/toolbar-content.component';
+import { RightSidebarComponent } from '@my-monorepo/core/features/trello-tools-sidebar'
 @Component({
   selector: 'trello-welcome-page',
   templateUrl: './welcome-page.component.html',
@@ -26,8 +25,7 @@ import { ToolbarContentComponent } from '../../../core/toolbar-content/toolbar-c
     ToolbarComponent,
     ToolbarContentComponent,
     GenericSidenavComponent,
-    LeftSidebarContentComponent,
-    RightSidebarContentComponent,
+    RightSidebarComponent
   ],
 })
 export class WelcomePageComponent implements OnInit {

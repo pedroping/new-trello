@@ -14,7 +14,7 @@ export class HideSidenavsDirective {
   initialState = input<boolean>(false, { alias: 'hideSidenavsInitialState' });
 
   constructor(
-    private templateRef: TemplateRef<unknown>,
+    private readonly templateRef: TemplateRef<unknown>,
     private readonly viewContainerRef: ViewContainerRef,
   ) {}
 
