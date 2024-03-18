@@ -1,10 +1,12 @@
 import {
   Component,
   ElementRef,
+  EnvironmentInjector,
   OnInit,
   TemplateRef,
-  ViewChild,
   ViewContainerRef,
+  effect,
+  inject,
   input,
   viewChild,
 } from '@angular/core';
@@ -30,8 +32,8 @@ import {
 } from '@my-monorepo/core/utlis';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { filter, fromEvent } from 'rxjs';
-import { MoveCardComponent } from '../move-card/move-card.component';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
+import { MoveCardComponent } from '../move-card/move-card.component';
 
 @Component({
   selector: 'card-edit',
@@ -50,14 +52,11 @@ import { CardEventsFacadeService } from '../../facades/card-events-facade.servic
 @CallSetValueChanges()
 @UntilDestroy()
 export class CardEditComponent implements OnInit {
-  @ViewChild('nameInput') set inputFocus(input: ElementRef<HTMLInputElement>) {
-    if (!input) return;
-    input.nativeElement.focus({ preventScroll: true });
-  }
-
   menu = viewChild<TemplateRef<unknown>>('menu');
   card = input<Icard>();
   blockCard = input.required<IBlock>();
+  input = viewChild<ElementRef<HTMLInputElement>>('nameInput');
+  injector = inject(EnvironmentInjector);
 
   cardNameControl = new FormControl('', {
     nonNullable: true,
@@ -97,6 +96,10 @@ export class CardEditComponent implements OnInit {
 
     outSideClick$$.pipe(untilDestroyed(this)).subscribe(() => {
       this.backdropStateService.setBackDropState();
+    });
+
+    effect(() => {
+      this.input()?.nativeElement.focus({ preventScroll: true });
     });
 
     fromEvent(window, 'keyup')

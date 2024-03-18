@@ -1,3 +1,5 @@
-<nav *hideSidenavs="sideNavObservable$$; initialState: initialState">
+<nav
+  *hideSidenavs="sideNavObservable$$; initialState: initialState; side: side()"
+>
   <ng-content></ng-content>
 </nav>

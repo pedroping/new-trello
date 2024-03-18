@@ -1,0 +1,22 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  color: var(--text-02);
+  border-bottom: 1px solid var(--gray-01);
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 500;
+
+  button {
+    padding: 10px !important;
+
+    mat-icon {
+      font-size: 28px;
+      height: 28px;
+      width: 28px;
+      cursor: pointer;
+    }
+  }
+}

@@ -13,6 +13,8 @@
       position: relative;
       overflow-x: visible;
       overflow-y: hidden;
+      left: 0px;
+      transition: width 250ms ease-in-out, left 250ms ease-in-out;
 
       &.hasOneSidenav {
         width: calc(100vw - var(--sidebar-width));
@@ -55,6 +57,10 @@
   }
 
   ::ng-deep generic-sidenav[side='right'] nav {
-    @include sidebar-box-shadow;
+    @include right-sidebar-box-shadow;
+  }
+
+  ::ng-deep generic-sidenav[side='left'] nav {
+    @include left-sidebar-box-shadow;
   }
 }

@@ -6,4 +6,4 @@ export const BASE_SCROLL_AREA = Math.min(
   300,
 );
 export const BASE_SCROLL_MOVE_TICK = 5;
-export const LEFT_SIDENAV_GAP = 250;
+export const LEFT_SIDENAV_GAP = 340;

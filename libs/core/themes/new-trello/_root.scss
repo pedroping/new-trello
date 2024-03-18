@@ -10,9 +10,16 @@
     0px 0px 1px var(--box-shadow-color-02);
 }
 
-@mixin sidebar-box-shadow {
+@mixin right-sidebar-box-shadow {
   box-shadow:
     -2px 15px 4px var(--box-shadow-color-01),
+    -1px 4px 1px var(--box-shadow-color-02);
+}
+
+
+@mixin left-sidebar-box-shadow {
+  box-shadow:
+    2px 3px 4px var(--box-shadow-color-01),
     -1px 4px 1px var(--box-shadow-color-02);
 }
 

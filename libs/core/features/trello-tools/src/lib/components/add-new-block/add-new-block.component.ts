@@ -16,7 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { OutsideClickDirective } from '@my-monorepo/core/features/outside-element-click';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
-import { ENTER_LEAVE_ANIMATION } from '@my-monorepo/core/ui/animations';
+import { ENTER_LEAVE_ANIMATION_Y } from '@my-monorepo/core/ui/animations';
 import {
   Icard,
   OutsideClickEventsService,
@@ -28,7 +28,7 @@ import { DisableButtonOnDragDirective } from '../../directives/disable-button-on
   selector: 'trello-add-new-block',
   templateUrl: './add-new-block.component.html',
   styleUrls: ['./add-new-block.component.scss'],
-  animations: [ENTER_LEAVE_ANIMATION],
+  animations: [ENTER_LEAVE_ANIMATION_Y],
   standalone: true,
   imports: [
     MatIconModule,
