@@ -4,7 +4,7 @@ import { BackdropScreenComponent } from '@my-monorepo/core/features/backdrop-scr
 import { CustomBackgroundDirective } from '@my-monorepo/core/features/custom-background';
 
 @Component({
-  selector: 'my-monorepo-root',
+  selector: 'new-trello-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: true,
