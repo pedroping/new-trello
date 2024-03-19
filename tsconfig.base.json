@@ -57,11 +57,11 @@
       "@my-monorepo/core/features/trello-db": [
         "libs/core/features/trello-db/src/index.ts"
       ],
+      "@my-monorepo/core/features/trello-right-sidebar": [
+        "libs/core/features/trello-right-sidebar/src/index.ts"
+      ],
       "@my-monorepo/core/features/trello-tools": [
         "libs/core/features/trello-tools/src/index.ts"
-      ],
-      "@my-monorepo/core/features/trello-tools-sidebar": [
-        "libs/core/features/trello-tools-sidebar/src/index.ts"
       ],
       "@my-monorepo/core/ui": ["libs/core/ui/src/index.ts"],
       "@my-monorepo/core/ui/animations": [
@@ -75,7 +75,7 @@
       ],
       "@my-monorepo/core/ui/sidenav": ["libs/core/ui/sidenav/src/index.ts"],
       "@my-monorepo/core/ui/toolbar": ["libs/core/ui/toolbar/src/index.ts"],
-      "@my-monorepo/core/utlis": ["libs/core/utlis/index.ts"],
+      "@my-monorepo/core/utlis": ["libs/core/utlis/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

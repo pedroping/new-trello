@@ -1,6 +1,13 @@
-<button mat-icon-button [always-static]="true" aria-label="Back Menu">
+<button
+  mat-icon-button
+  [always-static]="true"
+  aria-label="Back Menu"
+  [style]="backMenuOpacity$ | async"
+  (click)="backToActions()"
+>
   <mat-icon>keyboard_arrow_left</mat-icon>
 </button>
+
 <span>Menu</span>
 <button
   mat-icon-button

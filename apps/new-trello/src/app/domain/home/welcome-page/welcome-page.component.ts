@@ -11,7 +11,7 @@ import {
 } from '@my-monorepo/core/ui/generic-sidenavs';
 import { ToolbarComponent } from '@my-monorepo/core/ui/toolbar';
 import { ToolbarContentComponent } from '../../../core/toolbar-content/toolbar-content.component';
-import { RightSidebarComponent } from '@my-monorepo/core/features/trello-tools-sidebar'
+import { RightSidebarComponent } from '@my-monorepo/core/features/trello-right-sidebar';
 @Component({
   selector: 'trello-welcome-page',
   templateUrl: './welcome-page.component.html',
@@ -25,7 +25,7 @@ import { RightSidebarComponent } from '@my-monorepo/core/features/trello-tools-s
     ToolbarComponent,
     ToolbarContentComponent,
     GenericSidenavComponent,
-    RightSidebarComponent
+    RightSidebarComponent,
   ],
 })
 export class WelcomePageComponent implements OnInit {
@@ -49,4 +49,12 @@ export class WelcomePageComponent implements OnInit {
   - npx npm-check-updates -u
   - npm update
   - npm i
+
+
+  Nx Comands
+
+  - npx nx generate @nrwl/angular:library --name=expand-table  --directory=core/features
+  - npm install @angular/pwa --save-dev
+  - nx g @angular/pwa:ng-add --project *project-name*
+  - npx nx g @angular/material:ng-add --project=new-trello
 */
