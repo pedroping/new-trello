@@ -1,11 +1,11 @@
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { DisableButtonOnDragDirective } from '@my-monorepo/core/features/trello-tools';
 import { GenericSidenavsFacadeService } from '@my-monorepo/core/ui/generic-sidenavs';
+import { map } from 'rxjs';
 import { RightSidebarFacade } from '../../facade/right-sidebar-facade.service';
-import { AsyncPipe } from '@angular/common';
-import { map, startWith } from 'rxjs';
 import { ALL_PAGES } from '../../models/all-pages';
 
 @Component({
@@ -23,7 +23,6 @@ import { ALL_PAGES } from '../../models/all-pages';
 export class RightSidebarHeaderComponent {
   pageChange$ = this.rightSidebarFacade.pageChange$;
   backMenuOpacity$ = this.pageChange$.pipe(
-    startWith(this.rightSidebarFacade.actualPage),
     map((val) => (!!val ? { opacity: 1 } : { opacity: 0 })),
   );
 
