@@ -1,4 +1,3 @@
-import { AnimationBuilder } from '@angular/animations';
 import {
   Directive,
   ElementRef,
@@ -8,6 +7,7 @@ import {
 } from '@angular/core';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import {
+  AnimateService,
   SIDEBAR_ANIMATION_LEFT_ENTER,
   SIDEBAR_ANIMATION_LEFT_EXIT,
   SIDEBAR_ANIMATION_RIGHT_ENTER,
@@ -32,7 +32,7 @@ export class HideSidenavsDirective {
     private readonly templateRef: TemplateRef<unknown>,
     private readonly elementRef: ElementRef<HTMLElement>,
     private readonly viewContainerRef: ViewContainerRef,
-    private builder: AnimationBuilder,
+    private readonly animateService: AnimateService,
   ) {}
 
   setValueChanges() {
@@ -62,9 +62,7 @@ export class HideSidenavsDirective {
       this.side() == 'right'
         ? SIDEBAR_ANIMATION_RIGHT_ENTER
         : SIDEBAR_ANIMATION_LEFT_ENTER;
-    const factory = this.builder.build(animation);
-    const player = factory.create(element);
-    player.play();
+    this.animateService.animate(element, animation);
   }
 
   exitAnimation(element: HTMLElement) {
@@ -72,8 +70,6 @@ export class HideSidenavsDirective {
       this.side() == 'right'
         ? SIDEBAR_ANIMATION_RIGHT_EXIT
         : SIDEBAR_ANIMATION_LEFT_EXIT;
-    const factory = this.builder.build(animation);
-    const player = factory.create(element);
-    player.play();
+    this.animateService.animate(element, animation);
   }
 }

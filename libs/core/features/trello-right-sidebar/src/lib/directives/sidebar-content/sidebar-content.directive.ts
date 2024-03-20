@@ -1,6 +1,10 @@
-import { Directive, ViewContainerRef } from '@angular/core';
+import { Directive, ElementRef, ViewContainerRef } from '@angular/core';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
-import { RightSidebarActionsComponent } from '../../components/right-sidebar-actions/right-sidebar-actions.component';
+import {
+  AnimateService,
+  SIDEBAR_ANIMATION_RIGHT_ENTER,
+  SIDEBAR_ANIMATION_RIGHT_EXIT,
+} from '@my-monorepo/core/ui/animations';
 import { RightSidebarFacade } from '../../facade/right-sidebar-facade.service';
 import { ALL_PAGES, PAGE_COMPONENTS } from '../../models/all-pages';
 
@@ -14,6 +18,8 @@ export class SidebarContentDirective {
 
   constructor(
     private readonly vcr: ViewContainerRef,
+    private readonly elementRef: ElementRef,
+    private readonly animateService: AnimateService,
     private readonly rightSidebarFacade: RightSidebarFacade,
   ) {}
 
@@ -21,11 +27,29 @@ export class SidebarContentDirective {
     this.pageChange$.subscribe((id) => {
       this.vcr.clear();
       if (!id) {
-        this.vcr.createComponent(PAGE_COMPONENTS[ALL_PAGES.actions]);
+        this.exitAnimation();
+        const element = this.vcr.createComponent(
+          PAGE_COMPONENTS[ALL_PAGES.actions],
+        );
+        this.enterAnimate(element.location.nativeElement);
         return;
       }
-
-      this.vcr.createComponent(PAGE_COMPONENTS[id]);
+      const element = this.vcr.createComponent(PAGE_COMPONENTS[id]);
+      this.enterAnimate(element.location.nativeElement);
     });
+  }
+
+  enterAnimate(element: HTMLElement) {
+    const animation = SIDEBAR_ANIMATION_RIGHT_ENTER;
+    this.animateService.animate(element, animation);
+  }
+
+  exitAnimation() {
+    const element = this.elementRef.nativeElement.childNodes[0] as HTMLElement;
+
+    if (!element) return;
+
+    const animation = SIDEBAR_ANIMATION_RIGHT_EXIT;
+    this.animateService.animate(element, animation);
   }
 }

@@ -38,6 +38,7 @@ $project-variables: (
   'scrollbar-background': lightgray,
   'scrollbar-thumb': rgb(155, 155, 155),
   'gray-01': gray,
+  'gray-02': rgb(219 219 219),
   'blue-01': #388bff,
   'lighten-blue-01': #{lighten(#388bff, 20%)},
   'block-color': #f6f7f8,
@@ -50,12 +51,13 @@ $project-variables: (
   'box-shadow-color-02': #091e424f,
   'add-new-background': #a6c5e229,
   'add-new-background-hovered': #ffffff3d,
-  'action-hover-background': #A1BDD914
+  'action-hover-background': #484b4e14
 );
 
 $dark-mode-variables: (
   'text-01': #b6c2cf,
   'text-02': #ffffff,
+  'gray-02': rgb(174, 174, 174),
   'block-color': #101204,
   'background-01': #22272b,
   'background-02': #5b6265,
@@ -64,7 +66,7 @@ $dark-mode-variables: (
   'disabled-02': rgb(15 14 14),
   'add-new-background': #ffffff3d,
   'add-new-background-hovered': #a6c5e229,
-  'action-hover-background': #091E420F
+  'action-hover-background': #bac0ca68
 );
 
 :root {

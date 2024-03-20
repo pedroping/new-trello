@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class ElementsService {
+@Injectable({ providedIn: 'root' })
+export class DragElementsService {
   elements: HTMLElement[] = [];
   constructor() {}
 

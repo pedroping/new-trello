@@ -6,6 +6,4 @@ import { Subject } from 'rxjs';
 })
 export class DragScrollService {
   scrollToEnd$ = new Subject<void>();
-
-  constructor() {}
 }

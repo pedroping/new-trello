@@ -4,14 +4,15 @@ import { RouterModule } from '@angular/router';
 import {
   DragScrollDirective,
   PageWidthDirective,
+  PreventDragDirective,
 } from '@my-monorepo/core/features/drag-scroll';
+import { RightSidebarComponent } from '@my-monorepo/core/features/trello-right-sidebar';
 import {
   GenericSidenavComponent,
   GenericSidenavsFacadeService,
 } from '@my-monorepo/core/ui/generic-sidenavs';
 import { ToolbarComponent } from '@my-monorepo/core/ui/toolbar';
 import { ToolbarContentComponent } from '../../../core/toolbar-content/toolbar-content.component';
-import { RightSidebarComponent } from '@my-monorepo/core/features/trello-right-sidebar';
 @Component({
   selector: 'trello-welcome-page',
   templateUrl: './welcome-page.component.html',
@@ -26,6 +27,7 @@ import { RightSidebarComponent } from '@my-monorepo/core/features/trello-right-s
     ToolbarContentComponent,
     GenericSidenavComponent,
     RightSidebarComponent,
+    PreventDragDirective,
   ],
 })
 export class WelcomePageComponent implements OnInit {

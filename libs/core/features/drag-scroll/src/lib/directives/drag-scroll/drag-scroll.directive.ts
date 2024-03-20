@@ -9,6 +9,7 @@ import { CardEventsFacadeService } from '@my-monorepo/core/features/trello-tools
 import { GenericSidenavsFacadeService } from '@my-monorepo/core/ui/generic-sidenavs';
 import { ScrollEventsService } from '@my-monorepo/core/utlis';
 import { LEFT_SIDENAV_GAP } from '../../models/values';
+import { DragElementsService } from '../../services/drag-elements-service/drag-elements.service';
 import { CardMoveDirective } from '../card-move/card-move.directive';
 
 @Directive({
@@ -25,6 +26,7 @@ export class DragScrollDirective {
     private readonly scrollEventsService: ScrollEventsService,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
     private readonly genericSidenavsFacadeService: GenericSidenavsFacadeService,
+    private readonly dragElementsService: DragElementsService,
   ) {}
 
   mouseDown = false;
@@ -54,6 +56,10 @@ export class DragScrollDirective {
   @HostListener('mousemove', ['$event'])
   moveEvent(e: MouseEvent) {
     const el = this.el.nativeElement;
+    const hasPrevent = this.dragElementsService.hasPreventElement(
+      e.target as HTMLElement,
+    );
+    if (hasPrevent) return;
     e.preventDefault();
 
     const onCardMove = this.cardEventsFacadeService.onCardMove;

@@ -39,7 +39,7 @@ export class OutsideClickDirective {
           event.target as HTMLElement,
         );
 
-        const hasPreventElement = this.hasPreventElement(
+        const hasPreventElement = this.elementsService.hasPreventElement(
           event.target as HTMLElement,
         );
 
@@ -49,11 +49,5 @@ export class OutsideClickDirective {
           });
         }
       });
-  }
-
-  hasPreventElement(elementEvent: HTMLElement) {
-    return !!this.elementsService.elements.find((element) => {
-      return element.contains(elementEvent) || element == elementEvent;
-    });
   }
 }
