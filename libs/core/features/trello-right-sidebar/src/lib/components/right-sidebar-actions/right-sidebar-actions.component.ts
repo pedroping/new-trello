@@ -19,4 +19,6 @@ export class RightSidebarActionsComponent {
   changePage(page: number) {
     this.rightSidebarFacade.setPage(page);
   }
+
+  clearBoard() {}
 }

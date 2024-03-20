@@ -27,6 +27,30 @@ export class CardBlockDbService implements IDBService<IBlock> {
     request.onupgradeneeded = this.onUpgradeNeeded(request);
   }
 
+  clearDb() {
+    const request = this.openRequest();
+    const eventResponse$ = new Subject<string>();
+
+    request.onsuccess = () => {
+      const db = request.result;
+      const { transaction, store } = this.conectionValues(db);
+
+      const clearRequest = store.clear();
+
+      clearRequest.onsuccess = () => {
+        eventResponse$.next('');
+      };
+
+      clearRequest.onerror = () => {
+        eventResponse$.next('');
+      };
+
+      transaction.oncomplete = () => {
+        db.close();
+      };
+    };
+  }
+
   addNewElement(element: INewBlock) {
     const request = this.openRequest();
     const eventResponse$ = new Subject<IAddNewResponse>();
