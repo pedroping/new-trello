@@ -44,8 +44,9 @@ export class HideSidenavsDirective {
         if (!state) {
           const element = this.elementRef.nativeElement
             .previousSibling as HTMLElement;
-          this.exitAnimation(element);
-          this.viewContainerRef.clear();
+          this.exitAnimation(element).subscribe(() => {
+            this.viewContainerRef.clear();
+          });
           return;
         }
 
@@ -70,6 +71,6 @@ export class HideSidenavsDirective {
       this.side() == 'right'
         ? SIDEBAR_ANIMATION_RIGHT_EXIT
         : SIDEBAR_ANIMATION_LEFT_EXIT;
-    this.animateService.animate(element, animation);
+    return this.animateService.animate(element, animation);
   }
 }

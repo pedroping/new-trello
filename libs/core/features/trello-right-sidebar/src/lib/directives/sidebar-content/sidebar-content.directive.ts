@@ -7,6 +7,7 @@ import {
 } from '@my-monorepo/core/ui/animations';
 import { RightSidebarFacade } from '../../facade/right-sidebar-facade.service';
 import { ALL_PAGES, PAGE_COMPONENTS } from '../../models/all-pages';
+import { EMPTY, filter, map } from 'rxjs';
 
 @Directive({
   selector: 'sidebar-content',
@@ -27,7 +28,11 @@ export class SidebarContentDirective {
     this.pageChange$.subscribe((id) => {
       this.vcr.clear();
       if (!id) {
-        this.exitAnimation();
+        this.exitAnimation()
+          .pipe(filter(Boolean))
+          .subscribe(() => {
+            this.vcr.clear();
+          });
         const element = this.vcr.createComponent(
           PAGE_COMPONENTS[ALL_PAGES.actions],
         );
@@ -47,9 +52,11 @@ export class SidebarContentDirective {
   exitAnimation() {
     const element = this.elementRef.nativeElement.childNodes[0] as HTMLElement;
 
-    if (!element) return;
+    if (!element) return EMPTY;
 
     const animation = SIDEBAR_ANIMATION_RIGHT_EXIT;
-    this.animateService.animate(element, animation);
+    return this.animateService
+      .animate(element, animation)
+      .pipe(map(() => true));
   }
 }
