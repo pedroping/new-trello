@@ -37,17 +37,19 @@ export class CardDbService
       const clearRequest = store.clear();
 
       clearRequest.onsuccess = () => {
-        eventResponse$.next('');
+        eventResponse$.next(`${CARDS_STORE_NAME} limpa com sucesso`);
       };
 
       clearRequest.onerror = () => {
-        eventResponse$.next('');
+        eventResponse$.next('Ocorreu um erro');
       };
 
       transaction.oncomplete = () => {
         db.close();
       };
     };
+
+    return eventResponse$.asObservable();
   }
 
   addNewElement(element: Icard) {

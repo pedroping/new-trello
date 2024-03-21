@@ -3,6 +3,7 @@ import { IBlock, Icard } from '@my-monorepo/core/utlis';
 import { INewBlock } from '../models/card-block-db-models';
 import { CardBlockDbService } from '../services/card-block-db/card-block-db.service';
 import { CardDbService } from '../services/card-db/card-db.service';
+import { combineLatest } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class DbFacadeService {
@@ -16,6 +17,15 @@ export class DbFacadeService {
   startDomain() {
     this.cardDbService.createDataBase();
     this.cardBlockDbService.createDataBase();
+  }
+
+  clearDb() {
+    combineLatest([
+      this.cardDbService.clearDb(),
+      this.cardBlockDbService.clearDb(),
+    ]).subscribe(() => {
+      this.allBlocks$.next([]);
+    });
   }
 
   createBlock(element: INewBlock) {

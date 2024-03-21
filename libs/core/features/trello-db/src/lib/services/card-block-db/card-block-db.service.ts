@@ -38,18 +38,21 @@ export class CardBlockDbService implements IDBService<IBlock> {
       const clearRequest = store.clear();
 
       clearRequest.onsuccess = () => {
-        eventResponse$.next('');
+        eventResponse$.next(`${CARD_BLOCKS_DB_NAME} limpa com sucesso`);
       };
 
       clearRequest.onerror = () => {
-        eventResponse$.next('');
+        eventResponse$.next('Ocorreu um erro');
       };
 
       transaction.oncomplete = () => {
         db.close();
       };
     };
+
+    return eventResponse$.asObservable();
   }
+
 
   addNewElement(element: INewBlock) {
     const request = this.openRequest();
