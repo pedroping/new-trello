@@ -89,12 +89,12 @@ export class CardComponent {
     )
       .pipe(skip(2))
       .subscribe(() => {
-        this.addCard();
+        this.addCard(true);
         this.cancelEvent();
       });
   }
 
-  addCard() {
+  addCard(onOutside?: boolean) {
     if (this.cardNameControl.invalid) return;
 
     const cards = this.blockCard().cards$.value;
@@ -113,6 +113,7 @@ export class CardComponent {
           blockId: this.blockCard().id,
         });
         this.cardNameControl.reset();
+        if (onOutside) return this.cancelEvent();
         this.blockCard().addNewEvent$.next(true);
       });
   }

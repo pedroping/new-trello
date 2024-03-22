@@ -15,7 +15,15 @@ export class RightSidebarFacade {
     return this.sidebarPageStateService.actualPage$.value;
   }
 
+  get lastPageOpened() {
+    return this.sidebarPageStateService.lastPageOpened;
+  }
+
   setPage(page: number | null) {
     this.sidebarPageStateService.actualPage$.next(page);
+  }
+
+  setLastPage(page: number) {
+    this.sidebarPageStateService.lastPageOpened = page;
   }
 }

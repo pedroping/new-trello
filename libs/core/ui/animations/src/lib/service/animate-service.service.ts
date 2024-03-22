@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class AnimateService {
   constructor(private readonly builder: AnimationBuilder) {}
+
   animate(
     element: HTMLElement,
     animation: AnimationMetadata[] | AnimationMetadata,

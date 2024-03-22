@@ -1,16 +1,6 @@
 <trello-board-name></trello-board-name>
 <div class="block">
   <button
-    darkModeToggle
-    mat-icon-button
-    [always-static]="true"
-    class="setDarkModeIcon"
-    #getIcon="darkModeToggle"
-    aria-label="Toggle Project Theme"
-  >
-    <mat-icon>{{ getIcon.icon }}</mat-icon>
-  </button>
-  <button
     mat-icon-button
     [always-static]="true"
     (click)="toggleRightSideNav()"

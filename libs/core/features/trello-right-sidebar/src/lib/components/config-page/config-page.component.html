@@ -1,3 +1,13 @@
-<p>
-  config-page works!
-</p>
+<trello-sidebar-action
+  class="toggle-theme"
+  darkModeToggle
+  #getIcon="darkModeToggle"
+>
+  <mat-icon>{{ getIcon.icon }}</mat-icon>
+  <span class="action-label">Alterar Tema</span>
+</trello-sidebar-action>
+
+<trello-sidebar-action (clickEvent)="changePage(allPages.changeWallpaper)">
+  <mat-icon>add_photo_alternate</mat-icon>
+  <span class="action-label">Alterar Plano de Fundo</span>
+</trello-sidebar-action>

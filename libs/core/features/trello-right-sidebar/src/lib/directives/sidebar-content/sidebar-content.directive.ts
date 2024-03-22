@@ -7,7 +7,7 @@ import {
 } from '@my-monorepo/core/ui/animations';
 import { RightSidebarFacade } from '../../facade/right-sidebar-facade.service';
 import { ALL_PAGES, PAGE_COMPONENTS } from '../../models/all-pages';
-import { EMPTY, filter, map } from 'rxjs';
+import { EMPTY, filter, map, pairwise } from 'rxjs';
 
 @Directive({
   selector: 'sidebar-content',
@@ -34,13 +34,20 @@ export class SidebarContentDirective {
             this.vcr.clear();
           });
         const element = this.vcr.createComponent(
-          PAGE_COMPONENTS[ALL_PAGES.actions],
+          PAGE_COMPONENTS[ALL_PAGES.actions].component,
         );
         this.enterAnimate(element.location.nativeElement);
         return;
       }
-      const element = this.vcr.createComponent(PAGE_COMPONENTS[id]);
+      const element = this.vcr.createComponent(PAGE_COMPONENTS[id].component);
       this.enterAnimate(element.location.nativeElement);
+    });
+
+    this.pageChange$.pipe(pairwise()).subscribe(([prev, curr]) => {
+      if (prev != null && curr != null && prev < curr) {
+        this.rightSidebarFacade.setLastPage(prev);
+      }
+      if (curr === 1) this.rightSidebarFacade.setLastPage(ALL_PAGES.actions);
     });
   }
 

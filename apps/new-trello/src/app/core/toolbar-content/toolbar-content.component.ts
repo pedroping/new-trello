@@ -3,7 +3,6 @@ import { Component, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CustomBackgroundDirective } from '@my-monorepo/core/features/custom-background';
-import { DarkModeToggleDirective } from '@my-monorepo/core/features/dark-mode';
 import { OutsideClickDirective } from '@my-monorepo/core/features/outside-element-click';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import {
@@ -24,7 +23,6 @@ import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
     MatButtonModule,
     BoardNameComponent,
     OutsideClickDirective,
-    DarkModeToggleDirective,
     CustomBackgroundDirective,
     DisableButtonOnDragDirective,
   ],

@@ -3,12 +3,12 @@
   [always-static]="true"
   aria-label="Back Menu"
   [style]="backMenuOpacity$ | async"
-  (click)="backToActions()"
+  (click)="backPage()"
 >
   <mat-icon>keyboard_arrow_left</mat-icon>
 </button>
 
-<span>Menu</span>
+<span>{{ pageName$ | async }}</span>
 <button
   mat-icon-button
   (click)="closeSidebar()"

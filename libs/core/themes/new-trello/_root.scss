@@ -46,7 +46,7 @@ $project-variables: (
   'disabled-02': lightgray,
   'action-btn-background': white,
   'backdrop-color': #0009,
-  'toolbar-background': rgb(227 227 227 / 42%),
+  'toolbar-background': rgb(243 243 243 / 42%),
   'box-shadow-color-01': #091e4240,
   'box-shadow-color-02': #091e424f,
   'add-new-background': #a6c5e229,
@@ -66,7 +66,8 @@ $dark-mode-variables: (
   'disabled-02': rgb(15 14 14),
   'add-new-background': #ffffff3d,
   'add-new-background-hovered': #a6c5e229,
-  'action-hover-background': #bac0ca68
+  'action-hover-background': #bac0ca68,
+  'toolbar-background': rgb(105 105 105 / 42%),
 );
 
 :root {
@@ -95,6 +96,11 @@ $dark-mode-variables: (
     &::placeholder {
       margin-left: 10px;
     }
+  }
+
+  .action-label {
+    font-size: 16px;
+    font-weight: 500;
   }
 
   ::-webkit-scrollbar {

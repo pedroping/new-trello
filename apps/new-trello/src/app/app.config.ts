@@ -21,6 +21,7 @@ import {
 } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import {
+  DarkModeService,
   META_DARK_COLOR,
   META_LIGHT_COLOR,
 } from '@my-monorepo/core/features/dark-mode';
@@ -43,6 +44,15 @@ const indexedDBProviders: FactoryProvider = {
   useFactory: () => {
     const indexedService = inject(DbFacadeService);
     return () => indexedService.startDomain();
+  },
+  multi: true,
+};
+
+const darkModeProvide: FactoryProvider = {
+  provide: APP_INITIALIZER,
+  useFactory: () => {
+    const darkModeService = inject(DarkModeService);
+    return () => darkModeService;
   },
   multi: true,
 };
@@ -75,6 +85,7 @@ export const appConfig: ApplicationConfig = {
     }),
     setMetaProviders,
     indexedDBProviders,
+    darkModeProvide,
     ...colorsProviders,
   ],
 };

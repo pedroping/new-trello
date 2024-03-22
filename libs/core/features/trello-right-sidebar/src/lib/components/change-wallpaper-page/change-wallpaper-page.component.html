@@ -1,0 +1,12 @@
+<trello-sidebar-action (clickEvent)="fileInput.click()">
+  <mat-icon>add</mat-icon>
+  <span class="action-label">Adicionar uma imagem</span>
+</trello-sidebar-action>
+
+<input type="file" #fileInput (change)="addImage($event)" />
+
+<div class="images">
+  @for (item of imgSrc$$ | async; track $index) {
+    <trello-wallpaper-image [imgItem]="item"></trello-wallpaper-image>
+  }
+</div>

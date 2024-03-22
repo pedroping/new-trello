@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { ISrcImg } from '../models/custom-background-models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HandleImageService {
-  imgSrc$ = new BehaviorSubject<(string | ArrayBuffer)[]>([]);
-  selectedImage$ = new BehaviorSubject<string | ArrayBuffer | null>(null);
+  imgSrc$ = new BehaviorSubject<ISrcImg[]>([]);
+  selectedImage$ = new BehaviorSubject<ISrcImg | null>(null);
 
   uploadImage(event: Event) {
     const typedTaget = event.target as HTMLInputElement;
@@ -22,14 +23,15 @@ export class HandleImageService {
       reader.readAsDataURL(img);
       reader.onload = () => {
         if (reader.result) {
-          this.imgSrc$.next([...this.imgSrc$.value, reader.result]);
-          this.selectedImage$.next(reader.result);
+          const newImg = { id: this.imgSrc$.value.length, src: reader.result };
+          this.imgSrc$.next([...this.imgSrc$.value, newImg]);
+          this.selectedImage$.next(newImg);
         }
       };
     }
   }
 
-  selectImage(image: string | ArrayBuffer) {
+  selectImage(image: ISrcImg) {
     this.selectedImage$.next(image);
   }
 }

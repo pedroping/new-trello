@@ -1,0 +1,25 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  box-sizing: border-box;
+  width: 100%;
+  gap: 15px;
+
+  mat-icon {
+    width: 18px !important;
+    font-size: 18px !important;
+    height: 18px !important;
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+
+  .images {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    height: 120px;
+  }
+}

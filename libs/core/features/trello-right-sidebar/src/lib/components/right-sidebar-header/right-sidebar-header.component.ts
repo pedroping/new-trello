@@ -6,7 +6,7 @@ import { DisableButtonOnDragDirective } from '@my-monorepo/core/features/trello-
 import { GenericSidenavsFacadeService } from '@my-monorepo/core/ui/generic-sidenavs';
 import { map } from 'rxjs';
 import { RightSidebarFacade } from '../../facade/right-sidebar-facade.service';
-import { ALL_PAGES } from '../../models/all-pages';
+import { ALL_PAGES, PAGE_COMPONENTS } from '../../models/all-pages';
 
 @Component({
   selector: 'trello-right-sidebar-header',
@@ -25,6 +25,9 @@ export class RightSidebarHeaderComponent {
   backMenuOpacity$ = this.pageChange$.pipe(
     map((val) => (!!val ? { opacity: 1 } : { opacity: 0 })),
   );
+  pageName$ = this.pageChange$.pipe(
+    map((val) => (!!val || val === 0 ? PAGE_COMPONENTS[val].pageName : '')),
+  );
 
   constructor(
     private readonly rightSidebarFacade: RightSidebarFacade,
@@ -35,7 +38,7 @@ export class RightSidebarHeaderComponent {
     this.genericSidenavsFacadeService.setRightSideNavState(false);
   }
 
-  backToActions() {
-    this.rightSidebarFacade.setPage(ALL_PAGES.actions);
+  backPage() {
+    this.rightSidebarFacade.setPage(this.rightSidebarFacade.lastPageOpened);
   }
 }

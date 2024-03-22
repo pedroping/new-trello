@@ -3,6 +3,7 @@ import { Component, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { HandleImageService } from '../../services/handleImage.service';
+import { ISrcImg } from '../../models/custom-background-models';
 
 @Component({
   selector: 'set-background-menu',
@@ -29,7 +30,7 @@ export class SetBackgroundMenuComponent {
     this.handleImageService.uploadImage(event);
   }
 
-  selectImg(image: string | ArrayBuffer) {
+  selectImg(image: ISrcImg) {
     this.handleImageService.selectImage(image);
     this.cdkMenuTrigger().close();
   }

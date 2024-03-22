@@ -17,7 +17,7 @@ export class CustomBackgroundDirective {
     this.handleImageService.selectedImage$
       .pipe(
         filter((img) => !!img),
-        map((img) => `url(${img})`),
+        map((img) => `url(${img!.src})`),
       )
       .subscribe((image) => {
         this.image = image;
