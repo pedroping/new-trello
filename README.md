@@ -12,6 +12,6 @@ You now have access to the project, which is currently running [here](https://ne
 
 ## Start the app
 
-First of all run `npm start` to install all dependencies.
+First of all run `npm install` to install all dependencies.
 
 To start the development server run `nx run new-trello:serve:development` Open your browser and navigate to http://localhost:4200/. Happy coding!
