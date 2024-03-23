@@ -1,8 +1,10 @@
 import { CdkMenuModule } from '@angular/cdk/menu';
 import { Component, HostListener, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { HandleImageService } from '@my-monorepo/core/features/custom-background';
-import { ISrcImg } from 'libs/core/features/custom-background/src/lib/models/custom-background-models';
+import {
+  HandleImageService,
+  ISrcImg,
+} from '@my-monorepo/core/features/custom-background';
 import { WallpaperImageMenuComponent } from '../wallpaper-image-menu/wallpaper-image-menu.component';
 
 @Component({

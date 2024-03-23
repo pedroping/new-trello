@@ -1,3 +1,26 @@
-<p>
-  wallpaper-image-menu works!
-</p>
+<div class="menu-header">
+  <span>Opções de Telas de Fundo</span>
+  <button mat-icon-button (click)="closeMenu()" aria-label="Close Menu">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<div class="options-field">
+  <span class="options-field-header">Tema</span>
+  <div class="theme-option" (click)="setLightMode()">
+    <span> Luz </span>
+    @if (lightIcon$ | async) {
+      <mat-icon class="theme-icon">check</mat-icon>
+    }
+  </div>
+  <div class="theme-option" (click)="setDarkMode()">
+    <span> Escuro </span>
+    @if (darkIcon$ | async) {
+      <mat-icon class="theme-icon">check</mat-icon>
+    }
+  </div>
+</div>
+
+<button class="remove-wallpaper" (click)="removePicture()">
+  Excluir Plano de fundo
+</button>

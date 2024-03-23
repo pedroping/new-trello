@@ -1,8 +1,87 @@
 :host {
   display: block;
   width: 250px;
-  height: 350px;
   background-color: var(--background-02);
   border-radius: 10px;
-  padding: 15px;
+  padding: 10px;
+
+  .menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--text-02);
+    border-bottom: 1px solid var(--gray-02);
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: 500;
+
+    button {
+      padding: 10px !important;
+
+      mat-icon {
+        font-size: 20px;
+        height: 20px;
+        width: 20px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .options-field {
+    margin-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--gray-02);
+
+    .options-field-header {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-02);
+      padding-left: 10px;
+    }
+
+    .theme-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      height: 30px;
+      padding-left: 20px;
+      width: 100%;
+      color: var(--text-01);
+      cursor: pointer;
+      position: relative;
+      right: 10px;
+
+      .theme-icon {
+        font-size: 12px;
+        width: 12px;
+        height: 12px;
+      }
+
+      &:first-of-type {
+        margin-top: 10px;
+      }
+
+      &:hover {
+        background-color: var(--action-hover-background);
+      }
+    }
+  }
+
+  .remove-wallpaper {
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: 500;
+    color: var(--text-02);
+    padding: 10px;
+    background-color: var(--add-new-background);
+    outline: none;
+    border: none;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--add-new-background-hovered);
+    }
+  }
 }

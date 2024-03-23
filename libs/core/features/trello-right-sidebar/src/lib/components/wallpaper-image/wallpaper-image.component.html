@@ -1,8 +1,17 @@
 <img [src]="imgItem().src" alt="Wallpaper Image" />
-<div class="image-options" [cdkMenuTriggerFor]="menu">
+<div
+  class="image-options"
+  [cdkMenuTriggerFor]="menu"
+  #cdkTrigger="cdkMenuTriggerFor"
+  (click)="$event.stopPropagation()"
+>
   <mat-icon>more_horiz</mat-icon><span>Opções</span>
 </div>
 
 <ng-template #menu>
-  <trello-wallpaper-image-menu cdkMenu></trello-wallpaper-image-menu>
+  <trello-wallpaper-image-menu
+    cdkMenu
+    [cdkTrigger]="cdkTrigger"
+    [imgItem]="imgItem()"
+  ></trello-wallpaper-image-menu>
 </ng-template>

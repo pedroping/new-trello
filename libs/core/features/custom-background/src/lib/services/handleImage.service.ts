@@ -27,11 +27,18 @@ export class HandleImageService {
           this.imgSrc$.next([...this.imgSrc$.value, newImg]);
           this.selectedImage$.next(newImg);
         }
+        typedTaget.value = '';
       };
     }
   }
 
-  selectImage(image: ISrcImg) {
+  selectImage(image: ISrcImg | null) {
     this.selectedImage$.next(image);
+  }
+
+  removeImage(image: ISrcImg) {
+    const newImages = this.imgSrc$.value.filter((img) => img.id != image.id);
+    this.imgSrc$.next(newImages);
+    this.selectImage(null);
   }
 }

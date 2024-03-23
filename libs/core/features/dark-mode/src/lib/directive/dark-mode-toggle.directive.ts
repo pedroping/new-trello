@@ -20,6 +20,6 @@ export class DarkModeToggleDirective implements OnInit {
   }
 
   setIcon() {
-    this.icon = this.darkModeService.darkMode ? 'light_mode' : 'dark_mode';
+    this.icon = this.darkModeService.darkMode$.value ? 'light_mode' : 'dark_mode';
   }
 }
