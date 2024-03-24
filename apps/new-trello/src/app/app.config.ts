@@ -29,6 +29,7 @@ import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
 import { TuiRootModule } from '@taiga-ui/core';
 import { appRoutes } from './app.routes';
 import { META_TAGS } from './shared/meta.tags';
+import { HandleImageService } from '@my-monorepo/core/features/custom-background';
 
 const setMetaProviders: FactoryProvider = {
   provide: APP_INITIALIZER,
@@ -48,11 +49,20 @@ const indexedDBProviders: FactoryProvider = {
   multi: true,
 };
 
-const darkModeProvide: FactoryProvider = {
+const darkModeProvider: FactoryProvider = {
   provide: APP_INITIALIZER,
   useFactory: () => {
     const darkModeService = inject(DarkModeService);
     return () => darkModeService;
+  },
+  multi: true,
+};
+
+const WallpaperProvier: FactoryProvider = {
+  provide: APP_INITIALIZER,
+  useFactory: () => {
+    const handleImageService = inject(HandleImageService);
+    return () => handleImageService.setValueChanges();
   },
   multi: true,
 };
@@ -85,7 +95,8 @@ export const appConfig: ApplicationConfig = {
     }),
     setMetaProviders,
     indexedDBProviders,
-    darkModeProvide,
+    darkModeProvider,
+    WallpaperProvier,
     ...colorsProviders,
   ],
 };

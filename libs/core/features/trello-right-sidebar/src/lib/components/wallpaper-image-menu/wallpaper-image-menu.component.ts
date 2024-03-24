@@ -3,12 +3,10 @@ import { AsyncPipe } from '@angular/common';
 import { Component, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import {
-  HandleImageService,
-  ISrcImg,
-} from '@my-monorepo/core/features/custom-background';
+import { HandleImageService } from '@my-monorepo/core/features/custom-background';
 import { DarkModeService } from '@my-monorepo/core/features/dark-mode';
 import { CloseMenuDirective } from '@my-monorepo/core/features/trello-tools';
+import { ISrcImg } from '@my-monorepo/core/utlis';
 import { map } from 'rxjs';
 
 @Component({

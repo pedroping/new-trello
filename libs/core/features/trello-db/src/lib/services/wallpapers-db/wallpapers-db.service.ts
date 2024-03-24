@@ -1,21 +1,16 @@
 import { Injectable } from '@angular/core';
-import { IBlock } from '@my-monorepo/core/utlis';
+import { ISrcImg } from '@my-monorepo/core/utlis';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { IAddNewResponse, IDBService } from '../../models/base-db-models';
 import {
-  CARD_BLOCKS_DB_NAME,
-  CARD_BLOCKS_STORE_NAME,
-  CARD_BLOCKS_VERSION,
-  INewBlock,
-} from '../../models/card-block-db-models';
-import { CardDbService } from '../card-db/card-db.service';
+  WALLPAPERS_DB_NAME,
+  WALLPAPERS_VERSION,
+} from '../../models/wallpaper-db-models';
 
 @Injectable({ providedIn: 'root' })
-export class CardBlockDbService implements IDBService<IBlock> {
+export class WallpapersDbService implements IDBService<ISrcImg> {
   hasIndexedDB = !!window.indexedDB;
-  allElements$ = new BehaviorSubject<IBlock[]>([]);
-
-  constructor(private readonly cardDbService: CardDbService) {}
+  allElements$ = new BehaviorSubject<ISrcImg[]>([]);
 
   createDataBase() {
     if (!this.hasIndexedDB) return;
@@ -27,33 +22,65 @@ export class CardBlockDbService implements IDBService<IBlock> {
     request.onupgradeneeded = this.onUpgradeNeeded(request);
   }
 
-  clearDb() {
+  openRequest = () => indexedDB.open(WALLPAPERS_DB_NAME, WALLPAPERS_VERSION);
+
+  onUpgradeNeeded(db: IDBOpenDBRequest) {
+    return () => {
+      db.result.createObjectStore(WALLPAPERS_DB_NAME, {
+        keyPath: 'id',
+        autoIncrement: true,
+      });
+      this.setAllElement();
+    };
+  }
+
+  onCreateSuccess() {
+    return () => {
+      console.log(
+        `Conexão com a base de dados '${WALLPAPERS_DB_NAME}' aberta com sucesso!`,
+      );
+      this.setAllElement();
+    };
+  }
+
+  onCreateError() {
+    return () =>
+      console.error(
+        `Conexão com a base de dados '${WALLPAPERS_DB_NAME}' falhou!`,
+      );
+  }
+
+  conectionValues(db: IDBDatabase) {
+    const transaction = db.transaction(WALLPAPERS_DB_NAME, 'readwrite');
+    const store = transaction.objectStore(WALLPAPERS_DB_NAME);
+    return { transaction, store };
+  }
+
+  setAllElement() {
     const request = this.openRequest();
-    const eventResponse$ = new Subject<string>();
 
     request.onsuccess = () => {
       const db = request.result;
       const { transaction, store } = this.conectionValues(db);
 
-      const clearRequest = store.clear();
+      const allQuery = store.getAll();
 
-      clearRequest.onsuccess = () => {
-        eventResponse$.next(`${CARD_BLOCKS_DB_NAME} limpa com sucesso`);
+      allQuery.onsuccess = () => {
+        const allBlocks = allQuery.result;
+        this.allElements$.next(allBlocks);
       };
 
-      clearRequest.onerror = () => {
-        eventResponse$.next('Ocorreu um erro');
+      allQuery.onerror = () => {
+        console.error('Ocorreu um erro ao buscar os elementos');
       };
 
       transaction.oncomplete = () => {
         db.close();
       };
     };
-
-    return eventResponse$.asObservable();
   }
 
-  addNewElement(element: INewBlock) {
+  addNewElement(element: Partial<ISrcImg>) {
     const request = this.openRequest();
     const eventResponse$ = new Subject<IAddNewResponse>();
 
@@ -85,7 +112,7 @@ export class CardBlockDbService implements IDBService<IBlock> {
     return eventResponse$.asObservable();
   }
 
-  editElement(element: IBlock) {
+  editElement(element: ISrcImg) {
     const request = this.openRequest();
     const eventResponse$ = new Subject<IAddNewResponse>();
 
@@ -94,9 +121,9 @@ export class CardBlockDbService implements IDBService<IBlock> {
       const { transaction, store } = this.conectionValues(db);
 
       const elementToEdit = {
-        name: element.name,
         id: element.id,
-        blockIndex: element.blockIndex,
+        src: element.src,
+        selected: element.selected,
       };
 
       const editQuery = store.put(elementToEdit);
@@ -165,7 +192,7 @@ export class CardBlockDbService implements IDBService<IBlock> {
 
   getElementById(id: number) {
     const request = this.openRequest();
-    const element$ = new BehaviorSubject<IBlock | null | undefined>(null);
+    const element$ = new BehaviorSubject<ISrcImg | null | undefined>(null);
 
     request.onsuccess = () => {
       const db = request.result;
@@ -174,12 +201,7 @@ export class CardBlockDbService implements IDBService<IBlock> {
       const allQuery = store.get(id);
 
       allQuery.onsuccess = () => {
-        const element = {
-          ...allQuery.result,
-          cards$: this.cardDbService.getByBlockId(allQuery.result.id),
-          addNewEvent$: new BehaviorSubject<boolean>(false),
-        };
-        element$.next(element);
+        element$.next(allQuery.result);
       };
 
       allQuery.onerror = () => {
@@ -195,70 +217,29 @@ export class CardBlockDbService implements IDBService<IBlock> {
     return element$;
   }
 
-  openRequest = () => indexedDB.open(CARD_BLOCKS_DB_NAME, CARD_BLOCKS_VERSION);
-
-  conectionValues(db: IDBDatabase) {
-    const transaction = db.transaction(CARD_BLOCKS_STORE_NAME, 'readwrite');
-    const store = transaction.objectStore(CARD_BLOCKS_STORE_NAME);
-    return { transaction, store };
-  }
-
-  onUpgradeNeeded(db: IDBOpenDBRequest) {
-    return () => {
-      db.result.createObjectStore(CARD_BLOCKS_STORE_NAME, {
-        keyPath: 'id',
-        autoIncrement: true,
-      });
-      this.setAllElement();
-    };
-  }
-
-  onCreateSuccess() {
-    return () => {
-      console.log(
-        `Conexão com a base de dados '${CARD_BLOCKS_DB_NAME}' aberta com sucesso!`,
-      );
-      this.setAllElement();
-    };
-  }
-
-  onCreateError() {
-    return () =>
-      console.error(
-        `Conexão com a base de dados '${CARD_BLOCKS_DB_NAME}' falhou!`,
-      );
-  }
-
-  setAllElement() {
+  clearDb() {
     const request = this.openRequest();
+    const eventResponse$ = new Subject<string>();
 
     request.onsuccess = () => {
       const db = request.result;
       const { transaction, store } = this.conectionValues(db);
 
-      const allQuery = store.getAll();
+      const clearRequest = store.clear();
 
-      allQuery.onsuccess = () => {
-        const allBlocks = allQuery.result
-          .sort((a, b) => a.blockIndex - b.blockIndex)
-          .map((block) => {
-            return {
-              ...block,
-              cards$: this.cardDbService.getByBlockId(block.id),
-              addNewEvent$: new BehaviorSubject<boolean>(false),
-            };
-          });
-
-        this.allElements$.next(allBlocks);
+      clearRequest.onsuccess = () => {
+        eventResponse$.next(`${WALLPAPERS_DB_NAME} limpa com sucesso`);
       };
 
-      allQuery.onerror = () => {
-        console.error('Ocorreu um erro ao buscar os elementos');
+      clearRequest.onerror = () => {
+        eventResponse$.next('Ocorreu um erro');
       };
 
       transaction.oncomplete = () => {
         db.close();
       };
     };
+
+    return eventResponse$.asObservable();
   }
 }

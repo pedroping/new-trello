@@ -1,11 +1,9 @@
 import { CdkMenuModule } from '@angular/cdk/menu';
 import { Component, HostListener, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import {
-  HandleImageService,
-  ISrcImg,
-} from '@my-monorepo/core/features/custom-background';
+import { HandleImageService } from '@my-monorepo/core/features/custom-background';
 import { WallpaperImageMenuComponent } from '../wallpaper-image-menu/wallpaper-image-menu.component';
+import { ISrcImg } from '@my-monorepo/core/utlis';
 
 @Component({
   selector: 'trello-wallpaper-image',
