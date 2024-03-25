@@ -34,9 +34,16 @@ export class HandleImageService {
       reader.onload = () => {
         if (reader.result) {
           this.dbFacadeService
-            .createWallpaper({ src: reader.result })
+            .createWallpaper({ src: reader.result, selected: true })
             .subscribe((resp) => {
-              const newImg = { id: resp.id, src: reader.result ?? '' };
+              const newImg = {
+                id: resp.id,
+                src: reader.result ?? '',
+                selected: true,
+              };
+              this.imgSrc$.value.forEach((img) => {
+                this.dbFacadeService.editWallPaper({ ...img, selected: false });
+              });
               this.imgSrc$.next([...this.imgSrc$.value, newImg]);
               this.selectedImage$.next(newImg);
               typedTaget.value = '';
