@@ -17,9 +17,9 @@ export class DarkModeService {
     @Inject(META_LIGHT_COLOR) private readonly metaLightColors: string,
     @Inject(META_DARK_COLOR) private readonly metaDarkColors: string,
   ) {
-    this.darkMode$.next(!!sessionStorage.getItem(DARK_MODE));
+    this.darkMode$.next(!!localStorage.getItem(DARK_MODE));
     this.metaElement.setAttribute('content', this.metaLightColors);
-    if (!this.darkMode$.value) return;
+    if (!localStorage.getItem(DARK_MODE)) return;
     this.metaElement.setAttribute('content', this.metaDarkColors);
     this.htmlElement.classList.add(DARK_MODE);
   }
@@ -28,11 +28,11 @@ export class DarkModeService {
     this.darkMode$.next(!this.darkMode$.value);
     if (this.darkMode$.value) {
       this.htmlElement.classList.add(DARK_MODE);
-      sessionStorage.setItem(DARK_MODE, ON_DARK_MODE);
+      localStorage.setItem(DARK_MODE, ON_DARK_MODE);
       this.metaElement.setAttribute('content', this.metaDarkColors);
       return;
     }
-    sessionStorage.removeItem(DARK_MODE);
+    localStorage.removeItem(DARK_MODE);
     this.htmlElement.classList.remove(DARK_MODE);
     this.metaElement.setAttribute('content', this.metaLightColors);
   }
@@ -48,13 +48,13 @@ export class DarkModeService {
   setDarkMode() {
     this.darkMode$.next(true);
     this.htmlElement.classList.add(DARK_MODE);
-    sessionStorage.setItem(DARK_MODE, ON_DARK_MODE);
+    localStorage.setItem(DARK_MODE, ON_DARK_MODE);
     this.metaElement.setAttribute('content', this.metaDarkColors);
   }
 
   setLightMode() {
     this.darkMode$.next(false);
-    sessionStorage.removeItem(DARK_MODE);
+    localStorage.removeItem(DARK_MODE);
     this.htmlElement.classList.remove(DARK_MODE);
     this.metaElement.setAttribute('content', this.metaLightColors);
   }

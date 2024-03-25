@@ -62,5 +62,13 @@
       "style": "scss"
     }
   },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx/tasks-runners/default",
+      "options": {
+        "cacheDirectory": "/tmp/nx-cache"
+      }
+    }
+  },
   "nxCloudAccessToken": "ZDA1ZWEwMDgtOWU5OS00MTRmLTkzNjYtMDE0ZGJhZTcyMWJmfHJlYWQtd3JpdGU="
 }
