@@ -17,6 +17,7 @@
     cursor: pointer;
     border: none !important;
     outline: none !important;
+    font-weight: 500;
 
     &:hover {
       background-color: var(--add-new-background-hovered);

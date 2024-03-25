@@ -1,9 +1,12 @@
+@import 'libs/core/themes/new-trello/root.scss';
+
 :host {
   display: block;
   width: 250px;
-  background-color: var(--background-02);
+  background-color: var(--background-01);
   border-radius: 10px;
   padding: 10px;
+  @include default-box-shadow;
 
   .menu-header {
     display: flex;
