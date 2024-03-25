@@ -38,7 +38,16 @@ export class CardMoveDirective {
   @HostListener('mousemove', ['$event'])
   moveEvent(e: MouseEvent) {
     e.preventDefault();
+    this.moveCard(e.pageX);
+  }
 
+  @HostListener('touchmove', ['$event']) touchMove(e: TouchEvent) {
+    e.preventDefault();
+    this.moveCard(e.touches[0].clientX);
+    console.log(e.touches[0].clientX);
+  }
+
+  moveCard(xPosition: number) {
     const onCardMove = this.cardEventsFacadeService.onCardMove;
     const onBlockMove = this.cardEventsFacadeService.onMove;
 
@@ -50,13 +59,13 @@ export class CardMoveDirective {
     const leftCalc = hasLeftSidenav ? BASE_SIDENAV_SIZE : BASE_SCROLL_AREA;
 
     if (onCardMove || onBlockMove) {
-      if (window.innerWidth - rightCalc < e.pageX) {
+      if (window.innerWidth - rightCalc < xPosition) {
         this.startTickEvent(this.rightEvent$, BASE_SCROLL_MOVE_TICK);
         this.movingOnBorder = true;
         return;
       }
 
-      if (leftCalc > e.pageX) {
+      if (leftCalc > xPosition) {
         this.startTickEvent(this.leftEvent$, -BASE_SCROLL_MOVE_TICK);
         this.movingOnBorder = true;
         return;

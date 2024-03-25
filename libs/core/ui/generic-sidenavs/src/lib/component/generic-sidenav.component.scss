@@ -3,10 +3,9 @@
     display: block;
     bottom: 0;
     position: fixed;
-    top: 64px;
     z-index: 15000;
     width: var(--sidebar-width);
-    height: calc(100% - 64px);
+    height: 100%;
   }
 
   &[side='left'] nav {

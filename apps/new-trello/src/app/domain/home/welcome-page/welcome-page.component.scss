@@ -18,14 +18,26 @@
 
       &.hasOneSidenav {
         width: calc(100vw - var(--sidebar-width));
+
+        toolbar {
+          width: calc(100vw - var(--sidebar-width));
+        }
       }
 
       &.hasTwoSidenav {
         width: calc(100vw - var(--sidebar-width) * 2);
+
+        toolbar {
+          width: calc(100vw - var(--sidebar-width) * 2);
+        }
       }
 
       &.hasLeftSidenav {
         left: var(--sidebar-width);
+
+        toolbar {
+          left: var(--sidebar-width);
+        }
       }
     }
 
@@ -34,6 +46,7 @@
       position: fixed;
       z-index: 1000;
       left: 0px;
+      transition: width 250ms ease-in-out, left 250ms ease-in-out;
     }
 
     ::ng-deep {
@@ -52,7 +65,7 @@
     }
   }
 
-  .hasTwoSidenav ~ .right {
+  .hasTwoSidenav~.right {
     right: -500px !important;
   }
 
