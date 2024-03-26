@@ -7,6 +7,8 @@ import { IBlock, Icard } from '@my-monorepo/core/utlis';
 export class CardEventsFacadeService {
   readonly onMove$$ = this.dragAndDropService.onMove$.asObservable();
   readonly onCardMove$$ = this.dragAndDropService.onCardMove$.asObservable();
+  readonly objectPosition$$ =
+    this.dragAndDropService.objectPosition$.asObservable();
 
   constructor(private readonly dragAndDropService: DragAndDropService) {}
 
@@ -38,6 +40,10 @@ export class CardEventsFacadeService {
 
   setLastToBeHovered(value: number) {
     this.dragAndDropService.lastToBeHovered = value;
+  }
+
+  objectMove(position: number) {
+    this.dragAndDropService.objectPosition$.next(position);
   }
 
   moveToBlock(blockToRemove: Icard[], blockToAdd: Icard[], card: Icard) {

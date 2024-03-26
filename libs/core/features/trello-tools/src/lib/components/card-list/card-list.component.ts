@@ -1,4 +1,8 @@
-import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
+import {
+  CdkDragDrop,
+  CdkDragMove,
+  DragDropModule,
+} from '@angular/cdk/drag-drop';
 import { AsyncPipe } from '@angular/common';
 import { Component, input, output } from '@angular/core';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
@@ -40,8 +44,9 @@ export class CardListComponent {
     );
   }
 
-  onMove(item: Icard) {
+  onMove(item: Icard, event: CdkDragMove<Icard>) {
     this.cardEventsFacadeService.setCardMove(true, item);
+    this.cardEventsFacadeService.objectMove(event.pointerPosition.x);
     this.cardMove.emit(true);
   }
 

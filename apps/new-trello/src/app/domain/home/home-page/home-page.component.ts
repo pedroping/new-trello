@@ -1,6 +1,7 @@
 import {
   CdkDrag,
   CdkDragDrop,
+  CdkDragMove,
   CdkDropList,
   DragDropModule,
 } from '@angular/cdk/drag-drop';
@@ -54,7 +55,8 @@ export class HomePageComponent implements OnInit {
     this.cardEventsFacadeService.blockDrop(event);
   }
 
-  onMove() {
+  onMove(event: CdkDragMove<IBlock>) {
     this.cardEventsFacadeService.onEvent(true);
+    this.cardEventsFacadeService.objectMove(event.pointerPosition.x);
   }
 }

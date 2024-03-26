@@ -4,6 +4,7 @@ import {
   ElementRef,
   HostListener,
 } from '@angular/core';
+import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { CardEventsFacadeService } from '@my-monorepo/core/features/trello-tools';
 import { GenericSidenavsFacadeService } from '@my-monorepo/core/ui/generic-sidenavs';
 import { BehaviorSubject, filter, takeUntil, timer } from 'rxjs';
@@ -16,6 +17,7 @@ import {
 @Directive({
   standalone: true,
 })
+@CallSetValueChanges()
 export class CardMoveDirective {
   @ContentChild('pageContent', { static: true }) pageContent!: ElementRef;
 
@@ -29,22 +31,16 @@ export class CardMoveDirective {
 
   movingOnBorder = false;
 
+  setValueChanges() {
+    this.cardEventsFacadeService.objectPosition$$.subscribe((position) => {
+      this.moveCard(position);
+    });
+  }
+
   @HostListener('mouseup', ['$event']) onMouseUp() {
     this.leftEvent$.next(false);
     this.rightEvent$.next(false);
     this.movingOnBorder = false;
-  }
-
-  @HostListener('mousemove', ['$event'])
-  moveEvent(e: MouseEvent) {
-    e.preventDefault();
-    this.moveCard(e.pageX);
-  }
-
-  @HostListener('touchmove', ['$event']) touchMove(e: TouchEvent) {
-    e.preventDefault();
-    this.moveCard(e.touches[0].clientX);
-    console.log(e.touches[0].clientX);
   }
 
   moveCard(xPosition: number) {

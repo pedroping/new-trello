@@ -27,6 +27,7 @@ import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
 export class DragAndDropService {
   onMove$ = new BehaviorSubject<boolean>(false);
   onCardMove$ = new BehaviorSubject<boolean>(false);
+  objectPosition$ = new BehaviorSubject<number>(0);
   onBlockMove = false;
   cardMoving?: Icard;
   lastToBeHovered = -1;
