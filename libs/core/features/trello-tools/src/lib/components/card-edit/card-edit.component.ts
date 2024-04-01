@@ -3,6 +3,7 @@ import {
   ElementRef,
   EnvironmentInjector,
   OnInit,
+  Renderer2,
   TemplateRef,
   ViewContainerRef,
   effect,
@@ -31,7 +32,7 @@ import {
   OutsideClickEventsService,
 } from '@my-monorepo/core/utlis';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { filter, fromEvent } from 'rxjs';
+import { filter, fromEvent, map } from 'rxjs';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 import { MoveCardComponent } from '../move-card/move-card.component';
 
@@ -64,8 +65,10 @@ export class CardEditComponent implements OnInit {
   });
 
   constructor(
+    private readonly rendere2: Renderer2,
     private readonly dbFacadeService: DbFacadeService,
     private readonly viewContainerRef: ViewContainerRef,
+    private readonly elementRef: ElementRef<HTMLElement>,
     private readonly backdropStateService: BackdropStateService,
     private readonly openCustomMenuService: OpenCustomMenuService,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
@@ -108,6 +111,23 @@ export class CardEditComponent implements OnInit {
         filter((event) => (event as KeyboardEvent).key === 'Escape'),
       )
       .subscribe(this.closeEdit.bind(this));
+
+    this.backdropStateService.backDropEventSubscription$
+      .pipe(
+        map(
+          (backdropEvent) =>
+            backdropEvent?.domRect.x &&
+            backdropEvent.domRect.x +
+              this.elementRef.nativeElement.offsetWidth >
+              window.innerWidth,
+        ),
+      )
+      .subscribe((val) => {
+        this.rendere2[val ? 'addClass' : 'removeClass'](
+          this.elementRef.nativeElement,
+          'onBorder',
+        );
+      });
   }
 
   closeElement() {

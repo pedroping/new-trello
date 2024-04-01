@@ -1,6 +1,14 @@
 @import 'libs/core/themes/new-trello/root.scss';
 
 :host {
+
+  &.onBorder {
+    .content {
+      flex-direction: row-reverse;
+      right: 110px;
+    }
+  }
+
   .content {
     display: flex;
     position: relative;
@@ -12,10 +20,10 @@
 
     .card {
       @include second-box-shadow;
-      width: 100%;
       height: var(--card-height);
       padding: 5px;
       color: var(--text-01);
+      width: var(--card-width);
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -58,8 +66,6 @@
 
     .actions {
       margin-top: 2px;
-      position: absolute;
-      right: -40%;
 
       .action-btn {
         display: flex;
