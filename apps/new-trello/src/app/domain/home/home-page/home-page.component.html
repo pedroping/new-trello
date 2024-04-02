@@ -10,7 +10,7 @@
     [cdkDropListAutoScrollStep]="8"
     (cdkDropListDropped)="listDropped($event)"
   >
-    @for (blockCard of blocks; track blockCard.name; let index = $index) {
+    @for (blockCard of blocks; track blockCard.id; let index = $index) {
       <div class="block" cdkDrag (cdkDragMoved)="onMove($event)">
         <div cdkDragHandle></div>
         <trello-card-block

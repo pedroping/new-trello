@@ -23,6 +23,7 @@ export interface IDBService<T> {
   getAllElements$: () => BehaviorSubject<T[]>;
   getElementById: (id: number) => Observable<T | null | undefined>;
   clearDb: () => Observable<string>;
-  setAllElement: () => void;
+  deleteAllByBlockId: (id: number) => Observable<string>;
+  setAllElements: () => void;
   hasIndexedDB: boolean;
 }

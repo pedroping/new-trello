@@ -5,18 +5,3 @@
 >
   <mat-icon>add</mat-icon> Adicionar um cartão
 </div>
-
-<div
-  class="more-icon"
-  [cdkMenuTriggerFor]="cardOptions"
-  #menuTrigger="cdkMenuTriggerFor"
-  [autoCloseMenu]="menuTrigger"
-  id="more-block-footer-options"
-  [attr.aria-label]="'more-block-footer-options' + id()"
->
-  <mat-icon>more_horiz</mat-icon>
-</div>
-
-<ng-template #cardOptions>
-  <trello-card-options cdkMenu></trello-card-options>
-</ng-template>

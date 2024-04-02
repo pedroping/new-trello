@@ -8,7 +8,9 @@ import {
 } from '../../models/wallpaper-db-models';
 
 @Injectable({ providedIn: 'root' })
-export class WallpapersDbService implements IDBService<ISrcImg> {
+export class WallpapersDbService
+  implements Omit<IDBService<ISrcImg>, 'deleteAllByBlockId'>
+{
   hasIndexedDB = !!window.indexedDB;
   allElements$ = new BehaviorSubject<ISrcImg[]>([]);
 
@@ -30,7 +32,7 @@ export class WallpapersDbService implements IDBService<ISrcImg> {
         keyPath: 'id',
         autoIncrement: true,
       });
-      this.setAllElement();
+      this.setAllElements();
     };
   }
 
@@ -39,7 +41,7 @@ export class WallpapersDbService implements IDBService<ISrcImg> {
       console.log(
         `Conexão com a base de dados '${WALLPAPERS_DB_NAME}' aberta com sucesso!`,
       );
-      this.setAllElement();
+      this.setAllElements();
     };
   }
 
@@ -56,7 +58,7 @@ export class WallpapersDbService implements IDBService<ISrcImg> {
     return { transaction, store };
   }
 
-  setAllElement() {
+  setAllElements() {
     const request = this.openRequest();
 
     request.onsuccess = () => {

@@ -11,7 +11,9 @@ import {
 import { CardDbService } from '../card-db/card-db.service';
 
 @Injectable({ providedIn: 'root' })
-export class CardBlockDbService implements IDBService<IBlock> {
+export class CardBlockDbService
+  implements Omit<IDBService<IBlock>, 'deleteAllByBlockId'>
+{
   hasIndexedDB = !!window.indexedDB;
   allElements$ = new BehaviorSubject<IBlock[]>([]);
 
@@ -209,7 +211,7 @@ export class CardBlockDbService implements IDBService<IBlock> {
         keyPath: 'id',
         autoIncrement: true,
       });
-      this.setAllElement();
+      this.setAllElements();
     };
   }
 
@@ -218,7 +220,7 @@ export class CardBlockDbService implements IDBService<IBlock> {
       console.log(
         `Conexão com a base de dados '${CARD_BLOCKS_DB_NAME}' aberta com sucesso!`,
       );
-      this.setAllElement();
+      this.setAllElements();
     };
   }
 
@@ -229,7 +231,7 @@ export class CardBlockDbService implements IDBService<IBlock> {
       );
   }
 
-  setAllElement() {
+  setAllElements() {
     const request = this.openRequest();
 
     request.onsuccess = () => {

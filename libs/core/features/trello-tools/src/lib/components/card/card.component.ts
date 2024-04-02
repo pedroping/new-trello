@@ -105,13 +105,10 @@ export class CardComponent {
         blockId: this.blockCard().id,
         cardIndex: cards.length,
       })
-      .subscribe((resp) => {
-        cards.push({
-          id: resp.id,
-          name: this.cardNameControl.value,
-          cardIndex: cards.length,
-          blockId: this.blockCard().id,
-        });
+      .subscribe(() => {
+        this.blockCard().cards$ = this.dbFacadeService.getCardsByBlockId(
+          this.blockCard().id,
+        );
         this.cardNameControl.reset();
         if (onOutside) return this.cancelEvent();
         this.blockCard().addNewEvent$.next(true);

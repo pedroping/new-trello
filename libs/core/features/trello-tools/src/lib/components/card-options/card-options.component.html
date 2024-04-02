@@ -1,4 +1,8 @@
-<div class="option">
-  <mat-icon></mat-icon>
-  <span></span>
+<div class="menu-header">
+  <span>Opções de Lista</span>
+  <button mat-icon-button (click)="closeMenu()" aria-label="Close Menu">
+    <mat-icon>close</mat-icon>
+  </button>
 </div>
+
+<button class="remove-btn" (click)="archiveList()">Arquivar Lista</button>

@@ -67,7 +67,7 @@ $dark-mode-variables: (
   'disabled-01': #a6c5e229,
   'disabled-02': rgb(15 14 14),
   'add-new-background': rgb(75 75 75 / 51%),
-  'add-new-background-hovered': rgb(255 255 255 / 16%) ,
+  'add-new-background-hovered': rgb(255 255 255 / 16%),
   'action-hover-background': #bac0ca68,
   'toolbar-background': rgb(255 255 255 / 15%),
 );
@@ -103,6 +103,46 @@ $dark-mode-variables: (
   .action-label {
     font-size: 16px;
     font-weight: 500;
+  }
+
+  .menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--text-02);
+    border-bottom: 1px solid var(--gray-02);
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: 500;
+
+    button {
+      padding: 10px !important;
+
+      mat-icon {
+        font-size: 20px;
+        height: 20px;
+        width: 20px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .remove-btn {
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: 500;
+    color: var(--text-02);
+    padding: 10px;
+    background-color: var(--add-new-background);
+    outline: none;
+    border: none;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--add-new-background-hovered);
+    }
   }
 
   ::-webkit-scrollbar {

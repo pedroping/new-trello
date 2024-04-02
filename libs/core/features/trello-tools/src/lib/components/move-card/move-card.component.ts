@@ -33,15 +33,12 @@ export class MoveCardComponent {
 
     card.blockId = block.id;
     card.cardIndex = this.blockCard().cards$.value.length;
-
-    const oldBlockCards = this.blockCard().cards$.value.filter(
-      (bCard) => bCard.id != card.id,
-    );
-    const newBlocks = [...block.cards$.value, card];
-
-    this.blockCard().cards$.next(oldBlockCards);
-    block.cards$.next(newBlocks);
-    this.dbFacadeService.editCard(card);
-    this.backdropStateService.setBackDropState();
+    this.dbFacadeService.editCard(card).subscribe(() => {
+      this.blockCard().cards$ = this.dbFacadeService.getCardsByBlockId(
+        this.blockCard().id,
+      );
+      block.cards$ = this.dbFacadeService.getCardsByBlockId(block.id);
+      this.backdropStateService.setBackDropState();
+    });
   }
 }

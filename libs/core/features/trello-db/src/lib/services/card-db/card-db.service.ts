@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Icard } from '@my-monorepo/core/utlis';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, concatAll, from, of, switchMap } from 'rxjs';
 import { IAddNewResponse, IDBService } from '../../models/base-db-models';
 import {
   CARDS_DB_NAME,
@@ -12,7 +12,7 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class CardDbService
-  implements Omit<IDBService<Icard>, 'getAllElements$' | 'setAllElement'>
+  implements Omit<IDBService<Icard>, 'getAllElements$' | 'setAllElements'>
 {
   hasIndexedDB = !!window.indexedDB;
 
@@ -176,6 +176,16 @@ export class CardDbService
     };
 
     return element$;
+  }
+
+  deleteAllByBlockId(blockId: number) {
+    return this.getByBlockId(blockId).pipe(
+      switchMap((cards) => {
+        if (cards.length <= 0) return of('Nenhum card encontrado!');
+        const allDeletes$ = cards.map((card) => this.deleteElement(card.id!));
+        return from(allDeletes$).pipe(concatAll());
+      }),
+    );
   }
 
   onUpgradeNeeded(db: IDBOpenDBRequest) {

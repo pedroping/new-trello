@@ -150,11 +150,12 @@ export class CardEditComponent implements OnInit {
   archive() {
     const card = this.card();
     if (!card || !card.id) return;
-    const cards = this.blockCard().cards$.value;
-    const index = cards.findIndex((cardToFind) => cardToFind.id === card.id);
-    cards.splice(index, 1);
-    this.dbFacadeService.deleteCard(card.id);
-    this.backdropStateService.setBackDropState();
+    this.dbFacadeService.deleteCard(card.id).subscribe(() => {
+      this.blockCard().cards$ = this.dbFacadeService.getCardsByBlockId(
+        this.blockCard().id,
+      );
+      this.backdropStateService.setBackDropState();
+    });
   }
 
   duplicate() {

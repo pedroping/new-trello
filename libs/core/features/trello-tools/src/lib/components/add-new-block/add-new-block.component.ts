@@ -18,11 +18,9 @@ import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-change
 import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
 import { ENTER_LEAVE_ANIMATION_Y } from '@my-monorepo/core/ui/animations';
 import {
-  Icard,
   OutsideClickEventsService,
   ScrollEventsService,
 } from '@my-monorepo/core/utlis';
-import { BehaviorSubject } from 'rxjs';
 import { DisableButtonOnDragDirective } from '../../directives/disable-button-on-drag/disable-button-on-drag.directive';
 @Component({
   selector: 'trello-add-new-block',
@@ -80,15 +78,8 @@ export class AddNewBlockComponent {
 
     this.dbFacadeService
       .createBlock({ name: this.listName.value })
-      .subscribe((resp) => {
-        blocks.push({
-          id: resp.id,
-          name: this.listName.value,
-          addNewEvent$: new BehaviorSubject<boolean>(false),
-          cards$: new BehaviorSubject<Icard[]>([]),
-          blockIndex: blocks.length,
-        });
-        this.blocks$$.next(blocks);
+      .subscribe(() => {
+        this.dbFacadeService.setAllElements();
         this.listName.reset();
         this.scrollEventsService.scrollToEnd$.next();
       });

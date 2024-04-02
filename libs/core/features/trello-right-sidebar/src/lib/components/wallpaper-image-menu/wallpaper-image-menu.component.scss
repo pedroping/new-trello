@@ -8,28 +8,6 @@
   padding: 10px;
   @include default-box-shadow;
 
-  .menu-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: var(--text-02);
-    border-bottom: 1px solid var(--gray-02);
-    font-size: 14px;
-    line-height: 14px;
-    font-weight: 500;
-
-    button {
-      padding: 10px !important;
-
-      mat-icon {
-        font-size: 20px;
-        height: 20px;
-        width: 20px;
-        cursor: pointer;
-      }
-    }
-  }
-
   .options-field {
     margin-top: 10px;
     padding-bottom: 10px;
@@ -67,24 +45,6 @@
       &:hover {
         background-color: var(--action-hover-background);
       }
-    }
-  }
-
-  .remove-wallpaper {
-    font-size: 14px;
-    line-height: 14px;
-    font-weight: 500;
-    color: var(--text-02);
-    padding: 10px;
-    background-color: var(--add-new-background);
-    outline: none;
-    border: none;
-    margin-top: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-
-    &:hover {
-      background-color: var(--add-new-background-hovered);
     }
   }
 }

@@ -14,5 +14,9 @@
 </div>
 
 <ng-template #cardOptions>
-  <trello-card-options cdkMenu></trello-card-options>
+  <trello-card-options
+    [listId]="id()"
+    cdkMenu
+    [cdkTrigger]="menuTrigger"
+  ></trello-card-options>
 </ng-template>

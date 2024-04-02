@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IBlock, ISrcImg, Icard } from '@my-monorepo/core/utlis';
-import { combineLatest } from 'rxjs';
+import { combineLatest, switchMap } from 'rxjs';
 import { INewBlock } from '../models/card-block-db-models';
 import { CardBlockDbService } from '../services/card-block-db/card-block-db.service';
 import { CardDbService } from '../services/card-db/card-db.service';
@@ -45,7 +45,9 @@ export class DbFacadeService {
   }
 
   deleteBlock(id: number) {
-    return this.cardBlockDbService.deleteElement(id);
+    return this.cardBlockDbService
+      .deleteElement(id)
+      .pipe(switchMap(() => this.cardDbService.deleteAllByBlockId(id)));
   }
 
   deleteCard(id: number) {
@@ -78,5 +80,9 @@ export class DbFacadeService {
 
   getCardsByBlockId(id: number) {
     return this.cardDbService.getByBlockId(id);
+  }
+
+  setAllElements() {
+    this.cardBlockDbService.setAllElements();
   }
 }
