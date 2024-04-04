@@ -12,6 +12,7 @@ import {
   BASE_SCROLL_AREA,
   BASE_SCROLL_MOVE_TICK,
   BASE_SIDENAV_SIZE,
+  TICK_SPEED,
 } from '../../models/values';
 
 @Directive({
@@ -80,7 +81,7 @@ export class CardMoveDirective {
     stopEvent$.next(false);
     stopEvent$.next(true);
 
-    timer(0, 1)
+    timer(0, TICK_SPEED)
       .pipe(takeUntil(actualEvent$))
       .subscribe(() => {
         const onCardMove = this.cardEventsFacadeService.onCardMove;
