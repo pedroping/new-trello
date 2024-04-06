@@ -161,20 +161,20 @@ export class CardEditComponent implements OnInit {
   duplicate() {
     const card = this.card();
     if (!card || !card.id) return;
-    const newCard: Icard = {
+    const newCard: Omit<Icard, 'id'> = {
       blockId: card.blockId,
       cardIndex: -1,
       name: `${card.name} copia`,
     };
 
     this.dbFacadeService.createCard(newCard).subscribe((resp) => {
-      newCard.id = resp.id;
+      const cardWithId = {...newCard, id: resp.id} 
       const cardList = this.blockCard().cards$.value;
       const cardIndex = cardList.findIndex(
         (listCard) => listCard.id === card.id,
       );
       const indexToAdd = cardIndex === -1 ? cardList.length : cardIndex + 1;
-      cardList.splice(indexToAdd, 0, newCard);
+      cardList.splice(indexToAdd, 0, cardWithId);
       this.blockCard().cards$.next(cardList);
       this.cardEventsFacadeService.validCardsOrder(
         this.blockCard().id,

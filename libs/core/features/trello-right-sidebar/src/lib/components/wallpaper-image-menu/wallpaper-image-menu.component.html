@@ -7,13 +7,13 @@
 
 <div class="options-field">
   <span class="options-field-header">Tema</span>
-  <div class="theme-option" (click)="setLightMode()">
+  <div class="option-field" (click)="setLightMode()">
     <span> Luz </span>
     @if (lightIcon$ | async) {
       <mat-icon class="theme-icon">check</mat-icon>
     }
   </div>
-  <div class="theme-option" (click)="setDarkMode()">
+  <div class="option-field" (click)="setDarkMode()">
     <span> Escuro </span>
     @if (darkIcon$ | async) {
       <mat-icon class="theme-icon">check</mat-icon>

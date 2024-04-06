@@ -52,7 +52,7 @@ export class CardDbService
     return eventResponse$.asObservable();
   }
 
-  addNewElement(element: Icard) {
+  addNewElement(element: Omit<Icard, 'id'>) {
     const request = this.openRequest();
     const eventResponse$ = new Subject<IAddNewResponse>();
 
@@ -182,7 +182,7 @@ export class CardDbService
     return this.getByBlockId(blockId).pipe(
       switchMap((cards) => {
         if (cards.length <= 0) return of('Nenhum card encontrado!');
-        const allDeletes$ = cards.map((card) => this.deleteElement(card.id!));
+        const allDeletes$ = cards.map((card) => this.deleteElement(card.id));
         return from(allDeletes$).pipe(concatAll());
       }),
     );

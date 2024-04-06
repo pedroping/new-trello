@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 
 export interface Icard {
-  id?: number;
+  id: number;
   name: string;
   blockId: number;
   cardIndex: number;

@@ -5,4 +5,10 @@
   </button>
 </div>
 
+<div class="options-field">
+  <span class="options-field-header">Ordenar por: </span>
+  <div class="option-field" (click)="orderListByName()">Nome</div>
+  <div class="option-field" (click)="orderListById()">Data de criação</div>
+</div>
+
 <button class="remove-btn" (click)="archiveList()">Arquivar Lista</button>

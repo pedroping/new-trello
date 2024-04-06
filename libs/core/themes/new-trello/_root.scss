@@ -16,7 +16,6 @@
     -1px 4px 1px var(--box-shadow-color-02);
 }
 
-
 @mixin left-sidebar-box-shadow {
   box-shadow:
     2px 3px 4px var(--box-shadow-color-01),
@@ -51,9 +50,9 @@ $project-variables: (
   'fixed-toolbar-background': rgb(243 243 243 / 42%),
   'box-shadow-color-01': #091e4240,
   'box-shadow-color-02': #091e424f,
-  'add-new-background': #A6C5E229,
+  'add-new-background': #a6c5e229,
   'add-new-background-hovered': rgb(89 89 89 / 24%),
-  'action-hover-background': #484b4e14
+  'action-hover-background': #484b4e14,
 );
 
 $dark-mode-variables: (
@@ -142,6 +141,46 @@ $dark-mode-variables: (
 
     &:hover {
       background-color: var(--add-new-background-hovered);
+    }
+  }
+
+  .options-field {
+    margin-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--gray-02);
+
+    .options-field-header {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-02);
+      padding-left: 10px;
+    }
+
+    .option-field {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      height: 30px;
+      padding-left: 20px;
+      width: 100%;
+      color: var(--text-01);
+      cursor: pointer;
+      position: relative;
+      right: 10px;
+
+      .theme-icon {
+        font-size: 12px;
+        width: 12px;
+        height: 12px;
+      }
+
+      &:first-of-type {
+        margin-top: 10px;
+      }
+
+      &:hover {
+        background-color: var(--action-hover-background);
+      }
     }
   }
 

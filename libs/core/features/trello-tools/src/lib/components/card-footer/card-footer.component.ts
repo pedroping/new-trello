@@ -6,20 +6,13 @@ import { BehaviorSubject } from 'rxjs';
 import { CloseMenuDirective } from '../../directives/close-menu/close-menu.directive';
 import { FooterTopDirective } from '../../directives/footer-top/footer-top.directive';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
-import { CardOptionsComponent } from '../card-options/card-options.component';
 
 @Component({
   selector: 'trello-card-footer',
   templateUrl: './card-footer.component.html',
   styleUrls: ['./card-footer.component.scss'],
   standalone: true,
-  imports: [
-    CdkMenuModule,
-    MatIconModule,
-    CloseMenuDirective,
-    AsyncPipe,
-    CardOptionsComponent,
-  ],
+  imports: [CdkMenuModule, MatIconModule, CloseMenuDirective, AsyncPipe],
   hostDirectives: [
     {
       directive: FooterTopDirective,

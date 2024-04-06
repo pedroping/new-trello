@@ -36,7 +36,7 @@ export class DbFacadeService {
     return this.cardBlockDbService.addNewElement(element);
   }
 
-  createCard(element: Icard) {
+  createCard(element: Omit<Icard, 'id'>) {
     return this.cardDbService.addNewElement(element);
   }
 
