@@ -2,6 +2,7 @@ import {
   Component,
   ElementRef,
   EnvironmentInjector,
+  Inject,
   effect,
   inject,
   input,
@@ -23,7 +24,9 @@ import { OutsideClickDirective } from '@my-monorepo/core/features/outside-elemen
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
 import {
+  BLOCK_TOKEN,
   IBlock,
+  IBlockInstance,
   Icard,
   OutsideClickEventsService,
 } from '@my-monorepo/core/utlis';
@@ -62,6 +65,7 @@ export class CardComponent {
   injector = inject(EnvironmentInjector);
 
   constructor(
+    @Inject(BLOCK_TOKEN) private readonly cardBlock: IBlockInstance,
     private readonly backdropStateService: BackdropStateService,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
     private readonly outsideClickEventsService: OutsideClickEventsService,
@@ -106,9 +110,12 @@ export class CardComponent {
         cardIndex: cards.length,
       })
       .subscribe(() => {
-        this.blockCard().cards$ = this.dbFacadeService.getCardsByBlockId(
-          this.blockCard().id,
-        );
+        this.dbFacadeService
+          .getCardsByBlockId(this.blockCard().id)
+          .subscribe((cards) => {
+            this.blockCard().cards$.next(cards);
+            this.cardBlock.blockCard().cards$.next(cards);
+          });
         this.cardNameControl.reset();
         if (onOutside) return this.cancelEvent();
         this.blockCard().addNewEvent$.next(true);

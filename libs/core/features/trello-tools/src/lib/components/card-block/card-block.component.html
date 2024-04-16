@@ -8,12 +8,7 @@
     [trelloCardBlockHeight]="cards.length"
   >
     @if (!isPreview()) {
-      <trello-card-header
-        [id]="id()"
-        [cardLength]="cards.length"
-        [title]="blockCard().name"
-        [cards$]="blockCard().cards$"
-      ></trello-card-header>
+      <trello-card-header></trello-card-header>
       <card-list
         [id]="id()"
         [blockCard]="blockCard()"

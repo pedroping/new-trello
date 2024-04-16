@@ -1,3 +1,4 @@
+import { InputSignal } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 export interface Icard {
@@ -13,4 +14,9 @@ export interface IBlock {
   blockIndex: number;
   cards$: BehaviorSubject<Icard[]>;
   addNewEvent$: BehaviorSubject<boolean>;
+}
+
+export interface IBlockInstance {
+  id: InputSignal<number>;
+  blockCard: InputSignal<IBlock>;
 }

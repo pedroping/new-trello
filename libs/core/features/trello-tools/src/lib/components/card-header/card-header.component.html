@@ -1,6 +1,6 @@
 <div class="title">
-  <span [title]="title()">{{ title() }}</span>
-  <span>{{ cardLength() }} cartões </span>
+  <span [title]="title">{{ title }}</span>
+  <span>{{ cardLength$ | async }} cartões </span>
 </div>
 <div
   class="more-icon"
@@ -8,16 +8,16 @@
   #menuTrigger="cdkMenuTriggerFor"
   [autoCloseMenu]="menuTrigger"
   id="more-block-options"
-  [attr.aria-label]="'more-block-options' + id()"
+  [attr.aria-label]="'more-block-options' + id"
 >
   <mat-icon>more_horiz</mat-icon>
 </div>
 
 <ng-template #cardOptions>
   <trello-card-list-options
-    [listId]="id()"
+    [listId]="id"
     cdkMenu
     [cdkTrigger]="menuTrigger"
-    [cards$]="cards$()"
+    [cards$]="cards$"
   ></trello-card-list-options>
 </ng-template>
