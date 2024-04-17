@@ -2,6 +2,7 @@ import {
   Component,
   ElementRef,
   EnvironmentInjector,
+  Inject,
   OnInit,
   Renderer2,
   TemplateRef,
@@ -27,7 +28,9 @@ import {
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
 import {
+  BLOCK_TOKEN,
   IBlock,
+  IBlockInstance,
   Icard,
   OutsideClickEventsService,
 } from '@my-monorepo/core/utlis';
@@ -53,9 +56,9 @@ import { MoveCardComponent } from '../move-card/move-card.component';
 @CallSetValueChanges()
 @UntilDestroy()
 export class CardEditComponent implements OnInit {
-  menu = viewChild<TemplateRef<unknown>>('menu');
+  blockCard: IBlock;
   card = input<Icard>();
-  blockCard = input.required<IBlock>();
+  menu = viewChild<TemplateRef<unknown>>('menu');
   input = viewChild<ElementRef<HTMLInputElement>>('nameInput');
   injector = inject(EnvironmentInjector);
 
@@ -65,6 +68,7 @@ export class CardEditComponent implements OnInit {
   });
 
   constructor(
+    @Inject(BLOCK_TOKEN) cardBlock: IBlockInstance,
     private readonly rendere2: Renderer2,
     private readonly dbFacadeService: DbFacadeService,
     private readonly viewContainerRef: ViewContainerRef,
@@ -73,7 +77,9 @@ export class CardEditComponent implements OnInit {
     private readonly openCustomMenuService: OpenCustomMenuService,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
     private readonly outsideClickEventsService: OutsideClickEventsService,
-  ) {}
+  ) {
+    this.blockCard = cardBlock.block();
+  }
 
   ngOnInit(): void {
     const card = this.card();
@@ -151,8 +157,8 @@ export class CardEditComponent implements OnInit {
     const card = this.card();
     if (!card || !card.id) return;
     this.dbFacadeService.deleteCard(card.id).subscribe(() => {
-      this.blockCard().cards$ = this.dbFacadeService.getCardsByBlockId(
-        this.blockCard().id,
+      this.blockCard.cards$ = this.dbFacadeService.getCardsByBlockId(
+        this.blockCard.id,
       );
       this.backdropStateService.setBackDropState();
     });
@@ -168,17 +174,17 @@ export class CardEditComponent implements OnInit {
     };
 
     this.dbFacadeService.createCard(newCard).subscribe((resp) => {
-      const cardWithId = {...newCard, id: resp.id} 
-      const cardList = this.blockCard().cards$.value;
+      const cardWithId = { ...newCard, id: resp.id };
+      const cardList = this.blockCard.cards$.value;
       const cardIndex = cardList.findIndex(
         (listCard) => listCard.id === card.id,
       );
       const indexToAdd = cardIndex === -1 ? cardList.length : cardIndex + 1;
       cardList.splice(indexToAdd, 0, cardWithId);
-      this.blockCard().cards$.next(cardList);
+      this.blockCard.cards$.next(cardList);
       this.cardEventsFacadeService.validCardsOrder(
-        this.blockCard().id,
-        this.blockCard().id,
+        this.blockCard.id,
+        this.blockCard.id,
       );
       this.backdropStateService.setBackDropState();
     });

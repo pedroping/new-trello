@@ -1,13 +1,13 @@
-@if (blockCard().cards$ | async; as cards) {
+@if (blockCard.cards$ | async; as cards) {
   <div
     #cardList
     class="card-list"
     cdkDropList
-    [attr.list-id]="blockCard().id"
+    scrollToEnd
+    [attr.list-id]="blockCard.id"
     [cdkDropListAutoScrollStep]="scrollMoveTick"
     [cdkDropListData]="cards"
     [style.z-index]="customZIndex$ | async"
-    [scrollToEnd]="blockCard().addNewEvent$"
     (cdkDropListExited)="setExited()"
     (cdkDropListEntered)="setEntered()"
     (cdkDropListDropped)="drop($event)"
@@ -15,18 +15,15 @@
     @for (item of cards; track item) {
       <div cdkDrag (cdkDragMoved)="onMove(item, $event)">
         <div class="example-custom-placeholder" *cdkDragPlaceholder>
-          <trello-card
-            [isPreview]="true"
-            [blockCard]="blockCard()"
-          ></trello-card>
+          <trello-card [isPreview]="true"></trello-card>
         </div>
-        <trello-card [card]="item" [blockCard]="blockCard()">
+        <trello-card [card]="item">
           {{ item.name }}
         </trello-card>
       </div>
     }
-    @if (blockCard().addNewEvent$ | async) {
-      <trello-card [blockCard]="blockCard()" [onAddNew]="true"></trello-card>
+    @if (blockCard.addNewEvent$ | async) {
+      <trello-card [onAddNew]="true"></trello-card>
     }
   </div>
 }

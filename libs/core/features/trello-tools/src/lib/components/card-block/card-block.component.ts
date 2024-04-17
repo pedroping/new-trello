@@ -1,10 +1,18 @@
-import { AfterViewInit, Component, input, viewChild } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import {
+  AfterViewInit,
+  Component,
+  Type,
+  forwardRef,
+  input,
+  viewChild,
+} from '@angular/core';
+import { BLOCK_TOKEN, IBlock, IBlockInstance } from '@my-monorepo/core/utlis';
 import { CardBlockHeightDirective } from '../../directives/card-block-height/cardBlock-height.directive';
-import { IBlock } from '@my-monorepo/core/utlis';
 import { CardFooterComponent } from '../card-footer/card-footer.component';
 import { CardHeaderComponent } from '../card-header/card-header.component';
 import { CardListComponent } from '../card-list/card-list.component';
-import { AsyncPipe } from '@angular/common';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'trello-card-block',
@@ -18,18 +26,23 @@ import { AsyncPipe } from '@angular/common';
     CardListComponent,
     AsyncPipe,
   ],
+  providers: [
+    {
+      provide: BLOCK_TOKEN,
+      useExisting: forwardRef(() => CardBlockComponent) as Type<IBlockInstance>,
+    },
+  ],
 })
-export class CardBlockComponent implements AfterViewInit {
-  isPreview = input<boolean>(false);
+export class CardBlockComponent implements IBlockInstance, AfterViewInit {
   id = input<number>(-1);
-  blockCard = input.required<IBlock>();
+  isPreview = input<boolean>(false);
+  block = input.required<IBlock>();
   cardList = viewChild(CardListComponent);
-  isSelectedBlock = false;
+  onCardMovement$ = new Subject<void>();
 
   ngAfterViewInit(): void {
-    const cardList = this.cardList();
-    if (!cardList || this.isPreview()) return;
-
-    cardList.cardMove.subscribe((event) => (this.isSelectedBlock = event));
+    this.cardList()?.onCardMovement$.subscribe(() =>
+      this.onCardMovement$.next(),
+    );
   }
 }

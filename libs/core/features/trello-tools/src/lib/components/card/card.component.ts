@@ -2,6 +2,7 @@ import {
   Component,
   ElementRef,
   EnvironmentInjector,
+  Inject,
   effect,
   inject,
   input,
@@ -23,7 +24,9 @@ import { OutsideClickDirective } from '@my-monorepo/core/features/outside-elemen
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
 import {
+  BLOCK_TOKEN,
   IBlock,
+  IBlockInstance,
   Icard,
   OutsideClickEventsService,
 } from '@my-monorepo/core/utlis';
@@ -49,10 +52,12 @@ import { CardEditComponent } from '../card-edit/card-edit.component';
 export class CardComponent {
   card = input<Icard>();
   isPreview = input<boolean>();
-  onAddNew = input<boolean>(false);
-  blockCard = input.required<IBlock>();
+
+  blockCard: IBlock;
+
   nameInput = viewChild<ElementRef<HTMLInputElement>>('nameInput');
   editTemplate = viewChild<BackDropEvent>(BackdropContentDirective);
+  onAddNew = input<boolean>(false);
 
   cardNameControl = new FormControl('', {
     nonNullable: true,
@@ -62,11 +67,14 @@ export class CardComponent {
   injector = inject(EnvironmentInjector);
 
   constructor(
+    @Inject(BLOCK_TOKEN) cardBlock: IBlockInstance,
     private readonly backdropStateService: BackdropStateService,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
     private readonly outsideClickEventsService: OutsideClickEventsService,
     private readonly dbFacadeService: DbFacadeService,
-  ) {}
+  ) {
+    this.blockCard = cardBlock.block();
+  }
 
   setValueChanges() {
     effect(() => {
@@ -97,26 +105,28 @@ export class CardComponent {
   addCard(onOutside?: boolean) {
     if (this.cardNameControl.invalid) return;
 
-    const cards = this.blockCard().cards$.value;
+    const cards = this.blockCard.cards$.value;
 
     this.dbFacadeService
       .createCard({
         name: this.cardNameControl.value,
-        blockId: this.blockCard().id,
+        blockId: this.blockCard.id,
         cardIndex: cards.length,
       })
       .subscribe(() => {
-        this.blockCard().cards$ = this.dbFacadeService.getCardsByBlockId(
-          this.blockCard().id,
-        );
+        this.dbFacadeService
+          .getCardsByBlockId(this.blockCard.id)
+          .subscribe((cards) => {
+            this.blockCard.cards$.next(cards);
+          });
         this.cardNameControl.reset();
         if (onOutside) return this.cancelEvent();
-        this.blockCard().addNewEvent$.next(true);
+        this.blockCard.addNewEvent$.next(true);
       });
   }
 
   cancelEvent() {
-    this.blockCard().addNewEvent$.next(false);
+    this.blockCard.addNewEvent$.next(false);
   }
 
   editclick() {
