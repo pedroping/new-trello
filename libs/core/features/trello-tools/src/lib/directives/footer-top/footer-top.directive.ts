@@ -10,6 +10,7 @@ import { CARD_SIZE, FOOTER_TOP } from '../../models/card.models';
   standalone: true,
   host: {
     '[style.top]': 'top()',
+    style: 'transition: top 100ms ease-in-out',
   },
 })
 @CallSetValueChanges()

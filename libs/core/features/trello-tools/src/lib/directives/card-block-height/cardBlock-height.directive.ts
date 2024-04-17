@@ -10,6 +10,7 @@ import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-change
   standalone: true,
   host: {
     '[style.height]': 'height()',
+    style: 'transition: height 200ms ease-in-out',
   },
 })
 @CallSetValueChanges()

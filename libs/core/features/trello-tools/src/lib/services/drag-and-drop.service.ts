@@ -89,13 +89,16 @@ export class DragAndDropService {
       if (newListId && this.cardMoving) {
         const editCard: Icard = { ...this.cardMoving, blockId: +newListId };
         this.cardMoving.blockId = +newListId;
+
+        if (!oldListId || !newListId) return;
+
         this.dbFacadeService.editCard(editCard).subscribe(() => {
-          if (!oldListId || !newListId) return;
           this.validCardsOrder(+oldListId, +newListId);
-          this.findList(oldListId)?.cards$.next(event.previousContainer.data);
-          this.findList(newListId)?.cards$.next(event.container.data);
         });
         this.cardMoving = undefined;
+
+        this.findList(oldListId)?.cards$.next(event.previousContainer.data);
+        this.findList(newListId)?.cards$.next(event.container.data);
       }
     }
   }
