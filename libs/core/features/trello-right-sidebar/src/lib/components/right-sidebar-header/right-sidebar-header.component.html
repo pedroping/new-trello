@@ -1,6 +1,5 @@
 <button
   mat-icon-button
-  [always-static]="true"
   aria-label="Back Menu"
   [style]="backMenuOpacity$ | async"
   (click)="backPage()"
@@ -9,11 +8,6 @@
 </button>
 
 <span>{{ pageName$ | async }}</span>
-<button
-  mat-icon-button
-  (click)="closeSidebar()"
-  [always-static]="true"
-  aria-label="Close Menu"
->
+<button mat-icon-button (click)="closeSidebar()" aria-label="Close Menu">
   <mat-icon>close</mat-icon>
 </button>

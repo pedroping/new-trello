@@ -21,10 +21,6 @@ export class DisableButtonOnDragDirective {
       );
     }),
   );
-
-  disabledAbsolut = input<boolean>(false, {
-    alias: 'always-static',
-  });
   divCreated = document.createElement('div');
 
   constructor(
@@ -43,19 +39,12 @@ export class DisableButtonOnDragDirective {
 
     if (btnParent) this.renderer.setStyle(btnParent, 'position', 'relative');
 
-    if (!this.disabledAbsolut())
-      this.renderer.setStyle(
-        this.elementRef.nativeElement,
-        'position',
-        'absolute',
-      );
-
     if (!val) {
       this.renderer.removeChild(btnParent, this.divCreated);
       return;
     }
 
-    if (btnParent.contains(this.divCreated)) return;
+    if (btnParent?.contains(this.divCreated)) return;
 
     this.renderer.setStyle(this.divCreated, 'position', 'absolute');
     this.renderer.setStyle(this.divCreated, 'width', '100%');
