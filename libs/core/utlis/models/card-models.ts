@@ -18,5 +18,5 @@ export interface IBlock {
 
 export interface IBlockInstance {
   id: InputSignal<number>;
-  blockCard: InputSignal<IBlock>;
+  block: InputSignal<IBlock>;
 }

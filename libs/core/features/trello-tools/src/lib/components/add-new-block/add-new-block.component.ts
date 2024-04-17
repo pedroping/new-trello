@@ -74,7 +74,6 @@ export class AddNewBlockComponent {
   addList() {
     const listName = this.listName.value;
     if (!listName) return;
-    const blocks = this.blocks$$.value;
 
     this.dbFacadeService
       .createBlock({ name: this.listName.value })

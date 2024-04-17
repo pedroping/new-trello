@@ -1,30 +1,20 @@
-@if (blockCard().cards$ | async; as cards) {
+@if (block().cards$ | async; as cards) {
   <div
-    [id]="id()"
     class="content"
     [baseSize]="105"
-    #values="trelloCardBlockHeight"
-    [addNewEvent$]="blockCard().addNewEvent$"
-    [trelloCardBlockHeight]="cards.length"
+    [trelloCardBlockHeight]="onCardMovement$"
   >
     @if (!isPreview()) {
       <trello-card-header></trello-card-header>
-      <card-list
-        [id]="id()"
-        [blockCard]="blockCard()"
-        [isSelected]="isSelectedBlock"
-      ></card-list>
+      <card-list></card-list>
       <trello-card-footer
-        [id]="id()"
-        [length]="cards.length"
-        [addNewEvent$]="blockCard().addNewEvent$"
+        [onCardMovement$]="onCardMovement$"
       ></trello-card-footer>
     } @else {
       <div
         class="card-list"
-        [trelloCardBlockHeight]="cards.length"
+        [trelloCardBlockHeight]="onCardMovement$"
         [baseSize]="50"
-        [id]="id()"
       ></div>
     }
   </div>

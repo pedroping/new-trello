@@ -19,7 +19,7 @@ import {
   tap,
   throttleTime,
 } from 'rxjs';
-import { LIST_ID_ATTR } from '../../models/card.models';
+import { LIST_ID_ATTR } from '../models/card.models';
 import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
 
 @Injectable({ providedIn: 'root' })
@@ -92,10 +92,17 @@ export class DragAndDropService {
         this.dbFacadeService.editCard(editCard).subscribe(() => {
           if (!oldListId || !newListId) return;
           this.validCardsOrder(+oldListId, +newListId);
+          this.findList(oldListId)?.cards$.next(event.previousContainer.data);
+          this.findList(newListId)?.cards$.next(event.container.data);
         });
         this.cardMoving = undefined;
       }
     }
+  }
+
+  findList(id: string | number) {
+    const allBlocks = this.dbFacadeService.allBlocks$.value;
+    return allBlocks.find((block) => block.id === +id);
   }
 
   blockDrop(event: CdkDragDrop<IBlock[]>) {
@@ -123,10 +130,8 @@ export class DragAndDropService {
   }
 
   validCardsOrder(oldListId: number, newListId: number) {
-    const allBlocks = this.dbFacadeService.allBlocks$.value;
     if (oldListId === newListId) {
-      const cards =
-        allBlocks.find((block) => block.id === newListId)?.cards$.value ?? [];
+      const cards = this.findList(newListId)?.cards$.value ?? [];
 
       cards.forEach((card, index) => {
         const newCard: Icard = { ...card, cardIndex: index };
@@ -135,10 +140,8 @@ export class DragAndDropService {
       return;
     }
 
-    const oldListCards =
-      allBlocks.find((block) => block.id === oldListId)?.cards$.value ?? [];
-    const newListCards =
-      allBlocks.find((block) => block.id === newListId)?.cards$.value ?? [];
+    const oldListCards = this.findList(oldListId)?.cards$.value ?? [];
+    const newListCards = this.findList(newListId)?.cards$.value ?? [];
 
     [...oldListCards, ...newListCards].forEach((card, index) => {
       const newCard: Icard = { ...card, cardIndex: index };

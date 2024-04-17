@@ -19,6 +19,9 @@ import { CardMoveDirective } from '../card-move/card-move.directive';
 })
 @CallSetValueChanges()
 export class DragScrollDirective {
+  mouseDown = false;
+  startX = 0;
+  scrollLeft = 0;
   @ContentChild('pageContent', { static: true }) pageContent!: ElementRef;
 
   constructor(
@@ -28,10 +31,6 @@ export class DragScrollDirective {
     private readonly genericSidenavsFacadeService: GenericSidenavsFacadeService,
     private readonly dragElementsService: DragElementsService,
   ) {}
-
-  mouseDown = false;
-  startX = 0;
-  scrollLeft = 0;
 
   @HostListener('mousedown', ['$event'])
   startDragging(e: MouseEvent) {
