@@ -1,16 +1,15 @@
 @if (blockCard.cards$ | async; as cards) {
   <div
-    #cardList
     class="card-list"
     cdkDropList
     scrollToEnd
-    [attr.list-id]="blockCard.id"
-    [cdkDropListAutoScrollStep]="scrollMoveTick"
     [cdkDropListData]="cards"
-    [style.z-index]="customZIndex$ | async"
+    [attr.list-id]="blockCard.id"
     (cdkDropListExited)="setExited()"
     (cdkDropListEntered)="setEntered()"
     (cdkDropListDropped)="drop($event)"
+    [style.z-index]="customZIndex$ | async"
+    [cdkDropListAutoScrollStep]="scrollMoveTick"
   >
     @for (item of cards; track item) {
       <div cdkDrag (cdkDragMoved)="onMove(item, $event)">

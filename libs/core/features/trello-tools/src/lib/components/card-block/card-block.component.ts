@@ -13,6 +13,7 @@ import { CardFooterComponent } from '../card-footer/card-footer.component';
 import { CardHeaderComponent } from '../card-header/card-header.component';
 import { CardListComponent } from '../card-list/card-list.component';
 import { Subject } from 'rxjs';
+import { IN_OUT_HEIGHT_ANIMATION } from '../../animations/in-out-height';
 
 @Component({
   selector: 'trello-card-block',
