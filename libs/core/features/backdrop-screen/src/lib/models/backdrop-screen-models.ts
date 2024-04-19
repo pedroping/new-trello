@@ -1,6 +1,8 @@
-import { TemplateRef } from '@angular/core';
+import { Injector, Type } from '@angular/core';
 
-export interface BackDropEvent {
+export interface BackDropEvent<T> {
   domRect: DOMRect;
-  template: TemplateRef<unknown>;
+  component: Type<unknown>;
+  data?: T;
+  injector?: Injector;
 }

@@ -3,17 +3,25 @@ import { BehaviorSubject } from 'rxjs';
 import { BackDropEvent } from '../models/backdrop-screen-models';
 
 @Injectable({ providedIn: 'root' })
-export class BackdropStateService {
+export class BackdropStateService<T> {
   private backDropEvent$ = new BehaviorSubject<
-    BackDropEvent | null | undefined
+    BackDropEvent<T> | null | undefined
   >(null);
   private backDropEvent$$ = this.backDropEvent$.asObservable();
+
+  get backDropEventValue() {
+    return this.backDropEvent$.value;
+  }
 
   get backDropEventSubscription$() {
     return this.backDropEvent$$;
   }
 
-  setBackDropState(contentDirective?: BackDropEvent | null) {
-    this.backDropEvent$.next(contentDirective);
+  setBackDropState(objecConfig: BackDropEvent<T>) {
+    this.backDropEvent$.next(objecConfig);
+  }
+
+  removeBackDrop() {
+    this.backDropEvent$.next(null);
   }
 }

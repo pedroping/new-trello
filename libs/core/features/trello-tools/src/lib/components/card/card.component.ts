@@ -3,6 +3,7 @@ import {
   ElementRef,
   EnvironmentInjector,
   Inject,
+  Injector,
   effect,
   inject,
   input,
@@ -28,6 +29,7 @@ import {
   IBlock,
   IBlockInstance,
   Icard,
+  IcardAsPropery,
   OutsideClickEventsService,
 } from '@my-monorepo/core/utlis';
 import { merge, skip } from 'rxjs';
@@ -56,7 +58,7 @@ export class CardComponent {
   blockCard: IBlock;
 
   nameInput = viewChild<ElementRef<HTMLInputElement>>('nameInput');
-  editTemplate = viewChild<BackDropEvent>(BackdropContentDirective);
+  templateRect = viewChild(BackdropContentDirective);
   onAddNew = input<boolean>(false);
 
   cardNameControl = new FormControl('', {
@@ -67,11 +69,12 @@ export class CardComponent {
   injector = inject(EnvironmentInjector);
 
   constructor(
-    @Inject(BLOCK_TOKEN) cardBlock: IBlockInstance,
-    private readonly backdropStateService: BackdropStateService,
+    private readonly classInjector: Injector,
+    private readonly dbFacadeService: DbFacadeService,
+    @Inject(BLOCK_TOKEN) private readonly cardBlock: IBlockInstance,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
     private readonly outsideClickEventsService: OutsideClickEventsService,
-    private readonly dbFacadeService: DbFacadeService,
+    private readonly backdropStateService: BackdropStateService<IcardAsPropery>,
   ) {
     this.blockCard = cardBlock.block;
   }
@@ -130,7 +133,28 @@ export class CardComponent {
   }
 
   editclick() {
+    const templateRect = this.templateRect();
+    const card = this.card();
+    if (!templateRect || !card) return;
+    const backdropEvent: BackDropEvent<IcardAsPropery> = {
+      data: { card: card },
+      component: CardEditComponent,
+      injector: this.getInjector(),
+      domRect: templateRect.domRect,
+    };
     this.outsideClickEventsService.editClick$.next();
-    this.backdropStateService.setBackDropState(this.editTemplate());
+    this.backdropStateService.setBackDropState(backdropEvent);
+  }
+
+  getInjector() {
+    return Injector.create({
+      providers: [
+        {
+          provide: BLOCK_TOKEN,
+          useValue: this.cardBlock,
+        },
+      ],
+      parent: this.classInjector,
+    });
   }
 }

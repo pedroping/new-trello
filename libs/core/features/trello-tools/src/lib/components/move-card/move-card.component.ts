@@ -7,6 +7,7 @@ import {
   IBlock,
   IBlockInstance,
   Icard,
+  IcardAsPropery,
 } from '@my-monorepo/core/utlis';
 import { map } from 'rxjs';
 
@@ -18,7 +19,7 @@ import { map } from 'rxjs';
   imports: [AsyncPipe],
 })
 export class MoveCardComponent {
-  card = input<Icard>();
+  card = input<Icard | null>();
   blockCard: IBlock;
 
   blocks$$ = this.dbFacadeService.allBlocks$.pipe(
@@ -30,7 +31,7 @@ export class MoveCardComponent {
   constructor(
     @Inject(BLOCK_TOKEN) cardBlock: IBlockInstance,
     private readonly dbFacadeService: DbFacadeService,
-    private readonly backdropStateService: BackdropStateService,
+    private readonly backdropStateService: BackdropStateService<IcardAsPropery>,
   ) {
     this.blockCard = cardBlock.block;
   }
@@ -46,7 +47,7 @@ export class MoveCardComponent {
         this.blockCard.id,
       );
       block.cards$ = this.dbFacadeService.getCardsByBlockId(block.id);
-      this.backdropStateService.setBackDropState();
+      this.backdropStateService.removeBackDrop();
     });
   }
 }

@@ -5,8 +5,10 @@ import { BackDropEvent } from '../models/backdrop-screen-models';
   selector: '[backDropContent]',
   standalone: true,
 })
-export class BackdropContentDirective implements BackDropEvent {
-  constructor(readonly template: TemplateRef<unknown>) {}
+export class BackdropContentDirective<T>
+  implements Omit<BackDropEvent<T>, 'component'>
+{
+  constructor(private readonly template: TemplateRef<unknown>) {}
 
   get domRect() {
     const parentElement = (

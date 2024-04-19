@@ -9,7 +9,6 @@ import {
   ViewContainerRef,
   effect,
   inject,
-  input,
   viewChild,
 } from '@angular/core';
 import {
@@ -32,6 +31,7 @@ import {
   IBlock,
   IBlockInstance,
   Icard,
+  IcardAsPropery,
   OutsideClickEventsService,
 } from '@my-monorepo/core/utlis';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -57,7 +57,7 @@ import { MoveCardComponent } from '../move-card/move-card.component';
 @UntilDestroy()
 export class CardEditComponent implements OnInit {
   blockCard: IBlock;
-  card = input<Icard>();
+  card: Icard | null = null;
   menu = viewChild<TemplateRef<unknown>>('menu');
   input = viewChild<ElementRef<HTMLInputElement>>('nameInput');
   injector = inject(EnvironmentInjector);
@@ -68,21 +68,21 @@ export class CardEditComponent implements OnInit {
   });
 
   constructor(
-    @Inject(BLOCK_TOKEN) cardBlock: IBlockInstance,
     private readonly rendere2: Renderer2,
+    @Inject(BLOCK_TOKEN) cardBlock: IBlockInstance,
     private readonly dbFacadeService: DbFacadeService,
     private readonly viewContainerRef: ViewContainerRef,
     private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly backdropStateService: BackdropStateService,
     private readonly openCustomMenuService: OpenCustomMenuService,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
+    private readonly backdropStateService: BackdropStateService<IcardAsPropery>,
     private readonly outsideClickEventsService: OutsideClickEventsService,
   ) {
     this.blockCard = cardBlock.block;
   }
 
   ngOnInit(): void {
-    const card = this.card();
+    const card = this.card;
     if (!card) return;
     this.cardNameControl.setValue(card.name);
   }
@@ -104,7 +104,7 @@ export class CardEditComponent implements OnInit {
     const outSideClick$$ = this.outsideClickEventsService.outSideClick$$;
 
     outSideClick$$.pipe(untilDestroyed(this)).subscribe(() => {
-      this.backdropStateService.setBackDropState();
+      this.backdropStateService.removeBackDrop();
     });
 
     effect(() => {
@@ -142,7 +142,7 @@ export class CardEditComponent implements OnInit {
 
   editCard() {
     if (this.cardNameControl.invalid) return;
-    const card = this.card();
+    const card = this.card;
     if (!card) return this.closeEdit();
     card.name = this.cardNameControl.value;
     this.dbFacadeService.editCard(card);
@@ -150,22 +150,22 @@ export class CardEditComponent implements OnInit {
   }
 
   closeEdit() {
-    this.backdropStateService.setBackDropState();
+    this.backdropStateService.removeBackDrop();
   }
 
   archive() {
-    const card = this.card();
+    const card = this.card;
     if (!card || !card.id) return;
     this.dbFacadeService.deleteCard(card.id).subscribe(() => {
       this.blockCard.cards$ = this.dbFacadeService.getCardsByBlockId(
         this.blockCard.id,
       );
-      this.backdropStateService.setBackDropState();
+      this.backdropStateService.removeBackDrop();
     });
   }
 
   duplicate() {
-    const card = this.card();
+    const card = this.card;
     if (!card || !card.id) return;
     const newCard: Omit<Icard, 'id'> = {
       blockId: card.blockId,
@@ -186,7 +186,7 @@ export class CardEditComponent implements OnInit {
         this.blockCard.id,
         this.blockCard.id,
       );
-      this.backdropStateService.setBackDropState();
+      this.backdropStateService.removeBackDrop();
     });
   }
 }

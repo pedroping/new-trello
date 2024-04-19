@@ -19,3 +19,7 @@ export interface IBlockInstance {
   id: number;
   block: IBlock;
 }
+
+export interface IcardAsPropery {
+  card: Icard;
+}
