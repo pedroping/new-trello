@@ -10,7 +10,6 @@ import { CARD_SIZE, FOOTER_TOP } from '../../models/card.models';
   standalone: true,
   host: {
     '[style.top]': 'top()',
-    style: 'transition: top 200ms ease-in-out',
   },
 })
 @CallSetValueChanges()
@@ -25,13 +24,12 @@ export class FooterTopDirective {
     @Inject(BLOCK_TOKEN) cardBlock: IBlockInstance,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
   ) {
-    this.id = cardBlock.id();
-    this.addNewEvent$ = cardBlock.block().addNewEvent$;
-    cardBlock
-      .block()
-      .cards$.asObservable()
+    this.id = cardBlock.id;
+    this.addNewEvent$ = cardBlock.block.addNewEvent$;
+    cardBlock.block.cards$
+      .asObservable()
       .pipe(
-        startWith(cardBlock.block().cards$.value),
+        startWith(cardBlock.block.cards$.value),
         map((cards) => cards.length),
       )
       .subscribe((length) => this.length$.next(length));

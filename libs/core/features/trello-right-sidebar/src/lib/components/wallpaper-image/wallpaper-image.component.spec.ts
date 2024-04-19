@@ -11,9 +11,8 @@ describe('WallpaperImageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WallpaperImageComponent ]
-    })
-    .compileComponents();
+      declarations: [WallpaperImageComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

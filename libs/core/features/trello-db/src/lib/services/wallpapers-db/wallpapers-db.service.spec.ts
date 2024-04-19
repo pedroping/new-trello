@@ -6,11 +6,14 @@ import { WallpapersDbService } from './wallpapers-db.service';
 describe('Service: WallpapersDb', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [WallpapersDbService]
+      providers: [WallpapersDbService],
     });
   });
 
-  it('should ...', inject([WallpapersDbService], (service: WallpapersDbService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [WallpapersDbService],
+    (service: WallpapersDbService) => {
+      expect(service).toBeTruthy();
+    },
+  ));
 });

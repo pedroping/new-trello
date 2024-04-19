@@ -27,11 +27,11 @@ export class CardHeaderComponent {
   cards$: BehaviorSubject<Icard[]>;
 
   constructor(@Inject(BLOCK_TOKEN) cardBlock: IBlockInstance) {
-    this.id = cardBlock.id();
-    this.title = cardBlock.block().name;
-    this.cards$ = cardBlock.block().cards$;
-    this.cardLength$ = cardBlock.block().cards$.pipe(
-      startWith(cardBlock.block().cards$.value),
+    this.id = cardBlock.id;
+    this.title = cardBlock.block.name;
+    this.cards$ = cardBlock.block.cards$;
+    this.cardLength$ = cardBlock.block.cards$.pipe(
+      startWith(cardBlock.block.cards$.value),
       map((cards) => cards.length),
     );
   }

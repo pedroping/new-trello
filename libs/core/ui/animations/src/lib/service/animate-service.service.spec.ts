@@ -6,11 +6,14 @@ import { AnimateServiceService } from './animate-service.service';
 describe('Service: AnimateService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [AnimateServiceService]
+      providers: [AnimateServiceService],
     });
   });
 
-  it('should ...', inject([AnimateServiceService], (service: AnimateServiceService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [AnimateServiceService],
+    (service: AnimateServiceService) => {
+      expect(service).toBeTruthy();
+    },
+  ));
 });

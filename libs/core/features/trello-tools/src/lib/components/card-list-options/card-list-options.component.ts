@@ -24,8 +24,8 @@ export class CardOptionsComponent {
     private readonly dbFacadeService: DbFacadeService,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
   ) {
-    this.listId = cardBlock.id();
-    this.cards$ = cardBlock.block().cards$;
+    this.listId = cardBlock.id;
+    this.cards$ = cardBlock.block.cards$;
   }
 
   closeMenu() {

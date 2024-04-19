@@ -6,11 +6,14 @@ import { CardBlockDbService } from './card-block-db.service';
 describe('Service: CardBlockDb', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CardBlockDbService]
+      providers: [CardBlockDbService],
     });
   });
 
-  it('should ...', inject([CardBlockDbService], (service: CardBlockDbService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [CardBlockDbService],
+    (service: CardBlockDbService) => {
+      expect(service).toBeTruthy();
+    },
+  ));
 });

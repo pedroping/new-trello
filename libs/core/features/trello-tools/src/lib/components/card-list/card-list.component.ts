@@ -37,8 +37,8 @@ export class CardListComponent {
     @Inject(BLOCK_TOKEN) cardBlock: IBlockInstance,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
   ) {
-    this.id = cardBlock.id();
-    this.blockCard = cardBlock.block();
+    this.id = cardBlock.id;
+    this.blockCard = cardBlock.block;
   }
 
   setValueChanges() {

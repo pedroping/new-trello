@@ -6,7 +6,7 @@ import { DbFacadeService } from './db-facade.service';
 describe('Service: DbFacade', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [DbFacadeService]
+      providers: [DbFacadeService],
     });
   });
 

@@ -13,7 +13,7 @@ export class ScrollToEndDirective {
   private readonly elementRef = inject(ElementRef);
 
   constructor(@Inject(BLOCK_TOKEN) cardBlock: IBlockInstance) {
-    this.addNewEvent$ = cardBlock.block().addNewEvent$;
+    this.addNewEvent$ = cardBlock.block.addNewEvent$;
   }
 
   setValueChanges() {

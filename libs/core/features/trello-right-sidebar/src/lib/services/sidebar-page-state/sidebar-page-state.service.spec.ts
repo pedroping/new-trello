@@ -6,11 +6,14 @@ import { SidebarPageStateService } from './sidebar-page-state.service';
 describe('Service: SidebarPageState', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SidebarPageStateService]
+      providers: [SidebarPageStateService],
     });
   });
 
-  it('should ...', inject([SidebarPageStateService], (service: SidebarPageStateService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [SidebarPageStateService],
+    (service: SidebarPageStateService) => {
+      expect(service).toBeTruthy();
+    },
+  ));
 });

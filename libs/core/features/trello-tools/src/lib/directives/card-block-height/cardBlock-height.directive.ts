@@ -10,7 +10,6 @@ import { CARD_SIZE } from '../../models/card.models';
   standalone: true,
   host: {
     '[style.height]': 'height()',
-    style: 'transition: height 200ms ease-in-out',
   },
 })
 @CallSetValueChanges()
@@ -30,8 +29,8 @@ export class CardBlockHeightDirective {
   ) {}
 
   setValueChanges() {
-    this.id = this.cardBlock.id();
-    this.addNewEvent$ = this.cardBlock.block().addNewEvent$;
+    this.id = this.cardBlock.id;
+    this.addNewEvent$ = this.cardBlock.block.addNewEvent$;
     merge(this.length$, this.addNewEvent$, this.onCardMovement$())
       .pipe(startWith())
       .subscribe(() => this.calcHeight());
@@ -55,7 +54,7 @@ export class CardBlockHeightDirective {
   }
 
   setLenght() {
-    const cards$ = this.cardBlock.block().cards$;
+    const cards$ = this.cardBlock.block.cards$;
     cards$
       .asObservable()
       .pipe(

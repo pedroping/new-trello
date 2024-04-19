@@ -32,7 +32,7 @@ export class MoveCardComponent {
     private readonly dbFacadeService: DbFacadeService,
     private readonly backdropStateService: BackdropStateService,
   ) {
-    this.blockCard = cardBlock.block();
+    this.blockCard = cardBlock.block;
   }
 
   moveToBlock(block: IBlock) {

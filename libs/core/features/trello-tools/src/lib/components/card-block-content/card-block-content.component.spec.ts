@@ -3,20 +3,20 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { ConfigPageComponent } from './config-page.component';
+import { CardBlockContentComponent } from './card-block-content.component';
 
-describe('ConfigPageComponent', () => {
-  let component: ConfigPageComponent;
-  let fixture: ComponentFixture<ConfigPageComponent>;
+describe('CardBlockContentComponent', () => {
+  let component: CardBlockContentComponent;
+  let fixture: ComponentFixture<CardBlockContentComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ConfigPageComponent],
+      declarations: [CardBlockContentComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ConfigPageComponent);
+    fixture = TestBed.createComponent(CardBlockContentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

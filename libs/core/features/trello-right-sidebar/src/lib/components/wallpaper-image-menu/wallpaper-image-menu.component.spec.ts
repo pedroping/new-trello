@@ -11,9 +11,8 @@ describe('WallpaperImageMenuComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WallpaperImageMenuComponent ]
-    })
-    .compileComponents();
+      declarations: [WallpaperImageMenuComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -6,11 +6,14 @@ import { RightSidebarFacadeService } from './right-sidebar-facade.service';
 describe('Service: RightSidebarFacade', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [RightSidebarFacadeService]
+      providers: [RightSidebarFacadeService],
     });
   });
 
-  it('should ...', inject([RightSidebarFacadeService], (service: RightSidebarFacadeService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [RightSidebarFacadeService],
+    (service: RightSidebarFacadeService) => {
+      expect(service).toBeTruthy();
+    },
+  ));
 });

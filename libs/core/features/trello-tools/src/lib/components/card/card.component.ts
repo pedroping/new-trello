@@ -73,7 +73,7 @@ export class CardComponent {
     private readonly outsideClickEventsService: OutsideClickEventsService,
     private readonly dbFacadeService: DbFacadeService,
   ) {
-    this.blockCard = cardBlock.block();
+    this.blockCard = cardBlock.block;
   }
 
   setValueChanges() {

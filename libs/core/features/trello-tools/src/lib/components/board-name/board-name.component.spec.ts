@@ -11,9 +11,8 @@ describe('BoardNameComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BoardNameComponent ]
-    })
-    .compileComponents();
+      declarations: [BoardNameComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

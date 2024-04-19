@@ -14,9 +14,10 @@
       <div class="block" cdkDrag (cdkDragMoved)="onMove($event)">
         <div cdkDragHandle></div>
         <trello-card-block
-          *cdkDragPlaceholder
-          [isPreview]="true"
+          [id]="block.id"
           [block]="block"
+          [isPreview]="true"
+          *cdkDragPlaceholder
         ></trello-card-block>
         <trello-card-block [id]="block.id" [block]="block"></trello-card-block>
       </div>

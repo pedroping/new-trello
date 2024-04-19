@@ -78,7 +78,7 @@ export class CardEditComponent implements OnInit {
     private readonly cardEventsFacadeService: CardEventsFacadeService,
     private readonly outsideClickEventsService: OutsideClickEventsService,
   ) {
-    this.blockCard = cardBlock.block();
+    this.blockCard = cardBlock.block;
   }
 
   ngOnInit(): void {

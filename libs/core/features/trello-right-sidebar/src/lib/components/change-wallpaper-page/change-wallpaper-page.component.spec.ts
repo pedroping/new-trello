@@ -11,9 +11,8 @@ describe('ChangeWallpaperPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChangeWallpaperPageComponent ]
-    })
-    .compileComponents();
+      declarations: [ChangeWallpaperPageComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

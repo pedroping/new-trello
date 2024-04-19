@@ -29,7 +29,7 @@ export class CardFooterComponent {
     @Inject(BLOCK_TOKEN) cardBlock: IBlockInstance,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
   ) {
-    this.addNewEvent$ = cardBlock.block().addNewEvent$;
+    this.addNewEvent$ = cardBlock.block.addNewEvent$;
   }
 
   handleAddNew() {

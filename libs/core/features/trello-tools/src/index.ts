@@ -6,4 +6,3 @@ export * from './lib/directives/cursor-dragging/cursor-dragging.directive';
 export * from './lib/directives/disable-button-on-drag/disable-button-on-drag.directive';
 export * from './lib/facades/card-events-facade.service';
 export * from './lib/models/card.models';
-

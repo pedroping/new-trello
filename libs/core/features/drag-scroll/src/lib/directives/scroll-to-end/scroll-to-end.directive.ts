@@ -27,7 +27,7 @@ export class ScrollToEndDirective {
       .subscribe((blocks) => {
         const length = blocks.length;
 
-        if (this.lasIndex < +length)
+        if (this.lasIndex <= +length)
           this.el.nativeElement.parentElement.scroll({
             left: (length + 1) * BASE_BLOCK_SIZE + BASE_ADD_NEW_SIZE,
             top: 0,

@@ -6,7 +6,7 @@ import { CardDbService } from './card-db.service';
 describe('Service: CardDb', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CardDbService]
+      providers: [CardDbService],
     });
   });
 
