@@ -39,7 +39,7 @@
         ],
         "scripts": [],
         "stylePreprocessorOptions": {
-          "includePaths": ["libs/core/themes/new-trello"]
+          "includePaths": ["libs/core/themes"]
         },
         "serviceWorker": true,
         "ngswConfigPath": "apps/new-trello/ngsw-config.json"
