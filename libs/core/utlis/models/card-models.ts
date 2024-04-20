@@ -20,6 +20,6 @@ export interface IBlockInstance {
   block: IBlock;
 }
 
-export interface IcardAsPropery {
+export interface IcardAsProperty {
   card: Icard;
 }

@@ -31,7 +31,7 @@ import {
   IBlock,
   IBlockInstance,
   Icard,
-  IcardAsPropery,
+  IcardAsProperty,
   OutsideClickEventsService,
 } from '@my-monorepo/core/utlis';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -75,7 +75,7 @@ export class CardEditComponent implements OnInit {
     private readonly elementRef: ElementRef<HTMLElement>,
     private readonly openCustomMenuService: OpenCustomMenuService,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
-    private readonly backdropStateService: BackdropStateService<IcardAsPropery>,
+    private readonly backdropStateService: BackdropStateService<IcardAsProperty>,
     private readonly outsideClickEventsService: OutsideClickEventsService,
   ) {
     this.blockCard = cardBlock.block;

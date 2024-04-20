@@ -29,7 +29,7 @@ import {
   IBlock,
   IBlockInstance,
   Icard,
-  IcardAsPropery,
+  IcardAsProperty,
   OutsideClickEventsService,
 } from '@my-monorepo/core/utlis';
 import { merge, skip } from 'rxjs';
@@ -54,19 +54,16 @@ import { CardEditComponent } from '../card-edit/card-edit.component';
 export class CardComponent {
   card = input<Icard>();
   isPreview = input<boolean>();
-
   blockCard: IBlock;
-
-  nameInput = viewChild<ElementRef<HTMLInputElement>>('nameInput');
-  templateRect = viewChild(BackdropContentDirective);
-  onAddNew = input<boolean>(false);
-
   cardNameControl = new FormControl('', {
     nonNullable: true,
     validators: [Validators.required],
   });
 
+  onAddNew = input<boolean>(false);
   injector = inject(EnvironmentInjector);
+  templateRect = viewChild(BackdropContentDirective);
+  nameInput = viewChild<ElementRef<HTMLInputElement>>('nameInput');
 
   constructor(
     private readonly classInjector: Injector,
@@ -74,7 +71,7 @@ export class CardComponent {
     @Inject(BLOCK_TOKEN) private readonly cardBlock: IBlockInstance,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
     private readonly outsideClickEventsService: OutsideClickEventsService,
-    private readonly backdropStateService: BackdropStateService<IcardAsPropery>,
+    private readonly backdropStateService: BackdropStateService<IcardAsProperty>,
   ) {
     this.blockCard = cardBlock.block;
   }
@@ -136,7 +133,7 @@ export class CardComponent {
     const templateRect = this.templateRect();
     const card = this.card();
     if (!templateRect || !card) return;
-    const backdropEvent: BackDropEvent<IcardAsPropery> = {
+    const backdropEvent: BackDropEvent<IcardAsProperty> = {
       data: { card: card },
       component: CardEditComponent,
       injector: this.getInjector(),

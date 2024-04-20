@@ -7,7 +7,7 @@ import {
   IBlock,
   IBlockInstance,
   Icard,
-  IcardAsPropery,
+  IcardAsProperty,
 } from '@my-monorepo/core/utlis';
 import { map } from 'rxjs';
 
@@ -31,7 +31,7 @@ export class MoveCardComponent {
   constructor(
     @Inject(BLOCK_TOKEN) cardBlock: IBlockInstance,
     private readonly dbFacadeService: DbFacadeService,
-    private readonly backdropStateService: BackdropStateService<IcardAsPropery>,
+    private readonly backdropStateService: BackdropStateService<IcardAsProperty>,
   ) {
     this.blockCard = cardBlock.block;
   }

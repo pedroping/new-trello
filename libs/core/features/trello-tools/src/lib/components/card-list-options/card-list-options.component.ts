@@ -1,5 +1,5 @@
 import { CdkMenuTrigger } from '@angular/cdk/menu';
-import { Component, Inject, input } from '@angular/core';
+import { Component, Inject, input, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
@@ -18,6 +18,7 @@ export class CardOptionsComponent {
   listId: number;
   cards$: BehaviorSubject<Icard[]>;
   cdkTrigger = input.required<CdkMenuTrigger>();
+  editEvent = output();
 
   constructor(
     @Inject(BLOCK_TOKEN) cardBlock: IBlockInstance,
@@ -55,5 +56,10 @@ export class CardOptionsComponent {
     this.cards$.next(orderedCards);
     this.cardEventsFacadeService.validCardsOrder(this.listId, this.listId);
     this.closeMenu();
+  }
+
+  edit() {
+    this.editEvent.emit();
+    this.cdkTrigger().close();
   }
 }

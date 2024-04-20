@@ -16,6 +16,9 @@
 <ng-template #cardOptions>
   <trello-card-list-options
     cdkMenu
+    (editEvent)="edit()"
     [cdkTrigger]="menuTrigger"
   ></trello-card-list-options>
 </ng-template>
+
+<ng-container *backDropContent></ng-container>
