@@ -1,17 +1,8 @@
 import { CdkMenuModule } from '@angular/cdk/menu';
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  ElementRef,
-  Inject,
-  Injector,
-  viewChild,
-} from '@angular/core';
+import { Component, ElementRef, Inject, Injector } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import {
-  BackdropContentDirective,
-  BackdropStateService,
-} from '@my-monorepo/core/features/backdrop-screen';
+import { BackdropStateService } from '@my-monorepo/core/features/backdrop-screen';
 import { BLOCK_TOKEN, IBlockInstance, Icard } from '@my-monorepo/core/utlis';
 import { BehaviorSubject, Observable, map, startWith } from 'rxjs';
 import { CloseMenuDirective } from '../../directives/close-menu/close-menu.directive';
