@@ -55,6 +55,7 @@ export class CardHeaderComponent {
       component: CardBlockEditComponent,
       domRect: domRect,
       injector: this.getInjector(),
+      useSize: true,
     });
   }
 
