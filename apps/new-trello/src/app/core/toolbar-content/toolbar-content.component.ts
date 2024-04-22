@@ -37,7 +37,7 @@ export class ToolbarContentComponent {
   ) {}
 
   setValueChanges() {
-    this.outsideClickEventsService.outSideClick$.subscribe(() =>
+    this.outsideClickEventsService.outSideClick$$.subscribe(() =>
       this.menuTrigger?.close(),
     );
   }

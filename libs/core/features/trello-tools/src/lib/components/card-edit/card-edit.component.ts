@@ -101,11 +101,11 @@ export class CardEditComponent implements OnInit {
   }
 
   setValueChanges() {
-    const outSideClick$$ = this.outsideClickEventsService.outSideClick$$;
-
-    outSideClick$$.pipe(untilDestroyed(this)).subscribe(() => {
-      this.backdropStateService.removeBackDrop();
-    });
+    this.outsideClickEventsService.outSideClick$$
+      .pipe(untilDestroyed(this))
+      .subscribe(() => {
+        this.backdropStateService.removeBackDrop();
+      });
 
     effect(() => {
       this.input()?.nativeElement.focus({ preventScroll: true });

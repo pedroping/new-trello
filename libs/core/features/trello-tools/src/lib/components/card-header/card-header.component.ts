@@ -1,6 +1,12 @@
 import { CdkMenuModule } from '@angular/cdk/menu';
 import { AsyncPipe } from '@angular/common';
-import { Component, Inject, Injector, viewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Inject,
+  Injector,
+  viewChild,
+} from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import {
   BackdropContentDirective,
@@ -23,7 +29,6 @@ import { CardOptionsComponent } from '../card-list-options/card-list-options.com
     MatIconModule,
     CloseMenuDirective,
     CardOptionsComponent,
-    BackdropContentDirective,
   ],
 })
 export class CardHeaderComponent {
@@ -31,11 +36,11 @@ export class CardHeaderComponent {
   title: string;
   cardLength$: Observable<number>;
   cards$: BehaviorSubject<Icard[]>;
-  templateRect = viewChild(BackdropContentDirective);
 
   constructor(
-    @Inject(BLOCK_TOKEN) private readonly cardBlock: IBlockInstance,
     private readonly injector: Injector,
+    private readonly elementRef: ElementRef<HTMLElement>,
+    @Inject(BLOCK_TOKEN) private readonly cardBlock: IBlockInstance,
     private readonly backdropStateService: BackdropStateService<unknown>,
   ) {
     this.id = cardBlock.id;
@@ -48,8 +53,12 @@ export class CardHeaderComponent {
   }
 
   edit() {
-    const domRect = this.templateRect()?.domRect;
+    const domRect = this.getParentRect();
     if (!domRect) return;
+
+    console.log(
+      this.elementRef.nativeElement.parentElement?.getBoundingClientRect(),
+    );
 
     this.backdropStateService.setBackDropState({
       component: CardBlockEditComponent,
@@ -68,5 +77,9 @@ export class CardHeaderComponent {
       ],
       parent: this.injector,
     });
+  }
+
+  getParentRect() {
+    return this.elementRef.nativeElement.parentElement?.getBoundingClientRect();
   }
 }

@@ -139,7 +139,7 @@ export class CardComponent {
       injector: this.getInjector(),
       domRect: templateRect.domRect,
     };
-    this.outsideClickEventsService.editClick$.next();
+    this.outsideClickEventsService.setEditClick();
     this.backdropStateService.setBackDropState(backdropEvent);
   }
 

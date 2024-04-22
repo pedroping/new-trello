@@ -30,7 +30,7 @@ export class OutsideClickDirective {
       .pipe(
         skip(1),
         untilDestroyed(this),
-        takeUntil(this.outsideClickEventsService.stopTaking$),
+        takeUntil(this.outsideClickEventsService.stopTaking$$),
       )
       .subscribe((event) => {
         if (!event) return;
@@ -45,7 +45,7 @@ export class OutsideClickDirective {
 
         if (!isChildClick && !hasPreventElement) {
           this.ngZone.run(() => {
-            this.outsideClickEventsService.outSideClick$.next();
+            this.outsideClickEventsService.setOutSideClick();
           });
         }
       });

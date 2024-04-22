@@ -47,9 +47,9 @@ export class DragAndDropService {
       .pipe(
         filter((move) => !!move),
         untilDestroyed(this),
-        takeUntil(this.outsideClickEventsService.stopTaking$),
+        takeUntil(this.outsideClickEventsService.stopTaking$$),
       )
-      .subscribe(() => this.outsideClickEventsService.outSideClick$.next());
+      .subscribe(() => this.outsideClickEventsService.setOutSideClick());
 
     this.onCardMove$
       .pipe(
