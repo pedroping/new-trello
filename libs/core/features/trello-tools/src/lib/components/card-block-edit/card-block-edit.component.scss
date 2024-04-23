@@ -1,4 +1,30 @@
+@import 'root';
+
 :host {
+    @include second-box-shadow;
     display: block;
-    background-color: red;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    background-color: var(--block-color);
+
+    .content {
+        padding: 20px 15px;
+    }
+
+    .block-header {
+
+        input {
+            width: 100%;
+            height: 30px;
+            background-color: transparent;
+            margin: 0;
+            color: var(--text-02);
+
+            &:not(:focus) {
+                border: 1px solid white !important;
+            }
+        }
+    }
+
 }

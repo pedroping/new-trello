@@ -37,7 +37,9 @@ export class DisableButtonOnDragDirective {
     const btnParent = this.elementRef.nativeElement
       .parentElement as HTMLElement;
 
-    if (btnParent) this.renderer.setStyle(btnParent, 'position', 'relative');
+    if (!btnParent) return;
+
+    this.renderer.setStyle(btnParent, 'position', 'relative');
 
     if (!val) {
       this.renderer.removeChild(btnParent, this.divCreated);

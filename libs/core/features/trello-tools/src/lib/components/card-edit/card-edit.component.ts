@@ -157,9 +157,11 @@ export class CardEditComponent implements OnInit {
     const card = this.card;
     if (!card || !card.id) return;
     this.dbFacadeService.deleteCard(card.id).subscribe(() => {
-      this.blockCard.cards$ = this.dbFacadeService.getCardsByBlockId(
-        this.blockCard.id,
-      );
+      this.dbFacadeService
+        .getCardsByBlockId(this.blockCard.id)
+        .subscribe((cards) => {
+          this.blockCard.cards$.next(cards);
+        });
       this.backdropStateService.removeBackDrop();
     });
   }

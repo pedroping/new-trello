@@ -95,8 +95,8 @@ export class DragAndDropService {
         this.dbFacadeService.editCard(editCard).subscribe(() => {
           this.validCardsOrder(+oldListId, +newListId);
         });
-        this.cardMoving = undefined;
 
+        this.cardMoving = undefined;
         this.findList(oldListId)?.cards$.next(event.previousContainer.data);
         this.findList(newListId)?.cards$.next(event.container.data);
       }

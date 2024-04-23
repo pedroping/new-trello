@@ -32,7 +32,7 @@ import {
   IcardAsProperty,
   OutsideClickEventsService,
 } from '@my-monorepo/core/utlis';
-import { merge, skip } from 'rxjs';
+import { merge, skip, switchMap } from 'rxjs';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 import { CardEditComponent } from '../card-edit/card-edit.component';
 
@@ -106,19 +106,23 @@ export class CardComponent {
     if (this.cardNameControl.invalid) return;
 
     const cards = this.blockCard.cards$.value;
+    const newCard = {
+      name: this.cardNameControl.value,
+      blockId: this.blockCard.id,
+      cardIndex: cards.length,
+    };
 
     this.dbFacadeService
-      .createCard({
-        name: this.cardNameControl.value,
-        blockId: this.blockCard.id,
-        cardIndex: cards.length,
-      })
-      .subscribe(() => {
-        this.dbFacadeService
-          .getCardsByBlockId(this.blockCard.id)
-          .subscribe((cards) => {
-            this.blockCard.cards$.next(cards);
-          });
+      .createCard(newCard)
+      .pipe(
+        switchMap(() =>
+          this.dbFacadeService
+            .getCardsByBlockId(this.blockCard.id)
+            .pipe(skip(1)),
+        ),
+      )
+      .subscribe((dbCards) => {
+        this.blockCard.cards$.next(dbCards);
         this.cardNameControl.reset();
         if (onOutside) return this.cancelEvent();
         this.blockCard.addNewEvent$.next(true);
