@@ -72,6 +72,13 @@ $dark-mode-variables: (
 );
 
 :root {
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
   @each $name, $value in $project-variables {
     --#{$name}: #{$value} !important;
   }

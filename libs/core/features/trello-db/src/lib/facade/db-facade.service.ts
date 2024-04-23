@@ -58,7 +58,7 @@ export class DbFacadeService {
     return this.wallpapersDbService.deleteElement(id);
   }
 
-  editBlock(element: IBlock) {
+  editBlock(element: Omit<IBlock, 'addNewEvent$' | 'cards$'>) {
     return this.cardBlockDbService.editElement(element);
   }
 

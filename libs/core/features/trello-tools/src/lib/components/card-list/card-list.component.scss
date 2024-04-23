@@ -1,4 +1,7 @@
 :host {
+  display: block;
+  width: 100%;
+
   ::-webkit-scrollbar {
     width: 10px;
   }
@@ -11,7 +14,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-left: 8px;
+    margin-left: 10px;
+    padding-right: 4px;
     width: var(--card-width);
     min-height: 40px;
     border-bottom-left-radius: 10px;
@@ -19,9 +23,7 @@
     overflow: auto;
     overflow-x: hidden;
     position: absolute;
-    height: calc(100vh - 225px) !important;
-    padding-right: 5px;
-    padding-left: 1px;
+    height: calc(100vh - 230px) !important;
   }
 
   .example-custom-placeholder {

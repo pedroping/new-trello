@@ -1,7 +1,14 @@
 import { Directive, Inject, input, signal } from '@angular/core';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { BLOCK_TOKEN, IBlockInstance } from '@my-monorepo/core/utlis';
-import { BehaviorSubject, Subject, map, merge, startWith } from 'rxjs';
+import {
+  BehaviorSubject,
+  Subject,
+  fromEvent,
+  map,
+  merge,
+  startWith,
+} from 'rxjs';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 import { CARD_SIZE, FOOTER_TOP } from '../../models/card.models';
 
@@ -18,6 +25,7 @@ export class FooterTopDirective {
   length$ = new BehaviorSubject<number>(0);
   addNewEvent$: BehaviorSubject<boolean>;
   onCardMovement$ = input.required<Subject<void>>();
+  windowResize$ = fromEvent(window, 'resize');
   top = signal<string>('');
 
   constructor(
@@ -36,19 +44,22 @@ export class FooterTopDirective {
   }
 
   setValueChanges() {
-    merge(this.length$, this.addNewEvent$, this.onCardMovement$()).subscribe(
-      () => {
-        const isLastHovered =
-          this.cardEventsFacadeService.lastToBeHovered === this.id;
-        const onCardMove = this.cardEventsFacadeService.onCardMove;
-        const isOnAddnew = this.addNewEvent$.value;
-        const hasExpand = (onCardMove && isLastHovered) || isOnAddnew;
-        const baseTop =
-          this.length$.value * CARD_SIZE + (hasExpand ? CARD_SIZE : 0);
-        const maxTop = window.innerHeight - FOOTER_TOP;
+    merge(
+      this.length$,
+      this.addNewEvent$,
+      this.windowResize$,
+      this.onCardMovement$(),
+    ).subscribe(() => {
+      const isLastHovered =
+        this.cardEventsFacadeService.lastToBeHovered === this.id;
+      const onCardMove = this.cardEventsFacadeService.onCardMove;
+      const isOnAddnew = this.addNewEvent$.value;
+      const hasExpand = (onCardMove && isLastHovered) || isOnAddnew;
+      const baseTop =
+        this.length$.value * CARD_SIZE + (hasExpand ? CARD_SIZE : 0);
+      const maxTop = window.innerHeight - FOOTER_TOP;
 
-        this.top.set(Math.min(baseTop, maxTop) + 'px');
-      },
-    );
+      this.top.set(Math.min(baseTop, maxTop) + 'px');
+    });
   }
 }
