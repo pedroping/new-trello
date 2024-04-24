@@ -4,6 +4,7 @@
   @include second-box-shadow;
   width: 100%;
   height: var(--card-height);
+  min-height: var(--card-height);
   padding: 5px;
   color: var(--text-01);
   display: flex;

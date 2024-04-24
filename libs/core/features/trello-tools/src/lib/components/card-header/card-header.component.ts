@@ -31,7 +31,7 @@ export class CardHeaderComponent {
   constructor(
     private readonly injector: Injector,
     private readonly elementRef: ElementRef<HTMLElement>,
-    @Inject(BLOCK_TOKEN) private readonly cardBlock: IBlockInstance,
+    @Inject(BLOCK_TOKEN) readonly cardBlock: IBlockInstance,
     private readonly backdropStateService: BackdropStateService<unknown>,
   ) {
     this.id = cardBlock.id;
@@ -46,10 +46,6 @@ export class CardHeaderComponent {
   edit() {
     const domRect = this.getParentRect();
     if (!domRect) return;
-
-    console.log(
-      this.elementRef.nativeElement.parentElement?.getBoundingClientRect(),
-    );
 
     this.backdropStateService.setBackDropState({
       component: CardBlockEditComponent,

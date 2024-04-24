@@ -8,5 +8,15 @@
       (keyup.escape)="removeBackdrop()"
     />
   </div>
-  <trello-card [isPreview]="true" />
+
+  <div class="card-list-preview">
+    @for (item of cardColletions; track $index) {
+      <trello-card [isPreview]="true" />
+    }
+  </div>
+
+  <div class="save" (click)="saveActions()">
+    <mat-icon>save</mat-icon>
+    <span>Salvar</span>
+  </div>
 </div>
