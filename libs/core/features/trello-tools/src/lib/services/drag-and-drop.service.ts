@@ -146,9 +146,12 @@ export class DragAndDropService {
     const oldListCards = this.findList(oldListId)?.cards$.value ?? [];
     const newListCards = this.findList(newListId)?.cards$.value ?? [];
 
-    [...oldListCards, ...newListCards].forEach((card, index) => {
-      const newCard: Icard = { ...card, cardIndex: index };
-      this.dbFacadeService.editCard(newCard);
-    });
+    newListCards.forEach(this.saveCardIndex);
+    oldListCards.forEach(this.saveCardIndex);
   }
+
+  saveCardIndex = (card: Icard, index: number) => {
+    const newCard: Icard = { ...card, cardIndex: index };
+    this.dbFacadeService.editCard(newCard);
+  };
 }
