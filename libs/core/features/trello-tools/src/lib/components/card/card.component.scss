@@ -4,13 +4,13 @@
   @include second-box-shadow;
   width: 100%;
   height: var(--card-height);
+  min-height: var(--card-height);
   padding: 5px;
   color: var(--text-01);
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  box-sizing: border-box;
   cursor: grab;
   border: 1px solid var(--background-01);
   background-color: var(--background-01);

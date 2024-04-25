@@ -4,6 +4,12 @@
       class="content"
       [style.top]="backdropEvent.domRect.top + 'px'"
       [style.left]="backdropEvent.domRect.left + 'px'"
+      [style.width]="
+        backdropEvent.useSize ? backdropEvent.domRect.width + 'px' : ''
+      "
+      [style.height]="
+        backdropEvent.useSize ? backdropEvent.domRect.height + 'px' : ''
+      "
     >
       <ng-container #vcr></ng-container>
     </div>

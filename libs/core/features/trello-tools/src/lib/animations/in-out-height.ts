@@ -1,10 +1,4 @@
-import {
-  animate,
-  keyframes,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 export const IN_OUT_HEIGHT_ANIMATION = trigger('inOutHeightAnimation', [
   transition(

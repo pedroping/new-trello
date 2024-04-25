@@ -87,7 +87,7 @@ export class CardBlockDbService
     return eventResponse$.asObservable();
   }
 
-  editElement(element: IBlock) {
+  editElement(element: Omit<IBlock, 'addNewEvent$' | 'cards$'>) {
     const request = this.openRequest();
     const eventResponse$ = new Subject<IAddNewResponse>();
 

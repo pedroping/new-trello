@@ -60,7 +60,7 @@ export class AddNewBlockComponent {
       if (!this.onAddNew) return;
       this.listInput()?.nativeElement.focus();
       this.scrollEventsService.scrollToEnd$.next();
-      this.outsideClickEventsService.startTaking$.next();
+      this.outsideClickEventsService.setStartTaking();
     }),
       this.outsideClickEventsService.outSideClick$$.subscribe(() => {
         if (this.onAddNew) this.setState(false);

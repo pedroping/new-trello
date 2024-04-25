@@ -29,10 +29,10 @@ import {
   IBlock,
   IBlockInstance,
   Icard,
-  IcardAsPropery,
+  IcardAsProperty,
   OutsideClickEventsService,
 } from '@my-monorepo/core/utlis';
-import { merge, skip } from 'rxjs';
+import { merge, skip, switchMap } from 'rxjs';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 import { CardEditComponent } from '../card-edit/card-edit.component';
 
@@ -54,19 +54,16 @@ import { CardEditComponent } from '../card-edit/card-edit.component';
 export class CardComponent {
   card = input<Icard>();
   isPreview = input<boolean>();
-
   blockCard: IBlock;
-
-  nameInput = viewChild<ElementRef<HTMLInputElement>>('nameInput');
-  templateRect = viewChild(BackdropContentDirective);
-  onAddNew = input<boolean>(false);
-
   cardNameControl = new FormControl('', {
     nonNullable: true,
     validators: [Validators.required],
   });
 
+  onAddNew = input<boolean>(false);
   injector = inject(EnvironmentInjector);
+  templateRect = viewChild(BackdropContentDirective);
+  nameInput = viewChild<ElementRef<HTMLInputElement>>('nameInput');
 
   constructor(
     private readonly classInjector: Injector,
@@ -74,7 +71,7 @@ export class CardComponent {
     @Inject(BLOCK_TOKEN) private readonly cardBlock: IBlockInstance,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
     private readonly outsideClickEventsService: OutsideClickEventsService,
-    private readonly backdropStateService: BackdropStateService<IcardAsPropery>,
+    private readonly backdropStateService: BackdropStateService<IcardAsProperty>,
   ) {
     this.blockCard = cardBlock.block;
   }
@@ -109,19 +106,23 @@ export class CardComponent {
     if (this.cardNameControl.invalid) return;
 
     const cards = this.blockCard.cards$.value;
+    const newCard = {
+      name: this.cardNameControl.value,
+      blockId: this.blockCard.id,
+      cardIndex: cards.length,
+    };
 
     this.dbFacadeService
-      .createCard({
-        name: this.cardNameControl.value,
-        blockId: this.blockCard.id,
-        cardIndex: cards.length,
-      })
-      .subscribe(() => {
-        this.dbFacadeService
-          .getCardsByBlockId(this.blockCard.id)
-          .subscribe((cards) => {
-            this.blockCard.cards$.next(cards);
-          });
+      .createCard(newCard)
+      .pipe(
+        switchMap(() =>
+          this.dbFacadeService
+            .getCardsByBlockId(this.blockCard.id)
+            .pipe(skip(1)),
+        ),
+      )
+      .subscribe((dbCards) => {
+        this.blockCard.cards$.next(dbCards);
         this.cardNameControl.reset();
         if (onOutside) return this.cancelEvent();
         this.blockCard.addNewEvent$.next(true);
@@ -136,13 +137,13 @@ export class CardComponent {
     const templateRect = this.templateRect();
     const card = this.card();
     if (!templateRect || !card) return;
-    const backdropEvent: BackDropEvent<IcardAsPropery> = {
+    const backdropEvent: BackDropEvent<IcardAsProperty> = {
       data: { card: card },
       component: CardEditComponent,
       injector: this.getInjector(),
       domRect: templateRect.domRect,
     };
-    this.outsideClickEventsService.editClick$.next();
+    this.outsideClickEventsService.setEditClick();
     this.backdropStateService.setBackDropState(backdropEvent);
   }
 

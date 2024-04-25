@@ -47,9 +47,9 @@ export class DragAndDropService {
       .pipe(
         filter((move) => !!move),
         untilDestroyed(this),
-        takeUntil(this.outsideClickEventsService.stopTaking$),
+        takeUntil(this.outsideClickEventsService.stopTaking$$),
       )
-      .subscribe(() => this.outsideClickEventsService.outSideClick$.next());
+      .subscribe(() => this.outsideClickEventsService.setOutSideClick());
 
     this.onCardMove$
       .pipe(
@@ -95,8 +95,8 @@ export class DragAndDropService {
         this.dbFacadeService.editCard(editCard).subscribe(() => {
           this.validCardsOrder(+oldListId, +newListId);
         });
-        this.cardMoving = undefined;
 
+        this.cardMoving = undefined;
         this.findList(oldListId)?.cards$.next(event.previousContainer.data);
         this.findList(newListId)?.cards$.next(event.container.data);
       }
@@ -146,9 +146,12 @@ export class DragAndDropService {
     const oldListCards = this.findList(oldListId)?.cards$.value ?? [];
     const newListCards = this.findList(newListId)?.cards$.value ?? [];
 
-    [...oldListCards, ...newListCards].forEach((card, index) => {
-      const newCard: Icard = { ...card, cardIndex: index };
-      this.dbFacadeService.editCard(newCard);
-    });
+    newListCards.forEach(this.saveCardIndex);
+    oldListCards.forEach(this.saveCardIndex);
   }
+
+  saveCardIndex = (card: Icard, index: number) => {
+    const newCard: Icard = { ...card, cardIndex: index };
+    this.dbFacadeService.editCard(newCard);
+  };
 }

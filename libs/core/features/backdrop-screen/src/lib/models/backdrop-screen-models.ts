@@ -5,4 +5,5 @@ export interface BackDropEvent<T> {
   component: Type<unknown>;
   data?: T;
   injector?: Injector;
+  useSize?: boolean;
 }

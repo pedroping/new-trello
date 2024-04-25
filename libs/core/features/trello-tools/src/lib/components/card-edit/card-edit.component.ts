@@ -31,7 +31,7 @@ import {
   IBlock,
   IBlockInstance,
   Icard,
-  IcardAsPropery,
+  IcardAsProperty,
   OutsideClickEventsService,
 } from '@my-monorepo/core/utlis';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -75,7 +75,7 @@ export class CardEditComponent implements OnInit {
     private readonly elementRef: ElementRef<HTMLElement>,
     private readonly openCustomMenuService: OpenCustomMenuService,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
-    private readonly backdropStateService: BackdropStateService<IcardAsPropery>,
+    private readonly backdropStateService: BackdropStateService<IcardAsProperty>,
     private readonly outsideClickEventsService: OutsideClickEventsService,
   ) {
     this.blockCard = cardBlock.block;
@@ -101,11 +101,11 @@ export class CardEditComponent implements OnInit {
   }
 
   setValueChanges() {
-    const outSideClick$$ = this.outsideClickEventsService.outSideClick$$;
-
-    outSideClick$$.pipe(untilDestroyed(this)).subscribe(() => {
-      this.backdropStateService.removeBackDrop();
-    });
+    this.outsideClickEventsService.outSideClick$$
+      .pipe(untilDestroyed(this))
+      .subscribe(() => {
+        this.backdropStateService.removeBackDrop();
+      });
 
     effect(() => {
       this.input()?.nativeElement.focus({ preventScroll: true });
@@ -157,9 +157,11 @@ export class CardEditComponent implements OnInit {
     const card = this.card;
     if (!card || !card.id) return;
     this.dbFacadeService.deleteCard(card.id).subscribe(() => {
-      this.blockCard.cards$ = this.dbFacadeService.getCardsByBlockId(
-        this.blockCard.id,
-      );
+      this.dbFacadeService
+        .getCardsByBlockId(this.blockCard.id)
+        .subscribe((cards) => {
+          this.blockCard.cards$.next(cards);
+        });
       this.backdropStateService.removeBackDrop();
     });
   }

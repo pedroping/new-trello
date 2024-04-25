@@ -1,5 +1,5 @@
 <div class="title">
-  <span [title]="title">{{ title }}</span>
+  <span [title]="block.name">{{ block.name }}</span>
   <span>{{ cardLength$ | async }} cartões </span>
 </div>
 <div
@@ -16,6 +16,7 @@
 <ng-template #cardOptions>
   <trello-card-list-options
     cdkMenu
+    (editEvent)="edit()"
     [cdkTrigger]="menuTrigger"
   ></trello-card-list-options>
 </ng-template>

@@ -31,8 +31,9 @@ $project-variables: (
   'font-weight-01': 400,
   'sidebar-width': 340px,
   'text-01': #172b4d,
-  'fixed-text-01': #172b4d,
   'text-02': #172b4d,
+  'white-text-01': #ffffff,
+  'fixed-text-01': #172b4d,
   'background-01': white,
   'background-02': white,
   'scrollbar-background': lightgray,
@@ -72,6 +73,13 @@ $dark-mode-variables: (
 );
 
 :root {
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
   @each $name, $value in $project-variables {
     --#{$name}: #{$value} !important;
   }
@@ -125,7 +133,8 @@ $dark-mode-variables: (
       }
     }
   }
-
+  
+  .action-btn,
   .remove-btn {
     font-size: 14px;
     line-height: 14px;

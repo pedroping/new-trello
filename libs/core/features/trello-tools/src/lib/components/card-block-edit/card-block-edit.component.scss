@@ -1,0 +1,69 @@
+@import 'root';
+
+:host {
+	@include second-box-shadow;
+	display: block;
+	width: 100%;
+	height: 100%;
+	border-radius: 20px;
+	background-color: var(--block-color);
+
+	::-webkit-scrollbar {
+		width: 10px;
+	}
+
+	.content {
+		height: 100%;
+		padding: 15px 15px 5px;
+	}
+
+	.block-header {
+		display: flex;
+		margin-top: 5px;
+
+		input {
+			width: 100%;
+			height: 30px;
+			background-color: transparent;
+			margin: 0;
+			color: var(--text-02);
+
+			&:not(:focus) {
+				border: 1px solid white !important;
+			}
+		}
+	}
+
+	.card-list-preview {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin-top: 10px;
+		max-height: calc(100vh - 230px) !important;
+		overflow: auto;
+		overflow-x: hidden;
+	}
+
+	trello-card,
+	.card-list-preview {
+		cursor: not-allowed !important;
+	}
+
+	.save {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		font-size: var(--font-size-01) !important;
+		color: var(--text-01);
+		border-radius: 10px;
+		padding: 5px;
+		margin-top: 10px;
+		cursor: pointer;
+
+		&:hover {
+			&:not(.disable-hover) {
+				background-color: var(--disabled-01);
+			}
+		}
+	}
+}
