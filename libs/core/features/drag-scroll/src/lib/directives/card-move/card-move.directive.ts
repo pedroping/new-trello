@@ -30,8 +30,6 @@ export class CardMoveDirective {
   leftEvent$ = new BehaviorSubject<boolean>(false);
   rightEvent$ = new BehaviorSubject<boolean>(false);
 
-  movingOnBorder = false;
-
   setValueChanges() {
     this.cardEventsFacadeService.objectPosition$$.subscribe((position) => {
       this.moveCard(position);
@@ -41,7 +39,6 @@ export class CardMoveDirective {
   @HostListener('mouseup', ['$event']) onMouseUp() {
     this.leftEvent$.next(false);
     this.rightEvent$.next(false);
-    this.movingOnBorder = false;
   }
 
   moveCard(xPosition: number) {
@@ -57,26 +54,48 @@ export class CardMoveDirective {
 
     if (onCardMove || onBlockMove) {
       if (window.innerWidth - rightCalc < xPosition) {
-        this.startTickEvent(this.rightEvent$, BASE_SCROLL_MOVE_TICK);
-        this.movingOnBorder = true;
+        this.startTickEvent(
+          this.rightEvent$,
+          BASE_SCROLL_MOVE_TICK,
+          this.getHowCloseToRight(rightCalc, xPosition),
+        );
         return;
       }
 
       if (leftCalc > xPosition) {
-        this.startTickEvent(this.leftEvent$, -BASE_SCROLL_MOVE_TICK);
-        this.movingOnBorder = true;
+        this.startTickEvent(
+          this.leftEvent$,
+          -BASE_SCROLL_MOVE_TICK,
+          this.getHowCloseToLeft(leftCalc, xPosition),
+        );
         return;
       }
 
       this.leftEvent$.next(false);
       this.rightEvent$.next(false);
-      this.movingOnBorder = false;
     }
   }
+  getHowCloseToLeft(leftCalc: number, positon: number) {
+    if (positon > leftCalc) return 0;
 
-  startTickEvent(stopEvent$: BehaviorSubject<boolean>, tick: number) {
-    if (this.movingOnBorder) return;
+    const closeToBorderPercente = ((leftCalc - positon) * 100) / leftCalc;
+    return +closeToBorderPercente.toFixed(2);
+  }
 
+  getHowCloseToRight(rightCalc: number, positon: number) {
+    const minPosition = window.innerWidth - rightCalc;
+    if (positon < minPosition) return 0;
+
+    const closeToBorderPercente =
+      ((rightCalc - (window.innerWidth - positon)) * 100) / rightCalc;
+    return +closeToBorderPercente.toFixed(2);
+  }
+
+  startTickEvent(
+    stopEvent$: BehaviorSubject<boolean>,
+    tick: number,
+    percent: number,
+  ) {
     const actualEvent$ = stopEvent$.asObservable().pipe(filter((val) => !val));
     stopEvent$.next(false);
     stopEvent$.next(true);
@@ -88,7 +107,10 @@ export class CardMoveDirective {
         const onBlockMove = this.cardEventsFacadeService.onMove;
 
         if (!onBlockMove && !onCardMove) return;
-        this.pageContent.nativeElement.scrollLeft += tick;
+
+        const newTick = (tick * percent) / 100;
+
+        this.pageContent.nativeElement.scrollLeft += newTick;
       });
   }
 }
