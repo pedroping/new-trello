@@ -11,6 +11,10 @@ body {
   background-color: var(--background-02);
 }
 
+div[cdkDragHandle] {
+  cursor: pointer;
+}
+
 .cdk-drag-preview {
   border-radius: 4px;
   cursor: grabbing;
@@ -23,6 +27,7 @@ body {
   trello-card-block {
     display: block;
     transform: rotate(5deg) !important;
+    opacity: 0.5;
 
     trello-card {
       transform: rotate(0deg) !important;

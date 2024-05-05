@@ -12,7 +12,7 @@ import {
   GenericSidenavsFacadeService,
 } from '@my-monorepo/core/ui/generic-sidenavs';
 import { ToolbarComponent } from '@my-monorepo/core/ui/toolbar';
-import { ToolbarContentComponent } from '../../../core/toolbar-content/toolbar-content.component';
+import { ToolbarContentComponent } from '../../core/toolbar-content/toolbar-content.component';
 @Component({
   selector: 'trello-welcome-page',
   templateUrl: './welcome-page.component.html',

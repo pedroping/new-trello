@@ -4,6 +4,6 @@ export const appRoutes: Route[] = [
   {
     path: '',
     loadChildren: async () =>
-      (await import('./domain/home/routes')).HOME_ROUTES,
+      (await import('./domain/routes')).HOME_ROUTES,
   },
 ];

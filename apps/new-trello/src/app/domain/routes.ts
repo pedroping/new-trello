@@ -4,15 +4,14 @@ export const HOME_ROUTES = [
   {
     path: '',
     loadComponent: async () =>
-      (await import('../home/welcome-page/welcome-page.component'))
+      (await import('./welcome-page/welcome-page.component'))
         .WelcomePageComponent,
 
     children: [
       {
         path: 'home',
         loadComponent: async () =>
-          (await import('../home/home-page/home-page.component'))
-            .HomePageComponent,
+          (await import('./home-page/home-page.component')).HomePageComponent,
       },
       {
         path: '',
