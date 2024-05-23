@@ -8,12 +8,7 @@ import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-change
 import { CardEventsFacadeService } from '@my-monorepo/core/features/trello-tools';
 import { GenericSidenavsFacadeService } from '@my-monorepo/core/ui/generic-sidenavs';
 import { BehaviorSubject, filter, takeUntil, timer } from 'rxjs';
-import {
-  BASE_SCROLL_AREA,
-  BASE_SCROLL_MOVE_TICK,
-  BASE_SIDENAV_SIZE,
-  TICK_SPEED,
-} from '../../models/values';
+import { BASE_SCROLL_MOVE_TICK, TICK_SPEED } from '../../models/values';
 
 @Directive({
   standalone: true,
