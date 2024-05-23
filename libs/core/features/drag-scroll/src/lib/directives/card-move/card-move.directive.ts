@@ -49,11 +49,16 @@ export class CardMoveDirective {
 
     const hasRightSidenav = this.genericSidenavsFacadeService.rightSideNavState;
     const hasLeftSidenav = this.genericSidenavsFacadeService.leftSideNavState;
-    const rightCalc = hasRightSidenav ? BASE_SIDENAV_SIZE : BASE_SCROLL_AREA;
-    const leftCalc = hasLeftSidenav ? BASE_SIDENAV_SIZE : BASE_SCROLL_AREA;
+    const rightCalc = hasRightSidenav
+      ? this.dragAreaSizes.baseSidenavSize
+      : this.dragAreaSizes.baseScrollSize;
+    const leftCalc = hasLeftSidenav
+      ? this.dragAreaSizes.baseSidenavSize
+      : this.dragAreaSizes.baseScrollSize;
 
     if (onCardMove || onBlockMove) {
       if (window.innerWidth - rightCalc < xPosition) {
+        this.leftEvent$.next(false);
         this.startTickEvent(
           this.rightEvent$,
           BASE_SCROLL_MOVE_TICK,
@@ -63,6 +68,7 @@ export class CardMoveDirective {
       }
 
       if (leftCalc > xPosition) {
+        this.rightEvent$.next(false);
         this.startTickEvent(
           this.leftEvent$,
           -BASE_SCROLL_MOVE_TICK,
@@ -75,6 +81,7 @@ export class CardMoveDirective {
       this.rightEvent$.next(false);
     }
   }
+
   getHowCloseToLeft(leftCalc: number, positon: number) {
     if (positon > leftCalc) return 0;
 
@@ -112,5 +119,12 @@ export class CardMoveDirective {
 
         this.pageContent.nativeElement.scrollLeft += newTick;
       });
+  }
+
+  get dragAreaSizes() {
+    return {
+      baseSidenavSize: 300 + window.innerWidth * 0.15,
+      baseScrollSize: Math.min(window.innerWidth * 0.2, 300),
+    };
   }
 }

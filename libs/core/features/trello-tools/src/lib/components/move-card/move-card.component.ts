@@ -40,13 +40,15 @@ export class MoveCardComponent {
     const card = this.card();
     if (!card) return;
 
+    const oldId = card.id;
     card.blockId = block.id;
-    card.cardIndex = this.blockCard.cards$.value.length;
+    card.cardIndex = block.cards$.value.length;
     this.dbFacadeService.editCard(card).subscribe(() => {
-      this.blockCard.cards$ = this.dbFacadeService.getCardsByBlockId(
-        this.blockCard.id,
+      const oldListCard = this.blockCard.cards$.value.filter(
+        (card) => card.id != oldId,
       );
-      block.cards$ = this.dbFacadeService.getCardsByBlockId(block.id);
+      this.blockCard.cards$.next(oldListCard);
+      block.cards$.next([...block.cards$.value, card]);
       this.backdropStateService.removeBackDrop();
     });
   }
