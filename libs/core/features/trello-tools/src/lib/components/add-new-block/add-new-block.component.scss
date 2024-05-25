@@ -22,7 +22,6 @@
     &:hover {
       background-color: var(--add-new-background-hovered);
     }
-
   }
 
   .add-new-content {
@@ -30,6 +29,7 @@
     position: absolute;
     width: 310px !important;
     height: 100px;
+    padding: 0px 10px;
     border-radius: 10px;
     background-color: var(--block-color);
     color: var(--text-01);
@@ -38,7 +38,7 @@
     align-items: center;
 
     input {
-      width: 278px;
+      width: 100%;
       height: 32px;
       background-color: var(--add-new-background);
       color: var(--text-02);
@@ -54,7 +54,7 @@
       align-items: center;
       margin: 15px 0 10px;
       height: 35px;
-      width: 278px;
+      width: 100%;
 
       button {
         border-radius: 5px;
