@@ -30,4 +30,8 @@ export class ChangeWallpaperPageComponent {
   selectImage(image: ISrcImg) {
     this.handleImageService.selectImage(image);
   }
+
+  removeImage() {
+    this.handleImageService.unselectImage();
+  }
 }

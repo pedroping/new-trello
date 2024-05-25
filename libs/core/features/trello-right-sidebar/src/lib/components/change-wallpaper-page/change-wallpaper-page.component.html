@@ -10,3 +10,8 @@
     <trello-wallpaper-image [imgItem]="item"></trello-wallpaper-image>
   }
 </div>
+
+<trello-sidebar-action (clickEvent)="removeImage()">
+  <mat-icon>remove</mat-icon>
+  <span class="action-label">Remover imagem</span>
+</trello-sidebar-action>

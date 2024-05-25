@@ -65,6 +65,10 @@ export class HandleImageService {
     });
   }
 
+  unselectImage() {
+    this.selectImage(null);
+  }
+
   removeImage(image: ISrcImg) {
     const newImages = this.imgSrc$.value.filter((img) => img.id != image.id);
     this.dbFacadeService.deleteWallpaper(image.id).subscribe(() => {

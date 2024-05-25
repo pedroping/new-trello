@@ -3,7 +3,7 @@
   flex-direction: column;
   padding: 15px;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 60px);
   gap: 15px;
 
   mat-icon {
@@ -24,5 +24,9 @@
     max-height: calc(100% - 115px);
     overflow: auto;
     scrollbar-width: 10px;
+  }
+
+  trello-sidebar-action:last-of-type {
+    margin-top: auto;
   }
 }
