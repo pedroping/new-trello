@@ -18,7 +18,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-height: calc(100vh - 115px) !important;
+    max-height: calc(100dvh - 115px) !important;
     overflow-y: auto;
     overflow-x: hidden;
   }

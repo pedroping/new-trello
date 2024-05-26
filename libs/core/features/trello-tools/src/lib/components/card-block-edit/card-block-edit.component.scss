@@ -39,7 +39,7 @@
 		flex-direction: column;
 		align-items: center;
 		margin-top: 10px;
-		max-height: calc(100vh - 230px) !important;
+		max-height: calc(100dvh - 230px) !important;
 		overflow: auto;
 		overflow-x: hidden;
 	}
