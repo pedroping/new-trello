@@ -5,7 +5,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { BLOCK_TOKEN, IBlockInstance } from '@my-monorepo/core/utlis';
 import { BehaviorSubject } from 'rxjs';
 import { CloseMenuDirective } from '../../directives/close-menu/close-menu.directive';
-import { FooterTopDirective } from '../../directives/footer-top/footer-top.directive';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 
 @Component({
@@ -14,12 +13,6 @@ import { CardEventsFacadeService } from '../../facades/card-events-facade.servic
   styleUrls: ['./card-footer.component.scss'],
   standalone: true,
   imports: [CdkMenuModule, MatIconModule, CloseMenuDirective, AsyncPipe],
-  hostDirectives: [
-    {
-      directive: FooterTopDirective,
-      inputs: ['onCardMovement$'],
-    },
-  ],
 })
 export class CardFooterComponent {
   addNewEvent$: BehaviorSubject<boolean>;

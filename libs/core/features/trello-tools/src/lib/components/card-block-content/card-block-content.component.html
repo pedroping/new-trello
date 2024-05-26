@@ -3,9 +3,7 @@
     @if (!isPreview) {
       <trello-card-header></trello-card-header>
       <card-list></card-list>
-      <trello-card-footer
-        [onCardMovement$]="onCardMovement$"
-      ></trello-card-footer>
+      <trello-card-footer></trello-card-footer>
     } @else {
       <div
         class="card-list"
