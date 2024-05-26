@@ -61,10 +61,11 @@ export class AddNewBlockComponent {
       this.listInput()?.nativeElement.focus();
       this.scrollEventsService.scrollToEnd$.next();
       this.outsideClickEventsService.setStartTaking();
-    }),
-      this.outsideClickEventsService.outSideClick$$.subscribe(() => {
-        if (this.onAddNew) this.setState(false);
-      });
+    });
+    
+    this.outsideClickEventsService.outSideClick$$.subscribe(() => {
+      if (this.onAddNew) this.setState(false);
+    });
   }
 
   setState(value: boolean) {

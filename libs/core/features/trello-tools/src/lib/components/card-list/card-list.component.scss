@@ -24,6 +24,7 @@
     overflow-x: hidden;
     position: absolute;
     height: calc(100vh - 230px) !important;
+    user-select: none;
   }
 
   .example-custom-placeholder {

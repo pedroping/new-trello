@@ -42,13 +42,10 @@ export class DragScrollDirective {
     this.scrollLeft = el.scrollLeft;
   }
 
-  @HostListener('mouseup', ['$event']) onMouseUp() {
-    this.scrollEventsService.onMouseDown$.next(false);
-    this.mouseDown = false;
-  }
-
+  @HostListener('mouseup', ['$event'])
   @HostListener('mouseleave', ['$event'])
   stopDragging() {
+    this.scrollEventsService.onMouseDown$.next(false);
     this.mouseDown = false;
   }
 
@@ -58,8 +55,8 @@ export class DragScrollDirective {
     const hasPrevent = this.dragElementsService.hasPreventElement(
       e.target as HTMLElement,
     );
+
     if (hasPrevent) return;
-    e.preventDefault();
 
     const onCardMove = this.cardEventsFacadeService.onCardMove;
     const onBlockMove = this.cardEventsFacadeService.onMove;
