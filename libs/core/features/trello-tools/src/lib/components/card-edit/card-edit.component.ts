@@ -35,8 +35,12 @@ import {
   OutsideClickEventsService,
 } from '@my-monorepo/core/utlis';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { filter, fromEvent, map } from 'rxjs';
+import { filter, fromEvent } from 'rxjs';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
+import {
+  CARD_ACTION_SIZE,
+  CARD_ON_BOTTOM_BREAKPOINT,
+} from '../../models/card.models';
 import { MoveCardComponent } from '../move-card/move-card.component';
 
 @Component({
@@ -58,6 +62,11 @@ import { MoveCardComponent } from '../move-card/move-card.component';
 export class CardEditComponent implements OnInit {
   blockCard: IBlock;
   card: Icard | null = null;
+  domRect: DOMRect | null = null;
+  contentSizes = {
+    width: '',
+    height: '',
+  };
   menu = viewChild<TemplateRef<unknown>>('menu');
   input = viewChild<ElementRef<HTMLInputElement>>('nameInput');
   injector = inject(EnvironmentInjector);
@@ -82,9 +91,8 @@ export class CardEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const card = this.card;
-    if (!card) return;
-    this.cardNameControl.setValue(card.name);
+    this.cardNameControl.setValue(this.card?.name ?? '');
+    this.handleContentSizes();
   }
 
   openMenu(element: HTMLElement) {
@@ -98,6 +106,34 @@ export class CardEditComponent implements OnInit {
       rect.left + rect.width + 5,
       rect.top,
     );
+  }
+
+  handleContentSizes() {
+    const onRightBorder =
+      this.domRect?.x &&
+      this.domRect.x +
+        CARD_ACTION_SIZE +
+        this.elementRef.nativeElement.offsetWidth >
+        window.innerWidth;
+
+    const afterHalf =
+      this.domRect?.y &&
+      this.domRect?.y >= window.innerHeight - CARD_ON_BOTTOM_BREAKPOINT;
+
+    this.rendere2[onRightBorder ? 'addClass' : 'removeClass'](
+      this.elementRef.nativeElement,
+      'onBorder',
+    );
+
+    this.rendere2[afterHalf ? 'addClass' : 'removeClass'](
+      this.elementRef.nativeElement,
+      'afterHalf',
+    );
+
+    this.contentSizes = {
+      width: this.domRect?.width ? this.domRect.width + 'px' : '',
+      height: this.domRect?.height ? this.domRect.height + 'px' : '',
+    };
   }
 
   setValueChanges() {
@@ -117,23 +153,6 @@ export class CardEditComponent implements OnInit {
         filter((event) => (event as KeyboardEvent).key === 'Escape'),
       )
       .subscribe(this.closeEdit.bind(this));
-
-    this.backdropStateService.backDropEventSubscription$
-      .pipe(
-        map(
-          (backdropEvent) =>
-            backdropEvent?.domRect.x &&
-            backdropEvent.domRect.x +
-              this.elementRef.nativeElement.offsetWidth >
-              window.innerWidth,
-        ),
-      )
-      .subscribe((val) => {
-        this.rendere2[val ? 'addClass' : 'removeClass'](
-          this.elementRef.nativeElement,
-          'onBorder',
-        );
-      });
   }
 
   closeElement() {

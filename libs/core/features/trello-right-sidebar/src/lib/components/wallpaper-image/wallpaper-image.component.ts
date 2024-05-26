@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { HandleImageService } from '@my-monorepo/core/features/custom-background';
 import { WallpaperImageMenuComponent } from '../wallpaper-image-menu/wallpaper-image-menu.component';
 import { ISrcImg } from '@my-monorepo/core/utlis';
+import { GenericSidenavsFacadeService } from '@my-monorepo/core/ui/generic-sidenavs';
 
 @Component({
   selector: 'trello-wallpaper-image',
@@ -15,9 +16,13 @@ import { ISrcImg } from '@my-monorepo/core/utlis';
 export class WallpaperImageComponent {
   imgItem = input.required<ISrcImg>();
 
-  constructor(private readonly handleImageService: HandleImageService) {}
+  constructor(
+    private readonly handleImageService: HandleImageService,
+    private readonly genericSidenavsFacadeService: GenericSidenavsFacadeService,
+  ) {}
 
   @HostListener('click') selectImg() {
     this.handleImageService.selectImage(this.imgItem());
+    this.genericSidenavsFacadeService.setRightSideNavState(false);
   }
 }

@@ -137,12 +137,14 @@ export class CardComponent {
     const templateRect = this.templateRect();
     const card = this.card();
     if (!templateRect || !card) return;
-    const backdropEvent: BackDropEvent<IcardAsProperty> = {
-      data: { card: card },
-      component: CardEditComponent,
-      injector: this.getInjector(),
-      domRect: templateRect.domRect,
-    };
+
+    const backdropEvent: BackDropEvent<IcardAsProperty & { domRect: DOMRect }> =
+      {
+        data: { card: card, domRect: templateRect.domRect },
+        component: CardEditComponent,
+        injector: this.getInjector(),
+        domRect: templateRect.domRect,
+      };
     this.outsideClickEventsService.setEditClick();
     this.backdropStateService.setBackDropState(backdropEvent);
   }

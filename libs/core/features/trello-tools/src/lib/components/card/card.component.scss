@@ -50,9 +50,9 @@
     }
   }
 
-  .edit-content-template {
-    width: var(--card-width);
-    height: var(--card-height);
-    background-color: red;
+  @media (max-width: 600px) {
+    .edit-content {
+      opacity: 1 !important;
+    }
   }
 }

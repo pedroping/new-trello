@@ -2,7 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { HandleImageService } from '@my-monorepo/core/features/custom-background';
-import { ISrcImg } from '@my-monorepo/core/utlis';
+import { GenericSidenavsFacadeService } from '@my-monorepo/core/ui/generic-sidenavs';
 import { SidebarActionComponent } from '../sidebar-action/sidebar-action.component';
 import { WallpaperImageComponent } from '../wallpaper-image/wallpaper-image.component';
 
@@ -21,17 +21,17 @@ import { WallpaperImageComponent } from '../wallpaper-image/wallpaper-image.comp
 export class ChangeWallpaperPageComponent {
   imgSrc$$ = this.handleImageService.imgSrc$.asObservable();
 
-  constructor(private readonly handleImageService: HandleImageService) {}
+  constructor(
+    private readonly handleImageService: HandleImageService,
+    private readonly genericSidenavsFacadeService: GenericSidenavsFacadeService,
+  ) {}
 
   addImage(event: Event) {
     this.handleImageService.uploadImage(event);
   }
 
-  selectImage(image: ISrcImg) {
-    this.handleImageService.selectImage(image);
-  }
-
   removeImage() {
     this.handleImageService.unselectImage();
+    this.genericSidenavsFacadeService.setRightSideNavState(false);
   }
 }

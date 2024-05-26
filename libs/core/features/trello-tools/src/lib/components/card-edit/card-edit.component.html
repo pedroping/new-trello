@@ -1,6 +1,9 @@
 <div class="content">
-  <div class="card-and-save">
-    <div class="card">
+  <div
+    class="card-and-save"
+    [style.width]="contentSizes.width"
+  >
+    <div class="card"  [style.height]="contentSizes.height">
       <input
         #nameInput
         type="text"
@@ -19,11 +22,12 @@
     </button>
   </div>
 
-  <div class="actions" preventClick>
+  <div class="actions">
     <button
       class="action-btn"
       aria-label="Archive card button"
       (click)="archive()"
+      preventClick
     >
       <mat-icon>archive</mat-icon>
       <span>Arquivar</span>
@@ -33,6 +37,7 @@
       class="action-btn"
       aria-label="Duplicate card button"
       (click)="duplicate()"
+      preventClick
     >
       <mat-icon>control_point_duplicate</mat-icon>
       <span>Duplicar</span>
@@ -43,6 +48,7 @@
       aria-label="Move card button"
       #baseElement
       (click)="openMenu(baseElement)"
+      preventClick
     >
       <mat-icon>forward</mat-icon>
       <span>Mover</span>
