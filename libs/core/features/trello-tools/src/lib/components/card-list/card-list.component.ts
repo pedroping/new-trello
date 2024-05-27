@@ -3,6 +3,7 @@ import {
   CdkDragMove,
   DragDropModule,
 } from '@angular/cdk/drag-drop';
+import { CdkScrollable } from '@angular/cdk/scrolling';
 import { AsyncPipe } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
@@ -12,7 +13,7 @@ import {
   IBlockInstance,
   Icard,
 } from '@my-monorepo/core/utlis';
-import { Observable, Subject, map } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { ScrollToEndDirective } from '../../directives/scroll-to-end/scroll-to-end.directive';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 import { CardComponent } from '../card/card.component';
@@ -22,7 +23,13 @@ import { CardComponent } from '../card/card.component';
   templateUrl: './card-list.component.html',
   styleUrls: ['./card-list.component.scss'],
   standalone: true,
-  imports: [DragDropModule, ScrollToEndDirective, CardComponent, AsyncPipe],
+  imports: [
+    DragDropModule,
+    ScrollToEndDirective,
+    CardComponent,
+    AsyncPipe,
+    CdkScrollable,
+  ],
 })
 @CallSetValueChanges()
 export class CardListComponent {
@@ -31,7 +38,7 @@ export class CardListComponent {
   isSelected = true;
   scrollMoveTick = 5;
   customZIndex$!: Observable<number>;
-  onCardMovement$ = new Subject<void>();
+  onCardMovement$ = new BehaviorSubject<boolean>(false);
 
   constructor(
     @Inject(BLOCK_TOKEN) cardBlock: IBlockInstance,
@@ -56,7 +63,7 @@ export class CardListComponent {
     this.cardEventsFacadeService.setCardMove(true, item);
     this.cardEventsFacadeService.objectMove(event.pointerPosition.x);
     this.isSelected = true;
-    this.onCardMovement$.next();
+    this.onCardMovement$.next(true);
   }
 
   drop(event: CdkDragDrop<Icard[]>) {
@@ -64,17 +71,18 @@ export class CardListComponent {
     this.cardEventsFacadeService.setLastToBeHovered(-1);
     this.isSelected = false;
     this.cardEventsFacadeService.drop(event);
+    this.onCardMovement$.next(false);
   }
 
   setEntered() {
     if (!this.isSelected)
       this.cardEventsFacadeService.setLastToBeHovered(this.id);
-    this.onCardMovement$.next();
+    this.onCardMovement$.next(true);
   }
 
   setExited() {
     if (this.cardEventsFacadeService.lastToBeHovered === this.id)
       this.cardEventsFacadeService.setLastToBeHovered(-1);
-    this.onCardMovement$.next();
+    this.onCardMovement$.next(false);
   }
 }

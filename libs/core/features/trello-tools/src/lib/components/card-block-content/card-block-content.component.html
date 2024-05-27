@@ -2,7 +2,7 @@
   @if (block.cards$ | async) {
     @if (!isPreview) {
       <trello-card-header></trello-card-header>
-      <card-list></card-list>
+      <card-list cdkScrollable></card-list>
       <trello-card-footer></trello-card-footer>
     } @else {
       <div
