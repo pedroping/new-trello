@@ -7,14 +7,18 @@
     [style.z-index]="customZIndex$ | async"
     cdkDropList
     cdkScrollable
+    [cdkDropListData]="cards"
+    cdkDropListOrientation="vertical"
     (cdkDropListDropped)="drop($event)"
     (cdkDropListEntered)="setEntered()"
-    [cdkDropListData]="cards"
     [cdkDropListAutoScrollStep]="scrollMoveTick"
-    [cdkDropListAutoScrollDisabled]="true"
   >
     @for (item of cards; track item) {
-      <div cdkDrag (cdkDragMoved)="onMove(item, $event)">
+      <div
+        cdkDrag
+        (cdkDragMoved)="onMove(item, $event)"
+        [cdkDragStartDelay]="timeToDragStart"
+      >
         <div class="example-custom-placeholder" *cdkDragPlaceholder>
           <trello-card [isPreview]="true"></trello-card>
         </div>

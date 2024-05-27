@@ -18,6 +18,7 @@ import {
   CardBlockComponent,
   CardEventsFacadeService,
   CursorDraggingDirective,
+  TIME_TO_DRAG_START,
 } from '@my-monorepo/core/features/trello-tools';
 import { IBlock } from '@my-monorepo/core/utlis';
 
@@ -40,6 +41,7 @@ import { IBlock } from '@my-monorepo/core/utlis';
   hostDirectives: [CursorDraggingDirective],
 })
 export class HomePageComponent implements OnInit {
+  timeToDragStart = TIME_TO_DRAG_START;
   blocks$$ = this.dbFacadeService.allBlocks$;
 
   constructor(

@@ -16,6 +16,7 @@ import {
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { ScrollToEndDirective } from '../../directives/scroll-to-end/scroll-to-end.directive';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
+import { SCROLL_MOVE_TICK, TIME_TO_DRAG_START } from '../../models/card.models';
 import { CardComponent } from '../card/card.component';
 
 @Component({
@@ -36,12 +37,10 @@ export class CardListComponent {
   id: number;
   blockCard: IBlock;
   isSelected = true;
-  scrollMoveTick = 5;
+  scrollMoveTick = SCROLL_MOVE_TICK;
+  timeToDragStart = TIME_TO_DRAG_START;
   customZIndex$!: Observable<number>;
   onCardMovement$ = new BehaviorSubject<boolean>(false);
-  onCardMovementState$ = this.onCardMovement$
-    .asObservable()
-    .pipe(map((val) => !val));
 
   constructor(
     @Inject(BLOCK_TOKEN) cardBlock: IBlockInstance,

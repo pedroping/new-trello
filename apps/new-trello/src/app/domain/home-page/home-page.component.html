@@ -11,7 +11,12 @@
     (cdkDropListDropped)="listDropped($event)"
   >
     @for (block of blocks; track block; let index = $index) {
-      <div class="block" cdkDrag (cdkDragMoved)="onMove($event)">
+      <div
+        class="block"
+        cdkDrag
+        (cdkDragMoved)="onMove($event)"
+        [cdkDragStartDelay]="timeToDragStart"
+      >
         <div cdkDragHandle></div>
         <trello-card-block
           [id]="block.id"
