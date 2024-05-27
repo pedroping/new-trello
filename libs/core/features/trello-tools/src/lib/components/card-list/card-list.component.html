@@ -10,8 +10,8 @@
     (cdkDropListDropped)="drop($event)"
     (cdkDropListEntered)="setEntered()"
     [cdkDropListData]="cards"
-    [cdkDropListAutoScrollDisabled]="onCardMovement$ | async"
     [cdkDropListAutoScrollStep]="scrollMoveTick"
+    [cdkDropListAutoScrollDisabled]="true"
   >
     @for (item of cards; track item) {
       <div cdkDrag (cdkDragMoved)="onMove(item, $event)">

@@ -39,6 +39,9 @@ export class CardListComponent {
   scrollMoveTick = 5;
   customZIndex$!: Observable<number>;
   onCardMovement$ = new BehaviorSubject<boolean>(false);
+  onCardMovementState$ = this.onCardMovement$
+    .asObservable()
+    .pipe(map((val) => !val));
 
   constructor(
     @Inject(BLOCK_TOKEN) cardBlock: IBlockInstance,
