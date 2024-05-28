@@ -6,3 +6,4 @@ export const LIST_ID_ATTR = 'list-id';
 export const BOARD_NAME = 'boardName';
 export const TIME_TO_DRAG_START = 80;
 export const SCROLL_MOVE_TICK = 5;
+export const DRAG_DELAY_BREAKPOINT = 1000;

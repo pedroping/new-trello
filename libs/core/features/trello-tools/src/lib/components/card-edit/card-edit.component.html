@@ -1,9 +1,6 @@
 <div class="content">
-  <div
-    class="card-and-save"
-    [style.width]="contentSizes.width"
-  >
-    <div class="card"  [style.height]="contentSizes.height">
+  <div class="card-and-save" [style.width]="contentSizes.width">
+    <div class="card" [style.height]="contentSizes.height">
       <input
         #nameInput
         type="text"
@@ -12,6 +9,7 @@
         (keyup.escape)="closeEdit()"
         [formControl]="cardNameControl"
       />
+      <mat-icon preventClick (click)="editCard()">save</mat-icon>
     </div>
     <button
       preventClick

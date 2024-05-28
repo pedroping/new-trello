@@ -13,10 +13,14 @@ import {
   IBlockInstance,
   Icard,
 } from '@my-monorepo/core/utlis';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, fromEvent, map, startWith } from 'rxjs';
 import { ScrollToEndDirective } from '../../directives/scroll-to-end/scroll-to-end.directive';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
-import { SCROLL_MOVE_TICK, TIME_TO_DRAG_START } from '../../models/card.models';
+import {
+  DRAG_DELAY_BREAKPOINT,
+  SCROLL_MOVE_TICK,
+  TIME_TO_DRAG_START,
+} from '../../models/card.models';
 import { CardComponent } from '../card/card.component';
 
 @Component({
@@ -59,6 +63,13 @@ export class CardListComponent {
     this.customZIndex$ = this.cardEventsFacadeService.onCardMove$$.pipe(
       map((val) => (val ? 1000 : 0)),
     );
+
+    fromEvent(window, 'resize')
+      .pipe(startWith(window.innerWidth))
+      .subscribe(() => {
+        this.timeToDragStart =
+          window.innerWidth <= DRAG_DELAY_BREAKPOINT ? TIME_TO_DRAG_START : 0;
+      });
   }
 
   onMove(item: Icard, event: CdkDragMove<Icard>) {
