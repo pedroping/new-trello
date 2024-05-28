@@ -8,9 +8,7 @@ import {
 } from '../../models/wallpaper-db-models';
 
 @Injectable({ providedIn: 'root' })
-export class WallpapersDbService
-  implements Omit<IDBService<ISrcImg>, 'deleteAllByBlockId'>
-{
+export class WallpapersDbService implements IDBService<ISrcImg> {
   hasIndexedDB = !!window.indexedDB;
   allElements$ = new BehaviorSubject<ISrcImg[]>([]);
 

@@ -11,19 +11,19 @@ export interface IAddNewResponse {
 }
 
 export interface IDBService<T> {
-  createDataBase: () => void;
-  onCreateSuccess: () => () => void;
-  onCreateError: () => () => void;
-  openRequest: () => IDBOpenDBRequest;
-  addNewElement: (element: T) => Observable<IAddNewResponse>;
-  editElement: (element: T) => Observable<IAddNewResponse>;
-  deleteElement: (id: number) => Observable<string>;
-  onUpgradeNeeded: (db: IDBOpenDBRequest) => () => void;
-  conectionValues: (db: IDBDatabase) => IConectionValues;
-  getAllElements$: () => BehaviorSubject<T[]>;
-  getElementById: (id: number) => Observable<T | null | undefined>;
-  clearDb: () => Observable<string>;
-  deleteAllByBlockId: (id: number) => Observable<string>;
-  setAllElements: () => void;
   hasIndexedDB: boolean;
+  createDataBase(): void;
+  onCreateError(): () => void;
+  onCreateSuccess(): () => void;
+  clearDb(): Observable<string>;
+  openRequest(): IDBOpenDBRequest;
+  deleteElement(id: number): Observable<string>;
+  onUpgradeNeeded(db: IDBOpenDBRequest): () => void;
+  conectionValues(db: IDBDatabase): IConectionValues;
+  editElement(element: T): Observable<IAddNewResponse>;
+  addNewElement(element: T): Observable<IAddNewResponse>;
+  getElementById(id: number): Observable<T | null | undefined>;
+  setAllElements?(): void;
+  getAllElements$?(): BehaviorSubject<T[]>;
+  deleteAllByBlockId?: (id: number) => Observable<string>;
 }

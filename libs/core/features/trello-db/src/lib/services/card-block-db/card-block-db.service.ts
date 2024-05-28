@@ -11,9 +11,7 @@ import {
 import { CardDbService } from '../card-db/card-db.service';
 
 @Injectable({ providedIn: 'root' })
-export class CardBlockDbService
-  implements Omit<IDBService<IBlock>, 'deleteAllByBlockId'>
-{
+export class CardBlockDbService implements IDBService<IBlock> {
   hasIndexedDB = !!window.indexedDB;
   allElements$ = new BehaviorSubject<IBlock[]>([]);
 

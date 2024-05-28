@@ -11,9 +11,7 @@ import {
 } from '../../models/card-db-models';
 
 @Injectable({ providedIn: 'root' })
-export class CardDbService
-  implements Omit<IDBService<Icard>, 'getAllElements$' | 'setAllElements'>
-{
+export class CardDbService implements IDBService<Icard> {
   hasIndexedDB = !!window.indexedDB;
 
   createDataBase() {
