@@ -22,72 +22,59 @@
     -1px 4px 1px var(--box-shadow-color-02);
 }
 
-$project-variables: (
-  'card-width': 280px,
-  'card-height': 36px,
-  'font-size-01': 12px,
-  'font-size-02': 20px,
-  'font-size-03': 16px,
-  'font-weight-01': 400,
-  'sidebar-width': 340px,
-  'text-01': #172b4d,
-  'text-02': #172b4d,
-  'white-text-01': #ffffff,
-  'fixed-text-01': #172b4d,
-  'background-01': white,
-  'background-02': white,
-  'scrollbar-background': lightgray,
-  'scrollbar-thumb': rgb(155, 155, 155),
-  'gray-01': gray,
-  'gray-02': rgb(219 219 219),
-  'blue-01': #388bff,
-  'lighten-blue-01': #{lighten(#388bff, 20%)},
-  'block-color': #f6f7f8,
-  'disabled-01': lightgray,
-  'disabled-02': lightgray,
-  'action-btn-background': white,
-  'backdrop-color': #0009,
-  'toolbar-background': rgb(243 243 243 / 42%),
-  'fixed-toolbar-background': rgb(243 243 243 / 42%),
-  'box-shadow-color-01': #091e4240,
-  'box-shadow-color-02': #091e424f,
-  'add-new-background': #a6c5e229,
-  'add-new-background-hovered': rgb(89 89 89 / 24%),
-  'action-hover-background': #484b4e14,
-);
-
-$dark-mode-variables: (
-  'text-01': #b6c2cf,
-  'text-02': #ffffff,
-  'gray-02': rgb(174, 174, 174),
-  'block-color': #101204,
-  'background-01': #22272b,
-  'background-02': #5b6265,
-  'action-btn-background': #4a4f53,
-  'disabled-01': #a6c5e229,
-  'disabled-02': rgb(15 14 14),
-  'add-new-background': rgb(75 75 75 / 51%),
-  'add-new-background-hovered': rgb(255 255 255 / 16%),
-  'action-hover-background': #bac0ca68,
-  'toolbar-background': rgb(255 255 255 / 15%),
-);
-
 :root {
+  --card-width: 280px;
+  --card-height: 36px;
+  --font-size-01: 12px;
+  --font-size-02: 20px;
+  --font-size-03: 16px;
+  --font-weight-01: 400;
+  --sidebar-width: 340px;
+  --text-01: #172b4d;
+  --text-02: #172b4d;
+  --white-text-01: #ffffff;
+  --fixed-text-01: #172b4d;
+  --background-01: white;
+  --background-02: white;
+  --scrollbar-background: lightgray;
+  --scrollbar-thumb: rgb(155, 155, 155);
+  --gray-01: gray;
+  --gray-02: rgb(219 219 219);
+  --blue-01: #388bff;
+  --lighten-blue-01: #{lighten(#388bff, 20%)};
+  --block-color: #f6f7f8;
+  --disabled-01: lightgray;
+  --disabled-02: lightgray;
+  --action-btn-background: white;
+  --backdrop-color: #0009;
+  --toolbar-background: rgb(243 243 243 / 42%);
+  --fixed-toolbar-background: rgb(243 243 243 / 42%);
+  --box-shadow-color-01: #091e4240;
+  --box-shadow-color-02: #091e424f;
+  --add-new-background: #a6c5e229;
+  --add-new-background-hovered: rgb(89 89 89 / 24%);
+  --action-hover-background: #484b4e14;
+
+  &.darkMode {
+    --text-01: #b6c2cf;
+    --text-02: #ffffff;
+    --gray-02: rgb(174, 174, 174);
+    --block-color: #101204;
+    --background-01: #22272b;
+    --background-02: #5b6265;
+    --action-btn-background: #4a4f53;
+    --disabled-01: #a6c5e229;
+    --disabled-02: rgb(15 14 14);
+    --add-new-background: rgb(75 75 75 / 51%);
+    --add-new-background-hovered: rgb(255 255 255 / 16%);
+    --action-hover-background: #bac0ca68;
+    --toolbar-background: rgb(255 255 255 / 15%);
+  }
   
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
-
-  @each $name, $value in $project-variables {
-    --#{$name}: #{$value} !important;
-  }
-
-  &.darkMode {
-    @each $name, $value in $dark-mode-variables {
-      --#{$name}: #{$value} !important;
-    }
   }
 
   input[default-input] {
