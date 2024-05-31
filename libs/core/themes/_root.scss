@@ -1,27 +1,3 @@
-@mixin default-box-shadow {
-  box-shadow:
-    -1px 2px 5px var(--box-shadow-color-01),
-    0px 0px 0px var(--box-shadow-color-02);
-}
-
-@mixin second-box-shadow {
-  box-shadow:
-    0px 1px 1px var(--box-shadow-color-01),
-    0px 0px 1px var(--box-shadow-color-02);
-}
-
-@mixin right-sidebar-box-shadow {
-  box-shadow:
-    -2px 15px 4px var(--box-shadow-color-01),
-    -1px 4px 1px var(--box-shadow-color-02);
-}
-
-@mixin left-sidebar-box-shadow {
-  box-shadow:
-    2px 3px 4px var(--box-shadow-color-01),
-    -1px 4px 1px var(--box-shadow-color-02);
-}
-
 :root {
   --card-width: 280px;
   --card-height: 36px;
@@ -70,7 +46,7 @@
     --action-hover-background: #bac0ca68;
     --toolbar-background: rgb(255 255 255 / 15%);
   }
-  
+
   * {
     margin: 0;
     padding: 0;
@@ -120,7 +96,7 @@
       }
     }
   }
-  
+
   .action-btn,
   .remove-btn {
     font-size: 14px;
