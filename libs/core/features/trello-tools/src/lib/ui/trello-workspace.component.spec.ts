@@ -3,20 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { WelcomePageComponent } from './welcome-page.component';
+import { TrelloWorkspaceComponent } from './trello-workspace.component';
 
-describe('WelcomePageComponent', () => {
-  let component: WelcomePageComponent;
-  let fixture: ComponentFixture<WelcomePageComponent>;
+describe('TrelloWorkspaceComponent', () => {
+  let component: TrelloWorkspaceComponent;
+  let fixture: ComponentFixture<TrelloWorkspaceComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [WelcomePageComponent],
-    }).compileComponents();
+      declarations: [ TrelloWorkspaceComponent ]
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WelcomePageComponent);
+    fixture = TestBed.createComponent(TrelloWorkspaceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

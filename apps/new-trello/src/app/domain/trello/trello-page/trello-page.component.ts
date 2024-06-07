@@ -1,4 +1,5 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CdkScrollable } from '@angular/cdk/scrolling';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {
@@ -7,17 +8,17 @@ import {
   PreventDragDirective,
 } from '@my-monorepo/core/features/drag-scroll';
 import { RightSidebarComponent } from '@my-monorepo/core/features/trello-right-sidebar';
+import { TrelloWorkspaceComponent } from '@my-monorepo/core/features/trello-tools';
 import {
   GenericSidenavComponent,
   GenericSidenavsFacadeService,
 } from '@my-monorepo/core/ui/generic-sidenavs';
 import { ToolbarComponent } from '@my-monorepo/core/ui/toolbar';
-import { ToolbarContentComponent } from '../../core/toolbar-content/toolbar-content.component';
-import { CdkScrollable } from '@angular/cdk/scrolling';
+import { ToolbarContentComponent } from '../../../core/toolbar-content/toolbar-content.component';
 @Component({
-  selector: 'trello-welcome-page',
-  templateUrl: './welcome-page.component.html',
-  styleUrls: ['./welcome-page.component.scss'],
+  selector: 'trello-trello-page',
+  templateUrl: './trello-page.component.html',
+  styleUrls: ['./trello-page.component.scss'],
   standalone: true,
   imports: [
     RouterModule,
@@ -29,10 +30,11 @@ import { CdkScrollable } from '@angular/cdk/scrolling';
     GenericSidenavComponent,
     RightSidebarComponent,
     PreventDragDirective,
-    CdkScrollable
+    CdkScrollable,
+    TrelloWorkspaceComponent,
   ],
 })
-export class WelcomePageComponent implements OnInit {
+export class TrelloPageComponent implements OnInit {
   @ViewChild('pageContent', { static: true }) pageContent!: ElementRef;
 
   constructor(

@@ -13,19 +13,17 @@ import {
   PageWidthDirective,
 } from '@my-monorepo/core/features/drag-scroll';
 import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
-import {
-  AddNewBlockComponent,
-  CardBlockComponent,
-  CardEventsFacadeService,
-  CursorDraggingDirective,
-  TIME_TO_DRAG_START,
-} from '@my-monorepo/core/features/trello-tools';
 import { IBlock } from '@my-monorepo/core/utlis';
+import { AddNewBlockComponent } from '../components/add-new-block/add-new-block.component';
+import { CardBlockComponent } from '../components/card-block/card-block.component';
+import { CursorDraggingDirective } from '../directives/cursor-dragging/cursor-dragging.directive';
+import { CardEventsFacadeService } from '../facades/card-events-facade.service';
+import { TIME_TO_DRAG_START } from '../models/card.models';
 
 @Component({
-  selector: 'trello-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss'],
+  selector: 'trello-workspace',
+  templateUrl: './trello-workspace.component.html',
+  styleUrls: ['./trello-workspace.component.scss'],
   standalone: true,
   imports: [
     CdkDrag,
@@ -40,7 +38,7 @@ import { IBlock } from '@my-monorepo/core/utlis';
   ],
   hostDirectives: [CursorDraggingDirective],
 })
-export class HomePageComponent implements OnInit {
+export class TrelloWorkspaceComponent implements OnInit {
   timeToDragStart = TIME_TO_DRAG_START;
   blocks$$ = this.dbFacadeService.allBlocks$;
 

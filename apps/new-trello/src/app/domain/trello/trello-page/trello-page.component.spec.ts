@@ -1,20 +1,22 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
 
-import { HomePageComponent } from './home-page.component';
+import { TrelloPageComponent } from './trello-page.component';
 
-describe('HomePageComponent', () => {
-  let component: HomePageComponent;
-  let fixture: ComponentFixture<HomePageComponent>;
+describe('TrelloPageComponent', () => {
+  let component: TrelloPageComponent;
+  let fixture: ComponentFixture<TrelloPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [HomePageComponent],
+      declarations: [TrelloPageComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomePageComponent);
+    fixture = TestBed.createComponent(TrelloPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,16 @@
+<main cdkScrollable dragScroll>
+  <div class="resizable-content" #pageContent cdkScrollable>
+    <toolbar>
+      <trello-toolbar-content />
+    </toolbar>
+
+    <div class="content" pageWidth>
+      <trello-workspace />
+    </div>
+  </div>
+
+  <generic-sidenav side="right" preventDrag>
+    <uf-right-sidebar />
+  </generic-sidenav>
+  <generic-sidenav side="left" preventDrag />
+</main>
