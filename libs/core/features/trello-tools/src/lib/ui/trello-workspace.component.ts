@@ -12,13 +12,18 @@ import {
   DragScrollDirective,
   PageWidthDirective,
 } from '@my-monorepo/core/features/drag-scroll';
+import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
 import { IBlock } from '@my-monorepo/core/utlis';
+import { fromEvent, startWith } from 'rxjs';
 import { AddNewBlockComponent } from '../components/add-new-block/add-new-block.component';
 import { CardBlockComponent } from '../components/card-block/card-block.component';
 import { CursorDraggingDirective } from '../directives/cursor-dragging/cursor-dragging.directive';
 import { CardEventsFacadeService } from '../facades/card-events-facade.service';
-import { TIME_TO_DRAG_START } from '../models/card.models';
+import {
+  DRAG_DELAY_BREAKPOINT,
+  TIME_TO_DRAG_START,
+} from '../models/card.models';
 
 @Component({
   selector: 'trello-workspace',
@@ -38,6 +43,7 @@ import { TIME_TO_DRAG_START } from '../models/card.models';
   ],
   hostDirectives: [CursorDraggingDirective],
 })
+@CallSetValueChanges()
 export class TrelloWorkspaceComponent implements OnInit {
   timeToDragStart = TIME_TO_DRAG_START;
   blocks$$ = this.dbFacadeService.allBlocks$;
@@ -58,5 +64,14 @@ export class TrelloWorkspaceComponent implements OnInit {
   onMove(event: CdkDragMove<IBlock>) {
     this.cardEventsFacadeService.onEvent(true);
     this.cardEventsFacadeService.objectMove(event.pointerPosition.x);
+  }
+
+  setValueChanges() {
+    fromEvent(window, 'resize')
+      .pipe(startWith(window.innerWidth))
+      .subscribe(() => {
+        this.timeToDragStart =
+          window.innerWidth <= DRAG_DELAY_BREAKPOINT ? TIME_TO_DRAG_START : 0;
+      });
   }
 }

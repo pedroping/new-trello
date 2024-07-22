@@ -15,6 +15,13 @@ div[cdkDragHandle] {
   cursor: pointer;
 }
 
+.cdk-drag {
+  overflow: initial !important;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 .cdk-drag-preview {
   border-radius: 4px;
   cursor: grabbing;
@@ -39,7 +46,7 @@ div[cdkDragHandle] {
   }
 }
 
-.cdk-drag-placeholder ~ trello-card-block {
+.cdk-drag-placeholder~trello-card-block {
   .card-list {
     position: static !important;
   }
