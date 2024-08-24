@@ -1,7 +1,7 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Injectable } from '@angular/core';
-import { DragAndDropService } from '../services/drag-and-drop.service';
 import { IBlock, Icard } from '@my-monorepo/core/utlis';
+import { DragAndDropService } from '../services/drag-and-drop/drag-and-drop.service';
 
 @Injectable({ providedIn: 'root' })
 export class CardEventsFacadeService {

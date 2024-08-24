@@ -1,1 +1,15 @@
-<ng-container #vcr></ng-container>
+<div class="content" [baseSize]="115" [trelloCardBlockHeight]="onCardMovement$">
+  @if (blockContent().cards$ | async) {
+    @if (!isPreview()) {
+      <trello-card-header></trello-card-header>
+      <card-list cdkScrollable></card-list>
+      <trello-card-footer></trello-card-footer>
+    } @else {
+      <div
+        class="card-list"
+        [trelloCardBlockHeight]="onCardMovement$"
+        [baseSize]="50"
+      ></div>
+    }
+  }
+</div>

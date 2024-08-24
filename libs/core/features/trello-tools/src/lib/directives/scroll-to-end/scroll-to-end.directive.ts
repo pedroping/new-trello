@@ -1,7 +1,7 @@
-import { Directive, ElementRef, Inject, inject } from '@angular/core';
+import { Directive, ElementRef, inject } from '@angular/core';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
-import { BLOCK_TOKEN, IBlockInstance } from '@my-monorepo/core/utlis';
 import { BehaviorSubject, take, timer } from 'rxjs';
+import { BlockDataService } from '../../services/block-data/block-data.service';
 
 @Directive({
   selector: '[scrollToEnd]',
@@ -12,8 +12,8 @@ export class ScrollToEndDirective {
   addNewEvent$: BehaviorSubject<boolean>;
   private readonly elementRef = inject(ElementRef);
 
-  constructor(@Inject(BLOCK_TOKEN) cardBlock: IBlockInstance) {
-    this.addNewEvent$ = cardBlock.block.addNewEvent$;
+  constructor(private readonly blockDataService: BlockDataService) {
+    this.addNewEvent$ = this.blockDataService.block.addNewEvent$;
   }
 
   setValueChanges() {

@@ -15,9 +15,11 @@ export interface IBlock {
   addNewEvent$: BehaviorSubject<boolean>;
 }
 
-export interface IBlockInstance {
+export interface IBlockInstanceService {
   id: number;
   block: IBlock;
+  setId(id: number): void;
+  setBlock(block: IBlock): void;
 }
 
 export interface IcardAsProperty {

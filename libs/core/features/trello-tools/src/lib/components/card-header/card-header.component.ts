@@ -1,16 +1,12 @@
 import { CdkMenuModule } from '@angular/cdk/menu';
 import { AsyncPipe } from '@angular/common';
-import { Component, ElementRef, Inject, Injector } from '@angular/core';
+import { Component, ElementRef, Injector } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { BackdropStateService } from '@my-monorepo/core/features/backdrop-screen';
-import {
-  BLOCK_TOKEN,
-  IBlock,
-  IBlockInstance,
-  Icard,
-} from '@my-monorepo/core/utlis';
+import { IBlock, Icard } from '@my-monorepo/core/utlis';
 import { BehaviorSubject, Observable, map, startWith } from 'rxjs';
 import { CloseMenuDirective } from '../../directives/close-menu/close-menu.directive';
+import { BlockDataService } from '../../services/block-data/block-data.service';
 import { CardBlockEditComponent } from '../card-block-edit/card-block-edit.component';
 import { CardOptionsComponent } from '../card-list-options/card-list-options.component';
 
@@ -36,14 +32,14 @@ export class CardHeaderComponent {
   constructor(
     private readonly injector: Injector,
     private readonly elementRef: ElementRef<HTMLElement>,
-    @Inject(BLOCK_TOKEN) private readonly cardBlock: IBlockInstance,
+    private readonly blockDataService: BlockDataService,
     private readonly backdropStateService: BackdropStateService<unknown>,
   ) {
-    this.id = cardBlock.id;
-    this.block = cardBlock.block;
-    this.cards$ = cardBlock.block.cards$;
-    this.cardLength$ = cardBlock.block.cards$.pipe(
-      startWith(cardBlock.block.cards$.value),
+    this.id = this.blockDataService.id;
+    this.block = this.blockDataService.block;
+    this.cards$ = this.blockDataService.block.cards$;
+    this.cardLength$ = this.blockDataService.block.cards$.pipe(
+      startWith(this.blockDataService.block.cards$.value),
       map((cards) => cards.length),
     );
   }
@@ -64,8 +60,8 @@ export class CardHeaderComponent {
     return Injector.create({
       providers: [
         {
-          provide: BLOCK_TOKEN,
-          useValue: this.cardBlock,
+          provide: BlockDataService,
+          useValue: this.blockDataService,
         },
       ],
       parent: this.injector,

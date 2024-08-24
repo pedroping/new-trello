@@ -1,11 +1,11 @@
 import { CdkMenuModule } from '@angular/cdk/menu';
 import { AsyncPipe } from '@angular/common';
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { BLOCK_TOKEN, IBlockInstance } from '@my-monorepo/core/utlis';
 import { BehaviorSubject } from 'rxjs';
 import { CloseMenuDirective } from '../../directives/close-menu/close-menu.directive';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
+import { BlockDataService } from '../../services/block-data/block-data.service';
 
 @Component({
   selector: 'trello-card-footer',
@@ -19,10 +19,10 @@ export class CardFooterComponent {
   onCardMove$$ = this.cardEventsFacadeService.onCardMove$$;
 
   constructor(
-    @Inject(BLOCK_TOKEN) cardBlock: IBlockInstance,
+    private readonly blockDataService: BlockDataService,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
   ) {
-    this.addNewEvent$ = cardBlock.block.addNewEvent$;
+    this.addNewEvent$ = this.blockDataService.block.addNewEvent$;
   }
 
   handleAddNew() {

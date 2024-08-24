@@ -19,7 +19,7 @@ import {
   tap,
   throttleTime,
 } from 'rxjs';
-import { LIST_ID_ATTR } from '../models/card.models';
+import { LIST_ID_ATTR } from '../../models/card.models';
 import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
 
 @Injectable({ providedIn: 'root' })

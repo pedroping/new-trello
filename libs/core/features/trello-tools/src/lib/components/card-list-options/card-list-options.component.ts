@@ -1,11 +1,12 @@
 import { CdkMenuTrigger } from '@angular/cdk/menu';
-import { Component, Inject, input, output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
-import { BLOCK_TOKEN, IBlockInstance, Icard } from '@my-monorepo/core/utlis';
+import { Icard } from '@my-monorepo/core/utlis';
 import { BehaviorSubject } from 'rxjs';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
+import { BlockDataService } from '../../services/block-data/block-data.service';
 
 @Component({
   selector: 'trello-card-list-options',
@@ -21,12 +22,12 @@ export class CardOptionsComponent {
   editEvent = output();
 
   constructor(
-    @Inject(BLOCK_TOKEN) cardBlock: IBlockInstance,
     private readonly dbFacadeService: DbFacadeService,
+    private readonly blockDataService: BlockDataService,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
   ) {
-    this.listId = cardBlock.id;
-    this.cards$ = cardBlock.block.cards$;
+    this.listId = this.blockDataService.id;
+    this.cards$ = this.blockDataService.block.cards$;
   }
 
   closeMenu() {

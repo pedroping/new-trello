@@ -1,15 +1,10 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, Inject, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { BackdropStateService } from '@my-monorepo/core/features/backdrop-screen';
 import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
-import {
-  BLOCK_TOKEN,
-  IBlock,
-  IBlockInstance,
-  Icard,
-  IcardAsProperty,
-} from '@my-monorepo/core/utlis';
+import { IBlock, Icard, IcardAsProperty } from '@my-monorepo/core/utlis';
 import { map } from 'rxjs';
+import { BlockDataService } from '../../services/block-data/block-data.service';
 
 @Component({
   selector: 'move-card',
@@ -29,11 +24,11 @@ export class MoveCardComponent {
   );
 
   constructor(
-    @Inject(BLOCK_TOKEN) cardBlock: IBlockInstance,
     private readonly dbFacadeService: DbFacadeService,
+    private readonly blockDataService: BlockDataService,
     private readonly backdropStateService: BackdropStateService<IcardAsProperty>,
   ) {
-    this.blockCard = cardBlock.block;
+    this.blockCard = this.blockDataService.block;
   }
 
   moveToBlock(block: IBlock) {

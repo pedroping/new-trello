@@ -2,7 +2,6 @@ import {
   Component,
   ElementRef,
   EnvironmentInjector,
-  Inject,
   Injector,
   effect,
   inject,
@@ -25,15 +24,14 @@ import { OutsideClickDirective } from '@my-monorepo/core/features/outside-elemen
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
 import {
-  BLOCK_TOKEN,
   IBlock,
-  IBlockInstance,
   Icard,
   IcardAsProperty,
   OutsideClickEventsService,
 } from '@my-monorepo/core/utlis';
 import { merge, skip, switchMap } from 'rxjs';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
+import { BlockDataService } from '../../services/block-data/block-data.service';
 import { CardEditComponent } from '../card-edit/card-edit.component';
 
 @Component({
@@ -68,12 +66,12 @@ export class CardComponent {
   constructor(
     private readonly classInjector: Injector,
     private readonly dbFacadeService: DbFacadeService,
-    @Inject(BLOCK_TOKEN) private readonly cardBlock: IBlockInstance,
+    private readonly blockDataService: BlockDataService,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
     private readonly outsideClickEventsService: OutsideClickEventsService,
     private readonly backdropStateService: BackdropStateService<IcardAsProperty>,
   ) {
-    this.blockCard = cardBlock.block;
+    this.blockCard = this.blockDataService.block;
   }
 
   setValueChanges() {
@@ -153,8 +151,8 @@ export class CardComponent {
     return Injector.create({
       providers: [
         {
-          provide: BLOCK_TOKEN,
-          useValue: this.cardBlock,
+          provide: BlockDataService,
+          useValue: this.blockDataService,
         },
       ],
       parent: this.classInjector,

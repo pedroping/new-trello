@@ -1,3 +1,31 @@
+@import 'mixins';
+
 :host {
-  display: block;
+  user-select: none;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  .card-list {
+    opacity: 0.5;
+  }
+
+  .content {
+    @include second-box-shadow;
+    width: 300px;
+    border-radius: 20px;
+    background-color: var(--block-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: calc(100dvh - 115px) !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .drag-area {
+    width: 400px;
+    aspect-ratio: 1/1;
+  }
 }

@@ -2,7 +2,6 @@ import {
   Component,
   ElementRef,
   EnvironmentInjector,
-  Inject,
   OnInit,
   Renderer2,
   TemplateRef,
@@ -27,9 +26,7 @@ import {
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
 import {
-  BLOCK_TOKEN,
   IBlock,
-  IBlockInstance,
   Icard,
   IcardAsProperty,
   OutsideClickEventsService,
@@ -41,6 +38,7 @@ import {
   CARD_ACTION_SIZE,
   CARD_ON_BOTTOM_BREAKPOINT,
 } from '../../models/card.models';
+import { BlockDataService } from '../../services/block-data/block-data.service';
 import { MoveCardComponent } from '../move-card/move-card.component';
 
 @Component({
@@ -78,8 +76,8 @@ export class CardEditComponent implements OnInit {
 
   constructor(
     private readonly rendere2: Renderer2,
-    @Inject(BLOCK_TOKEN) cardBlock: IBlockInstance,
     private readonly dbFacadeService: DbFacadeService,
+    private readonly blockDataService: BlockDataService,
     private readonly viewContainerRef: ViewContainerRef,
     private readonly elementRef: ElementRef<HTMLElement>,
     private readonly openCustomMenuService: OpenCustomMenuService,
@@ -87,7 +85,7 @@ export class CardEditComponent implements OnInit {
     private readonly backdropStateService: BackdropStateService<IcardAsProperty>,
     private readonly outsideClickEventsService: OutsideClickEventsService,
   ) {
-    this.blockCard = cardBlock.block;
+    this.blockCard = this.blockDataService.block;
   }
 
   ngOnInit(): void {

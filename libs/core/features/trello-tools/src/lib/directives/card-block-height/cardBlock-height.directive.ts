@@ -1,9 +1,9 @@
-import { Directive, Inject, input, signal } from '@angular/core';
+import { Directive, input, signal } from '@angular/core';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
-import { BLOCK_TOKEN, IBlockInstance } from '@my-monorepo/core/utlis';
 import { BehaviorSubject, Subject, map, merge, startWith } from 'rxjs';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 import { CARD_SIZE } from '../../models/card.models';
+import { BlockDataService } from '../../services/block-data/block-data.service';
 
 @Directive({
   selector: '[trelloCardBlockHeight]',
@@ -24,13 +24,13 @@ export class CardBlockHeightDirective {
   });
 
   constructor(
-    @Inject(BLOCK_TOKEN) private cardBlock: IBlockInstance,
+    private readonly blockDataService: BlockDataService,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
   ) {}
 
   setValueChanges() {
-    this.id = this.cardBlock.id;
-    this.addNewEvent$ = this.cardBlock.block.addNewEvent$;
+    this.id = this.blockDataService.id;
+    this.addNewEvent$ = this.blockDataService.block.addNewEvent$;
     merge(this.length$, this.addNewEvent$, this.onCardMovement$())
       .pipe(startWith())
       .subscribe(() => this.calcHeight());
@@ -54,7 +54,7 @@ export class CardBlockHeightDirective {
   }
 
   setLenght() {
-    const cards$ = this.cardBlock.block.cards$;
+    const cards$ = this.blockDataService.block.cards$;
     cards$
       .asObservable()
       .pipe(

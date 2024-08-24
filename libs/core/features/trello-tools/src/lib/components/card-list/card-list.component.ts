@@ -1,19 +1,15 @@
 import {
   CdkDragDrop,
   CdkDragMove,
+  CdkDropList,
   DragDropModule,
 } from '@angular/cdk/drag-drop';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { AsyncPipe } from '@angular/common';
-import { Component, Inject } from '@angular/core';
+import { AsyncPipe, JsonPipe } from '@angular/common';
+import { Component, effect, viewChild } from '@angular/core';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
-import {
-  BLOCK_TOKEN,
-  IBlock,
-  IBlockInstance,
-  Icard,
-} from '@my-monorepo/core/utlis';
-import { BehaviorSubject, Observable, fromEvent, map, startWith } from 'rxjs';
+import { IBlock, Icard } from '@my-monorepo/core/utlis';
+import { BehaviorSubject, fromEvent, map, Observable, startWith } from 'rxjs';
 import { ScrollToEndDirective } from '../../directives/scroll-to-end/scroll-to-end.directive';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 import {
@@ -21,6 +17,7 @@ import {
   SCROLL_MOVE_TICK,
   TIME_TO_DRAG_START,
 } from '../../models/card.models';
+import { BlockDataService } from '../../services/block-data/block-data.service';
 import { CardComponent } from '../card/card.component';
 
 @Component({
@@ -34,6 +31,7 @@ import { CardComponent } from '../card/card.component';
     CardComponent,
     AsyncPipe,
     CdkScrollable,
+    JsonPipe,
   ],
 })
 @CallSetValueChanges()
@@ -46,12 +44,22 @@ export class CardListComponent {
   customZIndex$!: Observable<number>;
   onCardMovement$ = new BehaviorSubject<boolean>(false);
 
+  cdkDropList = viewChild<CdkDropList>(CdkDropList);
+
   constructor(
-    @Inject(BLOCK_TOKEN) cardBlock: IBlockInstance,
+    private readonly blockDataService: BlockDataService,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
   ) {
-    this.id = cardBlock.id;
-    this.blockCard = cardBlock.block;
+    this.id = this.blockDataService.id;
+    this.blockCard = this.blockDataService.block;
+
+    this.blockCard.cards$.subscribe((a) => console.log(a));
+
+    console.log(this.blockCard.cards$.value);
+
+    effect(() => {
+      console.log(this.cdkDropList());
+    });
   }
 
   setValueChanges() {

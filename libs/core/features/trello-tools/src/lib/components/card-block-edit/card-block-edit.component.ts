@@ -2,7 +2,6 @@ import {
   Component,
   ElementRef,
   EnvironmentInjector,
-  Inject,
   effect,
   inject,
   viewChild,
@@ -13,11 +12,8 @@ import { BackdropStateService } from '@my-monorepo/core/features/backdrop-screen
 import { OutsideClickDirective } from '@my-monorepo/core/features/outside-element-click';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
-import {
-  BLOCK_TOKEN,
-  IBlockInstance,
-  OutsideClickEventsService,
-} from '@my-monorepo/core/utlis';
+import { OutsideClickEventsService } from '@my-monorepo/core/utlis';
+import { BlockDataService } from '../../services/block-data/block-data.service';
 import { CardComponent } from '../card/card.component';
 
 @Component({
@@ -34,17 +30,17 @@ export class CardBlockEditComponent {
   input = viewChild<ElementRef<HTMLInputElement>>('editInput');
 
   cardColletions: null[];
-  blockName = new FormControl<string>(this.cardBlock.block.name, {
+  blockName = new FormControl<string>(this.blockDataService.block.name, {
     nonNullable: true,
   });
 
   constructor(
     private readonly dbFacadeService: DbFacadeService,
-    @Inject(BLOCK_TOKEN) private readonly cardBlock: IBlockInstance,
+    private readonly blockDataService: BlockDataService,
     private readonly backdropStateService: BackdropStateService<unknown>,
     private readonly outsideClickEventsService: OutsideClickEventsService,
   ) {
-    const cardLenght = cardBlock.block.cards$.value.length;
+    const cardLenght = this.blockDataService.block.cards$.value.length;
     this.cardColletions = Array.from({ length: cardLenght }).map(() => null);
   }
 
@@ -59,8 +55,8 @@ export class CardBlockEditComponent {
   }
 
   saveActions() {
-    this.cardBlock.block.name = this.blockName.value;
-    this.dbFacadeService.editBlock(this.cardBlock.block);
+    this.blockDataService.block.name = this.blockName.value;
+    this.dbFacadeService.editBlock(this.blockDataService.block);
     this.removeBackdrop();
   }
 

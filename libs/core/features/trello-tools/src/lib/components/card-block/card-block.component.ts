@@ -1,15 +1,15 @@
 import { AsyncPipe } from '@angular/common';
 import {
+  AfterViewInit,
   Component,
-  Injector,
-  OnInit,
-  ViewContainerRef,
   input,
-  viewChild,
+  OnInit,
+  viewChild
 } from '@angular/core';
-import { BLOCK_TOKEN, IBlock, IBlockInstance } from '@my-monorepo/core/utlis';
+import { IBlock } from '@my-monorepo/core/utlis';
+import { Subject } from 'rxjs';
 import { CardBlockHeightDirective } from '../../directives/card-block-height/cardBlock-height.directive';
-import { CardBlockContentComponent } from '../card-block-content/card-block-content.component';
+import { BlockDataService } from '../../services/block-data/block-data.service';
 import { CardFooterComponent } from '../card-footer/card-footer.component';
 import { CardHeaderComponent } from '../card-header/card-header.component';
 import { CardListComponent } from '../card-list/card-list.component';
@@ -26,47 +26,26 @@ import { CardListComponent } from '../card-list/card-list.component';
     CardListComponent,
     AsyncPipe,
   ],
+  providers: [BlockDataService],
 })
-export class CardBlockComponent implements OnInit {
-  id = input.required<number>();
-  block = input.required<IBlock>();
-  isPreview = input<boolean>(false);
-  viewContainerRef = viewChild('vcr', { read: ViewContainerRef });
+export class CardBlockComponent implements OnInit, AfterViewInit {
+  blockId = input.required<number>({ alias: 'id' });
+  isPreview = input<boolean>(false, { alias: 'isPreview' });
+  blockContent = input.required<IBlock>({ alias: 'block' });
 
-  constructor(private readonly injector: Injector) {}
+  onCardMovement$ = new Subject<void>();
+  cardList = viewChild(CardListComponent);
+
+  constructor(private readonly blockDataService: BlockDataService) {}
 
   ngOnInit(): void {
-    const viewContainerRef = this.viewContainerRef();
-    if (!viewContainerRef) return;
-    this.createContent(viewContainerRef);
+    this.blockDataService.setId(this.blockId());
+    this.blockDataService.setBlock(this.blockContent());
   }
 
-  createContent(viewContainerRef: ViewContainerRef) {
-    viewContainerRef.clear();
-
-    const { instance } = viewContainerRef.createComponent(
-      CardBlockContentComponent,
-      {
-        injector: this.getInjector(),
-      },
+  ngAfterViewInit(): void {
+    this.cardList()?.onCardMovement$.subscribe(() =>
+      this.onCardMovement$.next(),
     );
-    instance.isPreview = this.isPreview();
-  }
-
-  getInjector() {
-    const blockInstance: IBlockInstance = {
-      id: this.id(),
-      block: this.block(),
-    };
-
-    return Injector.create({
-      providers: [
-        {
-          provide: BLOCK_TOKEN,
-          useValue: blockInstance,
-        },
-      ],
-      parent: this.injector,
-    });
   }
 }
