@@ -1,14 +1,14 @@
 <div class="content">
   <div class="card-and-save" [style.width]="contentSizes.width">
     <div class="card" [style.height]="contentSizes.height">
-      <input
+      <textarea
         #nameInput
         type="text"
         outsideClick
         (keyup.enter)="editCard()"
         (keyup.escape)="closeEdit()"
         [formControl]="cardNameControl"
-      />
+      ></textarea>
       <mat-icon preventClick (click)="editCard()">save</mat-icon>
     </div>
     <button

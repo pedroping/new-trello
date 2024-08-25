@@ -1,4 +1,4 @@
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export interface Icard {
   id: number;
@@ -18,8 +18,11 @@ export interface IBlock {
 export interface IBlockInstanceService {
   id: number;
   block: IBlock;
+  cardsHeight: number;
   setId(id: number): void;
   setBlock(block: IBlock): void;
+  cardsHeight$$: Observable<number>;
+  setCardsHeight(value: number): void;
 }
 
 export interface IcardAsProperty {

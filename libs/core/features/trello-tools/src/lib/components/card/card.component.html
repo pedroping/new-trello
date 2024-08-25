@@ -8,7 +8,11 @@
     (keyup.escape)="cancelEvent()"
   />
 } @else if (!isPreview()) {
-  <span class="card-text"><ng-content></ng-content></span>
+  <div class="text" [title]="card()?.name">
+    <p class="card-text">
+      {{ card()?.name }}
+    </p>
+  </div>
   <div class="edit-content" (click)="editclick()">
     <mat-icon>edit</mat-icon>
   </div>

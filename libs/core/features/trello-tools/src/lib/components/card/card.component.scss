@@ -3,12 +3,11 @@
 :host {
   @include second-box-shadow;
   width: 100%;
-  height: var(--card-height);
   min-height: var(--card-height);
+  max-height: var(--max-card-height);
   padding: 5px;
   color: var(--text-01);
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   cursor: grab;
@@ -17,11 +16,20 @@
   border-radius: 10px;
   margin: 2px;
 
-  .card-text {
-    width: 100%;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  .text {
+    width: calc(100% - 24px);
+    height: 100%;
     overflow: hidden;
+    max-height: var(--max-card-height);
+
+    p {
+      max-width: 100%;
+      white-space: normal;
+      margin: 0px !important;
+      max-height: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 
   input {
@@ -41,11 +49,11 @@
 
   .edit-content {
     opacity: 0;
+    height: 24px;
     cursor: pointer;
     transition: opacity 500ms ease;
 
     mat-icon {
-      margin-top: 7px;
       transform: scale(0.9);
     }
   }

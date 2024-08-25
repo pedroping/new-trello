@@ -16,8 +16,11 @@ export class CardEventsFacadeService {
     this.dragAndDropService.startDomain();
   }
 
-  setCardMove(value: boolean, card?: Icard) {
+  setCardMove(value: boolean, card?: Icard, cardHeight?: number) {
     if (card) this.dragAndDropService.cardMoving = card;
+    if (cardHeight != undefined)
+      this.dragAndDropService.cardHeight$.next(cardHeight);
+
     this.dragAndDropService.onCardMove$.next(value);
   }
 
@@ -56,6 +59,14 @@ export class CardEventsFacadeService {
 
   get lastToBeHovered() {
     return this.dragAndDropService.lastToBeHovered;
+  }
+
+  get cardHeight() {
+    return this.dragAndDropService.cardHeight$.value;
+  }
+
+  get cardHeight$$() {
+    return this.dragAndDropService.cardHeight$.asObservable();
   }
 
   get onCardMove() {

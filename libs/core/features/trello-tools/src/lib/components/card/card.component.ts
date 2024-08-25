@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   EnvironmentInjector,
@@ -33,6 +34,7 @@ import { merge, skip, switchMap } from 'rxjs';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';
 import { BlockDataService } from '../../services/block-data/block-data.service';
 import { CardEditComponent } from '../card-edit/card-edit.component';
+import { CARD_SIZE } from '../../models/card.models';
 
 @Component({
   selector: 'trello-card',
@@ -49,7 +51,7 @@ import { CardEditComponent } from '../card-edit/card-edit.component';
   ],
 })
 @CallSetValueChanges()
-export class CardComponent {
+export class CardComponent implements AfterViewInit {
   card = input<Icard>();
   isPreview = input<boolean>();
   blockCard: IBlock;
@@ -62,16 +64,22 @@ export class CardComponent {
   injector = inject(EnvironmentInjector);
   templateRect = viewChild(BackdropContentDirective);
   nameInput = viewChild<ElementRef<HTMLInputElement>>('nameInput');
+  cardHeight = CARD_SIZE;
 
   constructor(
     private readonly classInjector: Injector,
     private readonly dbFacadeService: DbFacadeService,
     private readonly blockDataService: BlockDataService,
+    private readonly elementRef: ElementRef<HTMLElement>,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
     private readonly outsideClickEventsService: OutsideClickEventsService,
     private readonly backdropStateService: BackdropStateService<IcardAsProperty>,
   ) {
     this.blockCard = this.blockDataService.block;
+  }
+
+  ngAfterViewInit() {
+    this.setHeight();
   }
 
   setValueChanges() {
@@ -100,6 +108,10 @@ export class CardComponent {
       });
   }
 
+  setHeight() {
+    this.cardHeight = this.elementRef.nativeElement.offsetHeight;
+  }
+
   addCard(onOutside?: boolean) {
     if (this.cardNameControl.invalid) return;
 
@@ -124,6 +136,7 @@ export class CardComponent {
         this.cardNameControl.reset();
         if (onOutside) return this.cancelEvent();
         this.blockCard.addNewEvent$.next(true);
+        this.setHeight();
       });
   }
 
@@ -145,6 +158,10 @@ export class CardComponent {
       };
     this.outsideClickEventsService.setEditClick();
     this.backdropStateService.setBackDropState(backdropEvent);
+
+    this.backdropStateService.backDropEventSubscription$.subscribe((value) => {
+      if (!value) this.setHeight();
+    });
   }
 
   getInjector() {

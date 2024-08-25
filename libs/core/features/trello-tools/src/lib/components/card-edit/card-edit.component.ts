@@ -66,7 +66,7 @@ export class CardEditComponent implements OnInit {
     height: '',
   };
   menu = viewChild<TemplateRef<unknown>>('menu');
-  input = viewChild<ElementRef<HTMLInputElement>>('nameInput');
+  input = viewChild<ElementRef<HTMLTextAreaElement>>('nameInput');
   injector = inject(EnvironmentInjector);
 
   cardNameControl = new FormControl('', {

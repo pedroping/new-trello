@@ -16,15 +16,13 @@
     @for (item of cards; track item) {
       <div
         cdkDrag
-        (cdkDragMoved)="onMove(item, $event)"
+        (cdkDragMoved)="onMove(item, $event, card.cardHeight)"
         [cdkDragStartDelay]="timeToDragStart"
       >
         <div class="example-custom-placeholder" *cdkDragPlaceholder>
-          <trello-card [isPreview]="true"></trello-card>
+          <trello-card [isPreview]="true" previewCardHeight></trello-card>
         </div>
-        <trello-card [card]="item">
-          {{ item.name }}
-        </trello-card>
+        <trello-card [card]="item" #card> </trello-card>
       </div>
     }
     @if (blockCard.addNewEvent$ | async) {

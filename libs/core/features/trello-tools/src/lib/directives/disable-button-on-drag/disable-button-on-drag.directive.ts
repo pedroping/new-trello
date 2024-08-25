@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Renderer2, input } from '@angular/core';
+import { Directive, ElementRef, Renderer2 } from '@angular/core';
 import { CallSetValueChanges } from '@my-monorepo/core/features/set-value-changes-decorator';
 import { map, merge, startWith } from 'rxjs';
 import { CardEventsFacadeService } from '../../facades/card-events-facade.service';

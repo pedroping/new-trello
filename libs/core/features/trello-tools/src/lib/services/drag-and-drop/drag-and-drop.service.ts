@@ -19,7 +19,7 @@ import {
   tap,
   throttleTime,
 } from 'rxjs';
-import { LIST_ID_ATTR } from '../../models/card.models';
+import { CARD_SIZE, LIST_ID_ATTR } from '../../models/card.models';
 import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
 
 @Injectable({ providedIn: 'root' })
@@ -28,8 +28,10 @@ export class DragAndDropService {
   onMove$ = new BehaviorSubject<boolean>(false);
   onCardMove$ = new BehaviorSubject<boolean>(false);
   objectPosition$ = new BehaviorSubject<number>(0);
+
   onBlockMove = false;
   cardMoving?: Icard;
+  cardHeight$ = new BehaviorSubject<number>(CARD_SIZE);
   lastToBeHovered = -1;
 
   constructor(
