@@ -20,7 +20,7 @@
         [cdkDragStartDelay]="timeToDragStart"
       >
         <div class="example-custom-placeholder" *cdkDragPlaceholder>
-          <trello-card [isPreview]="true" previewCardHeight></trello-card>
+          <trello-card [isPreview]="true" [card]="item"></trello-card>
         </div>
         <trello-card [card]="item" #card> </trello-card>
       </div>

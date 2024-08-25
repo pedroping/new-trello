@@ -49,6 +49,9 @@ import { CARD_SIZE } from '../../models/card.models';
     OutsideClickDirective,
     BackdropContentDirective,
   ],
+  host: {
+    '[class.onPreview]': 'isPreview()',
+  },
 })
 @CallSetValueChanges()
 export class CardComponent implements AfterViewInit {

@@ -16,6 +16,13 @@
   border-radius: 10px;
   margin: 2px;
 
+  &.onPreview {
+    .text,
+    .edit-content {
+      opacity: 0 !important;
+    }
+  }
+
   .text {
     width: calc(100% - 24px);
     height: 100%;

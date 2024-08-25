@@ -19,7 +19,6 @@ import {
 } from '../../models/card.models';
 import { BlockDataService } from '../../services/block-data/block-data.service';
 import { CardComponent } from '../card/card.component';
-import { PreviewCardHeightDirective } from '../../directives/preview-card-height/preview-card-height.directive';
 
 @Component({
   selector: 'card-list',
@@ -33,7 +32,6 @@ import { PreviewCardHeightDirective } from '../../directives/preview-card-height
     AsyncPipe,
     CdkScrollable,
     JsonPipe,
-    PreviewCardHeightDirective,
   ],
 })
 @CallSetValueChanges()
