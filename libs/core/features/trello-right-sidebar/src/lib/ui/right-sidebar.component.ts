@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { SidebarContentDirective } from '../../directives/sidebar-content/sidebar-content.directive';
-import { RightSidebarHeaderComponent } from '../right-sidebar-header/right-sidebar-header.component';
+import { RightSidebarHeaderComponent } from '../components/right-sidebar-header/right-sidebar-header.component';
+import { SidebarContentDirective } from '../directives/sidebar-content/sidebar-content.directive';
 
 @Component({
   selector: 'uf-right-sidebar',

@@ -11,3 +11,14 @@
   <mat-icon>add_photo_alternate</mat-icon>
   <span class="action-label">Alterar Plano de Fundo</span>
 </trello-sidebar-action>
+
+<div class="footer-actions">
+  <trello-sidebar-action (clickEvent)="importContent()">
+    <mat-icon>cloud_upload</mat-icon>
+    <span class="action-label">Importar dados</span>
+  </trello-sidebar-action>
+  <trello-sidebar-action (clickEvent)="exportContent()">
+    <mat-icon>save_alt</mat-icon>
+    <span class="action-label">Exportar dados</span>
+  </trello-sidebar-action>
+</div>

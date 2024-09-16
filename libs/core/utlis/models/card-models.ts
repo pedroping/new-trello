@@ -7,6 +7,12 @@ export interface Icard {
   cardIndex: number;
 }
 
+export interface ISimpleBlock {
+  id: number;
+  name: string;
+  blockIndex: number;
+}
+
 export interface IBlock {
   id: number;
   name: string;

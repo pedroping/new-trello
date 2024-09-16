@@ -1,1 +1,1 @@
-export * from './lib/components/right-sidebar/right-sidebar.component';
+export * from './lib/ui/right-sidebar.component';

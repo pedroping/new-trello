@@ -50,6 +50,33 @@ export class CardDbService implements IDBService<Icard> {
     return eventResponse$.asObservable();
   }
 
+  getAllElements$() {
+    const request = this.openRequest();
+    const eventResponse$ = new BehaviorSubject<Icard[]>([]);
+
+    request.onsuccess = () => {
+      const db = request.result;
+      const { transaction, store } = this.conectionValues(db);
+
+      const allRequest = store.getAll();
+
+      allRequest.onsuccess = () => {
+        eventResponse$.next(allRequest.result);
+      };
+
+      allRequest.onerror = () => {
+        console.error('Ocorreu um erro ao buscar o elemento');
+        eventResponse$.next([]);
+      };
+
+      transaction.oncomplete = () => {
+        db.close();
+      };
+    };
+
+    return eventResponse$;
+  }
+
   addNewElement(element: Omit<Icard, 'id'>) {
     const request = this.openRequest();
     const eventResponse$ = new Subject<IAddNewResponse>();

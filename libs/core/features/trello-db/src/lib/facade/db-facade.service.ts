@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { IBlock, ISrcImg, Icard } from '@my-monorepo/core/utlis';
-import { combineLatest, switchMap } from 'rxjs';
+import {
+  combineLatest,
+  switchMap
+} from 'rxjs';
 import { INewBlock } from '../models/card-block-db-models';
 import { CardBlockDbService } from '../services/card-block-db/card-block-db.service';
 import { CardDbService } from '../services/card-db/card-db.service';
+import { ImportExportDataService } from '../services/import-export-data/import-export-data.service';
 import { WallpapersDbService } from '../services/wallpapers-db/wallpapers-db.service';
 
 @Injectable({ providedIn: 'root' })
@@ -15,6 +19,7 @@ export class DbFacadeService {
     private readonly cardDbService: CardDbService,
     private readonly cardBlockDbService: CardBlockDbService,
     private readonly wallpapersDbService: WallpapersDbService,
+    private readonly importExportDataService: ImportExportDataService,
   ) {}
 
   startDomain() {
@@ -84,5 +89,13 @@ export class DbFacadeService {
 
   setAllElements() {
     this.cardBlockDbService.setAllElements();
+  }
+
+  importContent() {
+    this.importExportDataService.importContent();
+  }
+
+  exportContent() {
+    this.importExportDataService.exportContent();
   }
 }

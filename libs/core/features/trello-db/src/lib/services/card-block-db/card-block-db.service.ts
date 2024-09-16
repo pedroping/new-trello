@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IBlock } from '@my-monorepo/core/utlis';
+import { IBlock, ISimpleBlock } from '@my-monorepo/core/utlis';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { IAddNewResponse, IDBService } from '../../models/base-db-models';
 import {
@@ -227,6 +227,14 @@ export class CardBlockDbService implements IDBService<IBlock> {
       console.error(
         `Conexão com a base de dados '${CARD_BLOCKS_DB_NAME}' falhou!`,
       );
+  }
+
+  mapBlocks(blocks: IBlock[]): ISimpleBlock[] {
+    return blocks.map((block) => ({
+      id: block.id,
+      name: block.name,
+      blockIndex: block.blockIndex,
+    }));
   }
 
   setAllElements() {
