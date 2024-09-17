@@ -10,7 +10,7 @@
     [cdkDropListAutoScrollStep]="8"
     (cdkDropListDropped)="listDropped($event)"
   >
-    @for (block of blocks; track block; let index = $index) {
+    @for (block of blocks; track block.cards$; let index = $index) {
       <div
         class="block"
         cdkDrag

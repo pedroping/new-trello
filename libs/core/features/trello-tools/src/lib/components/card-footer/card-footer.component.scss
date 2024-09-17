@@ -12,6 +12,10 @@
   position: relative;
   top: 10px;
 
+  &.noData {
+    top: 0px;
+  }
+
   .add-new-card {
     display: flex;
     align-items: center;

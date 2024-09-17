@@ -59,42 +59,27 @@ export class ImportExportDataService {
     blocks.forEach((block) => {
       const filteredCards = cards.filter((card) => card.blockId == block.id);
 
-      this.cardBlockDbService
-        .addNewElement({ name: block.name })
-        .subscribe((response) => {
-          if (response.id == -1) return;
+      this.cardBlockDbService.editElement(block).subscribe((response) => {
+        if (response.id == -1) return;
 
-          const addAll: Observable<IAddNewResponse>[] = [];
+        const addAll: Observable<IAddNewResponse>[] = [];
 
-          filteredCards.forEach((card) => {
-            const formatedCard = {
-              name: card.name,
-              blockId: response.id,
-              cardIndex: card.cardIndex,
-            };
-
-            addAll.push(this.cardDbService.addNewElement(formatedCard));
-          });
-
-          combineLatest(addAll).subscribe(() => {
-            this.cardBlockDbService.setAllElements();
-          });
+        filteredCards.forEach((card) => {
+          addAll.push(this.cardDbService.editElement(card));
         });
+
+        combineLatest(addAll).subscribe(() => {          
+          this.cardBlockDbService.setAllElements();
+        });
+      });
     });
   }
 
   private addWalpapers(wallpapers: ISrcImg[]) {
     wallpapers.forEach((wallpaper) => {
-      const formatedWallpaper = {
-        selected: false,
-        src: wallpaper.src,
-      };
-
-      this.wallpapersDbService
-        .addNewElement(formatedWallpaper)
-        .subscribe((response) => {
-          if (response.id != -1) this.wallpapersDbService.setAllElements();
-        });
+      this.wallpapersDbService.editElement(wallpaper).subscribe((response) => {
+        if (response.id != -1) this.wallpapersDbService.setAllElements();
+      });
     });
   }
 

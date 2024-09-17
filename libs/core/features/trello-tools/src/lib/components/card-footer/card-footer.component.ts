@@ -1,6 +1,6 @@
 import { CdkMenuModule } from '@angular/cdk/menu';
 import { AsyncPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { BehaviorSubject } from 'rxjs';
 import { CloseMenuDirective } from '../../directives/close-menu/close-menu.directive';
@@ -13,16 +13,26 @@ import { BlockDataService } from '../../services/block-data/block-data.service';
   styleUrls: ['./card-footer.component.scss'],
   standalone: true,
   imports: [CdkMenuModule, MatIconModule, CloseMenuDirective, AsyncPipe],
+  host: {
+    '[class.noData]': 'noData()',
+  },
 })
-export class CardFooterComponent {
+export class CardFooterComponent implements OnInit {
   addNewEvent$: BehaviorSubject<boolean>;
   onCardMove$$ = this.cardEventsFacadeService.onCardMove$$;
+  noData = signal<boolean>(false);
 
   constructor(
     private readonly blockDataService: BlockDataService,
     private readonly cardEventsFacadeService: CardEventsFacadeService,
   ) {
     this.addNewEvent$ = this.blockDataService.block.addNewEvent$;
+  }
+
+  ngOnInit(): void {
+    this.blockDataService.block.cards$.subscribe((cards) =>
+      this.noData.set(cards.length <= 0),
+    );
   }
 
   handleAddNew() {

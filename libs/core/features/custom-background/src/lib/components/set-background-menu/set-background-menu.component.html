@@ -6,7 +6,7 @@
 <div class="images">
   @if (images$ | async; as images) {
     @if (images.length > 0) {
-      @for (item of images; track item) {
+      @for (item of images; track item.id) {
         <img [src]="item" (click)="selectImg(item)" />
       }
     } @else {

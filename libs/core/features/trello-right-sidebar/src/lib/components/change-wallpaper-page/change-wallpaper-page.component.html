@@ -6,7 +6,7 @@
 <input type="file" #fileInput (change)="addImage($event)" />
 
 <div class="images">
-  @for (item of imgSrc$$ | async; track $index) {
+  @for (item of imgSrc$$ | async; track item.id) {
     <trello-wallpaper-image [imgItem]="item"></trello-wallpaper-image>
   }
 </div>
