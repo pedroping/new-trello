@@ -27,6 +27,12 @@ export class RightSidebarActionsComponent {
   }
 
   clearBoard() {
+    const clearBoard = confirm(
+      'Você realmente deseja limpar todo o seu quadro ?',
+    );
+
+    if (!clearBoard) return;
+    
     this.dbFacadeService.clearDb();
     this.genericSidenavsFacadeService.setRightSideNavState(false);
   }

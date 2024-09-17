@@ -35,10 +35,13 @@ export class CardOptionsComponent {
   }
 
   archiveList() {
+    const deleteList = confirm('Você realmente deseja deletar essa lista ?');
+    if (!deleteList) return;
+
     this.dbFacadeService.deleteBlock(this.listId).subscribe(() => {
       this.dbFacadeService.setAllElements();
+      this.closeMenu();
     });
-    this.closeMenu();
   }
 
   orderListByName() {
