@@ -73,6 +73,45 @@
             }
           }
         },
+        "web-c": {
+          "fileReplacements": [
+            {
+              "replace": "apps/new-trello/src/environments/environment.ts",
+              "with": "apps/new-trello/src/environments/environment.web-c.ts"
+            },
+            {
+              "replace": "apps/new-trello/src/main.ts",
+              "with": "apps/new-trello/src/main-web-c.ts"
+            }
+          ],
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "3mb",
+              "maximumError": "5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "3mb",
+              "maximumError": "5mb"
+            }
+          ],
+          "outputHashing": "none",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "tsConfig": "apps/new-trello/tsconfig.app-web-c.json",
+          "baseHref": "http://localhost:4200/",
+          "optimization": {
+            "scripts": true,
+            "styles": {
+              "minify": true,
+              "inlineCritical": false
+            }
+          }
+        },
         "development": {
           "buildOptimizer": false,
           "optimization": false,

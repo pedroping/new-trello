@@ -18,23 +18,23 @@ export class DarkModeService {
     @Inject(META_DARK_COLOR) private readonly metaDarkColors: string,
   ) {
     this.darkMode$.next(!!localStorage.getItem(DARK_MODE));
-    this.metaElement.setAttribute('content', this.metaLightColors);
+    this.metaElement?.setAttribute('content', this.metaLightColors);
     if (!localStorage.getItem(DARK_MODE)) return;
-    this.metaElement.setAttribute('content', this.metaDarkColors);
-    this.htmlElement.classList.add(DARK_MODE);
+    this.metaElement?.setAttribute('content', this.metaDarkColors);
+    this.htmlElement?.classList.add(DARK_MODE);
   }
 
   toggleDarkMode(): void {
     this.darkMode$.next(!this.darkMode$.value);
     if (this.darkMode$.value) {
-      this.htmlElement.classList.add(DARK_MODE);
+      this.htmlElement?.classList.add(DARK_MODE);
       localStorage.setItem(DARK_MODE, ON_DARK_MODE);
-      this.metaElement.setAttribute('content', this.metaDarkColors);
+      this.metaElement?.setAttribute('content', this.metaDarkColors);
       return;
     }
     localStorage.removeItem(DARK_MODE);
-    this.htmlElement.classList.remove(DARK_MODE);
-    this.metaElement.setAttribute('content', this.metaLightColors);
+    this.htmlElement?.classList.remove(DARK_MODE);
+    this.metaElement?.setAttribute('content', this.metaLightColors);
   }
 
   get metaElement() {
@@ -47,15 +47,15 @@ export class DarkModeService {
 
   setDarkMode() {
     this.darkMode$.next(true);
-    this.htmlElement.classList.add(DARK_MODE);
+    this.htmlElement?.classList.add(DARK_MODE);
     localStorage.setItem(DARK_MODE, ON_DARK_MODE);
-    this.metaElement.setAttribute('content', this.metaDarkColors);
+    this.metaElement?.setAttribute('content', this.metaDarkColors);
   }
 
   setLightMode() {
     this.darkMode$.next(false);
     localStorage.removeItem(DARK_MODE);
-    this.htmlElement.classList.remove(DARK_MODE);
-    this.metaElement.setAttribute('content', this.metaLightColors);
+    this.htmlElement?.classList.remove(DARK_MODE);
+    this.metaElement?.setAttribute('content', this.metaLightColors);
   }
 }

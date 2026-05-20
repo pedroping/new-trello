@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { BackdropScreenComponent } from '@my-monorepo/core/features/backdrop-screen';
 import { CustomBackgroundDirective } from '@my-monorepo/core/features/custom-background';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'new-trello-root',
@@ -10,4 +11,10 @@ import { CustomBackgroundDirective } from '@my-monorepo/core/features/custom-bac
   standalone: true,
   imports: [RouterModule, BackdropScreenComponent, CustomBackgroundDirective],
 })
-export class AppComponent {}
+export class AppComponent implements OnInit {
+  private readonly router = inject(Router);
+
+  ngOnInit() {
+    if (environment.isWebComponent) this.router.navigateByUrl('/');
+  }
+}

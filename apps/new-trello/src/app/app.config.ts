@@ -1,3 +1,4 @@
+import { APP_BASE_HREF, LocationStrategy } from '@angular/common';
 import { provideHttpClient } from '@angular/common/http';
 import {
   APP_INITIALIZER,
@@ -16,10 +17,12 @@ import {
   PreloadAllModules,
   provideRouter,
   withComponentInputBinding,
+  withHashLocation,
   withPreloading,
   withViewTransitions,
 } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
+import { HandleImageService } from '@my-monorepo/core/features/custom-background';
 import {
   DarkModeService,
   META_DARK_COLOR,
@@ -27,9 +30,10 @@ import {
 } from '@my-monorepo/core/features/dark-mode';
 import { DbFacadeService } from '@my-monorepo/core/features/trello-db';
 import { TuiRootModule } from '@taiga-ui/core';
+import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
+import { MemoryLocationStrategy } from './core/service/memory-location.service';
 import { META_TAGS } from './shared/meta.tags';
-import { HandleImageService } from '@my-monorepo/core/features/custom-background';
 
 const setMetaProviders: FactoryProvider = {
   provide: APP_INITIALIZER,
@@ -78,7 +82,7 @@ const colorsProviders: FactoryProvider[] = [
   },
 ];
 
-export const appConfig: ApplicationConfig = {
+const baseAppConfig: ApplicationConfig = {
   providers: [
     provideRouter(
       appRoutes,
@@ -100,3 +104,28 @@ export const appConfig: ApplicationConfig = {
     ...colorsProviders,
   ],
 };
+
+const webCAppConfig: ApplicationConfig = {
+  providers: [
+    provideRouter(
+      appRoutes,
+      withPreloading(PreloadAllModules),
+      withComponentInputBinding(),
+      withHashLocation(),
+    ),
+    provideHttpClient(),
+    provideAnimations(),
+    importProvidersFrom(TuiRootModule, BrowserAnimationsModule),
+    setMetaProviders,
+    indexedDBProviders,
+    darkModeProvider,
+    WallpaperProvier,
+    ...colorsProviders,
+    { provide: APP_BASE_HREF, useValue: '/' },
+    { provide: LocationStrategy, useClass: MemoryLocationStrategy },
+  ],
+};
+
+export const appConfig: ApplicationConfig = environment.isWebComponent
+  ? webCAppConfig
+  : baseAppConfig;
